@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MADE ACRÍLICO | Cotizador y Diseñador DTF</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <script>tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    logoYellow: '#F6D044',
+                    logoMagenta: '#E52D7F',
+                    logoCyan: '#00A5DF',
+                    logoDark: '#1E1E1E',
+                    logoDarkLight: '#2D2D2D'
+                },
+                fontFamily: {
+                    sans: ['Plus Jakarta Sans', 'sans-serif'],
+                }
+            }
+        }
+    }
+    </script>
+</head>
+<body class="bg-[#F8F9FA] text-[#1E1E1E] min-h-screen font-sans antialiased overflow-x-hidden">
+
+    <!-- BARRA DE NOTIFICACIONES SUPERIOR -->
+    <div class="bg-gradient-to-r from-logoCyan via-logoMagenta to-logoYellow text-white text-xs font-bold py-2 px-4 text-center tracking-wider uppercase">
+        ⚡ ¡Envíos a todo el país! Tarifas especiales por escala de proximidad en DTF Textil y UV ⚡
+    </div>
+
+    <!-- HEADER / NAVEGACIÓN -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logotipo Reconstruido -->
+                <div id="logo-trigger" class="flex-shrink-0 flex items-center gap-3 cursor-pointer">
+                    <div class="w-12 h-12 flex items-center justify-center">
+                        <svg viewBox="0 0 100 100" class="w-full h-full">
+                            <path d="M15,90 L35,20 L48,20 L28,90 Z" fill="#F6D044" />
+                            <path d="M30,90 L50,20 L63,20 L43,90 Z" fill="#E52D7F" />
+                            <path d="M45,90 L65,20 L78,20 L58,90 Z" fill="#00A5DF" />
+                            <path d="M60,90 L80,20 L93,20 L73,90 Z" fill="#1E1E1E" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-xl font-extrabold tracking-tight text-logoDark flex flex-col leading-none">
+                            <span class="text-[#E52D7F]">MADE</span>
+                            <span class="text-xs font-bold tracking-[0.2em] text-[#1E1E1E]">ACRÍLICO</span>
+                        </div>
+                        <span class="text-[10px] text-gray-500 font-semibold tracking-wider block uppercase">Taller Gráfico</span>
+                    </div>
+                </div>
+
+                <!-- Menú de Navegación -->
+                <nav class="hidden md:flex space-x-1 lg:space-x-4">
+                    <button data-tab="inicio" id="nav-inicio" class="nav-btn px-4 py-2 rounded-full text-sm font-bold transition-colors text-logoMagenta bg-pink-50">
+                        Inicio
+                    </button>
+                    <button data-tab="planilla" id="nav-planilla" class="nav-btn px-4 py-2 rounded-full text-sm font-semibold text-gray-600 hover:text-logoMagenta transition-colors">
+                        Calculador Express
+                    </button>
+                    <button data-tab="guia" id="nav-guia" class="nav-btn px-4 py-2 rounded-full text-sm font-semibold text-gray-600 hover:text-logoMagenta transition-colors">
+                        Guía de Archivo
+                    </button>
+                    <button data-tab="contacto" id="nav-contacto" class="nav-btn px-4 py-2 rounded-full text-sm font-semibold text-gray-600 hover:text-logoMagenta transition-colors">
+                        Contacto
+                    </button>
+                </nav>
+
+                <!-- Iconos de Acción y Contacto Rápido -->
+                <div class="flex items-center gap-4">
+                    <a href="https://wa.me/18297078582" target="_blank" class="hidden lg:flex items-center gap-2 text-sm font-semibold bg-emerald-500 text-white px-4 py-2 rounded-full hover:bg-emerald-600 transition-all shadow-md">
+                        <i class="fab fa-whatsapp text-lg"></i>
+                        <span>Cotizar por WhatsApp</span>
+                    </a>
+                    <!-- Carrito con Badge -->
+                    <button
+                    id="cart-toggle-btn"
+                    class="relative p-2.5 rounded-full hover:bg-gray-100 transition-all text-logoDark flex items-center justify-center">                        
+                        <i class="fa-solid fa-basket-shopping text-xl"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-logoMagenta text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">0</span>
+                    </button>
+                    <!-- Botón de Menú Móvil -->
+                    <button
+                    id="mobile-menu-toggle"
+                    class="md:hidden p-2 text-gray-600 focus:outline-none">                        
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MENÚ MÓVIL DESPLEGABLE -->
+<div
+id="mobile-menu"
+class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 shadow-lg"
+>
+
+<button
+    data-tab="inicio"
+    data-mobile-close="true"
+    class="nav-btn-mobile block w-full text-left py-2 font-bold text-logoMagenta"
+>
+    Inicio
+</button>
+
+<button
+    data-tab="planilla"
+    data-mobile-close="true"
+    class="nav-btn-mobile block w-full text-left py-2 font-semibold text-gray-600 hover:text-logoMagenta"
+>
+    Calculador Express
+</button>
+
+<button
+    data-tab="guia"
+    data-mobile-close="true"
+    class="nav-btn-mobile block w-full text-left py-2 font-semibold text-gray-600 hover:text-logoMagenta"
+>
+    Guía de Archivo
+</button>
+
+<button
+    data-tab="contacto"
+    data-mobile-close="true"
+    class="nav-btn-mobile block w-full text-left py-2 font-semibold text-gray-600 hover:text-logoMagenta"
+>
+    Contacto
+</button>
+
+<a
+    href="https://wa.me/18297078582"
+    target="_blank"
+    class="block text-center bg-emerald-500 text-white py-2.5 rounded-lg font-bold"
+>
+    <i class="fab fa-whatsapp mr-2"></i>
+    Escríbenos
+</a>
+
+</div>
+
+    <!-- MAIN SECTIONS -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- PESTAÑA: INICIO -->
+        <section id="tab-inicio" class="tab-content block space-y-16">
+            
+            <!-- HERO / SECCIÓN PRINCIPAL -->
+            <div class="relative overflow-hidden bg-gradient-to-br from-logoDark via-logoDarkLight to-black text-white rounded-3xl p-8 md:p-16 shadow-2xl flex flex-col md:flex-row items-center gap-12">
+                <div class="absolute -top-20 -left-20 w-80 h-80 bg-logoCyan/30 rounded-full blur-[100px]"></div>
+                <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-logoMagenta/30 rounded-full blur-[100px]"></div>
+                
+                <div class="relative z-10 flex-1 space-y-6">
+                    <span class="inline-flex items-center gap-2 bg-white/10 px-4 py-1.5 rounded-full text-xs font-bold tracking-wider text-logoYellow uppercase">
+                        ⭐ LÍDERES EN ACABADO GRÁFICO
+                    </span>
+                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+                        Impresión <span class="text-logoCyan">DTF</span> Alta Gama <span class="text-logoMagenta">Textil</span> & <span class="text-logoYellow">UV</span>
+                    </h1>
+                    <p class="text-gray-300 text-lg max-w-xl">
+                        Cotiza y diseña tus metros en línea. Imprimimos tus transfers con cobro por proximidad en base a la medida exacta que necesites, garantizando el mejor precio del mercado.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                        <button onclick="switchTab('planilla')" class="bg-logoMagenta hover:bg-logoMagenta/90 text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span>Ir al Calculador Express</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="relative z-10 flex-1 w-full max-w-md">
+                    <div class="bg-white/10 backdrop-blur-md border border-white/10 p-6 rounded-2xl shadow-xl space-y-6">
+                        <div class="flex justify-between items-center pb-4 border-b border-white/10">
+                            <span class="text-xs font-semibold text-logoCyan uppercase tracking-widest">Vista de Impresión</span>
+                            <span class="text-xs bg-logoMagenta/20 text-logoMagenta px-2.5 py-1 rounded-full font-bold">CMYK + Blanco Activo</span>
+                        </div>
+                        <div class="relative h-64 bg-gray-900 rounded-lg overflow-hidden flex items-center justify-center border border-white/5">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                            <div class="relative text-center p-4 z-10 space-y-3">
+                                <i class="fa-solid fa-shirt text-7xl text-logoCyan animate-pulse"></i>
+                                <div class="font-extrabold text-sm text-white">Transfer DTF Premium</div>
+                                <div class="text-xs text-gray-400">Perfecto para Algodón, Poliéster y Mezclillas</div>
+                            </div>
+                            <div class="absolute left-0 right-0 h-1 bg-gradient-to-r from-logoCyan via-logoMagenta to-logoYellow top-[35%] shadow-[0_0_15px_#E52D7F] animate-bounce"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NUESTROS SERVICIOS DE IMPRESIÓN (PRODUCTOS) -->
+            <div class="space-y-8">
+                <div class="text-center max-w-3xl mx-auto space-y-2">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-[#1E1E1E]">Nuestras Tarifas</h2>
+                    <p class="text-gray-500">Cobramos de forma justa. Paga solo la proximidad que alcancen tus diseños.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Tarjeta DTF Textil -->
+                    <div class="bg-white rounded-3xl overflow-hidden shadow-md border border-gray-100 flex flex-col hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                        <div class="h-48 bg-gradient-to-tr from-[#E52D7F]/20 to-[#00A5DF]/10 flex items-center justify-center p-8 relative">
+                            <span class="absolute top-4 left-4 bg-[#E52D7F] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Ancho Fijo: 22"</span>
+                            <img src="/assets/img/test_textil.jpg" 
+                            alt="Test Textil DTF" 
+                            class="w-135 rounded-lg shadow-md hover:scale-105 transition">
+                        </div>
+                        <div class="p-8 flex-1 flex flex-col justify-between space-y-6">
+                            <div class="space-y-3">
+                                <h3 class="text-2xl font-bold">DTF Textil</h3>
+                                <ul class="space-y-2 text-sm text-gray-600 font-medium">
+                                    <li class="flex justify-between border-b border-gray-100 pb-1"><span>22" x 18" (Media Yarda)</span> <span class="text-logoMagenta font-bold">$300 DOP</span></li>
+                                    <li class="flex justify-between border-b border-gray-100 pb-1"><span>22" x 36" (Una Yarda)</span> <span class="text-logoMagenta font-bold">$500 DOP</span></li>
+                                </ul>
+                            </div>
+                            <button onclick="switchTab('planilla')" class="w-full bg-[#1E1E1E] hover:bg-logoMagenta text-white font-bold px-5 py-3 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
+                                <span>Cotizar Material</span> <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta DTF UV -->
+                    <div class="bg-white rounded-3xl overflow-hidden shadow-md border border-gray-100 flex flex-col hover:shadow-xl transition-all">
+                        <div class="h-48 bg-gradient-to-tr from-[#00A5DF]/20 to-[#F6D044]/10 flex items-center justify-center p-8 relative">
+                            <span class="absolute top-4 left-4 bg-[#00A5DF] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Ancho: 16" o 11.5"</span>
+                            <img src="/assets/img/test_uv.jpeg" 
+                            alt="Test Textil DTF" 
+                            class="w-135 rounded-lg shadow-md hover:scale-105 transition">
+                        </div>
+                        <div class="p-8 flex-1 flex flex-col justify-between space-y-6">
+                            <div class="space-y-3">
+                                <h3 class="text-2xl font-bold">DTF UV Adhesivo</h3>
+                                <ul class="space-y-2 text-sm text-gray-600 font-medium">
+                                    <li class="flex justify-between border-b border-gray-100 pb-1"><span>16" x 11"</span> <span class="text-logoCyan font-bold">$425 DOP</span></li>
+                                    <li class="flex justify-between border-b border-gray-100 pb-1"><span>16" x 18"</span> <span class="text-logoCyan font-bold">$700 DOP</span></li>
+                                    <li class="flex justify-between border-b border-gray-100 pb-1"><span>16" x 24"</span> <span class="text-logoCyan font-bold">$900 DOP</span></li>
+                                    <li class="flex justify-between border-b border-gray-100 pb-1"><span>16" x 36" (Yarda)</span> <span class="text-logoCyan font-bold">$1300 DOP</span></li>
+                                </ul>
+                            </div>
+                            <button onclick="switchTab('planilla')" class="w-full bg-[#1E1E1E] hover:bg-logoCyan text-white font-bold px-5 py-3 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
+                                <span>Cotizar Material</span> <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+<!-- ============================= -->
+<!-- PESTAÑA: CALCULADOR EXPRESS -->
+<!-- ============================= -->
+
+<section id="tab-planilla" class="tab-content hidden">
+
+    <div class="max-w-7xl mx-auto">
+
+        <!-- CARD PRINCIPAL -->
+        <div class="bg-white rounded-[32px] border border-gray-100 shadow-sm p-6 md:p-10">
+
+            <!-- HEADER -->
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-cyan-50 text-logoCyan text-3xl mb-4">
+                    <i class="fa-solid fa-calculator"></i>
+                </div>
+
+                <h2 class="text-3xl md:text-5xl font-extrabold text-logoDark">
+                    Calculadora de Pedido DTF
+                </h2>
+
+                <p class="text-gray-500 mt-3 text-sm md:text-base">
+                    Cotiza tu trabajo de impresión al instante ingresando las dimensiones requeridas.
+                </p>
+            </div>
+
+            <!-- GRID PRINCIPAL -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                <!-- ===================== -->
+                <!-- PANEL IZQUIERDO -->
+                <!-- ===================== -->
+
+                <div class="lg:col-span-2 space-y-8">
+
+                    <!-- MATERIAL -->
+                    <div>
+
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4">
+                            1. Selecciona el material
+                        </h3>
+
+                        <div class="grid grid-cols-2 gap-4">
+
+                            <!-- TEXTIL -->
+                            <button
+                                id="btn-textil"
+                                type="button"
+                                class="h-16 rounded-2xl border-2 border-logoMagenta bg-pink-50 text-logoMagenta font-bold transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                            >
+                                DTF Textil
+                            </button>
+
+                            <!-- UV -->
+                            <button
+                                id="btn-uv"
+                                type="button"
+                                class="h-16 rounded-2xl border border-gray-200 text-gray-600 font-bold transition-all duration-300 hover:border-logoCyan hover:text-logoCyan hover:-translate-y-1 hover:shadow-lg"
+                            >
+                                DTF UV Adhesivo
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <!-- DIMENSIONES -->
+<div>
+
+    <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4">
+        2. Especifica las dimensiones
+    </h3>
+
+    <div class="grid md:grid-cols-2 gap-6">
+
+        <!-- ================================= -->
+        <!-- ANCHO -->
+        <!-- ================================= -->
+
+        <div>
+
+            <label class="text-sm font-semibold text-gray-600 block mb-2">
+                Ancho
+            </label>
+
+            <!-- TEXTIL -->
+            <div id="textil-width-box">
+
+                <input
+                    id="textil-width"
+                    type="text"
+                    value='22 pulgadas'
+                    disabled
+                    class="w-full h-14 rounded-2xl border border-gray-200 bg-gray-100 px-4 font-bold"
+                >
+
+            </div>
+
+            <!-- UV -->
+            <div id="uv-width-selector" class="hidden">
+
+                <select
+                    id="uv-width"
+                    class="w-full h-14 rounded-2xl border border-gray-200 bg-white px-4 font-bold outline-none transition-all duration-300 focus:ring-4 focus:ring-cyan-100 focus:border-logoCyan"
+                >
+
+                    <option value="11.5">
+                        11.5 pulgadas
+                    </option>
+
+                    <option value="16">
+                        16 pulgadas
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <!-- ================================= -->
+        <!-- LARGO / ALTO -->
+        <!-- ================================= -->
+
+        <div>
+
+            <label class="text-sm font-semibold text-gray-600 block mb-2">
+                Largo / Alto
+            </label>
+
+            <!-- TEXTIL -->
+            <div id="textil-height-box" class="space-y-3">
+
+                <select
+                    id="textil-size"
+                    class="w-full h-14 rounded-2xl border border-gray-200 bg-white px-4 font-bold outline-none transition-all duration-300 focus:ring-4 focus:ring-pink-100 focus:border-logoMagenta"
+                >
+            
+                    <option value="18">
+                        18 pulgadas
+                    </option>
+            
+                    <option value="36">
+                        36 pulgadas
+                    </option>
+            
+                    <option value="custom">
+                        CUSTOM SIZE
+                    </option>
+            
+                </select>
+            
+                <!-- CUSTOM -->
+                <div id="textil-custom-box" class="hidden">
+            
+                    <input
+                        id="textil-custom-height"
+                        type="number"
+                        min="36"
+                        placeholder="Mayor de 36 pulgadas"
+                        class="w-full h-14 rounded-2xl border border-pink-200 px-4 font-bold outline-none transition-all duration-300 focus:ring-4 focus:ring-pink-100 focus:border-logoMagenta"
+                    >
+            
+                </div>
+            
+            </div>
+
+            <!-- UV -->
+            <div id="uv-size-selector" class="hidden mt-3 space-y-3">
+
+                <select
+                    id="uv-size"
+                    class="w-full h-14 rounded-2xl border border-gray-200 bg-white px-4 font-bold outline-none transition-all duration-300 focus:ring-4 focus:ring-cyan-100 focus:border-logoCyan"
+                >
+
+                    <option value="11">
+                        11 pulgadas
+                    </option>
+
+                    <option value="18">
+                        18 pulgadas
+                    </option>
+
+                    <option value="24">
+                        24 pulgadas
+                    </option>
+
+                    <option value="36">
+                        36 pulgadas
+                    </option>
+
+                    <option value="custom">
+                        CUSTOM SIZE
+                    </option>
+
+                </select>
+
+                <!-- CUSTOM -->
+                <div id="uv-custom-box" class="hidden">
+
+                    <input
+                        id="uv-custom-height"
+                        type="number"
+                        min="36"
+                        placeholder="Mínimo 36 pulgadas"
+                        class="w-full h-14 rounded-2xl border border-cyan-200 px-4 font-bold outline-none transition-all duration-300 focus:ring-4 focus:ring-cyan-100 focus:border-logoCyan"
+                    >
+
+                    <p class="text-xs text-gray-400 mt-2">
+                        El tamaño personalizado debe ser mayor o igual a 36 pulgadas.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+                    <!-- CANTIDAD -->
+                    <div>
+
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4">
+                            3. Número de copias
+                        </h3>
+
+                        <input
+                            id="quantity"
+                            type="number"
+                            value="1"
+                            min="1"
+                            class="w-full h-14 rounded-2xl border border-gray-200 px-4 font-bold outline-none transition-all duration-300 focus:ring-4 focus:ring-yellow-100 focus:border-logoYellow"
+                        >
+
+                    </div>
+
+                    <!-- SUBIDA DE ARCHIVO -->
+                    <div>
+
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4">
+                            4. Sube tu archivo para impresión
+                        </h3>
+
+                        <label
+                            for="upload-design"
+                            class="group border-2 border-dashed border-gray-300 hover:border-logoMagenta hover:bg-pink-50/30 transition-all duration-300 rounded-[28px] p-10 flex flex-col items-center justify-center text-center cursor-pointer"
+                        >
+
+                            <div class="w-20 h-20 rounded-full bg-pink-50 text-logoMagenta flex items-center justify-center text-4xl mb-5 group-hover:scale-110 transition-all duration-300">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                            </div>
+
+                            <h4 class="font-extrabold text-xl text-logoDark">
+                                Arrastra tu diseño aquí
+                            </h4>
+
+                            <p class="text-sm text-gray-500 mt-2">
+                                o haz click para subir
+                            </p>
+
+                            <div class="flex flex-wrap justify-center gap-2 mt-5">
+
+                                <span class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1 rounded-full">
+                                    PNG
+                                </span>
+
+                                <span class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1 rounded-full">
+                                    PDF
+                                </span>
+
+                                <span class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1 rounded-full">
+                                    TIFF
+                                </span>
+
+                                <span class="bg-pink-100 text-logoMagenta text-xs font-bold px-3 py-1 rounded-full">
+                                    300 DPI
+                                </span>
+
+                                <span class="bg-cyan-100 text-logoCyan text-xs font-bold px-3 py-1 rounded-full">
+                                    CMYK READY
+                                </span>
+
+                            </div>
+
+                            <input
+                                type="file"
+                                id="upload-design"
+                                class="hidden"
+                            >
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <!-- ===================== -->
+                <!-- PANEL DERECHO -->
+                <!-- ===================== -->
+
+                <div>
+
+                    <div class="bg-[#101010] text-white rounded-[32px] p-8 sticky top-28 shadow-2xl border border-white/5 transition-all duration-300 hover:-translate-y-1">
+
+                        <div class="flex items-center gap-3 mb-8">
+
+                            <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-logoCyan text-xl">
+                                <i class="fa-solid fa-receipt"></i>
+                            </div>
+
+                            <div>
+                                <p class="text-xs uppercase tracking-wider text-gray-400">
+                                    Resumen
+                                </p>
+
+                                <h3 class="text-2xl font-extrabold">
+                                    Cotización
+                                </h3>
+                            </div>
+
+                        </div>
+
+                        <!-- RESULTADOS -->
+                        <div class="space-y-5">
+
+                            <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                                <span class="text-gray-400 text-sm">
+                                    Material
+                                </span>
+
+                                <span id="summary-material" class="font-bold">
+                                    DTF Textil
+                                </span>
+                            </div>
+
+                            <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                                <span class="text-gray-400 text-sm">
+                                    Tamaño
+                                </span>
+
+                                <span id="summary-size" class="font-bold">
+                                    22 x 24 in
+                                </span>
+                            </div>
+
+                            <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                                <span class="text-gray-400 text-sm">
+                                    Cantidad
+                                </span>
+
+                                <span id="summary-qty" class="font-bold">
+                                    1 repetición
+                                </span>
+                            </div>
+
+                            <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                                <span class="text-gray-400 text-sm">
+                                    Yardas necesarias
+                                </span>
+
+                                <span id="summary-yards" class="font-bold text-logoYellow">
+                                    0.66 yd
+                                </span>
+                            </div>
+
+                            <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                                <span class="text-gray-400 text-sm">
+                                    Precio por yarda
+                                </span>
+
+                                <span id="summary-price-yard" class="font-bold">
+                                    $500 DOP
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <!-- TOTAL -->
+                        <div class="mt-10">
+
+                            <div class="flex items-end justify-between">
+
+                                <div>
+                                    <p class="text-sm text-gray-400">
+                                        Total a pagar
+                                    </p>
+
+                                    <h2 id="summary-total" class="text-5xl font-black text-logoCyan mt-2">
+                                        $330
+                                    </h2>
+                                </div>
+
+                            </div>
+
+                            <!-- BOTÓN -->
+                            <button
+                                id="add-to-cart-btn"
+                                class="w-full mt-8 bg-logoMagenta hover:bg-pink-600 transition-all duration-300 hover:-translate-y-1 text-white h-16 rounded-2xl font-extrabold text-lg shadow-xl flex items-center justify-center gap-3"
+                            >
+                                <i class="fa-solid fa-basket-shopping"></i>
+                                Agregar al Carrito
+                            </button>
+
+                            <!-- WHATSAPP -->
+                            <button
+                                id="whatsapp-quote-btn"
+                                class="w-full mt-4 bg-emerald-500 hover:bg-emerald-600 transition-all duration-300 hover:-translate-y-1 text-white h-14 rounded-2xl font-bold flex items-center justify-center gap-3"
+                            >
+                                <i class="fab fa-whatsapp text-xl"></i>
+                                Cotizar por WhatsApp
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+        <!-- PESTAÑA: GUÍA DE ARCHIVO -->
+        <section id="tab-guia" class="tab-content hidden space-y-8">
+            <div class="bg-white rounded-3xl p-6 sticky top-28 md:p-8 border border-gray-100 shadow-sm max-w-4xl mx-auto space-y-8">
+                <div class="text-center space-y-2">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-[#1E1E1E]">Cómo preparar tus archivos</h2>
+                    <p class="text-gray-500 text-sm">Asegura una impresión de ultra definición siguiendo estos consejos de nuestro equipo técnico de **MADE ACRÍLICO**.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div class="flex gap-4 items-start">
+                            <div class="p-3 bg-pink-50 text-logoMagenta rounded-xl text-xl font-bold"><i class="fa-solid fa-expand"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">1. Formato de Color CMYK</h4>
+                                <p class="text-sm text-gray-500">Configura tu espacio en CMYK. Los archivos en RGB pueden sufrir variaciones de tono drásticas al imprimirse.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start">
+                            <div class="p-3 bg-cyan-50 text-logoCyan rounded-xl text-xl font-bold"><i class="fa-solid fa-image"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">2. Fondo Transparente Obligatorio</h4>
+                                <p class="text-sm text-gray-500">Envía PNG con fondo transparente. Todo lo que dejes de fondo se imprimirá con tinta blanca.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex gap-4 items-start">
+                            <div class="p-3 bg-yellow-50 text-logoYellow rounded-xl text-xl font-bold"><i class="fa-solid fa-arrows-to-circle"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">3. Resolución Mínima 300 DPI</h4>
+                                <p class="text-sm text-gray-500">Crea tus archivos a tamaño real con 300 DPI para asegurar bordes nítidos.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start">
+                            <div class="p-3 bg-emerald-50 text-emerald-500 rounded-xl text-xl font-bold"><i class="fa-solid fa-ban"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">4. Evita Líneas muy finas</h4>
+                                <p class="text-sm text-gray-500">Grosor mínimo recomendado: 1mm. Líneas microscópicas pierden anclaje de tinta blanca.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA: CONTACTO -->
+        <section id="tab-contacto" class="tab-content hidden space-y-8">
+            <div class="bg-white rounded-3xl p-6 sticky top-28 md:p-8 border border-gray-100 shadow-sm max-w-5xl mx-auto space-y-8">
+                <div class="text-center space-y-2">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-[#1E1E1E]">Contacto & Sucursal</h2>
+                    <p class="text-gray-500 text-sm">Contáctanos directamente en República Dominicana.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Formulario de Correo -->
+                    <div class="space-y-6">
+                        <h3 class="font-bold text-xl text-logoDark">Envíanos un mensaje</h3>
+                        <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-xs font-bold text-gray-500 uppercase">Nombre</label>
+                                    <input type="text" required class="w-full border border-gray-200 rounded-xl p-3 focus:border-logoMagenta outline-none text-sm">
+                                </div>
+                                <div>
+                                    <label class="text-xs font-bold text-gray-500 uppercase">Teléfono</label>
+                                    <input type="tel" required class="w-full border border-gray-200 rounded-xl p-3 focus:border-logoMagenta outline-none text-sm">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-gray-500 uppercase">Correo</label>
+                                <input type="email" required class="w-full border border-gray-200 rounded-xl p-3 focus:border-logoMagenta outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-gray-500 uppercase">Mensaje</label>
+                                <textarea rows="3" required class="w-full border border-gray-200 rounded-xl p-3 focus:border-logoMagenta outline-none text-sm"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-logoDark hover:bg-logoMagenta text-white font-bold py-3 rounded-xl transition-all shadow-md">
+                                Enviar Consulta
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Datos de contacto & Horarios -->
+                    <div class="space-y-6 bg-gray-50 p-6 md:p-8 rounded-2xl border border-gray-100 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <h3 class="font-bold text-xl text-logoDark">MADE ACRÍLICO</h3>
+                            <div class="space-y-3 text-sm text-gray-600">
+                                <p class="flex items-center gap-3"><i class="fa-solid fa-location-dot text-logoMagenta"></i> Av. 27 de Febrero, Distrito Nacional, República Dominicana</p>
+                                <p class="flex items-center gap-3"><i class="fa-solid fa-phone text-logoCyan"></i> +1 (829) 707-8582</p>
+                                <p class="flex items-center gap-3"><i class="fa-solid fa-envelope text-logoYellow"></i> contacto@madeacrilico.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- BARRA LATERAL DEL CARRITO -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 bottom-0 w-full sm:w-96 bg-white z-50 shadow-2xl border-l border-gray-100 transform translate-x-full transition-transform duration-300 flex flex-col justify-between">
+        <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+            <h3 class="font-bold text-lg flex items-center gap-2">
+                <i class="fa-solid fa-basket-shopping text-logoMagenta"></i>
+                <span>Carrito de Producción</span>
+            </h3>
+            <button
+            id="cart-close-btn"
+            class="p-2 hover:bg-gray-100 rounded-full text-gray-500">
+            <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <div class="p-6 flex-1 overflow-y-auto space-y-4" id="cart-items-container">
+            <div class="text-center py-12 text-gray-400 space-y-2">
+                <i class="fa-solid fa-basket-shopping text-4xl block"></i>
+                <span class="text-sm">Cotización vacía. ¡Arma tu planilla DTF!</span>
+            </div>
+        </div>
+
+        <div class="p-6 border-t border-gray-100 space-y-4 bg-gray-50">
+            <div class="space-y-1.5 text-xs text-gray-600">
+                <div class="flex justify-between"><span>Subtotal:</span> <span id="cart-subtotal" class="font-bold">$0 DOP</span></div>
+                <div class="flex justify-between text-sm text-[#1E1E1E] font-bold border-t border-gray-200 pt-2">
+                    <span>Total Estimado:</span> <span id="cart-total" class="font-black text-logoMagenta">$0 DOP</span>
+                </div>
+            </div>
+            <button onclick="checkoutOrder()" class="w-full bg-[#1E1E1E] hover:bg-logoMagenta text-white font-bold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2">
+                <i class="fab fa-whatsapp text-lg"></i> Enviar Orden a WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <div
+    id="cart-overlay"
+    class="fixed inset-0 bg-black/50 z-40 hidden transition-opacity"></div>
+    
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="bg-logoDark text-white mt-24 border-t-4 border-logoMagenta">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Columna Logo/Descripción -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 flex items-center justify-center bg-white/5 rounded-lg p-1">
+                            <svg viewBox="0 0 100 100" class="w-full h-full">
+                                <path d="M15,90 L35,20 L48,20 L28,90 Z" fill="#F6D044" />
+                                <path d="M30,90 L50,20 L63,20 L43,90 Z" fill="#E52D7F" />
+                                <path d="M45,90 L65,20 L78,20 L58,90 Z" fill="#00A5DF" />
+                                <path d="M60,90 L80,20 L93,20 L73,90 Z" fill="#FFFFFF" />
+                            </svg>
+                        </div>
+                        <div class="text-lg font-bold tracking-tight text-white leading-none">
+                            <span class="text-logoMagenta">MADE</span> ACRÍLICO
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400">
+                        Expertos en acabados gráficos de alta resolución. Soluciones robustas de impresión DTF, empaques, decorativos y cortes acrílicos profesionales.
+                    </p>
+                </div>
+
+                <!-- Enlaces rápidos -->
+                <div class="space-y-4">
+                    <h4 class="font-bold text-sm text-logoYellow uppercase tracking-wider">Productos & Servicios</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a onclick="switchTab('planilla')" class="hover:text-white transition-colors cursor-pointer">DTF Textil por Yarda</a></li>
+                        <li><a onclick="switchTab('planilla')" class="hover:text-white transition-colors cursor-pointer">DTF UV Adhesivo</a></li>
+                        <li><a onclick="switchTab('planilla')" class="hover:text-white transition-colors cursor-pointer">Corte Acrílico Personalizado</a></li>
+                        <li><a onclick="switchTab('guia')" class="hover:text-white transition-colors cursor-pointer">Revisión Gratuita de Formato</a></li>
+                    </ul>
+                </div>
+
+                <!-- Recursos -->
+                <div class="space-y-4">
+                    <h4 class="font-bold text-sm text-logoCyan uppercase tracking-wider">Ayuda & Soporte</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a onclick="switchTab('guia')" class="hover:text-white transition-colors cursor-pointer">Guía de Preparación de Archivos</a></li>
+                        <li><a onclick="switchTab('contacto')" class="hover:text-white transition-colors cursor-pointer">Envíos y Entregas Nacionales</a></li>
+                        <li><a href="https://wa.me/18297078582" class="hover:text-white transition-colors cursor-pointer">Atención por WhatsApp</a></li>
+                    </ul>
+                </div>
+
+                <!-- Redes Sociales y Newsletter -->
+                <div class="space-y-4">
+                    <h4 class="font-bold text-sm text-white uppercase tracking-wider">Síguenos en Redes</h4>
+                    <p class="text-xs text-gray-400">Mantente al tanto de ofertas exclusivas y nuevos materiales disponibles.</p>
+                    <div class="flex gap-3">
+                        <a href="https://instagram.com/madeacrilico" target="_blank" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-logoCyan hover:text-white transition-all text-gray-400"><i class="fab fa-instagram text-sm"></i></a>
+                        <a href="https://tiktok.com/@madeacrilico" target="_blank" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-logoYellow hover:text-white transition-all text-gray-400"><i class="fab fa-tiktok text-sm"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+                <p>&copy; 2026 MADE ACRÍLICO - Taller Gráfico. Todos los derechos reservados.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-gray-400">Políticas de Privacidad</a>
+                    <a href="#" class="hover:text-gray-400">Términos del Servicio</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- CORE -->
+        <script src="js/core/constants.js"></script>
+        <script src="js/core/state.js"></script>
+
+    <!-- UTILS -->
+        <script src="js/utils/dom.js"></script>
+        <script src="js/utils/helpers.js"></script>
+
+    <!-- MODULES -->
+        <script src="js/modules/pricing.js"></script>
+        <script src="js/modules/canvas.js"></script>
+        <script src="js/modules/cart.js"></script>
+        <script src="js/modules/ui.js"></script>
+        <script src="js/modules/upload.js"></script>
+
+    <!-- APP -->
+        <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+.grid-bg {
+    background-color: #f3f4f6;
+    background-image: 
+        linear-gradient(to right, rgba(0,0,0,0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,0,0,0.06) 1px, transparent 1px);
+    background-size: 25px 25px; /* 1 Pulgada = 25px en nuestra escala */
+}
+#nesting-canvas {
+    transition: width 0.3s ease-in-out;
+}
+/* Custom scroll */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #E52D7F; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #b51c5f; }
