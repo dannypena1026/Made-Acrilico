@@ -104,11 +104,8 @@ function calculatePrice() {
 // TEXTIL
 // =====================================
 
-if (
-    typeof nestingMaterial !== 'undefined'
-    &&
-    nestingMaterial === 'textil'
-) {
+if (currentMaterial === 'textil')
+{
 
     material =
         'DTF Textil';
@@ -117,8 +114,31 @@ if (
 
     if (textilSize === 'custom') {
 
-        height =
-            textilCustomHeight;
+        const textilWarning =
+    document.getElementById(
+        'textil-warning'
+    );
+
+height =
+    textilCustomHeight;
+
+if (height < 36) {
+
+    textilWarning?.classList.remove(
+        'hidden'
+    );
+
+    return;
+
+}
+
+else {
+
+    textilWarning?.classList.add(
+        'hidden'
+    );
+
+}
 
     } else {
 
@@ -189,9 +209,31 @@ else {
 
     if (uvSize === 'custom') {
 
-        height =
-            uvCustomHeight;
+        const uvWarning =
+    document.getElementById(
+        'uv-warning'
+    );
 
+height =
+    uvCustomHeight;
+
+if (height < 36) {
+
+    uvWarning?.classList.remove(
+        'hidden'
+    );
+
+    return;
+
+}
+
+else {
+
+    uvWarning?.classList.add(
+        'hidden'
+    );
+
+}
     } else {
 
         height =
@@ -202,7 +244,44 @@ else {
     size =
         `${uvWidth} x ${height} in`;
 
-    // PRECIOS
+    // =====================================
+// UV 11.5
+// =====================================
+
+if (uvWidth === 11.5) {
+
+    if (height <= 11) {
+
+        total = 300;
+
+    }
+
+    else if (height <= 18) {
+
+        total = 500;
+
+    }
+
+    else if (height <= 24) {
+
+        total = 700;
+
+    }
+
+    else {
+
+        total = 900;
+
+    }
+
+}
+
+// =====================================
+// UV 16
+// =====================================
+
+else {
+
     if (height <= 11) {
 
         total = 425;
@@ -227,12 +306,8 @@ else {
 
     }
 
-    pricePerYard = total;
-
-    yards =
-        height / 36;
-
-    }
+}
+}
 
     // =====================================
     // MULTIPLICAR CANTIDAD

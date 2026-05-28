@@ -418,6 +418,12 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                         placeholder="Mayor de 36 pulgadas"
                         class="w-full h-14 rounded-2xl border border-pink-200 px-4 font-bold outline-none transition-all duration-300 focus:ring-4 focus:ring-pink-100 focus:border-logoMagenta"
                     >
+
+                    <p
+                    id="textil-warning"
+                    class="hidden text-red-500 text-sm mt-2 font-semibold">
+                     El tamaño mínimo permitido es 36 pulgadas.
+                    </p>
             
                 </div>
             
@@ -448,7 +454,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     </option>
 
                     <option value="custom">
-                        CUSTOM SIZE
+                        CUSTOM uv-size
                     </option>
 
                 </select>
@@ -464,8 +470,10 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                         class="w-full h-14 rounded-2xl border border-cyan-200 px-4 font-bold outline-none transition-all duration-300 focus:ring-4 focus:ring-cyan-100 focus:border-logoCyan"
                     >
 
-                    <p class="text-xs text-gray-400 mt-2">
-                        El tamaño personalizado debe ser mayor o igual a 36 pulgadas.
+                    <p
+                    id="uv-warning"
+                    class="hidden text-red-500 text-sm mt-2 font-semibold">
+                    El tamaño mínimo permitido es 36 pulgadas.
                     </p>
 
                 </div>
@@ -662,14 +670,6 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                                 Agregar al Carrito
                             </button>
 
-                            <!-- WHATSAPP -->
-                            <button
-                                id="whatsapp-quote-btn"
-                                class="w-full mt-4 bg-emerald-500 hover:bg-emerald-600 transition-all duration-300 hover:-translate-y-1 text-white h-14 rounded-2xl font-bold flex items-center justify-center gap-3"
-                            >
-                                <i class="fab fa-whatsapp text-xl"></i>
-                                Cotizar por WhatsApp
-                            </button>
 
                         </div>
 

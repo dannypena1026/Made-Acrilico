@@ -35,18 +35,11 @@ function initializeCanvas() {
 // GET PRICE DATA
 // =========================================
 
-{
-
-    if (lengthInches <= 0) {
-
-        return {
-
-            chargedLength: 0,
-            price: 0
-
-        };
-
-    }
+function getProximateTierInfo(
+    lengthInches,
+    material,
+    uvWidth
+) {
 
     // =====================================
     // TEXTIL

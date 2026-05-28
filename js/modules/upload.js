@@ -289,3 +289,35 @@ function initializeUploads() {
     setupDragAndDrop();
 
 }
+
+// =========================================
+// FILE UPLOAD
+// =========================================
+
+const uploadInput =
+    document.getElementById(
+        'upload-design'
+    );
+
+if (uploadInput) {
+
+    uploadInput.addEventListener(
+        'change',
+        e => {
+
+            const file =
+                e.target.files[0];
+
+            if (!file) return;
+
+            uploadedFile = file;
+
+            console.log(
+                'Archivo cargado:',
+                file.name
+            );
+
+        }
+    );
+
+}

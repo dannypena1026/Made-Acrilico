@@ -136,6 +136,8 @@ function toggleCart() {
 
 function activateTextilMode() {
 
+    currentMaterial = 'textil';
+
     // BOTONES
     btnTextil?.classList.add(
         'border-logoMagenta',
@@ -188,6 +190,8 @@ function activateTextilMode() {
 
 function activateUvMode() {
 
+    currentMaterial = 'uv';
+
     // BOTONES
     btnUv?.classList.add(
         'border-logoCyan',
@@ -229,11 +233,7 @@ function activateUvMode() {
         uvSelector.classList.remove('hidden');
     }
 
-    if (typeof calculatePrice === 'function') {
-
-        calculatePrice();
-    
-    }
+    calculatePrice();
 
 }
 
@@ -615,9 +615,7 @@ if (textilCustomHeight) {
 // =====================================
 
 const quantityInput =
-document.getElementById(
-    'quantity'
-);
+$id('quantity');
 
 if (quantityInput) {
 
@@ -625,14 +623,7 @@ quantityInput.addEventListener(
     'input',
     () => {
 
-        if (
-            typeof calculatePrice
-            === 'function'
-        ) {
-
-            calculatePrice();
-
-        }
+        calculatePrice();
 
     }
 );
@@ -644,6 +635,16 @@ quantityInput.addEventListener(
     // =====================================
 
     activateTextilMode();
+
+}
+
+// =====================================
+// INITIAL PRICE
+// =====================================
+
+if (typeof calculatePrice === 'function') {
+
+    calculatePrice();
 
 }
 

@@ -64,24 +64,46 @@ function addNestingToCart() {
 
 
     // =====================================
-    // ITEM
-    // =====================================
+// FILE
+// =====================================
 
-    const newItem = {
+const uploadInput =
+    document.getElementById(
+        'upload-design'
+    );
 
-        id: Date.now(),
-
-        title:
-            material.innerText,
-
-        details:
-            `${size.innerText} • ${qty.innerText}`,
-
-        price: price
-
-    };
+const file =
+    uploadInput?.files?.[0];
 
 
+// =====================================
+// ITEM
+// =====================================
+
+const newItem = {
+
+    id: Date.now(),
+
+    title:
+        material.innerText,
+
+    details:
+        `${size.innerText} • ${qty.innerText}`,
+
+    price: price,
+
+    fileName:
+        file?.name || 'Sin archivo',
+
+    fileType:
+        file?.type || 'N/A',
+
+    fileSize:
+        file
+            ? `${(file.size / 1024 / 1024).toFixed(2)} MB`
+            : 'N/A'
+
+};
     // =====================================
     // SAVE
     // =====================================
@@ -295,6 +317,15 @@ ${item.details}
 
 Precio:
 ${formatCurrency(item.price)}
+
+Archivo adjunto:
+${item.fileName}
+
+Tipo:
+${item.fileType}
+
+Tamaño:
+${item.fileSize}
 
 `;
 
