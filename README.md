@@ -129,5 +129,4 @@ npx serve .
 
 ## Autor
 
-- MADE ACRILICO - Taller Grafico
 - Danny Peña Adames - Desarrollador Web
