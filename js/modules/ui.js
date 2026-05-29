@@ -130,6 +130,67 @@ function toggleCart() {
 }
 
 
+function openCart() {
+
+    const cartSidebar =
+        $id('cart-sidebar');
+
+    const cartOverlay =
+        $id('cart-overlay');
+
+    if (!cartSidebar || !cartOverlay)
+        return;
+
+    cartSidebar.classList.remove(
+        'translate-x-full'
+    );
+
+    cartOverlay.classList.remove(
+        'hidden'
+    );
+
+}
+
+
+function closeCart() {
+
+    const cartSidebar =
+        $id('cart-sidebar');
+
+    const cartOverlay =
+        $id('cart-overlay');
+
+    if (!cartSidebar || !cartOverlay)
+        return;
+
+    cartSidebar.classList.add(
+        'translate-x-full'
+    );
+
+    cartOverlay.classList.add(
+        'hidden'
+    );
+
+}
+
+
+// =========================================
+// CONTACT FORM
+// =========================================
+
+function handleFormSubmit(event) {
+
+    event.preventDefault();
+
+    alert(
+        'Gracias por escribirnos. Te contactaremos pronto.'
+    );
+
+    event.target?.reset();
+
+}
+
+
 // =========================================
 // MATERIAL UI CONTROL
 // =========================================
@@ -356,7 +417,7 @@ function initializeUI() {
 
         cartCloseBtn.addEventListener(
             'click',
-            toggleCart
+            closeCart
         );
 
     }
@@ -365,10 +426,21 @@ function initializeUI() {
 
         cartOverlay.addEventListener(
             'click',
-            toggleCart
+            closeCart
         );
 
     }
+
+
+    // =====================================
+    // CONTACT FORM
+    // =====================================
+
+    document.getElementById('contact-form')
+    ?.addEventListener(
+        'submit',
+        handleFormSubmit
+    );
 
 
     // =====================================
@@ -572,6 +644,14 @@ if (textilCustomHeight) {
             'change',
             () => {
 
+                if (typeof setDtfUvWidth === 'function') {
+
+                    setDtfUvWidth(
+                        parseFloat(uvWidth.value)
+                    );
+
+                }
+
                 if (typeof updateNestingCalculation === 'function') {
 
                     updateNestingCalculation();
@@ -638,17 +718,6 @@ quantityInput.addEventListener(
 
 }
 
-// =====================================
-// INITIAL PRICE
-// =====================================
-
-if (typeof calculatePrice === 'function') {
-
-    calculatePrice();
-
-}
-
-
 // =========================================
 // ELEMENTS
 // =========================================
@@ -682,13 +751,3 @@ const uvSize =
 
 const uvCustomBox =
     document.getElementById("uv-custom-box");
-
-
-// =========================================
-// AUTO INIT
-// =========================================
-
-document.addEventListener(
-    'DOMContentLoaded',
-    initializeUI
-);

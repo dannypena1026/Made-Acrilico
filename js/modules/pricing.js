@@ -2,43 +2,244 @@
 // PRICING
 // =========================================
 
-function calculatePrice() {
+let currentQuote = null;
 
-    // =====================================
-    // ELEMENTS
-    // =====================================
+
+function getQuantityValue() {
+
+    const value =
+        parseInt(
+            document.getElementById('quantity')?.value || 1,
+            10
+        );
+
+    return Number.isFinite(value) && value > 0
+        ? value
+        : 1;
+
+}
+
+
+function getSelectedHeight(sizeId, customHeightId) {
+
+    const size =
+        document.getElementById(sizeId)?.value;
+
+    if (size === 'custom') {
+
+        const customHeight =
+            parseFloat(
+                document.getElementById(customHeightId)?.value
+            );
+
+        return {
+            height: customHeight,
+            isCustom: true,
+            isValid: Number.isFinite(customHeight) && customHeight >= 36
+        };
+
+    }
+
+    const height =
+        parseFloat(size || 0);
+
+    return {
+        height,
+        isCustom: false,
+        isValid: Number.isFinite(height) && height > 0
+    };
+
+}
+
+
+function getTierForLength(lengthInches, tiers) {
+
+    return tiers.find(
+        tier => lengthInches <= tier.length
+    ) || tiers[tiers.length - 1];
+
+}
+
+
+function buildQuote() {
+
+    const quantity =
+        getQuantityValue();
+
+    if (currentMaterial === 'textil') {
+
+        const material =
+            MATERIALS.textil;
+
+        const heightData =
+            getSelectedHeight(
+                'textil-size',
+                'textil-custom-height'
+            );
+
+        if (!heightData.isValid) {
+
+            return {
+                invalid: true,
+                warningId: 'textil-warning',
+                material: 'DTF Textil',
+                quantity
+            };
+
+        }
+
+        const tier =
+            getTierForLength(
+                heightData.height,
+                material.tiers
+            );
+
+        const customOverYard =
+            heightData.isCustom && heightData.height > 36;
+
+        const chargedLength =
+            customOverYard
+                ? heightData.height
+                : tier.length;
+
+        const unitPrice =
+            customOverYard
+                ? Math.ceil(
+                    (heightData.height / 36) *
+                    material.tiers[material.tiers.length - 1].price
+                )
+                : tier.price;
+
+        return {
+            invalid: false,
+            materialKey: 'textil',
+            material: 'DTF Textil',
+            width: material.width,
+            height: heightData.height,
+            size: `${material.width} x ${heightData.height} in`,
+            quantity,
+            chargedLength,
+            yards: chargedLength / 36,
+            pricePerYard: customOverYard
+                ? material.tiers[material.tiers.length - 1].price
+                : tier.price,
+            unitPrice,
+            total: unitPrice * quantity
+        };
+
+    }
+
+    const uvWidth =
+        String(
+            parseFloat(
+                document.getElementById('uv-width')?.value || 16
+            )
+        );
+
+    const material =
+        MATERIALS.uv.widths[uvWidth] ||
+        MATERIALS.uv.widths['16'];
+
+    const heightData =
+        getSelectedHeight(
+            'uv-size',
+            'uv-custom-height'
+        );
+
+    if (!heightData.isValid) {
+
+        return {
+            invalid: true,
+            warningId: 'uv-warning',
+            material: material.label,
+            quantity
+        };
+
+    }
+
+    const tier =
+        getTierForLength(
+            heightData.height,
+            material.tiers
+        );
+
+    const customOverYard =
+        heightData.isCustom && heightData.height > 36;
+
+    const chargedLength =
+        customOverYard
+            ? heightData.height
+            : tier.length;
+
+    const unitPrice =
+        customOverYard
+            ? Math.ceil(
+                (heightData.height / 36) *
+                material.tiers[material.tiers.length - 1].price
+            )
+            : tier.price;
+
+    return {
+        invalid: false,
+        materialKey: 'uv',
+        material: material.label,
+        width: parseFloat(uvWidth),
+        height: heightData.height,
+        size: `${parseFloat(uvWidth)} x ${heightData.height} in`,
+        quantity,
+        chargedLength,
+        yards: chargedLength / 36,
+        pricePerYard: customOverYard
+            ? material.tiers[material.tiers.length - 1].price
+            : tier.price,
+        unitPrice,
+        total: unitPrice * quantity
+    };
+
+}
+
+
+function setWarningState(quote) {
+
+    const textilWarning =
+        document.getElementById('textil-warning');
+
+    const uvWarning =
+        document.getElementById('uv-warning');
+
+    textilWarning?.classList.toggle(
+        'hidden',
+        quote.warningId !== 'textil-warning'
+    );
+
+    uvWarning?.classList.toggle(
+        'hidden',
+        quote.warningId !== 'uv-warning'
+    );
+
+}
+
+
+function renderQuote(quote) {
 
     const summaryMaterial =
-        document.getElementById(
-            'summary-material'
-        );
+        document.getElementById('summary-material');
 
     const summarySize =
-        document.getElementById(
-            'summary-size'
-        );
+        document.getElementById('summary-size');
 
     const summaryQty =
-        document.getElementById(
-            'summary-qty'
-        );
+        document.getElementById('summary-qty');
 
     const summaryYards =
-        document.getElementById(
-            'summary-yards'
-        );
+        document.getElementById('summary-yards');
 
     const summaryPriceYard =
-        document.getElementById(
-            'summary-price-yard'
-        );
+        document.getElementById('summary-price-yard');
 
     const summaryTotal =
-        document.getElementById(
-            'summary-total'
-        );
+        document.getElementById('summary-total');
 
-    // SI NO EXISTEN
     if (
         !summaryMaterial ||
         !summarySize ||
@@ -52,290 +253,72 @@ function calculatePrice() {
 
     }
 
-    // =====================================
-    // INPUTS
-    // =====================================
+    setWarningState(quote);
 
-    const quantity =
-        parseInt(
-            document.getElementById('quantity')?.value || 1
-        );
+    if (quote.invalid) {
 
-    const textilSize =
-        document.getElementById(
-            'textil-size'
-        )?.value || 18;
-    
-    const textilCustomHeight =
-        parseFloat(
-            document.getElementById(
-                'textil-custom-height'
-            )?.value || 36
-        );
+        summaryMaterial.innerText =
+            quote.material;
 
-    const uvWidth =
-        parseFloat(
-            document.getElementById('uv-width')?.value || 16
-        );
+        summaryQty.innerText =
+            `${quote.quantity} repetición(es)`;
 
-    const uvSize =
-        document.getElementById('uv-size')?.value || 11;
+        summaryYards.innerText =
+            '0.00 yd';
 
-    const uvCustomHeight =
-        parseFloat(
-            document.getElementById('uv-custom-height')?.value || 36
-        );
+        summaryPriceYard.innerText =
+            '$0 DOP';
 
-    // =====================================
-    // VARIABLES
-    // =====================================
+        summaryTotal.innerText =
+            '$0 DOP';
 
-    let material = '';
-
-    let size = '';
-
-    let yards = 0;
-
-    let pricePerYard = 0;
-
-    let total = 0;
-
-// =====================================
-// TEXTIL
-// =====================================
-
-if (currentMaterial === 'textil')
-{
-
-    material =
-        'DTF Textil';
-
-    let height = 0;
-
-    if (textilSize === 'custom') {
-
-        const textilWarning =
-    document.getElementById(
-        'textil-warning'
-    );
-
-height =
-    textilCustomHeight;
-
-if (height < 36) {
-
-    textilWarning?.classList.remove(
-        'hidden'
-    );
-
-    return;
-
-}
-
-else {
-
-    textilWarning?.classList.add(
-        'hidden'
-    );
-
-}
-
-    } else {
-
-        height =
-            parseFloat(textilSize);
+        return;
 
     }
-
-    size =
-        `22 x ${height} in`;
-
-    // =========================
-    // 22x18
-    // =========================
-
-    if (height <= 18) {
-
-        total = 300;
-
-        yards = 0.5;
-
-        pricePerYard = 300;
-
-    }
-
-    // =========================
-    // 22x36
-    // =========================
-
-    else if (height <= 36) {
-
-        total = 500;
-
-        yards = 1;
-
-        pricePerYard = 500;
-
-    }
-
-    // =========================
-    // CUSTOM
-    // =========================
-
-    else {
-
-        yards =
-            height / 36;
-
-        pricePerYard = 500;
-
-        total =
-            Math.ceil(yards * 500);
-
-    }
-
-}
-
-// =====================================
-// UV
-// =====================================
-
-else {
-
-    material =
-        `DTF UV ${uvWidth}"`;
-
-    let height = 0;
-
-    if (uvSize === 'custom') {
-
-        const uvWarning =
-    document.getElementById(
-        'uv-warning'
-    );
-
-height =
-    uvCustomHeight;
-
-if (height < 36) {
-
-    uvWarning?.classList.remove(
-        'hidden'
-    );
-
-    return;
-
-}
-
-else {
-
-    uvWarning?.classList.add(
-        'hidden'
-    );
-
-}
-    } else {
-
-        height =
-            parseFloat(uvSize);
-
-    }
-
-    size =
-        `${uvWidth} x ${height} in`;
-
-    // =====================================
-// UV 11.5
-// =====================================
-
-if (uvWidth === 11.5) {
-
-    if (height <= 11) {
-
-        total = 300;
-
-    }
-
-    else if (height <= 18) {
-
-        total = 500;
-
-    }
-
-    else if (height <= 24) {
-
-        total = 700;
-
-    }
-
-    else {
-
-        total = 900;
-
-    }
-
-}
-
-// =====================================
-// UV 16
-// =====================================
-
-else {
-
-    if (height <= 11) {
-
-        total = 425;
-
-    }
-
-    else if (height <= 18) {
-
-        total = 700;
-
-    }
-
-    else if (height <= 24) {
-
-        total = 900;
-
-    }
-
-    else {
-
-        total = 1300;
-
-    }
-
-}
-}
-
-    // =====================================
-    // MULTIPLICAR CANTIDAD
-    // =====================================
-
-    total =
-        total * quantity;
-
-    // =====================================
-    // UPDATE UI
-    // =====================================
 
     summaryMaterial.innerText =
-        material;
+        quote.material;
 
     summarySize.innerText =
-        size;
+        quote.size;
 
     summaryQty.innerText =
-        `${quantity} repetición(es)`;
+        `${quote.quantity} repetición(es)`;
 
     summaryYards.innerText =
-        `${yards.toFixed(2)} yd`;
+        `${quote.yards.toFixed(2)} yd`;
 
     summaryPriceYard.innerText =
-        `$${pricePerYard} DOP`;
+        `$${quote.pricePerYard} DOP`;
 
     summaryTotal.innerText =
-        `$${total.toLocaleString()} DOP`;
+        `$${quote.total.toLocaleString()} DOP`;
+
+}
+
+
+function calculatePrice() {
+
+    currentQuote =
+        buildQuote();
+
+    renderQuote(
+        currentQuote
+    );
+
+    return currentQuote;
+
+}
+
+
+function getCurrentQuote() {
+
+    if (!currentQuote) {
+
+        return calculatePrice();
+
+    }
+
+    return currentQuote;
 
 }

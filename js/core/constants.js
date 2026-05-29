@@ -97,3 +97,5 @@ const MATERIALS = {
     }
 
 };
+
+const PX_PER_INCH = 24;

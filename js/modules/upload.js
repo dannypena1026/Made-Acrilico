@@ -263,30 +263,34 @@ function setupDragAndDrop() {
 
 function initializeUploads() {
 
-    const uploadInput =
+    const imageUploadInput =
         document.getElementById(
             'image-upload-input'
         );
 
-    if (!uploadInput) return;
+    if (imageUploadInput) {
 
 
-    // MULTIPLE FILES
-    uploadInput.setAttribute(
-        'multiple',
-        true
-    );
+        // MULTIPLE FILES
+        imageUploadInput.setAttribute(
+            'multiple',
+            true
+        );
 
 
-    // CHANGE
-    uploadInput.addEventListener(
-        'change',
-        handleImageUpload
-    );
+        // CHANGE
+        imageUploadInput.addEventListener(
+            'change',
+            handleImageUpload
+        );
 
 
-    // DRAG DROP
-    setupDragAndDrop();
+        // DRAG DROP
+        setupDragAndDrop();
+
+    }
+
+    initializeQuoteUpload();
 
 }
 
@@ -294,30 +298,116 @@ function initializeUploads() {
 // FILE UPLOAD
 // =========================================
 
-const uploadInput =
-    document.getElementById(
-        'upload-design'
-    );
+function formatFileSize(bytes) {
 
-if (uploadInput) {
+    if (!bytes) return 'N/A';
+
+    if (bytes < 1024 * 1024) {
+
+        return `${(bytes / 1024).toFixed(1)} KB`;
+
+    }
+
+    return `${(bytes / 1024 / 1024).toFixed(2)} MB`;
+
+}
+
+
+function getUploadedFileMetadata() {
+
+    if (!uploadedFile) {
+
+        return {
+            name: 'Sin archivo',
+            type: 'N/A',
+            size: 'N/A'
+        };
+
+    }
+
+    return {
+        name: uploadedFile.name,
+        type: uploadedFile.type || 'N/A',
+        size: formatFileSize(uploadedFile.size)
+    };
+
+}
+
+
+function renderUploadedFile() {
+
+    const summary =
+        document.getElementById('upload-file-summary');
+
+    const nameEl =
+        document.getElementById('upload-file-name');
+
+    const metaEl =
+        document.getElementById('upload-file-meta');
+
+    if (!summary || !nameEl || !metaEl) return;
+
+    if (!uploadedFile) {
+
+        summary.classList.add('hidden');
+        nameEl.innerText = '';
+        metaEl.innerText = '';
+
+        return;
+
+    }
+
+    const file =
+        getUploadedFileMetadata();
+
+    summary.classList.remove('hidden');
+    nameEl.innerText = file.name;
+    metaEl.innerText = `${file.type} • ${file.size}`;
+
+}
+
+
+function clearUploadedFile() {
+
+    uploadedFile = null;
+
+    const uploadInput =
+        document.getElementById('upload-design');
+
+    if (uploadInput) {
+
+        uploadInput.value = '';
+
+    }
+
+    renderUploadedFile();
+
+}
+
+
+function initializeQuoteUpload() {
+
+    const uploadInput =
+        document.getElementById('upload-design');
+
+    if (!uploadInput) return;
 
     uploadInput.addEventListener(
         'change',
-        e => {
+        event => {
 
-            const file =
-                e.target.files[0];
+            uploadedFile =
+                event.target.files?.[0] || null;
 
-            if (!file) return;
-
-            uploadedFile = file;
-
-            console.log(
-                'Archivo cargado:',
-                file.name
-            );
+            renderUploadedFile();
 
         }
+    );
+
+    document.getElementById('upload-file-remove')
+    ?.addEventListener(
+        'click',
+        clearUploadedFile
     );
 
 }

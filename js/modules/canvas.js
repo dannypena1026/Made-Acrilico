@@ -22,6 +22,24 @@ function initializeCanvas() {
             'nesting-canvas'
         );
 
+    document.getElementById(
+        'width-options-container'
+    )?.addEventListener(
+        'click',
+        event => {
+
+            const button =
+                event.target.closest('[data-dtf-width]');
+
+            if (!button) return;
+
+            setDtfUvWidth(
+                parseFloat(button.dataset.dtfWidth)
+            );
+
+        }
+    );
+
     renderWidthControlOptions();
 
     updateNestingCalculation();
@@ -245,7 +263,8 @@ function renderWidthControlOptions() {
             <div class="grid grid-cols-2 gap-2">
 
                 <button
-                    onclick="setDtfUvWidth(16)"
+                    type="button"
+                    data-dtf-width="16"
                     class="py-2 rounded-lg border-2 font-bold transition-all
                     ${
                         dtfUvWidthOption === 16
@@ -257,7 +276,8 @@ function renderWidthControlOptions() {
                 </button>
 
                 <button
-                    onclick="setDtfUvWidth(11.5)"
+                    type="button"
+                    data-dtf-width="11.5"
                     class="py-2 rounded-lg border-2 font-bold transition-all
                     ${
                         dtfUvWidthOption === 11.5
@@ -305,6 +325,18 @@ function setNestingMaterial(type) {
 function setDtfUvWidth(width) {
 
     dtfUvWidthOption = width;
+
+    const uvWidthSelect =
+        document.getElementById(
+            'uv-width'
+        );
+
+    if (uvWidthSelect) {
+
+        uvWidthSelect.value =
+            String(width);
+
+    }
 
     renderWidthControlOptions();
 

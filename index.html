@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MADE ACRÍLICO | Cotizador y Diseñador DTF</title>
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/tailwind.css">
     <!-- FontAwesome para Iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
@@ -13,23 +13,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
-    <script>tailwind.config = {
-        theme: {
-            extend: {
-                colors: {
-                    logoYellow: '#F6D044',
-                    logoMagenta: '#E52D7F',
-                    logoCyan: '#00A5DF',
-                    logoDark: '#1E1E1E',
-                    logoDarkLight: '#2D2D2D'
-                },
-                fontFamily: {
-                    sans: ['Plus Jakarta Sans', 'sans-serif'],
-                }
-            }
-        }
-    }
-    </script>
 </head>
 <body class="bg-[#F8F9FA] text-[#1E1E1E] min-h-screen font-sans antialiased overflow-x-hidden">
 
@@ -172,7 +155,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                         Cotiza y diseña tus metros en línea. Imprimimos tus transfers con cobro por proximidad en base a la medida exacta que necesites, garantizando el mejor precio del mercado.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 pt-2">
-                        <button onclick="switchTab('planilla')" class="bg-logoMagenta hover:bg-logoMagenta/90 text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                        <button data-go-tab="planilla" class="bg-logoMagenta hover:bg-logoMagenta/90 text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 transform hover:-translate-y-1">
                             <i class="fa-solid fa-wand-magic-sparkles"></i>
                             <span>Ir al Calculador Express</span>
                         </button>
@@ -222,7 +205,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                                     <li class="flex justify-between border-b border-gray-100 pb-1"><span>22" x 36" (Una Yarda)</span> <span class="text-logoMagenta font-bold">$500 DOP</span></li>
                                 </ul>
                             </div>
-                            <button onclick="switchTab('planilla')" class="w-full bg-[#1E1E1E] hover:bg-logoMagenta text-white font-bold px-5 py-3 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
+                            <button data-go-tab="planilla" class="w-full bg-[#1E1E1E] hover:bg-logoMagenta text-white font-bold px-5 py-3 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
                                 <span>Cotizar Material</span> <i class="fa-solid fa-arrow-right"></i>
                             </button>
                         </div>
@@ -246,7 +229,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                                     <li class="flex justify-between border-b border-gray-100 pb-1"><span>16" x 36" (Yarda)</span> <span class="text-logoCyan font-bold">$1300 DOP</span></li>
                                 </ul>
                             </div>
-                            <button onclick="switchTab('planilla')" class="w-full bg-[#1E1E1E] hover:bg-logoCyan text-white font-bold px-5 py-3 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
+                            <button data-go-tab="planilla" class="w-full bg-[#1E1E1E] hover:bg-logoCyan text-white font-bold px-5 py-3 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
                                 <span>Cotizar Material</span> <i class="fa-solid fa-arrow-right"></i>
                             </button>
                         </div>
@@ -362,12 +345,12 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     class="w-full h-14 rounded-2xl border border-gray-200 bg-white px-4 font-bold outline-none transition-all duration-300 focus:ring-4 focus:ring-cyan-100 focus:border-logoCyan"
                 >
 
-                    <option value="11.5">
-                        11.5 pulgadas
-                    </option>
-
                     <option value="16">
                         16 pulgadas
+                    </option>
+
+                    <option value="11.5">
+                        11.5 pulgadas
                     </option>
 
                 </select>
@@ -403,7 +386,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     </option>
             
                     <option value="custom">
-                        CUSTOM SIZE
+                        Personalizado
                     </option>
             
                 </select>
@@ -454,7 +437,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     </option>
 
                     <option value="custom">
-                        CUSTOM uv-size
+                        Personalizado
                     </option>
 
                 </select>
@@ -554,10 +537,32 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                             <input
                                 type="file"
                                 id="upload-design"
+                                accept=".png,.pdf,.tif,.tiff,.jpg,.jpeg,image/*,application/pdf"
                                 class="hidden"
                             >
 
                         </label>
+
+                        <div id="upload-file-summary" class="hidden mt-4 rounded-2xl border border-pink-100 bg-pink-50 px-4 py-3">
+                            <div class="flex items-center justify-between gap-3">
+                                <div class="min-w-0">
+                                    <p id="upload-file-name" class="truncate text-sm font-extrabold text-logoDark"></p>
+                                    <p id="upload-file-meta" class="text-xs text-gray-500 mt-0.5"></p>
+                                </div>
+
+                                <button
+                                    id="upload-file-remove"
+                                    type="button"
+                                    class="shrink-0 text-red-500 hover:text-red-700 transition-all"
+                                    title="Quitar archivo"
+                                >
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-3">
+                                Nota: WhatsApp no adjunta el archivo automáticamente. Si completas la orden, envíalo también por el chat.
+                            </p>
+                        </div>
 
                     </div>
 
@@ -634,7 +639,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
 
                             <div class="flex justify-between items-center border-b border-white/5 pb-3">
                                 <span class="text-gray-400 text-sm">
-                                    Precio por yarda
+                                    Precio por tramo
                                 </span>
 
                                 <span id="summary-price-yard" class="font-bold">
@@ -743,7 +748,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     <!-- Formulario de Correo -->
                     <div class="space-y-6">
                         <h3 class="font-bold text-xl text-logoDark">Envíanos un mensaje</h3>
-                        <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+                        <form id="contact-form" class="space-y-4">
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <label class="text-xs font-bold text-gray-500 uppercase">Nombre</label>
@@ -813,7 +818,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     <span>Total Estimado:</span> <span id="cart-total" class="font-black text-logoMagenta">$0 DOP</span>
                 </div>
             </div>
-            <button onclick="checkoutOrder()" class="w-full bg-[#1E1E1E] hover:bg-logoMagenta text-white font-bold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2">
+            <button id="cart-checkout-btn" class="w-full bg-[#1E1E1E] hover:bg-logoMagenta text-white font-bold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2">
                 <i class="fab fa-whatsapp text-lg"></i> Enviar Orden a WhatsApp
             </button>
         </div>
@@ -851,10 +856,10 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                 <div class="space-y-4">
                     <h4 class="font-bold text-sm text-logoYellow uppercase tracking-wider">Productos & Servicios</h4>
                     <ul class="space-y-2 text-xs text-gray-400">
-                        <li><a onclick="switchTab('planilla')" class="hover:text-white transition-colors cursor-pointer">DTF Textil por Yarda</a></li>
-                        <li><a onclick="switchTab('planilla')" class="hover:text-white transition-colors cursor-pointer">DTF UV Adhesivo</a></li>
-                        <li><a onclick="switchTab('planilla')" class="hover:text-white transition-colors cursor-pointer">Corte Acrílico Personalizado</a></li>
-                        <li><a onclick="switchTab('guia')" class="hover:text-white transition-colors cursor-pointer">Revisión Gratuita de Formato</a></li>
+                        <li><a data-go-tab="planilla" class="hover:text-white transition-colors cursor-pointer">DTF Textil por Yarda</a></li>
+                        <li><a data-go-tab="planilla" class="hover:text-white transition-colors cursor-pointer">DTF UV Adhesivo</a></li>
+                        <li><a data-go-tab="planilla" class="hover:text-white transition-colors cursor-pointer">Corte Acrílico Personalizado</a></li>
+                        <li><a data-go-tab="guia" class="hover:text-white transition-colors cursor-pointer">Revisión Gratuita de Formato</a></li>
                     </ul>
                 </div>
 
@@ -862,8 +867,8 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                 <div class="space-y-4">
                     <h4 class="font-bold text-sm text-logoCyan uppercase tracking-wider">Ayuda & Soporte</h4>
                     <ul class="space-y-2 text-xs text-gray-400">
-                        <li><a onclick="switchTab('guia')" class="hover:text-white transition-colors cursor-pointer">Guía de Preparación de Archivos</a></li>
-                        <li><a onclick="switchTab('contacto')" class="hover:text-white transition-colors cursor-pointer">Envíos y Entregas Nacionales</a></li>
+                        <li><a data-go-tab="guia" class="hover:text-white transition-colors cursor-pointer">Guía de Preparación de Archivos</a></li>
+                        <li><a data-go-tab="contacto" class="hover:text-white transition-colors cursor-pointer">Envíos y Entregas Nacionales</a></li>
                         <li><a href="https://wa.me/18297078582" class="hover:text-white transition-colors cursor-pointer">Atención por WhatsApp</a></li>
                     </ul>
                 </div>
