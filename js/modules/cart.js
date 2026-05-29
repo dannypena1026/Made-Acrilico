@@ -1,25 +1,28 @@
-// =========================================
-// CART STATE
-// =========================================
+import { BUSINESS_CONFIG } from '../core/business-config.js';
+import {
+    escapeHTML,
+    formatCurrency,
+    generateId,
+    loadFromStorage,
+    saveToStorage
+} from '../utils/helpers.js';
+import { getCurrentQuote } from './pricing.js';
+import {
+    getUploadedFileMetadata,
+    hasUploadedFile
+} from './upload.js';
+import {
+    confirmAction,
+    openCart,
+    showToast
+} from './ui.js';
 
 const CART_STORAGE_KEY = 'made-acrilico-cart';
 const CART_SHIPPING_STORAGE_KEY = 'made-acrilico-shipping-enabled';
-const SHIPPING_PRICE = 250;
+const SHIPPING_PRICE = BUSINESS_CONFIG.shippingPrice;
 
 let cart = [];
 let includeShipping = false;
-
-
-function escapeHTML(value) {
-
-    return String(value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-
-}
 
 
 function saveCart() {
@@ -154,8 +157,20 @@ function addNestingToCart() {
 
     if (!quote || quote.invalid || quote.total <= 0) {
 
-        alert(
-            'Debes completar una cotización válida.'
+        showToast(
+            'Debes completar una cotización válida.',
+            'error'
+        );
+
+        return;
+
+    }
+
+    if (!hasUploadedFile()) {
+
+        showToast(
+            'Sube el archivo del diseño antes de agregarlo al carrito.',
+            'error'
         );
 
         return;
@@ -405,7 +420,7 @@ function updateCartUI() {
 // CART ACTIONS
 // =========================================
 
-function removeCartItem(itemId) {
+async function removeCartItem(itemId) {
 
     const item =
         cart.find(
@@ -414,7 +429,11 @@ function removeCartItem(itemId) {
 
     if (
         item &&
-        !confirm(`¿Eliminar ${item.material} del carrito?`)
+        !await confirmAction({
+            title: 'Eliminar producto',
+            message: `¿Eliminar ${item.material} del carrito?`,
+            confirmLabel: 'Eliminar'
+        })
     ) {
 
         return;
@@ -433,12 +452,16 @@ function removeCartItem(itemId) {
 }
 
 
-function clearCart() {
+async function clearCart() {
 
     if (cart.length === 0) return;
 
     if (
-        !confirm('¿Vaciar todo el carrito?')
+        !await confirmAction({
+            title: 'Vaciar carrito',
+            message: '¿Vaciar todo el carrito?',
+            confirmLabel: 'Vaciar'
+        })
     ) {
 
         return;
@@ -501,7 +524,7 @@ function updateCartItemQuantity(itemId, value) {
 }
 
 
-function handleCartClick(event) {
+async function handleCartClick(event) {
 
     const actionButton =
         event.target.closest('[data-cart-action]');
@@ -513,7 +536,7 @@ function handleCartClick(event) {
 
     if (actionButton.dataset.cartAction === 'remove') {
 
-        removeCartItem(itemId);
+        await removeCartItem(itemId);
 
     }
 
@@ -561,8 +584,9 @@ function checkoutOrder() {
 
     if (cart.length === 0) {
 
-        alert(
-            'Tu carrito está vacío.'
+        showToast(
+            'Tu carrito está vacío.',
+            'error'
         );
 
         return;
@@ -570,7 +594,7 @@ function checkoutOrder() {
     }
 
     let message =
-`Hola MADE ACRÍLICO
+`Hola ${BUSINESS_CONFIG.name}
 
 Deseo cotizar esta orden DTF:
 
@@ -620,20 +644,20 @@ TOTAL ESTIMADO:
 ${formatCurrency(total)}
 
 Entrega estimada:
-Producción regular 24-48 horas según volumen.
+Producción regular ${BUSINESS_CONFIG.deliveryEstimate}.
 
 Forma de pago:
-Transferencia o efectivo.
+${BUSINESS_CONFIG.paymentMethods}.
 
 Importante:
-La cotización es estimada hasta revisar el archivo final.
+${BUSINESS_CONFIG.estimateNotice}
 
 Nota: los archivos no se adjuntan automáticamente desde la web. Te los enviaré por este chat si hace falta.
 
 Gracias.`;
 
     const whatsappURL =
-        `https://wa.me/18297078582?text=${encodeURIComponent(message)}`;
+        `https://wa.me/${BUSINESS_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
 
     window.open(
         whatsappURL,
@@ -647,7 +671,7 @@ Gracias.`;
 // INIT
 // =========================================
 
-function initializeCart() {
+export function initializeCart() {
 
     loadCart();
 

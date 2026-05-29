@@ -1,69 +1,47 @@
-// =========================================
-// FORMAT CURRENCY
-// =========================================
-
-function formatCurrency(value) {
-
+export function formatCurrency(value) {
     return new Intl.NumberFormat(
         'es-DO',
         {
-
             style: 'currency',
-
             currency: 'DOP',
-
             minimumFractionDigits: 0
-
         }
     ).format(value);
-
 }
 
+export function generateId() {
+    if (crypto?.randomUUID) {
+        return crypto.randomUUID();
+    }
 
-// =========================================
-// GENERATE ID
-// =========================================
-
-function generateId() {
-
-    return crypto.randomUUID();
-
+    return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
-
-// =========================================
-// SAVE TO LOCAL STORAGE
-// =========================================
-
-function saveToStorage(key, value) {
-
+export function saveToStorage(key, value) {
     localStorage.setItem(
         key,
         JSON.stringify(value)
     );
-
 }
 
-
-// =========================================
-// LOAD FROM LOCAL STORAGE
-// =========================================
-
-function loadFromStorage(key, fallback = null) {
-
+export function loadFromStorage(key, fallback = null) {
     const data =
         localStorage.getItem(key);
 
     if (!data) return fallback;
 
     try {
-
         return JSON.parse(data);
-
     } catch {
-
         return fallback;
-
     }
+}
 
+export function escapeHTML(value) {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
 }

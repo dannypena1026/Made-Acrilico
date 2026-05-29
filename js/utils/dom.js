@@ -1,21 +1,11 @@
-// =========================================
-// DOM HELPERS
-// =========================================
-
-function $id(id) {
-
+export function $id(id) {
     return document.getElementById(id);
-
 }
 
-function $(selector) {
-
+export function $(selector) {
     return document.querySelector(selector);
-
 }
 
-function $all(selector) {
-
+export function $all(selector) {
     return document.querySelectorAll(selector);
-
 }

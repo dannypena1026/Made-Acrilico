@@ -1,210 +1,86 @@
-// =========================================
-// HANDLE IMAGE UPLOAD
-// =========================================
+import { BUSINESS_CONFIG } from '../core/business-config.js';
+import { appState, setUploadedFile } from '../core/state.js';
+import { addImageToCanvas } from './canvas.js';
+import { showToast } from './ui.js';
 
 function handleImageUpload(event) {
-
     const files =
         event.target.files;
 
-    if (!files || files.length === 0)
-        return;
-
-
-    // =====================================
-    // LOOP FILES
-    // =====================================
+    if (!files || files.length === 0) return;
 
     Array.from(files).forEach(file => {
+        if (!file.type.startsWith('image/')) {
+            showToast(
+                'Solo puedes agregar imágenes al diseñador visual.',
+                'error'
+            );
+            return;
+        }
 
-        // SOLO IMÁGENES
-        if (
-            !file.type.startsWith(
-                'image/'
-            )
-        ) return;
-
-
-        // =================================
-        // READER
-        // =================================
-
-        const reader =
-            new FileReader();
-
-        reader.onload = function(e) {
-
-            const image =
-                new Image();
-
-            image.onload = function() {
-
-                createUploadedItem(
-                    e.target.result,
-                    image
-                );
-
-            };
-
-            image.src =
-                e.target.result;
-
-        };
-
-        reader.readAsDataURL(file);
-
+        readImageFile(
+            file,
+            addImageToCanvas
+        );
     });
 
-
-    // =====================================
-    // RESET INPUT
-    // =====================================
-
     event.target.value = '';
-
 }
 
+function readImageFile(file, callback) {
+    const reader =
+        new FileReader();
 
-// =========================================
-// CREATE ITEM
-// =========================================
+    reader.onload = event => {
+        const image =
+            new Image();
 
-function createUploadedItem(
-    src,
-    image
-) {
+        image.onload = () => {
+            callback(
+                event.target.result,
+                image
+            );
+        };
 
-    if (!nestingCanvas) return;
-
-
-    // =====================================
-    // CANVAS WIDTH
-    // =====================================
-
-    const canvasWidth =
-        nestingMaterial === 'textil'
-        ? 22
-        : dtfUvWidthOption;
-
-
-    // =====================================
-    // AUTO SCALE
-    // =====================================
-
-    const maxWidthPx =
-        (canvasWidth * PX_PER_INCH) * 0.8;
-
-    let width =
-        maxWidthPx;
-
-    let height =
-        width /
-        (image.naturalWidth /
-        image.naturalHeight);
-
-
-    // LIMIT HEIGHT
-    if (height > 350) {
-
-        height = 350;
-
-        width =
-            height *
-            (image.naturalWidth /
-            image.naturalHeight);
-
-    }
-
-
-    // =====================================
-    // CREATE ITEM
-    // =====================================
-
-    const item = {
-
-        id: Date.now() + Math.random(),
-
-        type: 'image',
-
-        src: src,
-
-        x: 60,
-
-        y:
-            canvasElements.length * 40,
-
-        width: width,
-
-        height: height,
-
-        aspect:
-            image.naturalWidth /
-            image.naturalHeight,
-
-        rotation: 0
-
+        image.src =
+            event.target.result;
     };
 
-
-    // =====================================
-    // SAVE
-    // =====================================
-
-    canvasElements.push(item);
-
-
-    // =====================================
-    // RENDER
-    // =====================================
-
-    createGraphicElement(item);
-
-    updateNestingCalculation();
-
-    renderRulers();
-
+    reader.readAsDataURL(file);
 }
 
-
-// =========================================
-// DRAG & DROP
-// =========================================
-
 function setupDragAndDrop() {
+    const nestingCanvas =
+        document.getElementById('nesting-canvas');
 
     if (!nestingCanvas) return;
 
     nestingCanvas.addEventListener(
         'dragover',
-        e => {
-
-            e.preventDefault();
+        event => {
+            event.preventDefault();
 
             nestingCanvas.classList.add(
                 'border-logoMagenta',
                 'bg-pink-50'
             );
-
         }
     );
 
     nestingCanvas.addEventListener(
         'dragleave',
         () => {
-
             nestingCanvas.classList.remove(
                 'border-logoMagenta',
                 'bg-pink-50'
             );
-
         }
     );
 
     nestingCanvas.addEventListener(
         'drop',
-        e => {
-
-            e.preventDefault();
+        event => {
+            event.preventDefault();
 
             nestingCanvas.classList.remove(
                 'border-logoMagenta',
@@ -212,130 +88,101 @@ function setupDragAndDrop() {
             );
 
             const files =
-                e.dataTransfer.files;
+                event.dataTransfer.files;
 
             if (!files.length) return;
 
-            Array.from(files)
-            .forEach(file => {
+            Array.from(files).forEach(file => {
+                if (!file.type.startsWith('image/')) {
+                    showToast(
+                        'Solo puedes soltar imágenes en el diseñador visual.',
+                        'error'
+                    );
+                    return;
+                }
 
-                if (
-                    !file.type.startsWith(
-                        'image/'
-                    )
-                ) return;
-
-                const reader =
-                    new FileReader();
-
-                reader.onload = function(ev) {
-
-                    const image =
-                        new Image();
-
-                    image.onload = function() {
-
-                        createUploadedItem(
-                            ev.target.result,
-                            image
-                        );
-
-                    };
-
-                    image.src =
-                        ev.target.result;
-
-                };
-
-                reader.readAsDataURL(file);
-
+                readImageFile(
+                    file,
+                    addImageToCanvas
+                );
             });
-
         }
     );
-
 }
-
-
-// =========================================
-// INITIALIZE UPLOADS
-// =========================================
-
-function initializeUploads() {
-
-    const imageUploadInput =
-        document.getElementById(
-            'image-upload-input'
-        );
-
-    if (imageUploadInput) {
-
-
-        // MULTIPLE FILES
-        imageUploadInput.setAttribute(
-            'multiple',
-            true
-        );
-
-
-        // CHANGE
-        imageUploadInput.addEventListener(
-            'change',
-            handleImageUpload
-        );
-
-
-        // DRAG DROP
-        setupDragAndDrop();
-
-    }
-
-    initializeQuoteUpload();
-
-}
-
-// =========================================
-// FILE UPLOAD
-// =========================================
 
 function formatFileSize(bytes) {
-
     if (!bytes) return 'N/A';
 
     if (bytes < 1024 * 1024) {
-
         return `${(bytes / 1024).toFixed(1)} KB`;
-
     }
 
     return `${(bytes / 1024 / 1024).toFixed(2)} MB`;
-
 }
 
+function getFileExtension(file) {
+    return file.name
+        .split('.')
+        .pop()
+        ?.toLowerCase();
+}
 
-function getUploadedFileMetadata() {
+function validateQuoteFile(file) {
+    if (!file) {
+        return {
+            valid: false,
+            message: 'Selecciona un archivo para continuar.'
+        };
+    }
 
-    if (!uploadedFile) {
+    const extension =
+        getFileExtension(file);
 
+    if (
+        !BUSINESS_CONFIG.quoteFileExtensions.includes(extension)
+    ) {
+        return {
+            valid: false,
+            message: `Formato no permitido. Usa ${BUSINESS_CONFIG.quoteFileExtensions.join(', ').toUpperCase()}.`
+        };
+    }
+
+    const maxBytes =
+        BUSINESS_CONFIG.maxUploadSizeMb * 1024 * 1024;
+
+    if (file.size > maxBytes) {
+        return {
+            valid: false,
+            message: `El archivo supera ${BUSINESS_CONFIG.maxUploadSizeMb} MB.`
+        };
+    }
+
+    return {
+        valid: true
+    };
+}
+
+export function hasUploadedFile() {
+    return Boolean(appState.uploadedFile);
+}
+
+export function getUploadedFileMetadata() {
+    if (!appState.uploadedFile) {
         return {
             name: 'Sin archivo',
             type: 'N/A',
             size: 'N/A'
         };
-
     }
 
     return {
-        name: uploadedFile.name,
-        type: uploadedFile.type || 'N/A',
-        size: formatFileSize(uploadedFile.size)
+        name: appState.uploadedFile.name,
+        type: appState.uploadedFile.type || getFileExtension(appState.uploadedFile)?.toUpperCase() || 'N/A',
+        size: formatFileSize(appState.uploadedFile.size)
     };
-
 }
 
-
 function renderUploadedFile() {
-
     const summary =
         document.getElementById('upload-file-summary');
 
@@ -347,14 +194,11 @@ function renderUploadedFile() {
 
     if (!summary || !nameEl || !metaEl) return;
 
-    if (!uploadedFile) {
-
+    if (!appState.uploadedFile) {
         summary.classList.add('hidden');
         nameEl.innerText = '';
         metaEl.innerText = '';
-
         return;
-
     }
 
     const file =
@@ -363,30 +207,22 @@ function renderUploadedFile() {
     summary.classList.remove('hidden');
     nameEl.innerText = file.name;
     metaEl.innerText = `${file.type} • ${file.size}`;
-
 }
 
-
 function clearUploadedFile() {
-
-    uploadedFile = null;
+    setUploadedFile(null);
 
     const uploadInput =
         document.getElementById('upload-design');
 
     if (uploadInput) {
-
         uploadInput.value = '';
-
     }
 
     renderUploadedFile();
-
 }
 
-
 function initializeQuoteUpload() {
-
     const uploadInput =
         document.getElementById('upload-design');
 
@@ -395,21 +231,56 @@ function initializeQuoteUpload() {
     uploadInput.addEventListener(
         'change',
         event => {
-
-            uploadedFile =
+            const file =
                 event.target.files?.[0] || null;
 
-            renderUploadedFile();
+            const validation =
+                validateQuoteFile(file);
 
+            if (!validation.valid) {
+                showToast(
+                    validation.message,
+                    'error'
+                );
+                event.target.value = '';
+                setUploadedFile(null);
+                renderUploadedFile();
+                return;
+            }
+
+            setUploadedFile(file);
+            renderUploadedFile();
         }
     );
 
     document.getElementById('upload-file-remove')
-    ?.addEventListener(
-        'click',
-        clearUploadedFile
-    );
+        ?.addEventListener(
+            'click',
+            clearUploadedFile
+        );
 
     renderUploadedFile();
+}
 
+export function initializeUploads() {
+    const imageUploadInput =
+        document.getElementById(
+            'image-upload-input'
+        );
+
+    if (imageUploadInput) {
+        imageUploadInput.setAttribute(
+            'multiple',
+            true
+        );
+
+        imageUploadInput.addEventListener(
+            'change',
+            handleImageUpload
+        );
+
+        setupDragAndDrop();
+    }
+
+    initializeQuoteUpload();
 }

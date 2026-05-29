@@ -1,58 +1,132 @@
-// =========================================
-// UI.JS
-// =========================================
+import { BUSINESS_CONFIG } from '../core/business-config.js';
+import { appState, setCurrentMaterial, setCurrentTab } from '../core/state.js';
+import { $all, $id } from '../utils/dom.js';
+import { calculatePrice } from './pricing.js';
+import {
+    clearCanvas,
+    renderWidthControlOptions,
+    setDtfUvWidth,
+    setNestingMaterial,
+    updateNestingCalculation
+} from './canvas.js';
 
-// =========================================
-// SWITCH TABS
-// =========================================
+let confirmResolver = null;
 
-function switchTab(tabId) {
+export function showToast(message, type = 'info') {
+    const container =
+        $id('toast-container');
 
-    // Ocultar tabs
-    $all('.tab-content')
-    .forEach(tab => {
+    if (!container) return;
 
-        tab.classList.add('hidden');
-        tab.classList.remove('block');
+    const toast =
+        document.createElement('div');
 
+    const toneClass =
+        type === 'error'
+            ? 'border-red-200 bg-red-50 text-red-700'
+            : 'border-gray-200 bg-white text-logoDark';
+
+    toast.className =
+        `rounded-2xl border ${toneClass} shadow-xl px-4 py-3 text-sm font-bold max-w-xs transition-all`;
+
+    toast.innerText =
+        message;
+
+    container.appendChild(toast);
+
+    window.setTimeout(
+        () => {
+            toast.classList.add('opacity-0', 'translate-y-2');
+            window.setTimeout(
+                () => toast.remove(),
+                250
+            );
+        },
+        3500
+    );
+}
+
+export function confirmAction({
+    title = 'Confirmar acción',
+    message = '¿Deseas continuar?',
+    confirmLabel = 'Confirmar'
+} = {}) {
+    const modal =
+        $id('confirm-modal');
+
+    if (!modal) {
+        showToast(
+            message,
+            'error'
+        );
+
+        return Promise.resolve(false);
+    }
+
+    $id('confirm-modal-title').innerText =
+        title;
+
+    $id('confirm-modal-message').innerText =
+        message;
+
+    $id('confirm-modal-confirm').innerText =
+        confirmLabel;
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+
+    return new Promise(resolve => {
+        confirmResolver = resolve;
     });
+}
 
-    // Mostrar activa
+function resolveConfirmModal(value) {
+    const modal =
+        $id('confirm-modal');
+
+    modal?.classList.add('hidden');
+    modal?.classList.remove('flex');
+
+    if (confirmResolver) {
+        confirmResolver(value);
+        confirmResolver = null;
+    }
+}
+
+export function switchTab(tabId) {
+    $all('.tab-content')
+        .forEach(tab => {
+            tab.classList.add('hidden');
+            tab.classList.remove('block');
+        });
+
     const activeTab =
         $id(`tab-${tabId}`);
 
     if (activeTab) {
-
         activeTab.classList.remove('hidden');
         activeTab.classList.add('block');
-
-        currentTab = tabId;
-
+        setCurrentTab(tabId);
     }
 
-    // Reset nav desktop
     $all('.nav-btn')
-    .forEach(button => {
+        .forEach(button => {
+            button.classList.remove(
+                'text-logoMagenta',
+                'bg-pink-50',
+                'font-bold'
+            );
 
-        button.classList.remove(
-            'text-logoMagenta',
-            'bg-pink-50',
-            'font-bold'
-        );
+            button.classList.add(
+                'text-gray-600',
+                'font-semibold'
+            );
+        });
 
-        button.classList.add(
-            'text-gray-600',
-            'font-semibold'
-        );
-
-    });
-
-    // Activar botón actual
     const activeButton =
         $id(`nav-${tabId}`);
 
     if (activeButton) {
-
         activeButton.classList.add(
             'text-logoMagenta',
             'bg-pink-50',
@@ -63,61 +137,71 @@ function switchTab(tabId) {
             'text-gray-600',
             'font-semibold'
         );
-
     }
 
-    // Actualizaciones especiales
     if (tabId === 'planilla') {
-
-        if (typeof renderWidthControlOptions === 'function') {
-            renderWidthControlOptions();
-        }
-
-        if (typeof updateNestingCalculation === 'function') {
-            updateNestingCalculation();
-        }
-
+        renderWidthControlOptions();
+        updateNestingCalculation();
     }
 
-    // Scroll top
     window.scrollTo({
         top: 0,
         behavior: 'smooth'
     });
-
 }
 
+function applyBusinessConfig() {
+    $all('[data-business-whatsapp]')
+        .forEach(link => {
+            link.href =
+                `https://wa.me/${BUSINESS_CONFIG.whatsappNumber}`;
+        });
 
-// =========================================
-// MOBILE MENU
-// =========================================
+    $all('[data-business-phone]')
+        .forEach(link => {
+            link.href =
+                `tel:${BUSINESS_CONFIG.phoneHref}`;
+        });
+
+    $all('[data-business-phone-text]')
+        .forEach(element => {
+            element.innerText =
+                BUSINESS_CONFIG.phoneDisplay;
+        });
+
+    $all('[data-business-email]')
+        .forEach(link => {
+            link.href =
+                `mailto:${BUSINESS_CONFIG.email}`;
+            link.innerText =
+                BUSINESS_CONFIG.email;
+        });
+
+    $all('[data-business-address]')
+        .forEach(element => {
+            element.innerText =
+                BUSINESS_CONFIG.address;
+        });
+
+    $all('[data-business-maps]')
+        .forEach(link => {
+            link.href =
+                BUSINESS_CONFIG.mapsUrl;
+        });
+}
 
 function toggleMobileMenu() {
-
-    const mobileMenu =
-        $id('mobile-menu');
-
-    if (!mobileMenu) return;
-
-    mobileMenu.classList.toggle('hidden');
-
+    $id('mobile-menu')?.classList.toggle('hidden');
 }
 
-
-// =========================================
-// CART SIDEBAR
-// =========================================
-
-function toggleCart() {
-
+export function toggleCart() {
     const cartSidebar =
         $id('cart-sidebar');
 
     const cartOverlay =
         $id('cart-overlay');
 
-    if (!cartSidebar || !cartOverlay)
-        return;
+    if (!cartSidebar || !cartOverlay) return;
 
     cartSidebar.classList.toggle(
         'translate-x-full'
@@ -126,20 +210,16 @@ function toggleCart() {
     cartOverlay.classList.toggle(
         'hidden'
     );
-
 }
 
-
-function openCart() {
-
+export function openCart() {
     const cartSidebar =
         $id('cart-sidebar');
 
     const cartOverlay =
         $id('cart-overlay');
 
-    if (!cartSidebar || !cartOverlay)
-        return;
+    if (!cartSidebar || !cartOverlay) return;
 
     cartSidebar.classList.remove(
         'translate-x-full'
@@ -148,20 +228,16 @@ function openCart() {
     cartOverlay.classList.remove(
         'hidden'
     );
-
 }
 
-
-function closeCart() {
-
+export function closeCart() {
     const cartSidebar =
         $id('cart-sidebar');
 
     const cartOverlay =
         $id('cart-overlay');
 
-    if (!cartSidebar || !cartOverlay)
-        return;
+    if (!cartSidebar || !cartOverlay) return;
 
     cartSidebar.classList.add(
         'translate-x-full'
@@ -170,16 +246,9 @@ function closeCart() {
     cartOverlay.classList.add(
         'hidden'
     );
-
 }
 
-
-// =========================================
-// CONTACT FORM
-// =========================================
-
 function handleFormSubmit(event) {
-
     event.preventDefault();
 
     const formData =
@@ -201,7 +270,7 @@ function handleFormSubmit(event) {
         formData.get('message') || 'Sin mensaje';
 
     const whatsappMessage =
-`Hola MADE ACRÍLICO
+`Hola ${BUSINESS_CONFIG.name}
 
 Me gustaría contactarles.
 
@@ -216,7 +285,7 @@ ${message}
 Gracias.`;
 
     const whatsappURL =
-        `https://wa.me/18297078582?text=${encodeURIComponent(whatsappMessage)}`;
+        `https://wa.me/${BUSINESS_CONFIG.whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
     window.open(
         whatsappURL,
@@ -224,19 +293,11 @@ Gracias.`;
     );
 
     event.target?.reset();
-
 }
-
-
-// =========================================
-// MATERIAL UI CONTROL
-// =========================================
 
 function activateTextilMode() {
+    setCurrentMaterial('textil');
 
-    currentMaterial = 'textil';
-
-    // BOTONES
     btnTextil?.classList.add(
         'border-logoMagenta',
         'bg-pink-50',
@@ -259,532 +320,247 @@ function activateTextilMode() {
         'text-gray-600'
     );
 
-    // WIDTH
-    if (textilWidthBox) {
-        textilWidthBox.classList.remove('hidden');
-    }
-
-    if (uvWidthSelector) {
-        uvWidthSelector.classList.add('hidden');
-    }
-
-    // HEIGHT
-    if (textilHeightBox) {
-        textilHeightBox.classList.remove('hidden');
-    }
-
-    if (uvSelector) {
-        uvSelector.classList.add('hidden');
-    }
-
-    if (typeof calculatePrice === 'function') {
-
-        calculatePrice();
-    
-    }
-
-}
-
-
-function activateUvMode() {
-
-    currentMaterial = 'uv';
-
-    // BOTONES
-    btnUv?.classList.add(
-        'border-logoCyan',
-        'bg-cyan-50',
-        'text-logoCyan'
-    );
-
-    btnUv?.classList.remove(
-        'border-gray-200',
-        'text-gray-600'
-    );
-
-    btnTextil?.classList.remove(
-        'border-logoMagenta',
-        'bg-pink-50',
-        'text-logoMagenta'
-    );
-
-    btnTextil?.classList.add(
-        'border-gray-200',
-        'text-gray-600'
-    );
-
-    // WIDTH
-    if (textilWidthBox) {
-        textilWidthBox.classList.add('hidden');
-    }
-
-    if (uvWidthSelector) {
-        uvWidthSelector.classList.remove('hidden');
-    }
-
-    // HEIGHT
-    if (textilHeightBox) {
-        textilHeightBox.classList.add('hidden');
-    }
-
-    if (uvSelector) {
-        uvSelector.classList.remove('hidden');
-    }
+    textilWidthBox?.classList.remove('hidden');
+    uvWidthSelector?.classList.add('hidden');
+    textilHeightBox?.classList.remove('hidden');
+    uvSelector?.classList.add('hidden');
 
     calculatePrice();
-
 }
 
+function activateUvMode() {
+    setCurrentMaterial('uv');
 
-// =========================================
-// INITIALIZE UI
-// =========================================
+    btnUv?.classList.add(
+        'border-logoCyan',
+        'bg-cyan-50',
+        'text-logoCyan'
+    );
 
-function initializeUI() {
+    btnUv?.classList.remove(
+        'border-gray-200',
+        'text-gray-600'
+    );
 
-    // =====================================
-    // NAVIGATION
-    // =====================================
+    btnTextil?.classList.remove(
+        'border-logoMagenta',
+        'bg-pink-50',
+        'text-logoMagenta'
+    );
 
+    btnTextil?.classList.add(
+        'border-gray-200',
+        'text-gray-600'
+    );
+
+    textilWidthBox?.classList.add('hidden');
+    uvWidthSelector?.classList.remove('hidden');
+    textilHeightBox?.classList.add('hidden');
+    uvSelector?.classList.remove('hidden');
+
+    calculatePrice();
+}
+
+function initializeNavigation() {
     $all('[data-tab]')
-    .forEach(button => {
+        .forEach(button => {
+            button.addEventListener(
+                'click',
+                () => {
+                    switchTab(button.dataset.tab);
 
-        button.addEventListener(
-            'click',
-            () => {
-
-                const tab =
-                    button.dataset.tab;
-
-                switchTab(tab);
-
-                if (
-                    button.dataset.mobileClose
-                    === 'true'
-                ) {
-
-                    toggleMobileMenu();
-
+                    if (
+                        button.dataset.mobileClose === 'true'
+                    ) {
+                        toggleMobileMenu();
+                    }
                 }
-
-            }
-        );
-
-    });
-
-
-    // =====================================
-    // GO TAB BUTTONS
-    // =====================================
+            );
+        });
 
     $all('[data-go-tab]')
-    .forEach(button => {
+        .forEach(button => {
+            button.addEventListener(
+                'click',
+                () => switchTab(button.dataset.goTab)
+            );
+        });
 
-        button.addEventListener(
-            'click',
-            () => {
+    $id('logo-trigger')?.addEventListener(
+        'click',
+        () => switchTab('inicio')
+    );
 
-                switchTab(
-                    button.dataset.goTab
-                );
+    $id('mobile-menu-toggle')?.addEventListener(
+        'click',
+        toggleMobileMenu
+    );
+}
 
+function initializeCartShell() {
+    $id('cart-toggle-btn')?.addEventListener(
+        'click',
+        toggleCart
+    );
+
+    $id('cart-close-btn')?.addEventListener(
+        'click',
+        closeCart
+    );
+
+    $id('cart-overlay')?.addEventListener(
+        'click',
+        closeCart
+    );
+}
+
+function initializeConfirmModal() {
+    $id('confirm-modal-cancel')?.addEventListener(
+        'click',
+        () => resolveConfirmModal(false)
+    );
+
+    $id('confirm-modal-confirm')?.addEventListener(
+        'click',
+        () => resolveConfirmModal(true)
+    );
+
+    $id('confirm-modal')?.addEventListener(
+        'click',
+        event => {
+            if (event.target.id === 'confirm-modal') {
+                resolveConfirmModal(false);
             }
-        );
+        }
+    );
+}
 
-    });
+function initializeMaterialControls() {
+    $id('clear-canvas-btn')?.addEventListener(
+        'click',
+        clearCanvas
+    );
 
+    btnTextil?.addEventListener(
+        'click',
+        () => {
+            activateTextilMode();
+            setNestingMaterial('textil');
+            updateNestingCalculation();
+        }
+    );
 
-    // =====================================
-    // LOGO
-    // =====================================
+    btnUv?.addEventListener(
+        'click',
+        () => {
+            activateUvMode();
+            setNestingMaterial('uv');
+            updateNestingCalculation();
+        }
+    );
 
-    const logoTrigger =
-        $id('logo-trigger');
+    uvSize?.addEventListener(
+        'change',
+        () => {
+            uvCustomBox?.classList.toggle(
+                'hidden',
+                uvSize.value !== 'custom'
+            );
 
-    if (logoTrigger) {
+            updateNestingCalculation();
+            calculatePrice();
+        }
+    );
 
-        logoTrigger.addEventListener(
-            'click',
-            () => switchTab('inicio')
-        );
+    const textilSize =
+        $id('textil-size');
 
-    }
+    const textilCustomBox =
+        $id('textil-custom-box');
 
+    textilSize?.addEventListener(
+        'change',
+        () => {
+            textilCustomBox?.classList.toggle(
+                'hidden',
+                textilSize.value !== 'custom'
+            );
 
-    // =====================================
-    // MOBILE BUTTON
-    // =====================================
+            calculatePrice();
+        }
+    );
 
-    const mobileMenuToggle =
-        $id('mobile-menu-toggle');
+    $id('textil-custom-height')?.addEventListener(
+        'input',
+        calculatePrice
+    );
 
-    if (mobileMenuToggle) {
+    $id('uv-width')?.addEventListener(
+        'change',
+        event => {
+            setDtfUvWidth(
+                parseFloat(event.target.value)
+            );
 
-        mobileMenuToggle.addEventListener(
-            'click',
-            toggleMobileMenu
-        );
+            updateNestingCalculation();
+            calculatePrice();
+        }
+    );
 
-    }
+    $id('uv-custom-height')?.addEventListener(
+        'input',
+        () => {
+            updateNestingCalculation();
+            calculatePrice();
+        }
+    );
 
+    $id('quantity')?.addEventListener(
+        'input',
+        calculatePrice
+    );
 
-    // =====================================
-    // CART BUTTONS
-    // =====================================
+    activateTextilMode();
+}
 
-    const cartToggleBtn =
-        $id('cart-toggle-btn');
+export function initializeUI() {
+    applyBusinessConfig();
+    initializeNavigation();
+    initializeCartShell();
+    initializeConfirmModal();
 
-    const cartCloseBtn =
-        $id('cart-close-btn');
-
-    const cartOverlay =
-        $id('cart-overlay');
-
-    if (cartToggleBtn) {
-
-        cartToggleBtn.addEventListener(
-            'click',
-            toggleCart
-        );
-
-    }
-
-    if (cartCloseBtn) {
-
-        cartCloseBtn.addEventListener(
-            'click',
-            closeCart
-        );
-
-    }
-
-    if (cartOverlay) {
-
-        cartOverlay.addEventListener(
-            'click',
-            closeCart
-        );
-
-    }
-
-
-    // =====================================
-    // CONTACT FORM
-    // =====================================
-
-    document.getElementById('contact-form')
-    ?.addEventListener(
+    $id('contact-form')?.addEventListener(
         'submit',
         handleFormSubmit
     );
 
+    initializeMaterialControls();
 
-    // =====================================
-    // CLEAR CANVAS
-    // =====================================
-
-    const clearCanvasBtn =
-        $id('clear-canvas-btn');
-
-    if (clearCanvasBtn) {
-
-        clearCanvasBtn.addEventListener(
-            'click',
-            clearCanvas
-        );
-
+    if (appState.currentTab !== 'inicio') {
+        switchTab(appState.currentTab);
     }
-
-
-    // =====================================
-    // MATERIAL BUTTONS
-    // =====================================
-
-    if (btnTextil) {
-
-        btnTextil.addEventListener(
-            'click',
-            () => {
-
-                activateTextilMode();
-
-                if (typeof setNestingMaterial === 'function') {
-
-                    setNestingMaterial('textil');
-
-                }
-
-                if (typeof updateNestingCalculation === 'function') {
-
-                    updateNestingCalculation();
-
-                }
-
-            }
-        );
-
-    }
-
-    if (btnUv) {
-
-        btnUv.addEventListener(
-            'click',
-            () => {
-
-                activateUvMode();
-
-                if (typeof setNestingMaterial === 'function') {
-
-                    setNestingMaterial('uv');
-
-                }
-
-                if (typeof updateNestingCalculation === 'function') {
-
-                    updateNestingCalculation();
-
-                }
-
-            }
-        );
-
-    }
-
-
-    // =====================================
-    // UV CUSTOM SIZE
-    // =====================================
-
-    if (uvSize) {
-
-        uvSize.addEventListener(
-            'change',
-            () => {
-
-                if (uvSize.value === 'custom') {
-
-                    uvCustomBox?.classList.remove(
-                        'hidden'
-                    );
-
-                } else {
-
-                    uvCustomBox?.classList.add(
-                        'hidden'
-                    );
-
-                }
-
-                if (typeof updateNestingCalculation === 'function') {
-
-                    updateNestingCalculation();
-                    calculatePrice();
-
-                }
-
-            }
-        );
-
-    }
-
-    // =====================================
-// TEXTIL CUSTOM SIZE
-// =====================================
-
-const textilSize =
-document.getElementById(
-    'textil-size'
-);
-
-const textilCustomBox =
-document.getElementById(
-    'textil-custom-box'
-);
-
-if (textilSize) {
-
-textilSize.addEventListener(
-    'change',
-    () => {
-
-        if (
-            textilSize.value === 'custom'
-        ) {
-
-            textilCustomBox?.classList.remove(
-                'hidden'
-            );
-
-        } else {
-
-            textilCustomBox?.classList.add(
-                'hidden'
-            );
-
-        }
-
-        if (
-            typeof calculatePrice
-            === 'function'
-        ) {
-
-            calculatePrice();
-
-        }
-
-    }
-);
-
 }
-
-// =====================================
-// TEXTIL CUSTOM HEIGHT
-// =====================================
-
-const textilCustomHeight =
-    document.getElementById(
-        'textil-custom-height'
-    );
-
-if (textilCustomHeight) {
-
-    textilCustomHeight.addEventListener(
-        'input',
-        () => {
-
-            if (
-                typeof calculatePrice
-                === 'function'
-            ) {
-
-                calculatePrice();
-
-            }
-
-        }
-    );
-
-}
-
-
-    // =====================================
-    // UV WIDTH SELECT
-    // =====================================
-
-    const uvWidth =
-        $id('uv-width');
-
-    if (uvWidth) {
-
-        uvWidth.addEventListener(
-            'change',
-            () => {
-
-                if (typeof setDtfUvWidth === 'function') {
-
-                    setDtfUvWidth(
-                        parseFloat(uvWidth.value)
-                    );
-
-                }
-
-                if (typeof updateNestingCalculation === 'function') {
-
-                    updateNestingCalculation();
-                    calculatePrice();
-
-                }
-
-            }
-        );
-
-    }
-
-
-    // =====================================
-    // CUSTOM UV INPUT
-    // =====================================
-
-    const uvCustomHeight =
-        $id('uv-custom-height');
-
-    if (uvCustomHeight) {
-
-        uvCustomHeight.addEventListener(
-            'input',
-            () => {
-
-                if (typeof updateNestingCalculation === 'function') {
-
-                    updateNestingCalculation();
-                    calculatePrice();
-
-                }
-
-            }
-        );
-
-    }
-
-    // =====================================
-// QUANTITY INPUT
-// =====================================
-
-const quantityInput =
-$id('quantity');
-
-if (quantityInput) {
-
-quantityInput.addEventListener(
-    'input',
-    () => {
-
-        calculatePrice();
-
-    }
-);
-
-}
-
-    // =====================================
-    // DEFAULT MODE
-    // =====================================
-
-    activateTextilMode();
-
-}
-
-// =========================================
-// ELEMENTS
-// =========================================
 
 const btnTextil =
-    document.getElementById("btn-textil");
+    $id('btn-textil');
 
 const btnUv =
-    document.getElementById("btn-uv");
+    $id('btn-uv');
 
-
-// HEIGHT
 const textilHeightBox =
-    document.getElementById("textil-height-box");
+    $id('textil-height-box');
 
 const uvSelector =
-    document.getElementById("uv-size-selector");
+    $id('uv-size-selector');
 
-
-// WIDTH
 const textilWidthBox =
-    document.getElementById("textil-width-box");
+    $id('textil-width-box');
 
 const uvWidthSelector =
-    document.getElementById("uv-width-selector");
+    $id('uv-width-selector');
 
-
-// UV SELECT
 const uvSize =
-    document.getElementById("uv-size");
+    $id('uv-size');
 
 const uvCustomBox =
-    document.getElementById("uv-custom-box");
+    $id('uv-custom-box');

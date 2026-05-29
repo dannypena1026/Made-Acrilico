@@ -1,12 +1,10 @@
-// =========================================
-// PRICING
-// =========================================
+import { appState } from '../core/state.js';
+import { buildQuoteFromInput } from '../core/pricing-engine.js';
+import { formatCurrency } from '../utils/helpers.js';
 
 let currentQuote = null;
 
-
 function getQuantityValue() {
-
     const value =
         parseInt(
             document.getElementById('quantity')?.value || 1,
@@ -16,17 +14,13 @@ function getQuantityValue() {
     return Number.isFinite(value) && value > 0
         ? value
         : 1;
-
 }
 
-
 function getSelectedHeight(sizeId, customHeightId) {
-
     const size =
         document.getElementById(sizeId)?.value;
 
     if (size === 'custom') {
-
         const customHeight =
             parseFloat(
                 document.getElementById(customHeightId)?.value
@@ -34,10 +28,8 @@ function getSelectedHeight(sizeId, customHeightId) {
 
         return {
             height: customHeight,
-            isCustom: true,
             isValid: Number.isFinite(customHeight) && customHeight >= 36
         };
-
     }
 
     const height =
@@ -45,32 +37,15 @@ function getSelectedHeight(sizeId, customHeightId) {
 
     return {
         height,
-        isCustom: false,
         isValid: Number.isFinite(height) && height > 0
     };
-
 }
-
-
-function getTierForLength(lengthInches, tiers) {
-
-    return tiers.find(
-        tier => lengthInches <= tier.length
-    ) || tiers[tiers.length - 1];
-
-}
-
 
 function buildQuote() {
-
     const quantity =
         getQuantityValue();
 
-    if (currentMaterial === 'textil') {
-
-        const material =
-            MATERIALS.textil;
-
+    if (appState.currentMaterial === 'textil') {
         const heightData =
             getSelectedHeight(
                 'textil-size',
@@ -78,67 +53,25 @@ function buildQuote() {
             );
 
         if (!heightData.isValid) {
-
             return {
                 invalid: true,
                 warningId: 'textil-warning',
                 material: 'DTF Textil',
                 quantity
             };
-
         }
 
-        const tier =
-            getTierForLength(
-                heightData.height,
-                material.tiers
-            );
-
-        const customOverYard =
-            heightData.isCustom && heightData.height > 36;
-
-        const chargedLength =
-            customOverYard
-                ? heightData.height
-                : tier.length;
-
-        const unitPrice =
-            customOverYard
-                ? Math.ceil(
-                    (heightData.height / 36) *
-                    material.tiers[material.tiers.length - 1].price
-                )
-                : tier.price;
-
-        return {
-            invalid: false,
+        return buildQuoteFromInput({
             materialKey: 'textil',
-            material: 'DTF Textil',
-            width: material.width,
             height: heightData.height,
-            size: `${material.width} x ${heightData.height} in`,
-            quantity,
-            chargedLength,
-            yards: chargedLength / 36,
-            pricePerYard: customOverYard
-                ? material.tiers[material.tiers.length - 1].price
-                : tier.price,
-            unitPrice,
-            total: unitPrice * quantity
-        };
-
+            quantity
+        });
     }
 
     const uvWidth =
-        String(
-            parseFloat(
-                document.getElementById('uv-width')?.value || 16
-            )
+        parseFloat(
+            document.getElementById('uv-width')?.value || 16
         );
-
-    const material =
-        MATERIALS.uv.widths[uvWidth] ||
-        MATERIALS.uv.widths['16'];
 
     const heightData =
         getSelectedHeight(
@@ -147,60 +80,23 @@ function buildQuote() {
         );
 
     if (!heightData.isValid) {
-
         return {
             invalid: true,
             warningId: 'uv-warning',
-            material: material.label,
+            material: `DTF UV (${uvWidth}")`,
             quantity
         };
-
     }
 
-    const tier =
-        getTierForLength(
-            heightData.height,
-            material.tiers
-        );
-
-    const customOverYard =
-        heightData.isCustom && heightData.height > 36;
-
-    const chargedLength =
-        customOverYard
-            ? heightData.height
-            : tier.length;
-
-    const unitPrice =
-        customOverYard
-            ? Math.ceil(
-                (heightData.height / 36) *
-                material.tiers[material.tiers.length - 1].price
-            )
-            : tier.price;
-
-    return {
-        invalid: false,
+    return buildQuoteFromInput({
         materialKey: 'uv',
-        material: material.label,
-        width: parseFloat(uvWidth),
         height: heightData.height,
-        size: `${parseFloat(uvWidth)} x ${heightData.height} in`,
         quantity,
-        chargedLength,
-        yards: chargedLength / 36,
-        pricePerYard: customOverYard
-            ? material.tiers[material.tiers.length - 1].price
-            : tier.price,
-        unitPrice,
-        total: unitPrice * quantity
-    };
-
+        uvWidth
+    });
 }
 
-
 function setWarningState(quote) {
-
     const textilWarning =
         document.getElementById('textil-warning');
 
@@ -216,12 +112,9 @@ function setWarningState(quote) {
         'hidden',
         quote.warningId !== 'uv-warning'
     );
-
 }
 
-
 function renderQuote(quote) {
-
     const summaryMaterial =
         document.getElementById('summary-material');
 
@@ -248,17 +141,17 @@ function renderQuote(quote) {
         !summaryPriceYard ||
         !summaryTotal
     ) {
-
         return;
-
     }
 
     setWarningState(quote);
 
     if (quote.invalid) {
-
         summaryMaterial.innerText =
             quote.material;
+
+        summarySize.innerText =
+            'Medida pendiente';
 
         summaryQty.innerText =
             `${quote.quantity} repetición(es)`;
@@ -267,13 +160,12 @@ function renderQuote(quote) {
             '0.00 yd';
 
         summaryPriceYard.innerText =
-            '$0 DOP';
+            formatCurrency(0);
 
         summaryTotal.innerText =
-            '$0 DOP';
+            formatCurrency(0);
 
         return;
-
     }
 
     summaryMaterial.innerText =
@@ -289,16 +181,13 @@ function renderQuote(quote) {
         `${quote.yards.toFixed(2)} yd`;
 
     summaryPriceYard.innerText =
-        `$${quote.pricePerYard} DOP`;
+        formatCurrency(quote.pricePerYard);
 
     summaryTotal.innerText =
-        `$${quote.total.toLocaleString()} DOP`;
-
+        formatCurrency(quote.total);
 }
 
-
-function calculatePrice() {
-
+export function calculatePrice() {
     currentQuote =
         buildQuote();
 
@@ -307,18 +196,12 @@ function calculatePrice() {
     );
 
     return currentQuote;
-
 }
 
-
-function getCurrentQuote() {
-
+export function getCurrentQuote() {
     if (!currentQuote) {
-
         return calculatePrice();
-
     }
 
     return currentQuote;
-
 }

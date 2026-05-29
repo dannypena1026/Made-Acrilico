@@ -2,8 +2,11 @@
   "name": "made-acrilico",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "build:css": "tailwindcss -c tailwind.config.js -i ./css/tailwind.input.css -o ./css/tailwind.css --minify"
+    "build:css": "tailwindcss -c tailwind.config.cjs -i ./css/tailwind.input.css -o ./css/tailwind.css --minify",
+    "check:js": "node scripts/check-js.mjs",
+    "test": "node --test"
   },
   "devDependencies": {
     "tailwindcss": "3.4.17"

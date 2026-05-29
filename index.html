@@ -62,7 +62,7 @@
 
                 <!-- Iconos de Acción y Contacto Rápido -->
                 <div class="flex items-center gap-4">
-                    <a href="https://wa.me/18297078582" target="_blank" class="hidden lg:flex items-center gap-2 text-sm font-semibold bg-emerald-500 text-white px-4 py-2 rounded-full hover:bg-emerald-600 transition-all shadow-md">
+                    <a data-business-whatsapp href="https://wa.me/18297078582" target="_blank" class="hidden lg:flex items-center gap-2 text-sm font-semibold bg-emerald-500 text-white px-4 py-2 rounded-full hover:bg-emerald-600 transition-all shadow-md">
                         <i class="fab fa-whatsapp text-lg"></i>
                         <span>Cotizar por WhatsApp</span>
                     </a>
@@ -123,6 +123,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
 </button>
 
 <a
+    data-business-whatsapp
     href="https://wa.me/18297078582"
     target="_blank"
     class="block text-center bg-emerald-500 text-white py-2.5 rounded-lg font-bold"
@@ -576,7 +577,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                             <input
                                 type="file"
                                 id="upload-design"
-                                accept=".png,.pdf,.tif,.tiff,.jpg,.jpeg,image/*,application/pdf"
+                                accept=".png,.pdf,.ai,.psd,image/png,application/pdf"
                                 class="hidden"
                             >
 
@@ -876,22 +877,22 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                         <div class="space-y-5">
                             <h3 class="font-bold text-xl text-logoDark">MADE ACRÍLICO</h3>
                             <div class="space-y-3 text-sm text-gray-600">
-                                <p class="flex items-start gap-3"><i class="fa-solid fa-location-dot text-logoMagenta mt-1"></i> <span>Plaza Comercial Herrera, Av. Isabel Aguiar, Santo Domingo</span></p>
-                                <p class="flex items-center gap-3"><i class="fa-solid fa-phone text-logoCyan"></i> <a href="tel:+18297078582" class="hover:text-logoCyan font-semibold">+1 (829) 707-8582</a></p>
-                                <p class="flex items-center gap-3"><i class="fa-solid fa-envelope text-logoYellow"></i> <a href="mailto:madeacrilico@gmail.com" class="hover:text-logoMagenta font-semibold">madeacrilico@gmail.com</a></p>
+                                <p class="flex items-start gap-3"><i class="fa-solid fa-location-dot text-logoMagenta mt-1"></i> <span data-business-address>Plaza Comercial Herrera, Av. Isabel Aguiar, Santo Domingo</span></p>
+                                <p class="flex items-center gap-3"><i class="fa-solid fa-phone text-logoCyan"></i> <a data-business-phone data-business-phone-text href="tel:+18297078582" class="hover:text-logoCyan font-semibold">+1 (829) 707-8582</a></p>
+                                <p class="flex items-center gap-3"><i class="fa-solid fa-envelope text-logoYellow"></i> <a data-business-email href="mailto:madeacrilico@gmail.com" class="hover:text-logoMagenta font-semibold">madeacrilico@gmail.com</a></p>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                            <a href="https://wa.me/18297078582" target="_blank" class="flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl py-3 px-4 text-sm font-bold transition-all">
+                            <a data-business-whatsapp href="https://wa.me/18297078582" target="_blank" class="flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl py-3 px-4 text-sm font-bold transition-all">
                                 <i class="fa-brands fa-whatsapp"></i>
                                 WhatsApp
                             </a>
-                            <a href="tel:+18297078582" class="flex items-center justify-center gap-2 bg-white hover:bg-cyan-50 text-logoCyan border border-cyan-100 rounded-xl py-3 px-4 text-sm font-bold transition-all">
+                            <a data-business-phone href="tel:+18297078582" class="flex items-center justify-center gap-2 bg-white hover:bg-cyan-50 text-logoCyan border border-cyan-100 rounded-xl py-3 px-4 text-sm font-bold transition-all">
                                 <i class="fa-solid fa-phone"></i>
                                 Llamar
                             </a>
-                            <a href="https://www.google.com/maps/place/Made+Acrilico/data=!4m2!3m1!1s0x0:0x5e3e2a9a6b659d5f?sa=X&ved=1t:2428&ictx=111" target="_blank" class="flex items-center justify-center gap-2 bg-white hover:bg-pink-50 text-logoMagenta border border-pink-100 rounded-xl py-3 px-4 text-sm font-bold transition-all">
+                            <a data-business-maps href="https://www.google.com/maps/place/Made+Acrilico/data=!4m2!3m1!1s0x0:0x5e3e2a9a6b659d5f?sa=X&ved=1t:2428&ictx=111" target="_blank" class="flex items-center justify-center gap-2 bg-white hover:bg-pink-50 text-logoMagenta border border-pink-100 rounded-xl py-3 px-4 text-sm font-bold transition-all">
                                 <i class="fa-solid fa-location-dot"></i>
                                 Ubicación
                             </a>
@@ -978,6 +979,42 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
     <div
     id="cart-overlay"
     class="fixed inset-0 bg-black/50 z-40 hidden transition-opacity"></div>
+
+    <div
+        id="toast-container"
+        class="fixed bottom-4 right-4 z-[70] space-y-3 pointer-events-none"
+        aria-live="polite"
+    ></div>
+
+    <div
+        id="confirm-modal"
+        class="fixed inset-0 z-[80] hidden items-center justify-center bg-black/50 px-4"
+        role="dialog"
+        aria-modal="true"
+    >
+        <div class="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl space-y-5">
+            <div class="space-y-2">
+                <h3 id="confirm-modal-title" class="text-lg font-extrabold text-logoDark">Confirmar acción</h3>
+                <p id="confirm-modal-message" class="text-sm text-gray-500 leading-relaxed">¿Deseas continuar?</p>
+            </div>
+            <div class="flex gap-3 justify-end">
+                <button
+                    type="button"
+                    id="confirm-modal-cancel"
+                    class="px-4 py-2 rounded-xl border border-gray-200 text-gray-500 text-sm font-bold hover:bg-gray-50 transition-all"
+                >
+                    Cancelar
+                </button>
+                <button
+                    type="button"
+                    id="confirm-modal-confirm"
+                    class="px-4 py-2 rounded-xl bg-logoMagenta text-white text-sm font-bold hover:bg-pink-600 transition-all"
+                >
+                    Confirmar
+                </button>
+            </div>
+        </div>
+    </div>
     
     <!-- PIE DE PÁGINA (FOOTER) -->
     <footer class="bg-logoDark text-white mt-24 border-t-4 border-logoMagenta">
@@ -1020,7 +1057,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     <ul class="space-y-2 text-xs text-gray-400">
                         <li><a data-go-tab="guia" class="hover:text-white transition-colors cursor-pointer">Guía de Preparación de Archivos</a></li>
                         <li><a data-go-tab="contacto" class="hover:text-white transition-colors cursor-pointer">Envíos y Entregas Nacionales</a></li>
-                        <li><a href="https://wa.me/18297078582" class="hover:text-white transition-colors cursor-pointer">Atención por WhatsApp</a></li>
+                        <li><a data-business-whatsapp href="https://wa.me/18297078582" class="hover:text-white transition-colors cursor-pointer">Atención por WhatsApp</a></li>
                     </ul>
                 </div>
 
@@ -1036,7 +1073,10 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
             </div>
 
             <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
-                <p>&copy; 2026 MADE ACRÍLICO - Taller Gráfico. Todos los derechos reservados.</p>
+                <div class="text-center md:text-left space-y-1">
+                    <p>&copy; 2026 MADE ACRÍLICO - Taller Gráfico. Todos los derechos reservados.</p>
+                    <p>Sitio web diseñado y desarrollado por Danny Peña.</p>
+                </div>
                 <div class="flex gap-4">
                     <a href="#" class="hover:text-gray-400">Políticas de Privacidad</a>
                     <a href="#" class="hover:text-gray-400">Términos del Servicio</a>
@@ -1044,22 +1084,6 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
             </div>
         </div>
     </footer>
-    <!-- CORE -->
-        <script src="js/core/constants.js"></script>
-        <script src="js/core/state.js"></script>
-
-    <!-- UTILS -->
-        <script src="js/utils/dom.js"></script>
-        <script src="js/utils/helpers.js"></script>
-
-    <!-- MODULES -->
-        <script src="js/modules/pricing.js"></script>
-        <script src="js/modules/canvas.js"></script>
-        <script src="js/modules/cart.js"></script>
-        <script src="js/modules/ui.js"></script>
-        <script src="js/modules/upload.js"></script>
-
-    <!-- APP -->
-        <script src="js/app.js"></script>
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>

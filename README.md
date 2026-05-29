@@ -11,22 +11,23 @@ Este proyecto ofrece una experiencia web para que los clientes puedan revisar ta
 - Calculadora para DTF Textil y DTF UV.
 - Seleccion de ancho y largo segun el material.
 - Soporte para medidas personalizadas.
-- Validacion visual de medidas no permitidas.
+- Validacion de medidas no permitidas.
 - Resumen automatico de cotizacion.
 - Carrito de produccion con persistencia local.
-- Edicion de cantidades desde el carrito.
-- Duplicado y eliminacion de productos.
-- Vista del archivo seleccionado con nombre, tipo y tamano.
-- Mensaje de WhatsApp generado automaticamente con el detalle de la orden.
+- Edicion, duplicado, eliminacion y vaciado completo del carrito.
+- Costo opcional de envio.
+- Validacion de archivo para la orden.
+- Mensaje de WhatsApp generado automaticamente con detalle de orden, envio, entrega y aviso de revision.
 - Secciones informativas de tarifas, guia de archivo y contacto.
 
 ## Tecnologias
 
 - HTML
 - CSS
-- JavaScript
+- JavaScript con ES Modules
 - Tailwind CSS
 - Font Awesome
+- Node.js para scripts de desarrollo y pruebas
 
 ## Estructura general
 
@@ -38,27 +39,54 @@ css/
   tailwind.css
   tailwind.input.css
 js/
+  app.js
   core/
+    business-config.js
+    constants.js
+    pricing-engine.js
+    state.js
   modules/
+    canvas.js
+    cart.js
+    pricing.js
+    ui.js
+    upload.js
   utils/
+    dom.js
+    helpers.js
+scripts/
+  check-js.mjs
+test/
+  pricing-engine.test.js
 index.html
 package.json
-tailwind.config.js
+tailwind.config.cjs
 ```
 
-## Uso local
+## Configuracion del negocio
 
-Puedes abrir `index.html` directamente en el navegador o servir la carpeta con un servidor local.
+Los datos principales del negocio viven en:
 
-Ejemplo con Node:
-
-```bash
-npx serve .
+```text
+js/core/business-config.js
 ```
 
-## Instalacion para desarrollo
+Desde ese archivo se modifican:
 
-Instala las dependencias:
+- WhatsApp
+- telefono
+- correo
+- direccion
+- enlace de Google Maps
+- precio de envio
+- tiempo de entrega
+- metodos de pago
+- formatos permitidos para archivo
+- precios por material
+
+## Comandos de desarrollo
+
+Instala dependencias:
 
 ```bash
 npm install
@@ -70,13 +98,36 @@ Genera el CSS de Tailwind:
 npm run build:css
 ```
 
+Revisa sintaxis JS:
+
+```bash
+npm run check:js
+```
+
+Ejecuta pruebas:
+
+```bash
+npm test
+```
+
+## Uso local
+
+Puedes abrir `index.html` con un servidor local.
+
+Ejemplo con Node:
+
+```bash
+npx serve .
+```
+
 ## Notas
 
 - Los archivos seleccionados por el cliente no se adjuntan automaticamente al mensaje de WhatsApp.
 - El carrito se guarda localmente en el navegador del cliente.
-- Si se modifican clases de Tailwind en el HTML o JavaScript, vuelve a ejecutar `npm run build:css`.
+- Si se modifican clases de Tailwind en el HTML o JavaScript, ejecuta `npm run build:css`.
+- Si se modifican precios, ejecuta `npm test` para validar los calculos principales.
 
 ## Autor
 
-MADE ACRILICO - Taller Grafico
-Creado por Danny Peña Adames
+- MADE ACRILICO - Taller Grafico
+- Danny Peña Adames - Desarrollador Web

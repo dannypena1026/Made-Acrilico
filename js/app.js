@@ -1,74 +1,16 @@
-// =========================================
-// APP INITIALIZATION
-// =========================================
+import { initializeCanvas } from './modules/canvas.js';
+import { initializeCart } from './modules/cart.js';
+import { calculatePrice } from './modules/pricing.js';
+import { initializeUI } from './modules/ui.js';
+import { initializeUploads } from './modules/upload.js';
 
 document.addEventListener(
     'DOMContentLoaded',
     () => {
-
-        // =============================
-        // INIT UI
-        // =============================
-
-        if (
-            typeof initializeUI === 'function'
-        ) {
-
-            initializeUI();
-
-        }
-
-
-        // =============================
-        // INIT CANVAS
-        // =============================
-
-        if (
-            typeof initializeCanvas === 'function'
-        ) {
-
-            initializeCanvas();
-
-        }
-
-
-        // =============================
-        // INIT UPLOADS
-        // =============================
-
-        if (
-            typeof initializeUploads === 'function'
-        ) {
-
-            initializeUploads();
-
-        }
-
-
-        // =============================
-        // INIT CART
-        // =============================
-
-        if (
-            typeof initializeCart === 'function'
-        ) {
-
-            initializeCart();
-
-        }
-
-
-        // =============================
-        // INITIAL PRICE
-        // =============================
-
-        if (
-            typeof calculatePrice === 'function'
-        ) {
-
-            calculatePrice();
-
-        }
-
+        initializeCanvas();
+        initializeUI();
+        initializeUploads();
+        initializeCart();
+        calculatePrice();
     }
 );
