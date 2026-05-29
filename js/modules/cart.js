@@ -3,8 +3,11 @@
 // =========================================
 
 const CART_STORAGE_KEY = 'made-acrilico-cart';
+const CART_SHIPPING_STORAGE_KEY = 'made-acrilico-shipping-enabled';
+const SHIPPING_PRICE = 250;
 
 let cart = [];
+let includeShipping = false;
 
 
 function escapeHTML(value) {
@@ -41,6 +44,27 @@ function loadCart() {
         storedCart
         .map(normalizeCartItem)
         .filter(Boolean);
+
+}
+
+
+function saveShippingPreference() {
+
+    saveToStorage(
+        CART_SHIPPING_STORAGE_KEY,
+        includeShipping
+    );
+
+}
+
+
+function loadShippingPreference() {
+
+    includeShipping =
+        loadFromStorage(
+            CART_SHIPPING_STORAGE_KEY,
+            false
+        ) === true;
 
 }
 
@@ -295,6 +319,15 @@ function updateCartUI() {
     const subtotalEl =
         document.getElementById('cart-subtotal');
 
+    const shippingToggle =
+        document.getElementById('cart-shipping-toggle');
+
+    const shippingEl =
+        document.getElementById('cart-shipping');
+
+    const clearCartBtn =
+        document.getElementById('clear-cart-btn');
+
     const totalEl =
         document.getElementById('cart-total');
 
@@ -302,6 +335,8 @@ function updateCartUI() {
         !countEl ||
         !container ||
         !subtotalEl ||
+        !shippingToggle ||
+        !shippingEl ||
         !totalEl
     ) {
 
@@ -317,6 +352,17 @@ function updateCartUI() {
 
     countEl.innerText =
         itemCount;
+
+    clearCartBtn?.classList.toggle(
+        'hidden',
+        cart.length === 0
+    );
+
+    shippingToggle.checked =
+        includeShipping;
+
+    shippingEl.innerText =
+        formatCurrency(SHIPPING_PRICE);
 
     if (cart.length === 0) {
 
@@ -343,7 +389,14 @@ function updateCartUI() {
         formatCurrency(subtotal);
 
     totalEl.innerText =
-        formatCurrency(subtotal);
+        formatCurrency(
+            subtotal +
+            (
+                includeShipping
+                    ? SHIPPING_PRICE
+                    : 0
+            )
+        );
 
 }
 
@@ -374,6 +427,29 @@ function removeCartItem(itemId) {
         );
 
     saveCart();
+
+    updateCartUI();
+
+}
+
+
+function clearCart() {
+
+    if (cart.length === 0) return;
+
+    if (
+        !confirm('¿Vaciar todo el carrito?')
+    ) {
+
+        return;
+
+    }
+
+    cart = [];
+    includeShipping = false;
+
+    saveCart();
+    saveShippingPreference();
 
     updateCartUI();
 
@@ -465,6 +541,18 @@ function handleCartInput(event) {
 }
 
 
+function handleShippingToggle(event) {
+
+    includeShipping =
+        event.target.checked;
+
+    saveShippingPreference();
+
+    updateCartUI();
+
+}
+
+
 // =========================================
 // CHECKOUT
 // =========================================
@@ -488,14 +576,14 @@ Deseo cotizar esta orden DTF:
 
 `;
 
-    let total = 0;
+    let subtotal = 0;
 
     cart.forEach(item => {
 
         const itemTotal =
             getCartItemTotal(item);
 
-        total += itemTotal;
+        subtotal += itemTotal;
 
         message +=
 `------------------------------
@@ -512,10 +600,33 @@ Tamaño: ${item.fileSize}
 
     });
 
+    const shippingTotal =
+        includeShipping
+            ? SHIPPING_PRICE
+            : 0;
+
+    const total =
+        subtotal + shippingTotal;
+
     message +=
 `------------------------------
+Subtotal:
+${formatCurrency(subtotal)}
+
+Envío:
+${includeShipping ? formatCurrency(SHIPPING_PRICE) : 'No incluido'}
+
 TOTAL ESTIMADO:
 ${formatCurrency(total)}
+
+Entrega estimada:
+Producción regular 24-48 horas según volumen.
+
+Forma de pago:
+Transferencia o efectivo.
+
+Importante:
+La cotización es estimada hasta revisar el archivo final.
 
 Nota: los archivos no se adjuntan automáticamente desde la web. Te los enviaré por este chat si hace falta.
 
@@ -540,6 +651,8 @@ function initializeCart() {
 
     loadCart();
 
+    loadShippingPreference();
+
     updateCartUI();
 
     document.getElementById('add-to-cart-btn')
@@ -552,6 +665,18 @@ function initializeCart() {
         ?.addEventListener(
             'click',
             checkoutOrder
+        );
+
+    document.getElementById('clear-cart-btn')
+        ?.addEventListener(
+            'click',
+            clearCart
+        );
+
+    document.getElementById('cart-shipping-toggle')
+        ?.addEventListener(
+            'change',
+            handleShippingToggle
         );
 
     const container =

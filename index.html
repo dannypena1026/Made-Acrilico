@@ -181,6 +181,45 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                 </div>
             </div>
 
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="bg-white border border-gray-100 rounded-2xl p-4 flex items-center gap-3 shadow-sm">
+                    <span class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center shrink-0">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </span>
+                    <div>
+                        <h3 class="text-sm font-extrabold text-logoDark">Atención por WhatsApp</h3>
+                        <p class="text-xs text-gray-500">Respuesta directa</p>
+                    </div>
+                </div>
+                <div class="bg-white border border-gray-100 rounded-2xl p-4 flex items-center gap-3 shadow-sm">
+                    <span class="w-10 h-10 rounded-xl bg-cyan-50 text-logoCyan flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-file-circle-check"></i>
+                    </span>
+                    <div>
+                        <h3 class="text-sm font-extrabold text-logoDark">Revisión de archivo</h3>
+                        <p class="text-xs text-gray-500">Antes de producir</p>
+                    </div>
+                </div>
+                <div class="bg-white border border-gray-100 rounded-2xl p-4 flex items-center gap-3 shadow-sm">
+                    <span class="w-10 h-10 rounded-xl bg-pink-50 text-logoMagenta flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </span>
+                    <div>
+                        <h3 class="text-sm font-extrabold text-logoDark">Envíos disponibles</h3>
+                        <p class="text-xs text-gray-500">A coordinar</p>
+                    </div>
+                </div>
+                <div class="bg-white border border-gray-100 rounded-2xl p-4 flex items-center gap-3 shadow-sm">
+                    <span class="w-10 h-10 rounded-xl bg-yellow-50 text-logoYellow flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-industry"></i>
+                    </span>
+                    <div>
+                        <h3 class="text-sm font-extrabold text-logoDark">Producción local</h3>
+                        <p class="text-xs text-gray-500">Santo Domingo</p>
+                    </div>
+                </div>
+            </div>
+
             <!-- NUESTROS SERVICIOS DE IMPRESIÓN (PRODUCTOS) -->
             <div class="space-y-8">
                 <div class="text-center max-w-3xl mx-auto space-y-2">
@@ -649,6 +688,19 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
 
                         </div>
 
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
+                            <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                                <span class="text-[10px] uppercase tracking-wider text-gray-400 font-bold">Entrega</span>
+                                <p class="text-sm font-extrabold text-white mt-1">24-48 horas</p>
+                                <p class="text-xs text-gray-400 mt-1">Según volumen</p>
+                            </div>
+                            <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                                <span class="text-[10px] uppercase tracking-wider text-gray-400 font-bold">Revisión</span>
+                                <p class="text-sm font-extrabold text-white mt-1">Cotización estimada</p>
+                                <p class="text-xs text-gray-400 mt-1">hasta ver archivo final</p>
+                            </div>
+                        </div>
+
                         <!-- TOTAL -->
                         <div class="mt-10">
 
@@ -665,6 +717,10 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                                 </div>
 
                             </div>
+
+                            <p class="mt-4 text-xs text-gray-400 leading-relaxed">
+                                La cotización es estimada hasta revisar el archivo final. Producción regular: 24-48 horas según volumen.
+                            </p>
 
                             <!-- BOTÓN -->
                             <button
@@ -693,42 +749,64 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
         <!-- PESTAÑA: GUÍA DE ARCHIVO -->
         <section id="tab-guia" class="tab-content hidden space-y-8">
             <div class="bg-white rounded-3xl p-6 sticky top-28 md:p-8 border border-gray-100 shadow-sm max-w-4xl mx-auto space-y-8">
-                <div class="text-center space-y-2">
-                    <h2 class="text-2xl md:text-3xl font-extrabold text-[#1E1E1E]">Cómo preparar tus archivos</h2>
-                    <p class="text-gray-500 text-sm">Asegura una impresión de ultra definición siguiendo estos consejos de nuestro equipo técnico de **MADE ACRÍLICO**.</p>
+                <div class="text-center space-y-3">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-[#1E1E1E]">Antes de enviar tu archivo</h2>
+                    <p class="text-gray-500 text-sm max-w-2xl mx-auto">
+                        Revisa estos puntos para que el equipo de <strong>MADE ACRÍLICO</strong> pueda imprimir tu diseño con mejor acabado y menos correcciones.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-2 pt-2">
+                        <span class="px-3 py-1 rounded-full bg-pink-50 text-logoMagenta text-xs font-bold">PNG transparente</span>
+                        <span class="px-3 py-1 rounded-full bg-cyan-50 text-logoCyan text-xs font-bold">PDF</span>
+                        <span class="px-3 py-1 rounded-full bg-yellow-50 text-logoDark text-xs font-bold">AI</span>
+                        <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-xs font-bold">PSD</span>
+                    </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="space-y-6">
                         <div class="flex gap-4 items-start">
-                            <div class="p-3 bg-pink-50 text-logoMagenta rounded-xl text-xl font-bold"><i class="fa-solid fa-expand"></i></div>
+                            <div class="p-3 bg-pink-50 text-logoMagenta rounded-xl text-xl font-bold"><i class="fa-solid fa-ruler-combined"></i></div>
                             <div>
-                                <h4 class="font-bold text-lg mb-1">1. Formato de Color CMYK</h4>
-                                <p class="text-sm text-gray-500">Configura tu espacio en CMYK. Los archivos en RGB pueden sufrir variaciones de tono drásticas al imprimirse.</p>
+                                <h4 class="font-bold text-lg mb-1">Tamaño real</h4>
+                                <p class="text-sm text-gray-500">Prepara el arte con la medida exacta que quieres imprimir. Así evitamos escalarlo y perder nitidez.</p>
                             </div>
                         </div>
                         <div class="flex gap-4 items-start">
-                            <div class="p-3 bg-cyan-50 text-logoCyan rounded-xl text-xl font-bold"><i class="fa-solid fa-image"></i></div>
+                            <div class="p-3 bg-cyan-50 text-logoCyan rounded-xl text-xl font-bold"><i class="fa-solid fa-droplet"></i></div>
                             <div>
-                                <h4 class="font-bold text-lg mb-1">2. Fondo Transparente Obligatorio</h4>
-                                <p class="text-sm text-gray-500">Envía PNG con fondo transparente. Todo lo que dejes de fondo se imprimirá con tinta blanca.</p>
+                                <h4 class="font-bold text-lg mb-1">Color y resolución</h4>
+                                <p class="text-sm text-gray-500">Trabaja en CMYK y exporta a 300 DPI. Los archivos en RGB pueden variar de tono al imprimirse.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start">
+                            <div class="p-3 bg-yellow-50 text-logoYellow rounded-xl text-xl font-bold"><i class="fa-solid fa-font"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">Textos a curvas</h4>
+                                <p class="text-sm text-gray-500">Si envías PDF o AI, convierte las fuentes a curvas o contornos para evitar cambios de tipografía.</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="space-y-6">
                         <div class="flex gap-4 items-start">
-                            <div class="p-3 bg-yellow-50 text-logoYellow rounded-xl text-xl font-bold"><i class="fa-solid fa-arrows-to-circle"></i></div>
+                            <div class="p-3 bg-emerald-50 text-emerald-500 rounded-xl text-xl font-bold"><i class="fa-solid fa-layer-group"></i></div>
                             <div>
-                                <h4 class="font-bold text-lg mb-1">3. Resolución Mínima 300 DPI</h4>
-                                <p class="text-sm text-gray-500">Crea tus archivos a tamaño real con 300 DPI para asegurar bordes nítidos.</p>
+                                <h4 class="font-bold text-lg mb-1">Fondo transparente</h4>
+                                <p class="text-sm text-gray-500">Si tu diseño no debe llevar fondo, envíalo con transparencia. Cualquier fondo visible puede imprimirse.</p>
                             </div>
                         </div>
                         <div class="flex gap-4 items-start">
-                            <div class="p-3 bg-emerald-50 text-emerald-500 rounded-xl text-xl font-bold"><i class="fa-solid fa-ban"></i></div>
+                            <div class="p-3 bg-red-50 text-red-500 rounded-xl text-xl font-bold"><i class="fa-solid fa-triangle-exclamation"></i></div>
                             <div>
-                                <h4 class="font-bold text-lg mb-1">4. Evita Líneas muy finas</h4>
-                                <p class="text-sm text-gray-500">Grosor mínimo recomendado: 1mm. Líneas microscópicas pierden anclaje de tinta blanca.</p>
+                                <h4 class="font-bold text-lg mb-1">Evita archivos problemáticos</h4>
+                                <p class="text-sm text-gray-500">No envíes capturas de pantalla, imágenes pixeladas, fondos blancos no deseados ni líneas menores a 1 mm.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start">
+                            <div class="p-3 bg-gray-100 text-logoDark rounded-xl text-xl font-bold"><i class="fa-solid fa-circle-check"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">Revisión antes de imprimir</h4>
+                                <p class="text-sm text-gray-500">Si no sabes si tu archivo está listo, envíanoslo por WhatsApp y lo revisamos antes de producir.</p>
                             </div>
                         </div>
                     </div>
@@ -740,47 +818,91 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
         <section id="tab-contacto" class="tab-content hidden space-y-8">
             <div class="bg-white rounded-3xl p-6 sticky top-28 md:p-8 border border-gray-100 shadow-sm max-w-5xl mx-auto space-y-8">
                 <div class="text-center space-y-2">
-                    <h2 class="text-2xl md:text-3xl font-extrabold text-[#1E1E1E]">Contacto & Sucursal</h2>
-                    <p class="text-gray-500 text-sm">Contáctanos directamente en República Dominicana.</p>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-[#1E1E1E]">Hablemos de tu pedido</h2>
+                    <p class="text-gray-500 text-sm">Escríbenos por WhatsApp para cotizar, enviar archivos o dar seguimiento a una orden.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <!-- Formulario de Correo -->
                     <div class="space-y-6">
-                        <h3 class="font-bold text-xl text-logoDark">Envíanos un mensaje</h3>
+                        <div>
+                            <h3 class="font-bold text-xl text-logoDark">Envíanos un mensaje</h3>
+                            <p class="text-sm text-gray-500 mt-1">El formulario abrirá WhatsApp con tu consulta lista para enviar.</p>
+                        </div>
+
                         <form id="contact-form" class="space-y-4">
-                            <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-xs font-bold text-gray-500 uppercase">Motivo</label>
+                                <select
+                                    id="contact-reason"
+                                    name="reason"
+                                    required
+                                    class="w-full border border-gray-200 rounded-xl p-3 focus:border-logoMagenta outline-none text-sm bg-white"
+                                >
+                                    <option value="Cotización">Cotización</option>
+                                    <option value="Enviar archivo">Enviar archivo</option>
+                                    <option value="Seguimiento de pedido">Seguimiento de pedido</option>
+                                    <option value="Otra consulta">Otra consulta</option>
+                                </select>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label class="text-xs font-bold text-gray-500 uppercase">Nombre</label>
-                                    <input type="text" required class="w-full border border-gray-200 rounded-xl p-3 focus:border-logoMagenta outline-none text-sm">
+                                    <input id="contact-name" name="name" type="text" required class="w-full border border-gray-200 rounded-xl p-3 focus:border-logoMagenta outline-none text-sm">
                                 </div>
                                 <div>
                                     <label class="text-xs font-bold text-gray-500 uppercase">Teléfono</label>
-                                    <input type="tel" required class="w-full border border-gray-200 rounded-xl p-3 focus:border-logoMagenta outline-none text-sm">
+                                    <input id="contact-phone" name="phone" type="tel" required class="w-full border border-gray-200 rounded-xl p-3 focus:border-logoMagenta outline-none text-sm">
                                 </div>
                             </div>
                             <div>
                                 <label class="text-xs font-bold text-gray-500 uppercase">Correo</label>
-                                <input type="email" required class="w-full border border-gray-200 rounded-xl p-3 focus:border-logoMagenta outline-none text-sm">
+                                <input id="contact-email" name="email" type="email" required class="w-full border border-gray-200 rounded-xl p-3 focus:border-logoMagenta outline-none text-sm">
                             </div>
                             <div>
                                 <label class="text-xs font-bold text-gray-500 uppercase">Mensaje</label>
-                                <textarea rows="3" required class="w-full border border-gray-200 rounded-xl p-3 focus:border-logoMagenta outline-none text-sm"></textarea>
+                                <textarea id="contact-message" name="message" rows="4" required class="w-full border border-gray-200 rounded-xl p-3 focus:border-logoMagenta outline-none text-sm" placeholder="Cuéntanos qué necesitas imprimir, medidas, cantidad o cualquier detalle importante."></textarea>
                             </div>
-                            <button type="submit" class="w-full bg-logoDark hover:bg-logoMagenta text-white font-bold py-3 rounded-xl transition-all shadow-md">
-                                Enviar Consulta
+                            <button type="submit" class="w-full bg-logoDark hover:bg-logoMagenta text-white font-bold py-3 rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
+                                <i class="fa-brands fa-whatsapp"></i>
+                                Enviar por WhatsApp
                             </button>
                         </form>
                     </div>
 
                     <!-- Datos de contacto & Horarios -->
                     <div class="space-y-6 bg-gray-50 p-6 md:p-8 rounded-2xl border border-gray-100 flex flex-col justify-between">
-                        <div class="space-y-4">
+                        <div class="space-y-5">
                             <h3 class="font-bold text-xl text-logoDark">MADE ACRÍLICO</h3>
                             <div class="space-y-3 text-sm text-gray-600">
-                                <p class="flex items-center gap-3"><i class="fa-solid fa-location-dot text-logoMagenta"></i> Av. 27 de Febrero, Distrito Nacional, República Dominicana</p>
-                                <p class="flex items-center gap-3"><i class="fa-solid fa-phone text-logoCyan"></i> +1 (829) 707-8582</p>
-                                <p class="flex items-center gap-3"><i class="fa-solid fa-envelope text-logoYellow"></i> contacto@madeacrilico.com</p>
+                                <p class="flex items-start gap-3"><i class="fa-solid fa-location-dot text-logoMagenta mt-1"></i> <span>Plaza Comercial Herrera, Av. Isabel Aguiar, Santo Domingo</span></p>
+                                <p class="flex items-center gap-3"><i class="fa-solid fa-phone text-logoCyan"></i> <a href="tel:+18297078582" class="hover:text-logoCyan font-semibold">+1 (829) 707-8582</a></p>
+                                <p class="flex items-center gap-3"><i class="fa-solid fa-envelope text-logoYellow"></i> <a href="mailto:madeacrilico@gmail.com" class="hover:text-logoMagenta font-semibold">madeacrilico@gmail.com</a></p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <a href="https://wa.me/18297078582" target="_blank" class="flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl py-3 px-4 text-sm font-bold transition-all">
+                                <i class="fa-brands fa-whatsapp"></i>
+                                WhatsApp
+                            </a>
+                            <a href="tel:+18297078582" class="flex items-center justify-center gap-2 bg-white hover:bg-cyan-50 text-logoCyan border border-cyan-100 rounded-xl py-3 px-4 text-sm font-bold transition-all">
+                                <i class="fa-solid fa-phone"></i>
+                                Llamar
+                            </a>
+                            <a href="https://www.google.com/maps/place/Made+Acrilico/data=!4m2!3m1!1s0x0:0x5e3e2a9a6b659d5f?sa=X&ved=1t:2428&ictx=111" target="_blank" class="flex items-center justify-center gap-2 bg-white hover:bg-pink-50 text-logoMagenta border border-pink-100 rounded-xl py-3 px-4 text-sm font-bold transition-all">
+                                <i class="fa-solid fa-location-dot"></i>
+                                Ubicación
+                            </a>
+                        </div>
+
+                        <div class="space-y-3 border-t border-gray-200 pt-5">
+                            <h4 class="text-xs font-bold uppercase text-gray-400 tracking-wider">Atención</h4>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <p class="flex items-center gap-3"><i class="fa-regular fa-clock text-logoMagenta"></i> Lunes a viernes: 9:00 AM - 6:00 PM</p>
+                                <p class="flex items-center gap-3"><i class="fa-regular fa-clock text-logoCyan"></i> Sábados: 9:00 AM - 2:00 PM</p>
+                                <p class="text-xs text-gray-500 leading-relaxed">Respondemos por WhatsApp lo antes posible durante horario laboral. Para visitas, confirma disponibilidad antes de pasar.</p>
                             </div>
                         </div>
                     </div>
@@ -792,32 +914,61 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
 
     <!-- BARRA LATERAL DEL CARRITO -->
     <div id="cart-sidebar" class="fixed top-0 right-0 bottom-0 w-full sm:w-96 bg-white z-50 shadow-2xl border-l border-gray-100 transform translate-x-full transition-transform duration-300 flex flex-col justify-between">
-        <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+        <div class="p-4 sm:p-6 border-b border-gray-100 flex justify-between items-center gap-3">
             <h3 class="font-bold text-lg flex items-center gap-2">
                 <i class="fa-solid fa-basket-shopping text-logoMagenta"></i>
                 <span>Carrito de Producción</span>
             </h3>
-            <button
-            id="cart-close-btn"
-            class="p-2 hover:bg-gray-100 rounded-full text-gray-500">
-            <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
+            <div class="flex items-center gap-2 shrink-0">
+                <button
+                    id="clear-cart-btn"
+                    type="button"
+                    class="hidden px-3 py-2 rounded-full bg-red-50 text-red-500 hover:bg-red-100 text-xs font-bold transition-all"
+                >
+                    <i class="fa-solid fa-trash"></i>
+                    Vaciar
+                </button>
+                <button
+                    id="cart-close-btn"
+                    class="p-2 hover:bg-gray-100 rounded-full text-gray-500">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
         </div>
 
-        <div class="p-6 flex-1 overflow-y-auto space-y-4" id="cart-items-container">
+        <div class="p-4 sm:p-6 flex-1 overflow-y-auto space-y-4" id="cart-items-container">
             <div class="text-center py-12 text-gray-400 space-y-2">
                 <i class="fa-solid fa-basket-shopping text-4xl block"></i>
                 <span class="text-sm">Cotización vacía. ¡Arma tu planilla DTF!</span>
             </div>
         </div>
 
-        <div class="p-6 border-t border-gray-100 space-y-4 bg-gray-50">
+        <div class="p-4 sm:p-6 border-t border-gray-100 space-y-4 bg-gray-50">
             <div class="space-y-1.5 text-xs text-gray-600">
                 <div class="flex justify-between"><span>Subtotal:</span> <span id="cart-subtotal" class="font-bold">$0 DOP</span></div>
+                <label class="flex items-center justify-between gap-3 rounded-xl border border-gray-200 bg-white px-3 py-3 cursor-pointer">
+                    <span class="flex items-center gap-2 font-bold text-[#1E1E1E]">
+                        <input
+                            type="checkbox"
+                            id="cart-shipping-toggle"
+                            class="h-4 w-4 accent-logoMagenta"
+                        >
+                        Incluir envío
+                    </span>
+                    <span id="cart-shipping" class="font-black text-logoCyan">RD$250</span>
+                </label>
                 <div class="flex justify-between text-sm text-[#1E1E1E] font-bold border-t border-gray-200 pt-2">
                     <span>Total Estimado:</span> <span id="cart-total" class="font-black text-logoMagenta">$0 DOP</span>
                 </div>
             </div>
+            <details class="rounded-xl bg-white border border-gray-200 p-3 text-xs text-gray-500 leading-relaxed">
+                <summary class="cursor-pointer font-bold text-logoDark">Detalles de producción y pago</summary>
+                <div class="space-y-1 pt-2">
+                    <p><strong class="text-logoDark">Entrega:</strong> producción regular 24-48 horas según volumen.</p>
+                    <p><strong class="text-logoDark">Pago:</strong> transferencia o efectivo.</p>
+                    <p><strong class="text-logoDark">Nota:</strong> cotización estimada hasta revisar el archivo final.</p>
+                </div>
+            </details>
             <button id="cart-checkout-btn" class="w-full bg-[#1E1E1E] hover:bg-logoMagenta text-white font-bold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2">
                 <i class="fab fa-whatsapp text-lg"></i> Enviar Orden a WhatsApp
             </button>

@@ -410,4 +410,6 @@ function initializeQuoteUpload() {
         clearUploadedFile
     );
 
+    renderUploadedFile();
+
 }

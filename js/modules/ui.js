@@ -182,8 +182,45 @@ function handleFormSubmit(event) {
 
     event.preventDefault();
 
-    alert(
-        'Gracias por escribirnos. Te contactaremos pronto.'
+    const formData =
+        new FormData(event.target);
+
+    const reason =
+        formData.get('reason') || 'Consulta';
+
+    const name =
+        formData.get('name') || 'No indicado';
+
+    const phone =
+        formData.get('phone') || 'No indicado';
+
+    const email =
+        formData.get('email') || 'No indicado';
+
+    const message =
+        formData.get('message') || 'Sin mensaje';
+
+    const whatsappMessage =
+`Hola MADE ACRÍLICO
+
+Me gustaría contactarles.
+
+Motivo: ${reason}
+Nombre: ${name}
+Teléfono: ${phone}
+Correo: ${email}
+
+Mensaje:
+${message}
+
+Gracias.`;
+
+    const whatsappURL =
+        `https://wa.me/18297078582?text=${encodeURIComponent(whatsappMessage)}`;
+
+    window.open(
+        whatsappURL,
+        '_blank'
     );
 
     event.target?.reset();
