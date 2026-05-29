@@ -12,6 +12,60 @@ import {
 
 let confirmResolver = null;
 
+const LEGAL_CONTENT = {
+    privacy: {
+        eyebrow: 'Políticas de privacidad',
+        title: 'Cómo usamos tu información',
+        html: `
+            <p>En MADE ACRÍLICO usamos la información que compartes para responder consultas, preparar cotizaciones, coordinar pedidos y dar seguimiento por WhatsApp.</p>
+            <div>
+                <h4 class="font-extrabold text-logoDark mb-2">Datos que podemos solicitar</h4>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>Nombre, teléfono, correo y mensaje de contacto.</li>
+                    <li>Detalles del pedido, medidas, cantidades y material solicitado.</li>
+                    <li>Referencia del archivo seleccionado para preparar la cotización.</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-extrabold text-logoDark mb-2">Archivos y carrito</h4>
+                <p>Los archivos seleccionados desde la web no se adjuntan automáticamente al mensaje de WhatsApp. El cliente debe enviarlos por el chat cuando sea necesario. El carrito se guarda localmente en el navegador para conservar la cotización durante la visita.</p>
+            </div>
+            <div>
+                <h4 class="font-extrabold text-logoDark mb-2">Uso de la información</h4>
+                <p>No vendemos datos a terceros. La información se usa únicamente para atención al cliente, revisión de archivos, producción, entrega y seguimiento del pedido.</p>
+            </div>
+            <p>Para solicitar corrección o eliminación de datos, puedes escribirnos por WhatsApp o al correo configurado en la sección de contacto.</p>
+        `
+    },
+    terms: {
+        eyebrow: 'Términos del servicio',
+        title: 'Condiciones de pedidos y cotizaciones',
+        html: `
+            <p>Al solicitar una cotización o enviar una orden, el cliente acepta que MADE ACRÍLICO revise el archivo final antes de confirmar producción.</p>
+            <div>
+                <h4 class="font-extrabold text-logoDark mb-2">Cotizaciones</h4>
+                <p>Las cotizaciones generadas en la página son estimadas hasta revisar el archivo final. El precio puede variar si el archivo, medida, cantidad o material cambia.</p>
+            </div>
+            <div>
+                <h4 class="font-extrabold text-logoDark mb-2">Archivos para impresión</h4>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>El cliente debe enviar archivos en buena resolución y a tamaño real.</li>
+                    <li>Los colores pueden variar entre pantalla e impresión.</li>
+                    <li>Si el archivo no está listo, podemos solicitar ajustes antes de producir.</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-extrabold text-logoDark mb-2">Producción, pago y entrega</h4>
+                <p>La producción regular es de 24-48 horas según volumen. Los pagos se coordinan por transferencia o efectivo. Los envíos y entregas se coordinan aparte según disponibilidad.</p>
+            </div>
+            <div>
+                <h4 class="font-extrabold text-logoDark mb-2">Cambios o cancelaciones</h4>
+                <p>Los cambios o cancelaciones dependen del estado del pedido. Una orden en producción puede no ser cancelable.</p>
+            </div>
+        `
+    }
+};
+
 export function showToast(message, type = 'info') {
     const container =
         $id('toast-container');
@@ -188,6 +242,36 @@ function applyBusinessConfig() {
             link.href =
                 BUSINESS_CONFIG.mapsUrl;
         });
+}
+
+function openLegalModal(type) {
+    const content =
+        LEGAL_CONTENT[type];
+
+    const modal =
+        $id('legal-modal');
+
+    if (!content || !modal) return;
+
+    $id('legal-modal-eyebrow').innerText =
+        content.eyebrow;
+
+    $id('legal-modal-title').innerText =
+        content.title;
+
+    $id('legal-modal-content').innerHTML =
+        content.html;
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+
+function closeLegalModal() {
+    const modal =
+        $id('legal-modal');
+
+    modal?.classList.add('hidden');
+    modal?.classList.remove('flex');
 }
 
 function toggleMobileMenu() {
@@ -397,6 +481,30 @@ function initializeNavigation() {
     );
 }
 
+function initializeLegalModal() {
+    $all('[data-legal-open]')
+        .forEach(button => {
+            button.addEventListener(
+                'click',
+                () => openLegalModal(button.dataset.legalOpen)
+            );
+        });
+
+    $id('legal-modal-close')?.addEventListener(
+        'click',
+        closeLegalModal
+    );
+
+    $id('legal-modal')?.addEventListener(
+        'click',
+        event => {
+            if (event.target.id === 'legal-modal') {
+                closeLegalModal();
+            }
+        }
+    );
+}
+
 function initializeCartShell() {
     $id('cart-toggle-btn')?.addEventListener(
         'click',
@@ -526,6 +634,7 @@ function initializeMaterialControls() {
 export function initializeUI() {
     applyBusinessConfig();
     initializeNavigation();
+    initializeLegalModal();
     initializeCartShell();
     initializeConfirmModal();
 
