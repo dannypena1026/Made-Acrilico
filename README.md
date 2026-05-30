@@ -82,7 +82,22 @@ Desde ese archivo se modifican:
 - tiempo de entrega
 - metodos de pago
 - formatos permitidos para archivo
+- clave de Web3Forms para envio por correo
+- Cloudinary Cloud Name y Upload Preset para subir archivos
 - precios por material
+
+Para activar el envio real de ordenes por correo, configura:
+
+```js
+web3FormsAccessKey: 'TU_ACCESS_KEY'
+```
+
+Para activar subida de archivos y enviar el link descargable en el correo, configura:
+
+```js
+cloudinaryCloudName: 'TU_CLOUD_NAME',
+cloudinaryUploadPreset: 'madeacrilico_uploads'
+```
 
 ## Comandos de desarrollo
 

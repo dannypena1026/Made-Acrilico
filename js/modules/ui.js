@@ -28,7 +28,7 @@ const LEGAL_CONTENT = {
             </div>
             <div>
                 <h4 class="font-extrabold text-logoDark mb-2">Archivos y carrito</h4>
-                <p>Los archivos seleccionados desde la web no se adjuntan automáticamente al mensaje de WhatsApp. El cliente debe enviarlos por el chat cuando sea necesario. El carrito se guarda localmente en el navegador para conservar la cotización durante la visita.</p>
+                <p>Los archivos subidos desde la web pueden enviarse como enlace en la orden para revisión interna. El carrito se guarda localmente en el navegador para conservar la cotización durante la visita.</p>
             </div>
             <div>
                 <h4 class="font-extrabold text-logoDark mb-2">Uso de la información</h4>

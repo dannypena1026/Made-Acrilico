@@ -153,7 +153,7 @@ function validateQuoteFile(file) {
     if (file.size > maxBytes) {
         return {
             valid: false,
-            message: `El archivo supera ${BUSINESS_CONFIG.maxUploadSizeMb} MB.`
+            message: `El archivo supera ${BUSINESS_CONFIG.maxUploadSizeMb} MB. Reduce el peso del diseño o envíalo directamente por WhatsApp.`
         };
     }
 
@@ -162,8 +162,57 @@ function validateQuoteFile(file) {
     };
 }
 
+function isCloudinaryConfigured() {
+    return Boolean(
+        BUSINESS_CONFIG.cloudinaryCloudName &&
+        BUSINESS_CONFIG.cloudinaryUploadPreset
+    );
+}
+
+async function uploadFileToCloudinary(file) {
+    if (!isCloudinaryConfigured()) {
+        throw new Error(
+            'Cloudinary no está configurado.'
+        );
+    }
+
+    const formData =
+        new FormData();
+
+    formData.append(
+        'file',
+        file
+    );
+
+    formData.append(
+        'upload_preset',
+        BUSINESS_CONFIG.cloudinaryUploadPreset
+    );
+
+    const response =
+        await fetch(
+            `https://api.cloudinary.com/v1_1/${BUSINESS_CONFIG.cloudinaryCloudName}/auto/upload`,
+            {
+                method: 'POST',
+                body: formData
+            }
+        );
+
+    if (!response.ok) {
+        throw new Error(
+            'No se pudo subir el archivo.'
+        );
+    }
+
+    return await response.json();
+}
+
 export function hasUploadedFile() {
     return Boolean(appState.uploadedFile);
+}
+
+export function getUploadedFile() {
+    return appState.uploadedFile;
 }
 
 export function getUploadedFileMetadata() {
@@ -178,7 +227,8 @@ export function getUploadedFileMetadata() {
     return {
         name: appState.uploadedFile.name,
         type: appState.uploadedFile.type || getFileExtension(appState.uploadedFile)?.toUpperCase() || 'N/A',
-        size: formatFileSize(appState.uploadedFile.size)
+        size: formatFileSize(appState.uploadedFile.size),
+        url: appState.uploadedFile.cloudinaryUrl || ''
     };
 }
 
@@ -206,7 +256,10 @@ function renderUploadedFile() {
 
     summary.classList.remove('hidden');
     nameEl.innerText = file.name;
-    metaEl.innerText = `${file.type} • ${file.size}`;
+    metaEl.innerText =
+        file.url
+            ? `${file.type} • ${file.size} • Archivo listo`
+            : `${file.type} • ${file.size}`;
 }
 
 function clearUploadedFile() {
@@ -230,7 +283,7 @@ function initializeQuoteUpload() {
 
     uploadInput.addEventListener(
         'change',
-        event => {
+        async event => {
             const file =
                 event.target.files?.[0] || null;
 
@@ -248,8 +301,41 @@ function initializeQuoteUpload() {
                 return;
             }
 
-            setUploadedFile(file);
-            renderUploadedFile();
+            showToast(
+                'Subiendo archivo...',
+                'info'
+            );
+
+            try {
+                const uploaded =
+                    await uploadFileToCloudinary(file);
+
+                setUploadedFile({
+                    name: file.name,
+                    type: file.type,
+                    size: file.size,
+                    cloudinaryUrl: uploaded.secure_url,
+                    cloudinaryPublicId: uploaded.public_id
+                });
+
+                renderUploadedFile();
+
+                showToast(
+                    'Archivo subido correctamente.',
+                    'info'
+                );
+            } catch (error) {
+                console.error(error);
+
+                event.target.value = '';
+                setUploadedFile(null);
+                renderUploadedFile();
+
+                showToast(
+                    'No se pudo subir el archivo. Configura Cloudinary o intenta con otro archivo.',
+                    'error'
+                );
+            }
         }
     );
 

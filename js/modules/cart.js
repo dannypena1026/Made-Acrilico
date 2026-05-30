@@ -8,6 +8,7 @@ import {
 } from '../utils/helpers.js';
 import { getCurrentQuote } from './pricing.js';
 import {
+    getUploadedFile,
     getUploadedFileMetadata,
     hasUploadedFile
 } from './upload.js';
@@ -23,6 +24,7 @@ const SHIPPING_PRICE = BUSINESS_CONFIG.shippingPrice;
 
 let cart = [];
 let includeShipping = false;
+let orderReviewResolver = null;
 
 
 function saveCart() {
@@ -93,7 +95,8 @@ function normalizeCartItem(item) {
             chargedLength: Number.isFinite(item.chargedLength) ? item.chargedLength : 0,
             fileName: item.fileName || 'Sin archivo',
             fileType: item.fileType || 'N/A',
-            fileSize: item.fileSize || 'N/A'
+            fileSize: item.fileSize || 'N/A',
+            fileUrl: item.fileUrl || ''
         };
 
     }
@@ -110,7 +113,8 @@ function normalizeCartItem(item) {
             unitPrice: item.price,
             fileName: item.fileName || 'Sin archivo',
             fileType: item.fileType || 'N/A',
-            fileSize: item.fileSize || 'N/A'
+            fileSize: item.fileSize || 'N/A',
+            fileUrl: item.fileUrl || ''
         };
 
     }
@@ -123,6 +127,79 @@ function normalizeCartItem(item) {
 function getCartItemTotal(item) {
 
     return item.unitPrice * item.quantity;
+
+}
+
+
+function getCartSubtotal() {
+
+    return cart.reduce(
+        (sum, item) => sum + getCartItemTotal(item),
+        0
+    );
+
+}
+
+
+function getCartTotal() {
+
+    return getCartSubtotal() +
+        (
+            includeShipping
+                ? SHIPPING_PRICE
+                : 0
+        );
+
+}
+
+
+function generateOrderId(date = new Date()) {
+
+    const stamp =
+        date.toISOString()
+            .slice(0, 10)
+            .replace(/-/g, '');
+
+    const suffix =
+        Math.random()
+            .toString(36)
+            .slice(2, 6)
+            .toUpperCase();
+
+    return `MA-${stamp}-${suffix}`;
+
+}
+
+
+function normalizeDominicanPhone(phone) {
+
+    const digits =
+        String(phone || '').replace(/\D/g, '');
+
+    if (digits.length === 11 && digits.startsWith('1')) {
+        return digits.slice(1);
+    }
+
+    return digits;
+
+}
+
+
+function isValidDominicanPhone(phone) {
+
+    const digits =
+        normalizeDominicanPhone(phone);
+
+    return /^8(?:09|29|49)\d{7}$/.test(digits);
+
+}
+
+
+function hasMissingFileLinks() {
+
+    return cart.some(
+        item => !item.fileUrl
+    );
 
 }
 
@@ -180,6 +257,9 @@ function addNestingToCart() {
     const file =
         getQuoteFileMetadata();
 
+    const uploadedFile =
+        getUploadedFile();
+
     const newItem = {
 
         id: generateId(),
@@ -191,7 +271,8 @@ function addNestingToCart() {
         unitPrice: quote.unitPrice,
         fileName: file.name,
         fileType: file.type,
-        fileSize: file.size
+        fileSize: file.size,
+        fileUrl: uploadedFile?.cloudinaryUrl || file.url || ''
 
     };
 
@@ -264,6 +345,12 @@ function renderCartItem(item) {
                     <p class="text-xs text-gray-500 mt-2 leading-relaxed">
                         Archivo: ${escapeHTML(item.fileName)}
                     </p>
+
+                    ${
+                        item.fileUrl
+                            ? `<a href="${escapeHTML(item.fileUrl)}" target="_blank" rel="noopener" class="inline-flex mt-2 text-xs font-bold text-logoCyan hover:text-logoMagenta">Ver archivo subido</a>`
+                            : ''
+                    }
 
                 </div>
 
@@ -346,6 +433,9 @@ function updateCartUI() {
     const totalEl =
         document.getElementById('cart-total');
 
+    const addressEl =
+        document.getElementById('checkout-address');
+
     if (
         !countEl ||
         !container ||
@@ -376,6 +466,15 @@ function updateCartUI() {
     shippingToggle.checked =
         includeShipping;
 
+    addressEl?.classList.toggle(
+        'hidden',
+        !includeShipping
+    );
+
+    if (!includeShipping && addressEl) {
+        addressEl.value = '';
+    }
+
     shippingEl.innerText =
         formatCurrency(SHIPPING_PRICE);
 
@@ -392,10 +491,7 @@ function updateCartUI() {
     }
 
     const subtotal =
-        cart.reduce(
-            (sum, item) => sum + getCartItemTotal(item),
-            0
-        );
+        getCartSubtotal();
 
     container.innerHTML =
         cart.map(renderCartItem).join('');
@@ -404,14 +500,7 @@ function updateCartUI() {
         formatCurrency(subtotal);
 
     totalEl.innerText =
-        formatCurrency(
-            subtotal +
-            (
-                includeShipping
-                    ? SHIPPING_PRICE
-                    : 0
-            )
-        );
+        formatCurrency(getCartTotal());
 
 }
 
@@ -580,7 +669,239 @@ function handleShippingToggle(event) {
 // CHECKOUT
 // =========================================
 
-function checkoutOrder() {
+function getCheckoutDetails() {
+
+    return {
+        customerName: document.getElementById('checkout-name')?.value.trim() || '',
+        customerPhone: document.getElementById('checkout-phone')?.value.trim() || '',
+        customerAddress: document.getElementById('checkout-address')?.value.trim() || '',
+        customerNotes: document.getElementById('checkout-notes')?.value.trim() || ''
+    };
+
+}
+
+
+function renderReviewItems() {
+
+    return cart.map((item, index) => `
+        <div class="rounded-xl bg-white border border-gray-100 p-3">
+            <p class="font-extrabold text-logoDark">${index + 1}. ${escapeHTML(item.material)}</p>
+            <p>Medida: ${escapeHTML(item.size)}</p>
+            <p>Copias: ${escapeHTML(item.quantity)}</p>
+            <p>Total: <strong>${formatCurrency(getCartItemTotal(item))}</strong></p>
+            <p class="truncate">Archivo: ${escapeHTML(item.fileName)}</p>
+        </div>
+    `).join('');
+
+}
+
+
+function buildOrderReviewHTML({
+    customerName,
+    customerPhone,
+    customerAddress,
+    customerNotes,
+    orderId
+}) {
+
+    return `
+        <div>
+            <p class="text-xs uppercase tracking-wider text-gray-400 font-bold">Orden</p>
+            <p class="font-extrabold text-logoDark">${escapeHTML(orderId)}</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+                <p class="text-xs uppercase tracking-wider text-gray-400 font-bold">Cliente</p>
+                <p class="font-bold text-logoDark">${escapeHTML(customerName)}</p>
+            </div>
+            <div>
+                <p class="text-xs uppercase tracking-wider text-gray-400 font-bold">WhatsApp</p>
+                <p class="font-bold text-logoDark">${escapeHTML(customerPhone)}</p>
+            </div>
+        </div>
+        <div class="rounded-xl bg-white border border-gray-100 p-3">
+            <div class="flex justify-between"><span>Subtotal</span><strong>${formatCurrency(getCartSubtotal())}</strong></div>
+            <div class="flex justify-between"><span>${includeShipping ? 'Envio' : 'Retiro'}</span><strong>${includeShipping ? formatCurrency(SHIPPING_PRICE) : 'Sin envio'}</strong></div>
+            <div class="flex justify-between text-logoMagenta text-base border-t border-gray-100 mt-2 pt-2"><span>Total estimado</span><strong>${formatCurrency(getCartTotal())}</strong></div>
+        </div>
+        ${
+            includeShipping
+                ? `<div><p class="text-xs uppercase tracking-wider text-gray-400 font-bold">Direccion</p><p>${escapeHTML(customerAddress)}</p></div>`
+                : ''
+        }
+        ${
+            customerNotes
+                ? `<div><p class="text-xs uppercase tracking-wider text-gray-400 font-bold">Nota</p><p>${escapeHTML(customerNotes)}</p></div>`
+                : ''
+        }
+        <div class="space-y-2">
+            <p class="text-xs uppercase tracking-wider text-gray-400 font-bold">Produccion</p>
+            ${renderReviewItems()}
+        </div>
+    `;
+
+}
+
+
+function resolveOrderReview(value) {
+
+    const modal =
+        document.getElementById('order-review-modal');
+
+    modal?.classList.add('hidden');
+    modal?.classList.remove('flex');
+
+    if (orderReviewResolver) {
+        orderReviewResolver(value);
+        orderReviewResolver = null;
+    }
+
+}
+
+
+function openOrderReview(orderData) {
+
+    const modal =
+        document.getElementById('order-review-modal');
+
+    const content =
+        document.getElementById('order-review-content');
+
+    if (!modal || !content) {
+        return Promise.resolve(true);
+    }
+
+    content.innerHTML =
+        buildOrderReviewHTML(orderData);
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+
+    return new Promise(resolve => {
+        orderReviewResolver = resolve;
+    });
+
+}
+
+
+function buildWhatsAppFollowUp(orderId) {
+
+    return `Hola ${BUSINESS_CONFIG.name}, acabo de enviar la orden ${orderId} desde la pagina.`;
+
+}
+
+
+function showOrderSuccess(orderId) {
+
+    const modal =
+        document.getElementById('order-success-modal');
+
+    const message =
+        document.getElementById('order-success-message');
+
+    const whatsappLink =
+        document.getElementById('order-success-whatsapp');
+
+    if (!modal || !message || !whatsappLink) {
+        showToast(
+            'Orden enviada. Te contactaremos por WhatsApp para confirmar produccion.',
+            'info'
+        );
+
+        return;
+    }
+
+    message.innerText =
+        `Orden ${orderId} enviada. Te contactaremos por WhatsApp para confirmar produccion.`;
+
+    whatsappLink.href =
+        `https://wa.me/${BUSINESS_CONFIG.whatsappNumber}?text=${encodeURIComponent(buildWhatsAppFollowUp(orderId))}`;
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+
+}
+
+
+function buildOrderMessage({
+    customerName,
+    customerPhone,
+    customerAddress,
+    customerNotes,
+    orderId
+}) {
+    const subtotal =
+        getCartSubtotal();
+
+    const total =
+        getCartTotal();
+
+    const orderDate =
+        new Date().toLocaleString(
+            'es-DO',
+            {
+                dateStyle: 'short',
+                timeStyle: 'short'
+            }
+        );
+
+    let message =
+`ORDEN DTF
+
+ID de orden: ${orderId}
+Fecha: ${orderDate}
+
+CLIENTE
+Nombre: ${customerName}
+Telefono / WhatsApp: ${customerPhone}
+
+TOTAL
+Subtotal: ${formatCurrency(subtotal)}
+Envío: ${includeShipping ? formatCurrency(SHIPPING_PRICE) : 'No incluido'}
+Total estimado: ${formatCurrency(total)}
+Entrega: ${includeShipping ? 'Envio' : 'Retiro en tienda'}
+${includeShipping ? `Direccion: ${customerAddress}` : ''}
+${customerNotes ? `Nota del cliente: ${customerNotes}` : ''}
+
+PRODUCCIÓN
+
+`;
+
+    cart.forEach((item, index) => {
+
+        const itemTotal =
+            getCartItemTotal(item);
+
+        message +=
+`${index + 1}. ${item.material}
+Medida: ${item.size}
+Copias: ${item.quantity}
+Precio: ${formatCurrency(itemTotal)}
+Archivo: ${item.fileName}
+Tipo: ${item.fileType}
+Tamaño: ${item.fileSize}
+Ver archivo: ${item.fileUrl || 'No disponible'}
+
+`;
+
+    });
+
+    message +=
+`------------------------------
+ENTREGA
+Producción regular: ${BUSINESS_CONFIG.deliveryEstimate}.
+
+REVISIÓN
+${BUSINESS_CONFIG.estimateNotice}
+
+NOTA INTERNA
+Revisar el archivo final antes de confirmar producción.`;
+
+    return message;
+}
+
+
+async function checkoutOrder() {
 
     if (cart.length === 0) {
 
@@ -593,76 +914,220 @@ function checkoutOrder() {
 
     }
 
-    let message =
-`Hola ${BUSINESS_CONFIG.name}
+    const checkoutDetails =
+        getCheckoutDetails();
 
-Deseo cotizar esta orden DTF:
+    const {
+        customerName,
+        customerPhone,
+        customerAddress,
+        customerNotes
+    } = checkoutDetails;
 
-`;
+    if (!customerName || !customerPhone) {
 
-    let subtotal = 0;
+        showToast(
+            'Completa nombre y teléfono para enviar la orden.',
+            'error'
+        );
 
-    cart.forEach(item => {
+        return;
 
-        const itemTotal =
-            getCartItemTotal(item);
+    }
 
-        subtotal += itemTotal;
+    if (!isValidDominicanPhone(customerPhone)) {
 
-        message +=
-`------------------------------
-${item.material}
-Medida: ${item.size}
-Copias: ${item.quantity}
-Yardas cobradas: ${item.yards.toFixed(2)} yd
-Precio: ${formatCurrency(itemTotal)}
-Archivo: ${item.fileName}
-Tipo: ${item.fileType}
-Tamaño: ${item.fileSize}
+        showToast(
+            'Ingresa un telefono dominicano valido.',
+            'error'
+        );
 
-`;
+        return;
 
-    });
+    }
 
-    const shippingTotal =
-        includeShipping
-            ? SHIPPING_PRICE
-            : 0;
+    if (includeShipping && !customerAddress) {
 
-    const total =
-        subtotal + shippingTotal;
+        showToast(
+            'Agrega la direccion para coordinar el envio.',
+            'error'
+        );
 
-    message +=
-`------------------------------
-Subtotal:
-${formatCurrency(subtotal)}
+        return;
 
-Envío:
-${includeShipping ? formatCurrency(SHIPPING_PRICE) : 'No incluido'}
+    }
 
-TOTAL ESTIMADO:
-${formatCurrency(total)}
+    if (hasMissingFileLinks()) {
 
-Entrega estimada:
-Producción regular ${BUSINESS_CONFIG.deliveryEstimate}.
+        showToast(
+            'Hay un archivo sin link listo. Vuelve a subirlo antes de enviar.',
+            'error'
+        );
 
-Forma de pago:
-${BUSINESS_CONFIG.paymentMethods}.
+        return;
 
-Importante:
-${BUSINESS_CONFIG.estimateNotice}
+    }
 
-Nota: los archivos no se adjuntan automáticamente desde la web. Te los enviaré por este chat si hace falta.
+    if (!BUSINESS_CONFIG.web3FormsAccessKey) {
 
-Gracias.`;
+        showToast(
+            'Falta configurar la clave de Web3Forms.',
+            'error'
+        );
 
-    const whatsappURL =
-        `https://wa.me/${BUSINESS_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
+        return;
 
-    window.open(
-        whatsappURL,
-        '_blank'
+    }
+
+    const orderId =
+        generateOrderId();
+
+    const orderData = {
+        ...checkoutDetails,
+        orderId
+    };
+
+    const confirmed =
+        await openOrderReview(orderData);
+
+    if (!confirmed) return;
+
+    const checkoutBtn =
+        document.getElementById('cart-checkout-btn');
+
+    const originalText =
+        checkoutBtn?.innerHTML;
+
+    if (checkoutBtn) {
+        checkoutBtn.disabled = true;
+        checkoutBtn.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin"></i> Enviando orden...';
+    }
+
+    const message =
+        buildOrderMessage(orderData);
+
+    const orderTotal =
+        getCartTotal();
+
+    const formData =
+        new FormData();
+
+    formData.append(
+        'access_key',
+        BUSINESS_CONFIG.web3FormsAccessKey
     );
+
+    formData.append(
+        'subject',
+        `Nueva orden DTF ${orderId} - ${customerName} - ${formatCurrency(orderTotal)}`
+    );
+
+    formData.append(
+        'from_name',
+        `${BUSINESS_CONFIG.name} Web`
+    );
+
+    formData.append(
+        'name',
+        customerName
+    );
+
+    formData.append(
+        'phone',
+        customerPhone
+    );
+
+    formData.append(
+        'order_id',
+        orderId
+    );
+
+    formData.append(
+        'delivery',
+        includeShipping ? 'Envio' : 'Retiro en tienda'
+    );
+
+    if (includeShipping) {
+        formData.append(
+            'address',
+            customerAddress
+        );
+    }
+
+    if (customerNotes) {
+        formData.append(
+            'notes',
+            customerNotes
+        );
+    }
+
+    formData.append(
+        'message',
+        message
+    );
+
+    try {
+
+        const response =
+            await fetch(
+                'https://api.web3forms.com/submit',
+                {
+                    method: 'POST',
+                    body: formData
+                }
+            );
+
+        const result =
+            await response.json();
+
+        if (!response.ok || !result.success) {
+            throw new Error(
+                result.message || 'No se pudo enviar la orden.'
+            );
+        }
+
+        cart = [];
+        includeShipping = false;
+
+        [
+            'checkout-name',
+            'checkout-phone',
+            'checkout-address',
+            'checkout-notes'
+        ].forEach(id => {
+            const field =
+                document.getElementById(id);
+
+            if (field) {
+                field.value = '';
+            }
+        });
+
+        saveCart();
+        saveShippingPreference();
+        updateCartUI();
+
+        showOrderSuccess(orderId);
+
+    } catch (error) {
+
+        console.error(error);
+
+        showToast(
+            'No se pudo enviar la orden por correo.',
+            'error'
+        );
+
+    } finally {
+
+        if (checkoutBtn) {
+            checkoutBtn.disabled = false;
+            checkoutBtn.innerHTML =
+                originalText;
+        }
+
+    }
 
 }
 
@@ -701,6 +1166,46 @@ export function initializeCart() {
         ?.addEventListener(
             'change',
             handleShippingToggle
+        );
+
+    document.getElementById('order-review-cancel')
+        ?.addEventListener(
+            'click',
+            () => resolveOrderReview(false)
+        );
+
+    document.getElementById('order-review-close')
+        ?.addEventListener(
+            'click',
+            () => resolveOrderReview(false)
+        );
+
+    document.getElementById('order-review-confirm')
+        ?.addEventListener(
+            'click',
+            () => resolveOrderReview(true)
+        );
+
+    document.getElementById('order-review-modal')
+        ?.addEventListener(
+            'click',
+            event => {
+                if (event.target.id === 'order-review-modal') {
+                    resolveOrderReview(false);
+                }
+            }
+        );
+
+    document.getElementById('order-success-close')
+        ?.addEventListener(
+            'click',
+            () => {
+                const modal =
+                    document.getElementById('order-success-modal');
+
+                modal?.classList.add('hidden');
+                modal?.classList.remove('flex');
+            }
         );
 
     const container =
