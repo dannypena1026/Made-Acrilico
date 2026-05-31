@@ -1,33 +1,79 @@
 # MADE ACRILICO
 
-Pagina web oficial de MADE ACRILICO, enfocada en cotizacion de servicios DTF Textil y DTF UV.
-
-## Descripcion
-
-Este proyecto ofrece una experiencia web para que los clientes puedan revisar tarifas, calcular pedidos, subir la referencia de su archivo y enviar una solicitud de orden por WhatsApp.
+Pagina web oficial de MADE ACRILICO para cotizar pedidos DTF Textil y DTF UV, subir archivo de referencia, armar carrito y enviar la orden por correo al equipo.
 
 ## Funcionalidades principales
 
-- Calculadora para DTF Textil y DTF UV.
-- Seleccion de ancho y largo segun el material.
-- Soporte para medidas personalizadas.
-- Validacion de medidas no permitidas.
-- Resumen automatico de cotizacion.
-- Carrito de produccion con persistencia local.
-- Edicion, duplicado, eliminacion y vaciado completo del carrito.
-- Costo opcional de envio.
-- Validacion de archivo para la orden.
-- Mensaje de WhatsApp generado automaticamente con detalle de orden, envio, entrega y aviso de revision.
-- Secciones informativas de tarifas, guia de archivo y contacto.
+- Inicio comercial con flujo de compra, servicios, tarifas, checklist y preguntas frecuentes.
+- Calculadora para DTF Textil y DTF UV con medidas fijas y personalizadas.
+- Validacion de medidas no permitidas y resumen automatico de cotizacion.
+- Subida de archivos a Cloudinary para enviar link descargable en la orden.
+- Carrito con persistencia local, duplicado, eliminacion y vaciado completo.
+- Estado del pedido dentro del carrito: archivo, datos, entrega y orden lista.
+- Envio opcional por RD$250.
+- Revision previa antes de enviar la orden.
+- Envio real de orden por correo mediante Web3Forms.
+- Confirmacion final con numero de orden y boton de seguimiento por WhatsApp.
+- Contacto, politicas de privacidad, terminos del servicio, favicon y preview social.
 
-## Tecnologias
+## Flujo del cliente
 
-- HTML
-- CSS
-- JavaScript con ES Modules
-- Tailwind CSS
-- Font Awesome
-- Node.js para scripts de desarrollo y pruebas
+1. El cliente revisa servicios o entra al Calculador Express.
+2. Selecciona material, medida, cantidad y sube archivo.
+3. Agrega el item al carrito.
+4. Completa nombre y WhatsApp.
+5. Activa envio si lo necesita y agrega direccion.
+6. Revisa la orden.
+7. Confirma el envio por correo.
+8. Puede avisar por WhatsApp usando el numero de orden.
+
+WhatsApp se usa como contacto rapido, asesoria de archivo y seguimiento. La orden formal se envia por correo con Web3Forms.
+
+## Configuracion del negocio
+
+Los datos principales viven en:
+
+```text
+js/core/business-config.js
+```
+
+Desde ese archivo se modifican:
+
+- Nombre del negocio.
+- WhatsApp y telefono visible.
+- Correo.
+- Direccion y enlace de Google Maps.
+- Precio de envio.
+- Tiempo de entrega.
+- Metodos de pago.
+- Aviso de cotizacion estimada.
+- Formatos permitidos para archivo.
+- Web3Forms Access Key.
+- Cloudinary Cloud Name y Upload Preset.
+- Precios por material.
+
+## Servicios externos
+
+### Web3Forms
+
+Se usa para enviar la orden al correo configurado en la cuenta de Web3Forms.
+
+```js
+web3FormsAccessKey: 'TU_ACCESS_KEY'
+```
+
+Si Web3Forms falla, el carrito se conserva para que el cliente pueda intentar otra vez.
+
+### Cloudinary
+
+Se usa para subir el archivo del cliente y colocar el link en la orden.
+
+```js
+cloudinaryCloudName: 'TU_CLOUD_NAME',
+cloudinaryUploadPreset: 'madeacrilico_uploads'
+```
+
+Si Cloudinary falla, el cliente debe intentar nuevamente o pedir ayuda por WhatsApp.
 
 ## Estructura general
 
@@ -63,85 +109,52 @@ package.json
 tailwind.config.cjs
 ```
 
-## Configuracion del negocio
+## Comandos
 
-Los datos principales del negocio viven en:
-
-```text
-js/core/business-config.js
-```
-
-Desde ese archivo se modifican:
-
-- WhatsApp
-- telefono
-- correo
-- direccion
-- enlace de Google Maps
-- precio de envio
-- tiempo de entrega
-- metodos de pago
-- formatos permitidos para archivo
-- clave de Web3Forms para envio por correo
-- Cloudinary Cloud Name y Upload Preset para subir archivos
-- precios por material
-
-Para activar el envio real de ordenes por correo, configura:
-
-```js
-web3FormsAccessKey: 'TU_ACCESS_KEY'
-```
-
-Para activar subida de archivos y enviar el link descargable en el correo, configura:
-
-```js
-cloudinaryCloudName: 'TU_CLOUD_NAME',
-cloudinaryUploadPreset: 'madeacrilico_uploads'
-```
-
-## Comandos de desarrollo
-
-Instala dependencias:
+Instalar dependencias:
 
 ```bash
 npm install
 ```
 
-Genera el CSS de Tailwind:
+Generar CSS:
 
 ```bash
 npm run build:css
 ```
 
-Revisa sintaxis JS:
+Revisar JavaScript:
 
 ```bash
 npm run check:js
 ```
 
-Ejecuta pruebas:
+Ejecutar pruebas:
 
 ```bash
 npm test
 ```
 
-## Uso local
+## Checklist antes de publicar
 
-Puedes abrir `index.html` con un servidor local.
+- Ejecutar `npm run check:js`.
+- Ejecutar `npm test`.
+- Ejecutar `npm run build:css`.
+- Probar carga de pagina sin errores de consola.
+- Probar subida de archivo.
+- Probar carrito con y sin envio.
+- Probar validacion de telefono.
+- Probar envio real de orden por correo.
+- Confirmar que el correo llega a la bandeja correcta.
+- Confirmar que los links de archivo abren correctamente.
 
-Ejemplo con Node:
+## Notas de mantenimiento
 
-```bash
-npx serve .
-```
-
-## Notas
-
-- Los archivos seleccionados por el cliente no se adjuntan automaticamente al mensaje de WhatsApp.
-- El carrito se guarda localmente en el navegador del cliente.
-- Si se modifican clases de Tailwind en el HTML o JavaScript, ejecuta `npm run build:css`.
-- Si se modifican precios, ejecuta `npm test` para validar los calculos principales.
+- Si cambian precios, actualiza `business-config.js` y ejecuta `npm test`.
+- Si cambian clases Tailwind en HTML o JS, ejecuta `npm run build:css`.
+- Si cambia el correo receptor, revisa la configuracion en Web3Forms.
+- No publiques una Web3Forms key o preset de Cloudinary que no correspondan al negocio.
 
 ## Autor
 
-- Danny Peña Adames - Desarrollador Web
+- Danny Pena Adames - Desarrollador Web

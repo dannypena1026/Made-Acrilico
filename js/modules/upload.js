@@ -169,12 +169,21 @@ function isCloudinaryConfigured() {
     );
 }
 
+function getCloudinaryResourceType(file) {
+    return file.type.startsWith('image/')
+        ? 'auto'
+        : 'raw';
+}
+
 async function uploadFileToCloudinary(file) {
     if (!isCloudinaryConfigured()) {
         throw new Error(
             'Cloudinary no está configurado.'
         );
     }
+
+    const resourceType =
+        getCloudinaryResourceType(file);
 
     const formData =
         new FormData();
@@ -191,7 +200,7 @@ async function uploadFileToCloudinary(file) {
 
     const response =
         await fetch(
-            `https://api.cloudinary.com/v1_1/${BUSINESS_CONFIG.cloudinaryCloudName}/auto/upload`,
+            `https://api.cloudinary.com/v1_1/${BUSINESS_CONFIG.cloudinaryCloudName}/${resourceType}/upload`,
             {
                 method: 'POST',
                 body: formData
@@ -332,7 +341,7 @@ function initializeQuoteUpload() {
                 renderUploadedFile();
 
                 showToast(
-                    'No se pudo subir el archivo. Configura Cloudinary o intenta con otro archivo.',
+                    'No se pudo subir el archivo. Intenta otra vez o contactanos por WhatsApp.',
                     'error'
                 );
             }

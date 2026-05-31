@@ -6,7 +6,6 @@ export const BUSINESS_CONFIG = {
     email: 'madeacrilico@gmail.com',
     address: 'Plaza Comercial Herrera, Av. Isabel Aguiar, Santo Domingo',
     mapsUrl: 'https://www.google.com/maps/place/Made+Acrilico/data=!4m2!3m1!1s0x0:0x5e3e2a9a6b659d5f?sa=X&ved=1t:2428&ictx=111',
-    shippingPrice: 250,
     deliveryEstimate: '24-48 horas según volumen',
     paymentMethods: 'Transferencia o efectivo',
     estimateNotice: 'La cotización es estimada hasta revisar el archivo final.',

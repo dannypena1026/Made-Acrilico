@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -6,10 +6,15 @@
     <title>MADE ACRÍLICO | Cotizador y Diseñador DTF</title>
     <meta name="description" content="Cotiza impresión DTF textil y DTF UV en Santo Domingo. Sube tu archivo, calcula medidas, agrega al carrito y envía tu orden a MADE Acrílico.">
     <meta name="theme-color" content="#E52D7F">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:; img-src 'self' data: blob: https://res.cloudinary.com; connect-src 'self' https://api.cloudinary.com https://api.web3forms.com; form-action 'self' https://api.web3forms.com;">
     <meta property="og:title" content="MADE ACRÍLICO | Cotizador DTF">
     <meta property="og:description" content="Cotizador express para impresión DTF textil y DTF UV con revisión de archivo y producción local en Santo Domingo.">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="es_DO">
+    <meta property="og:image" content="assets/img/social-preview.svg">
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+    <link rel="apple-touch-icon" href="assets/img/favicon.svg">
     <!-- Tailwind CSS -->
     <link rel="stylesheet" href="css/tailwind.css">
     <!-- FontAwesome para Iconos -->
@@ -68,7 +73,7 @@
 
                 <!-- Iconos de Acción y Contacto Rápido -->
                 <div class="flex items-center gap-4">
-                    <a data-business-whatsapp href="https://wa.me/18297078582" target="_blank" rel="noopener" class="hidden lg:flex items-center gap-2 text-sm font-semibold bg-emerald-500 text-white px-4 py-2 rounded-full hover:bg-emerald-600 transition-all shadow-md">
+                    <a data-business-whatsapp href="https://wa.me/18297078582" target="_blank" rel="noopener noreferrer" class="hidden lg:flex items-center gap-2 text-sm font-semibold bg-emerald-500 text-white px-4 py-2 rounded-full hover:bg-emerald-600 transition-all shadow-md">
                         <i class="fab fa-whatsapp text-lg"></i>
                         <span>Cotizar por WhatsApp</span>
                     </a>
@@ -140,7 +145,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
     data-business-whatsapp
     href="https://wa.me/18297078582"
     target="_blank"
-    rel="noopener"
+    rel="noopener noreferrer"
     class="block text-center bg-emerald-500 text-white py-2.5 rounded-lg font-bold"
 >
     <i class="fab fa-whatsapp mr-2"></i>
@@ -292,28 +297,51 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                             <span class="text-xs font-bold bg-gray-100 text-gray-600 px-3 py-1 rounded-full">Para ropa</span>
                             <span class="text-xs font-bold bg-gray-100 text-gray-600 px-3 py-1 rounded-full">22 pulgadas</span>
                             <span class="text-xs font-bold bg-gray-100 text-gray-600 px-3 py-1 rounded-full">Desde RD$300</span>
+                            <span class="text-xs font-bold bg-pink-50 text-logoMagenta px-3 py-1 rounded-full">Camisetas</span>
+                            <span class="text-xs font-bold bg-pink-50 text-logoMagenta px-3 py-1 rounded-full">Hoodies</span>
+                            <span class="text-xs font-bold bg-pink-50 text-logoMagenta px-3 py-1 rounded-full">Uniformes</span>
                         </div>
                     </div>
                     <div class="bg-logoDark text-white rounded-3xl p-6 md:p-8 shadow-lg">
                         <i class="fa-solid fa-layer-group text-logoCyan text-3xl mb-5"></i>
                         <h3 class="text-2xl font-black">DTF UV</h3>
                         <p class="text-sm text-gray-300 mt-3">Adhesivos premium para acrilico, metal, vidrio, empaques y productos.</p>
-                        <span class="inline-flex mt-5 text-xs font-bold bg-white/10 text-white px-3 py-1 rounded-full">Para objetos</span>
+                        <div class="flex flex-wrap gap-2 mt-5">
+                            <span class="text-xs font-bold bg-white/10 text-white px-3 py-1 rounded-full">Para objetos</span>
+                            <span class="text-xs font-bold bg-white/10 text-white px-3 py-1 rounded-full">Vasos</span>
+                            <span class="text-xs font-bold bg-white/10 text-white px-3 py-1 rounded-full">Empaques</span>
+                            <span class="text-xs font-bold bg-white/10 text-white px-3 py-1 rounded-full">Acrilico</span>
+                        </div>
                     </div>
                     <div class="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm">
                         <i class="fa-solid fa-gem text-logoYellow text-2xl mb-4"></i>
                         <h3 class="font-extrabold text-logoDark">Acrilicos</h3>
                         <p class="text-sm text-gray-500 mt-2">Piezas, letreros y detalles comerciales.</p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="text-xs font-bold bg-yellow-50 text-logoDark px-3 py-1 rounded-full">Letreros</span>
+                            <span class="text-xs font-bold bg-yellow-50 text-logoDark px-3 py-1 rounded-full">Placas</span>
+                            <span class="text-xs font-bold bg-yellow-50 text-logoDark px-3 py-1 rounded-full">Exhibidores</span>
+                        </div>
                     </div>
                     <div class="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm">
                         <i class="fa-solid fa-tags text-logoMagenta text-2xl mb-4"></i>
                         <h3 class="font-extrabold text-logoDark">Stickers / etiquetas</h3>
                         <p class="text-sm text-gray-500 mt-2">Identificacion visual para empaques y promociones.</p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="text-xs font-bold bg-pink-50 text-logoMagenta px-3 py-1 rounded-full">Empaques</span>
+                            <span class="text-xs font-bold bg-pink-50 text-logoMagenta px-3 py-1 rounded-full">Promociones</span>
+                            <span class="text-xs font-bold bg-pink-50 text-logoMagenta px-3 py-1 rounded-full">Marcas</span>
+                        </div>
                     </div>
                     <div class="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm">
                         <i class="fa-solid fa-scissors text-logoCyan text-2xl mb-4"></i>
                         <h3 class="font-extrabold text-logoDark">Corte y acabados</h3>
                         <p class="text-sm text-gray-500 mt-2">Terminaciones y piezas listas para entregar.</p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="text-xs font-bold bg-cyan-50 text-logoCyan px-3 py-1 rounded-full">Piezas listas</span>
+                            <span class="text-xs font-bold bg-cyan-50 text-logoCyan px-3 py-1 rounded-full">Terminaciones</span>
+                            <span class="text-xs font-bold bg-cyan-50 text-logoCyan px-3 py-1 rounded-full">Detalles</span>
+                        </div>
                     </div>
                     <div class="lg:col-span-3 bg-gradient-to-r from-pink-50 via-white to-cyan-50 border border-gray-100 rounded-3xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
@@ -325,6 +353,115 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                             <i class="fa-solid fa-arrow-right"></i>
                         </button>
                     </div>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                    <div class="max-w-2xl">
+                        <p class="text-xs uppercase tracking-wider text-logoCyan font-black">Inspiracion MADE</p>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-logoDark mt-2">Ideas listas para llevar a produccion.</h2>
+                    </div>
+                    <p class="text-sm text-gray-500 max-w-md">Usos comunes para marcas, emprendedores y negocios que quieren resolver rapido que pedir y como pedirlo.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                    <div class="lg:col-span-2 rounded-3xl overflow-hidden bg-logoDark text-white shadow-xl grid grid-cols-1 md:grid-cols-[1fr_0.9fr]">
+                        <div class="relative min-h-[280px] bg-black">
+                            <img
+                                src="assets/img/test_textil.jpg"
+                                alt="Ejemplo de impresion DTF textil para prendas"
+                                loading="lazy"
+                                decoding="async"
+                                class="h-full w-full object-cover opacity-90"
+                            >
+                            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                                <p class="text-xs uppercase tracking-wider text-logoYellow font-black">Ropa y colecciones</p>
+                                <h3 class="text-2xl font-black mt-1">Lanzamientos, uniformes y piezas por encargo.</h3>
+                            </div>
+                        </div>
+                        <div class="p-6 md:p-8 flex flex-col justify-between gap-6">
+                            <div class="space-y-4">
+                                <div class="flex items-start gap-3">
+                                    <span class="w-10 h-10 rounded-xl bg-white/10 text-logoCyan flex items-center justify-center shrink-0"><i class="fa-solid fa-shirt"></i></span>
+                                    <div>
+                                        <h4 class="font-black">DTF Textil</h4>
+                                        <p class="text-sm text-gray-300 mt-1">Ideal para camisetas, hoodies, gorras, tote bags y uniformes.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <span class="w-10 h-10 rounded-xl bg-white/10 text-logoMagenta flex items-center justify-center shrink-0"><i class="fa-solid fa-layer-group"></i></span>
+                                    <div>
+                                        <h4 class="font-black">Planillas por tramo</h4>
+                                        <p class="text-sm text-gray-300 mt-1">Agrupa varios disenos en una misma planilla para aprovechar mejor el espacio.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" data-go-tab="planilla" class="inline-flex items-center justify-center gap-2 bg-logoMagenta hover:bg-pink-600 text-white font-bold px-5 py-3 rounded-xl transition-all">
+                                Cotizar una planilla
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-5">
+                        <div class="rounded-3xl border border-gray-100 bg-white p-5 shadow-sm">
+                            <div class="h-32 rounded-2xl overflow-hidden bg-cyan-50 mb-4">
+                                <img
+                                    src="assets/img/test_uv.jpeg"
+                                    alt="Ejemplo de DTF UV adhesivo"
+                                    loading="lazy"
+                                    decoding="async"
+                                    class="h-full w-full object-cover"
+                                >
+                            </div>
+                            <h3 class="font-black text-logoDark">Productos y empaques</h3>
+                            <p class="text-sm text-gray-500 mt-2">DTF UV para vasos, acrilico, cosmetica, cajas, frascos y detalles de marca.</p>
+                        </div>
+                        <div class="rounded-3xl border border-gray-100 bg-gradient-to-br from-pink-50 to-cyan-50 p-5 shadow-sm">
+                            <span class="w-11 h-11 rounded-2xl bg-white text-logoMagenta flex items-center justify-center shadow-sm mb-4">
+                                <i class="fa-solid fa-tags"></i>
+                            </span>
+                            <h3 class="font-black text-logoDark">Stickers y etiquetas</h3>
+                            <p class="text-sm text-gray-500 mt-2">Para promociones, cierres de empaque, identificacion de producto y regalos de marca.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white border border-gray-100 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                    <div>
+                        <p class="text-xs uppercase tracking-wider text-logoMagenta font-black">Elige por objetivo</p>
+                        <h2 class="text-2xl md:text-3xl font-extrabold text-logoDark mt-1">Que necesitas producir?</h2>
+                    </div>
+                    <button type="button" data-go-tab="contacto" class="inline-flex items-center justify-center gap-2 bg-logoDark hover:bg-logoMagenta text-white font-bold px-5 py-3 rounded-xl transition-all">
+                        Pedir recomendacion
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <button type="button" data-go-tab="planilla" class="text-left rounded-2xl border border-pink-100 bg-pink-50/30 p-5 hover:border-logoMagenta hover:shadow-lg transition-all">
+                        <span class="w-10 h-10 rounded-xl bg-logoMagenta text-white flex items-center justify-center mb-4"><i class="fa-solid fa-shirt"></i></span>
+                        <h3 class="font-black text-logoDark">Ropa</h3>
+                        <p class="text-sm text-gray-500 mt-2">DTF Textil para prendas, uniformes y colecciones.</p>
+                    </button>
+                    <button type="button" data-go-tab="planilla" class="text-left rounded-2xl border border-cyan-100 bg-cyan-50/40 p-5 hover:border-logoCyan hover:shadow-lg transition-all">
+                        <span class="w-10 h-10 rounded-xl bg-logoCyan text-white flex items-center justify-center mb-4"><i class="fa-solid fa-mug-hot"></i></span>
+                        <h3 class="font-black text-logoDark">Objetos</h3>
+                        <p class="text-sm text-gray-500 mt-2">DTF UV para vasos, acrilico, metal, vidrio y empaques.</p>
+                    </button>
+                    <button type="button" data-go-tab="contacto" class="text-left rounded-2xl border border-yellow-100 bg-yellow-50 p-5 hover:border-logoYellow hover:shadow-lg transition-all">
+                        <span class="w-10 h-10 rounded-xl bg-logoYellow text-logoDark flex items-center justify-center mb-4"><i class="fa-solid fa-store"></i></span>
+                        <h3 class="font-black text-logoDark">Negocio</h3>
+                        <p class="text-sm text-gray-500 mt-2">Etiquetas, letreros, piezas acrilicas y material promocional.</p>
+                    </button>
+                    <button type="button" data-go-tab="guia" class="text-left rounded-2xl border border-gray-200 bg-gray-50 p-5 hover:border-logoDark hover:shadow-lg transition-all">
+                        <span class="w-10 h-10 rounded-xl bg-logoDark text-white flex items-center justify-center mb-4"><i class="fa-solid fa-file-circle-check"></i></span>
+                        <h3 class="font-black text-logoDark">Archivo</h3>
+                        <p class="text-sm text-gray-500 mt-2">Checklist para mandar tu diseno listo a revision.</p>
+                    </button>
                 </div>
             </div>
 
@@ -417,7 +554,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                         <h2 class="text-3xl font-extrabold mt-2">Tu archivo esta raro?</h2>
                         <p class="text-sm text-gray-300 mt-3">Mandanos una captura o el archivo y te decimos que material, medida o ajuste conviene antes de producir.</p>
                     </div>
-                    <a data-business-whatsapp href="https://wa.me/18297078582" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-5 py-3 rounded-xl transition-all">
+                    <a data-business-whatsapp data-whatsapp-message="Hola MADE, necesito ayuda para preparar mi archivo." href="https://wa.me/18297078582" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-5 py-3 rounded-xl transition-all">
                         <i class="fa-brands fa-whatsapp"></i>
                         Hablar con MADE
                     </a>
@@ -1038,7 +1175,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <a data-business-whatsapp href="https://wa.me/18297078582" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl py-3 px-4 text-sm font-bold transition-all">
+                        <a data-business-whatsapp href="https://wa.me/18297078582" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl py-3 px-4 text-sm font-bold transition-all">
                                 <i class="fa-brands fa-whatsapp"></i>
                                 WhatsApp
                             </a>
@@ -1046,7 +1183,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                                 <i class="fa-solid fa-phone"></i>
                                 Llamar
                             </a>
-                        <a data-business-maps href="https://www.google.com/maps/place/Made+Acrilico/data=!4m2!3m1!1s0x0:0x5e3e2a9a6b659d5f?sa=X&ved=1t:2428&ictx=111" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 bg-white hover:bg-pink-50 text-logoMagenta border border-pink-100 rounded-xl py-3 px-4 text-sm font-bold transition-all">
+                        <a data-business-maps href="https://www.google.com/maps/place/Made+Acrilico/data=!4m2!3m1!1s0x0:0x5e3e2a9a6b659d5f?sa=X&ved=1t:2428&ictx=111" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 bg-white hover:bg-pink-50 text-logoMagenta border border-pink-100 rounded-xl py-3 px-4 text-sm font-bold transition-all">
                                 <i class="fa-solid fa-location-dot"></i>
                                 Ubicación
                             </a>
@@ -1063,12 +1200,61 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     </div>
                 </div>
             </div>
+
+            <div class="bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-sm max-w-4xl mx-auto space-y-5">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div>
+                        <p class="text-xs uppercase tracking-wider text-logoMagenta font-black">Asesoria de archivo</p>
+                        <h3 class="text-2xl font-extrabold text-logoDark mt-1">No tienes tu archivo listo?</h3>
+                    </div>
+                    <a data-business-whatsapp data-whatsapp-message="Hola MADE, necesito ayuda para preparar mi archivo." href="https://wa.me/18297078582" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-5 py-3 rounded-xl transition-all">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        Pedir ayuda por WhatsApp
+                    </a>
+                </div>
+                <p class="text-sm text-gray-500 leading-relaxed">
+                    Si tu arte necesita fondo transparente, textos a curvas, tamano real o revision de calidad, escribenos antes de producir. Te orientamos para evitar errores y retrasos.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-sm max-w-4xl mx-auto space-y-6">
+                <div class="text-center space-y-2">
+                    <p class="text-xs uppercase tracking-wider text-logoCyan font-black">Preguntas frecuentes</p>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-logoDark">Dudas rapidas antes de ordenar</h2>
+                </div>
+                <div class="space-y-3">
+                    <details class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
+                        <summary class="cursor-pointer font-extrabold text-logoDark">Que formatos aceptan?</summary>
+                        <p class="text-sm text-gray-500 mt-3">PNG, PDF, AI y PSD. Para mejores resultados usa tamano real, fondo transparente cuando aplique y 300 DPI.</p>
+                    </details>
+                    <details class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
+                        <summary class="cursor-pointer font-extrabold text-logoDark">Cuanto tarda la produccion?</summary>
+                        <p class="text-sm text-gray-500 mt-3">La produccion regular es de 24-48 horas segun volumen. Si es urgente, escribenos por WhatsApp antes de ordenar.</p>
+                    </details>
+                    <details class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
+                        <summary class="cursor-pointer font-extrabold text-logoDark">Cual es la diferencia entre DTF Textil y DTF UV?</summary>
+                        <p class="text-sm text-gray-500 mt-3">DTF Textil se usa para ropa y telas. DTF UV es adhesivo premium para superficies rigidas como acrilico, vidrio, metal, vasos y empaques.</p>
+                    </details>
+                    <details class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
+                        <summary class="cursor-pointer font-extrabold text-logoDark">La cotizacion es definitiva?</summary>
+                        <p class="text-sm text-gray-500 mt-3">Es una estimacion automatica. El equipo revisa el archivo final antes de confirmar produccion, acabado y entrega.</p>
+                    </details>
+                    <details class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
+                        <summary class="cursor-pointer font-extrabold text-logoDark">Puedo pedir ayuda si mi archivo no esta listo?</summary>
+                        <p class="text-sm text-gray-500 mt-3">Si. Usa el boton de asesoria por WhatsApp y comparte tu caso para revisar material, medida y preparacion del archivo.</p>
+                    </details>
+                    <details class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
+                        <summary class="cursor-pointer font-extrabold text-logoDark">Hacen envios?</summary>
+                        <p class="text-sm text-gray-500 mt-3">Si. Puedes solicitar cotizacion de envio en el carrito y agregar tu direccion para coordinar la entrega.</p>
+                    </details>
+                </div>
+            </div>
         </section>
 
     </main>
 
     <!-- BARRA LATERAL DEL CARRITO -->
-    <div id="cart-sidebar" class="fixed top-0 right-0 bottom-0 w-full sm:w-96 bg-white z-50 shadow-2xl border-l border-gray-100 transform translate-x-full transition-transform duration-300 flex flex-col justify-between">
+    <div id="cart-sidebar" class="fixed top-0 right-0 bottom-0 w-[92vw] max-w-[28rem] sm:w-[28rem] bg-white z-50 shadow-2xl border-l border-gray-100 transform translate-x-full transition-transform duration-300 flex flex-col">
         <div class="p-4 sm:p-6 border-b border-gray-100 flex justify-between items-center gap-3">
             <h3 class="font-bold text-lg flex items-center gap-2">
                 <i class="fa-solid fa-basket-shopping text-logoMagenta"></i>
@@ -1093,14 +1279,14 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
             </div>
         </div>
 
-        <div class="p-4 sm:p-6 flex-1 overflow-y-auto space-y-4" id="cart-items-container">
+        <div class="p-4 sm:p-6 flex-1 min-h-0 overflow-y-auto space-y-4 pb-4" id="cart-items-container">
             <div class="text-center py-12 text-gray-400 space-y-2">
                 <i class="fa-solid fa-basket-shopping text-4xl block"></i>
                 <span class="text-sm">Cotización vacía. ¡Arma tu planilla DTF!</span>
             </div>
         </div>
 
-        <div class="p-4 sm:p-6 border-t border-gray-100 space-y-4 bg-gray-50">
+        <div class="max-h-[55vh] overflow-y-auto p-4 sm:p-6 border-t border-gray-100 space-y-3 bg-white">
             <div class="space-y-1.5 text-xs text-gray-600">
                 <div class="flex justify-between"><span>Subtotal:</span> <span id="cart-subtotal" class="font-bold">$0 DOP</span></div>
                 <label class="flex items-center justify-between gap-3 rounded-xl border border-gray-200 bg-white px-3 py-3 cursor-pointer">
@@ -1110,15 +1296,18 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                             id="cart-shipping-toggle"
                             class="h-4 w-4 accent-logoMagenta"
                         >
-                        Incluir envío
+                        Cotizar envío
                     </span>
-                    <span id="cart-shipping" class="font-black text-logoCyan">RD$250</span>
+                    <span id="cart-shipping" class="font-black text-logoCyan">Opcional</span>
                 </label>
                 <div class="flex justify-between text-sm text-[#1E1E1E] font-bold border-t border-gray-200 pt-2">
                     <span>Total Estimado:</span> <span id="cart-total" class="font-black text-logoMagenta">$0 DOP</span>
                 </div>
             </div>
-            <details class="rounded-xl bg-white border border-gray-200 p-3 text-xs text-gray-500 leading-relaxed">
+            <div id="cart-order-status" class="text-xs text-gray-500 leading-relaxed">
+                <div id="cart-order-status-list" class="flex flex-wrap gap-x-3 gap-y-1"></div>
+            </div>
+            <details class="rounded-xl bg-gray-50 border border-gray-200 px-3 py-2 text-xs text-gray-500 leading-relaxed">
                 <summary class="cursor-pointer font-bold text-logoDark">Detalles de producción y pago</summary>
                 <div class="space-y-1 pt-2">
                     <p><strong class="text-logoDark">Entrega:</strong> producción regular 24-48 horas según volumen.</p>
@@ -1133,7 +1322,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     autocomplete="name"
                     aria-label="Nombre del cliente"
                     placeholder="Nombre del cliente"
-                    class="w-full rounded-xl border border-gray-200 bg-white px-3 py-3 text-sm outline-none focus:border-logoMagenta"
+                    class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-logoMagenta"
                 >
                 <input
                     id="checkout-phone"
@@ -1142,7 +1331,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     inputmode="tel"
                     aria-label="Telefono o WhatsApp"
                     placeholder="Teléfono / WhatsApp"
-                    class="w-full rounded-xl border border-gray-200 bg-white px-3 py-3 text-sm outline-none focus:border-logoMagenta"
+                    class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-logoMagenta"
                 >
                 <input
                     id="checkout-address"
@@ -1150,14 +1339,14 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     autocomplete="street-address"
                     aria-label="Direccion de envio"
                     placeholder="Direccion de envio"
-                    class="hidden w-full rounded-xl border border-gray-200 bg-white px-3 py-3 text-sm outline-none focus:border-logoMagenta"
+                    class="hidden w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-logoMagenta"
                 >
                 <textarea
                     id="checkout-notes"
                     rows="3"
                     aria-label="Nota opcional del pedido"
                     placeholder="Nota opcional: detalles del pedido, urgencia o instrucciones"
-                    class="w-full resize-none rounded-xl border border-gray-200 bg-white px-3 py-3 text-sm outline-none focus:border-logoMagenta"
+                    class="w-full resize-none rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-logoMagenta"
                 ></textarea>
             </div>
             <button id="cart-checkout-btn" type="button" class="w-full bg-[#1E1E1E] hover:bg-logoMagenta text-white font-bold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2">
@@ -1262,12 +1451,13 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                 <h3 class="text-xl font-extrabold text-logoDark">Orden enviada</h3>
                 <p id="order-success-message" class="text-sm text-gray-500 leading-relaxed">Te contactaremos por WhatsApp para confirmar produccion.</p>
             </div>
+            <div id="order-success-details" class="rounded-xl bg-gray-50 border border-gray-100 p-4 text-left text-sm text-gray-600 leading-relaxed"></div>
             <div class="grid grid-cols-1 gap-3">
                 <a
                     id="order-success-whatsapp"
                     href="https://wa.me/18297078582"
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     class="w-full rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 transition-all flex items-center justify-center gap-2"
                 >
                     <i class="fa-brands fa-whatsapp"></i>
@@ -1325,7 +1515,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     <ul class="space-y-2 text-xs text-gray-400">
                         <li><button type="button" data-go-tab="guia" class="text-left hover:text-white transition-colors">Guía de Preparación de Archivos</button></li>
                         <li><button type="button" data-go-tab="contacto" class="text-left hover:text-white transition-colors">Envíos y Entregas Nacionales</button></li>
-                        <li><a data-business-whatsapp href="https://wa.me/18297078582" target="_blank" rel="noopener" class="hover:text-white transition-colors">Atención por WhatsApp</a></li>
+                        <li><a data-business-whatsapp href="https://wa.me/18297078582" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Atención por WhatsApp</a></li>
                     </ul>
                 </div>
 
@@ -1334,8 +1524,8 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     <h4 class="font-bold text-sm text-white uppercase tracking-wider">Síguenos en Redes</h4>
                     <p class="text-xs text-gray-400">Mantente al tanto de ofertas exclusivas y nuevos materiales disponibles.</p>
                     <div class="flex gap-3">
-                    <a href="https://instagram.com/madeacrilico" target="_blank" rel="noopener" aria-label="Instagram de MADE Acrilico" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-logoCyan hover:text-white transition-all text-gray-400"><i class="fab fa-instagram text-sm"></i></a>
-                    <a href="https://tiktok.com/@madeacrilico" target="_blank" rel="noopener" aria-label="TikTok de MADE Acrilico" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-logoYellow hover:text-white transition-all text-gray-400"><i class="fab fa-tiktok text-sm"></i></a>
+                    <a href="https://instagram.com/madeacrilico" target="_blank" rel="noopener noreferrer" aria-label="Instagram de MADE Acrilico" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-logoCyan hover:text-white transition-all text-gray-400"><i class="fab fa-instagram text-sm"></i></a>
+                    <a href="https://tiktok.com/@madeacrilico" target="_blank" rel="noopener noreferrer" aria-label="TikTok de MADE Acrilico" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-logoYellow hover:text-white transition-all text-gray-400"><i class="fab fa-tiktok text-sm"></i></a>
                     </div>
                 </div>
             </div>
@@ -1380,3 +1570,4 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
     <script type="module" src="js/app.js"></script>
 </body>
 </html>
+

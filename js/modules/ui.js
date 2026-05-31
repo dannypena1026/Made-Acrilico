@@ -207,8 +207,15 @@ export function switchTab(tabId) {
 function applyBusinessConfig() {
     $all('[data-business-whatsapp]')
         .forEach(link => {
+            const message =
+                link.dataset.whatsappMessage;
+
             link.href =
-                `https://wa.me/${BUSINESS_CONFIG.whatsappNumber}`;
+                `https://wa.me/${BUSINESS_CONFIG.whatsappNumber}${
+                    message
+                        ? `?text=${encodeURIComponent(message)}`
+                        : ''
+                }`;
         });
 
     $all('[data-business-phone]')
@@ -278,6 +285,16 @@ function toggleMobileMenu() {
     $id('mobile-menu')?.classList.toggle('hidden');
 }
 
+function lockPageScroll() {
+    document.documentElement.classList.add('overflow-hidden');
+    document.body.classList.add('overflow-hidden');
+}
+
+function unlockPageScroll() {
+    document.documentElement.classList.remove('overflow-hidden');
+    document.body.classList.remove('overflow-hidden');
+}
+
 export function toggleCart() {
     const cartSidebar =
         $id('cart-sidebar');
@@ -287,6 +304,9 @@ export function toggleCart() {
 
     if (!cartSidebar || !cartOverlay) return;
 
+    const willOpen =
+        cartSidebar.classList.contains('translate-x-full');
+
     cartSidebar.classList.toggle(
         'translate-x-full'
     );
@@ -294,6 +314,13 @@ export function toggleCart() {
     cartOverlay.classList.toggle(
         'hidden'
     );
+
+    if (willOpen) {
+        lockPageScroll();
+        return;
+    }
+
+    unlockPageScroll();
 }
 
 export function openCart() {
@@ -312,6 +339,8 @@ export function openCart() {
     cartOverlay.classList.remove(
         'hidden'
     );
+
+    lockPageScroll();
 }
 
 export function closeCart() {
@@ -330,6 +359,8 @@ export function closeCart() {
     cartOverlay.classList.add(
         'hidden'
     );
+
+    unlockPageScroll();
 }
 
 function handleFormSubmit(event) {
@@ -371,10 +402,16 @@ Gracias.`;
     const whatsappURL =
         `https://wa.me/${BUSINESS_CONFIG.whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
-    window.open(
-        whatsappURL,
-        '_blank'
-    );
+    const whatsappWindow =
+        window.open(
+            whatsappURL,
+            '_blank',
+            'noopener,noreferrer'
+        );
+
+    if (whatsappWindow) {
+        whatsappWindow.opener = null;
+    }
 
     event.target?.reset();
 }

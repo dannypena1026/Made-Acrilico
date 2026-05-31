@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#1E1E1E"/>
+  <circle cx="1010" cy="90" r="220" fill="#E52D7F" opacity=".35"/>
+  <circle cx="180" cy="560" r="260" fill="#00A5DF" opacity=".25"/>
+  <g transform="translate(88 120)">
+    <path d="M0 300 90 0h54L54 300z" fill="#F6D044"/>
+    <path d="M72 300 162 0h54l-90 300z" fill="#E52D7F"/>
+    <path d="M144 300 234 0h54l-90 300z" fill="#00A5DF"/>
+    <path d="M216 300 306 0h54l-90 300z" fill="#ffffff"/>
+  </g>
+  <text x="500" y="235" fill="#E52D7F" font-family="Arial, sans-serif" font-size="74" font-weight="900">MADE</text>
+  <text x="500" y="310" fill="#ffffff" font-family="Arial, sans-serif" font-size="66" font-weight="900" letter-spacing="8">ACRILICO</text>
+  <text x="505" y="370" fill="#F6D044" font-family="Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="4">TALLER GRAFICO</text>
+  <text x="500" y="450" fill="#ffffff" font-family="Arial, sans-serif" font-size="36" font-weight="700">Cotizador DTF Textil y UV</text>
+  <text x="500" y="505" fill="#cbd5e1" font-family="Arial, sans-serif" font-size="24">Santo Domingo - Archivo revisado antes de producir</text>
+</svg>

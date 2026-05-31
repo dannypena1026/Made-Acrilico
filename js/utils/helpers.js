@@ -45,3 +45,42 @@ export function escapeHTML(value) {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
 }
+
+export function getTrustedURL(value, allowedHosts = []) {
+    try {
+        const hasWindow =
+            typeof window !== 'undefined';
+
+        const baseURL =
+            hasWindow
+                ? window.location.origin
+                : 'https://made-acrilico.local';
+
+        const url =
+            new URL(
+                String(value || ''),
+                baseURL
+            );
+
+        const isAllowedProtocol =
+            url.protocol === 'https:' ||
+            (
+                hasWindow &&
+                url.protocol === 'http:' &&
+                url.hostname === window.location.hostname
+            );
+
+        if (!isAllowedProtocol) return '';
+
+        if (
+            allowedHosts.length > 0 &&
+            !allowedHosts.includes(url.hostname)
+        ) {
+            return '';
+        }
+
+        return url.href;
+    } catch {
+        return '';
+    }
+}

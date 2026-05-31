@@ -3,6 +3,7 @@ import {
     escapeHTML,
     formatCurrency,
     generateId,
+    getTrustedURL,
     loadFromStorage,
     saveToStorage
 } from '../utils/helpers.js';
@@ -20,7 +21,6 @@ import {
 
 const CART_STORAGE_KEY = 'made-acrilico-cart';
 const CART_SHIPPING_STORAGE_KEY = 'made-acrilico-shipping-enabled';
-const SHIPPING_PRICE = BUSINESS_CONFIG.shippingPrice;
 
 let cart = [];
 let includeShipping = false;
@@ -143,12 +143,7 @@ function getCartSubtotal() {
 
 function getCartTotal() {
 
-    return getCartSubtotal() +
-        (
-            includeShipping
-                ? SHIPPING_PRICE
-                : 0
-        );
+    return getCartSubtotal();
 
 }
 
@@ -160,13 +155,16 @@ function generateOrderId(date = new Date()) {
             .slice(0, 10)
             .replace(/-/g, '');
 
-    const suffix =
-        Math.random()
-            .toString(36)
-            .slice(2, 6)
-            .toUpperCase();
+    const timeStamp =
+        [
+            date.getHours(),
+            date.getMinutes(),
+            date.getSeconds()
+        ]
+            .map(value => String(value).padStart(2, '0'))
+            .join('');
 
-    return `MA-${stamp}-${suffix}`;
+    return `MA-${stamp}-${timeStamp}`;
 
 }
 
@@ -200,6 +198,126 @@ function hasMissingFileLinks() {
     return cart.some(
         item => !item.fileUrl
     );
+
+}
+
+
+function renderStatusRow({
+    icon,
+    label,
+    message,
+    ready
+}) {
+
+    return `
+        <span title="${escapeHTML(message)}" class="inline-flex items-center gap-1 ${
+            ready
+                ? 'text-emerald-600'
+                : 'text-gray-500'
+        }">
+            <i class="fa-solid ${icon} ${
+                ready
+                    ? 'text-emerald-500'
+                    : 'text-logoYellow'
+            }"></i>
+            <span>${label}: ${message}</span>
+        </span>
+    `;
+
+}
+
+
+function getOrderStatusRows() {
+
+    const {
+        customerName,
+        customerPhone,
+        customerAddress
+    } = getCheckoutDetails();
+
+    const hasItems =
+        cart.length > 0;
+
+    const filesReady =
+        hasItems && !hasMissingFileLinks();
+
+    const hasName =
+        Boolean(customerName);
+
+    const hasPhone =
+        Boolean(customerPhone);
+
+    const validPhone =
+        hasPhone && isValidDominicanPhone(customerPhone);
+
+    const deliveryReady =
+        !includeShipping || Boolean(customerAddress);
+
+    const dataReady =
+        hasName && validPhone && deliveryReady;
+
+    const orderReady =
+        hasItems && filesReady && dataReady;
+
+    return [
+        {
+            icon: filesReady ? 'fa-file-circle-check' : 'fa-file-circle-exclamation',
+            label: 'Archivo',
+            message: filesReady
+                ? 'Listo'
+                : hasItems
+                    ? 'Pendiente'
+                    : 'Sin item',
+            ready: filesReady
+        },
+        {
+            icon: dataReady ? 'fa-user-check' : 'fa-user-pen',
+            label: 'Datos',
+            message: dataReady
+                ? 'Completos'
+                : !hasName
+                    ? 'Falta nombre'
+                    : !hasPhone
+                        ? 'Falta WhatsApp'
+                        : !validPhone
+                            ? 'Telefono invalido'
+                            : 'Falta direccion',
+            ready: dataReady
+        },
+        {
+            icon: includeShipping ? 'fa-truck-fast' : 'fa-store',
+            label: 'Entrega',
+            message: includeShipping
+                ? deliveryReady
+                    ? 'Envio a cotizar'
+                    : 'Falta direccion'
+                : 'Retiro',
+            ready: deliveryReady
+        },
+        {
+            icon: orderReady ? 'fa-envelope-circle-check' : 'fa-circle-info',
+            label: 'Orden',
+            message: orderReady
+                ? 'Lista'
+                : 'Pendiente',
+            ready: orderReady
+        }
+    ];
+
+}
+
+
+function updateOrderStatusUI() {
+
+    const statusList =
+        document.getElementById('cart-order-status-list');
+
+    if (!statusList) return;
+
+    statusList.innerHTML =
+        getOrderStatusRows()
+            .map(renderStatusRow)
+            .join('');
 
 }
 
@@ -326,6 +444,12 @@ function renderCartItem(item) {
     const itemTotal =
         getCartItemTotal(item);
 
+    const fileUrl =
+        getTrustedURL(
+            item.fileUrl,
+            ['res.cloudinary.com']
+        );
+
     return `
 
         <div class="bg-gray-50 border border-gray-100 rounded-2xl p-4 space-y-4" data-cart-item="${escapeHTML(item.id)}">
@@ -347,8 +471,8 @@ function renderCartItem(item) {
                     </p>
 
                     ${
-                        item.fileUrl
-                            ? `<a href="${escapeHTML(item.fileUrl)}" target="_blank" rel="noopener" class="inline-flex mt-2 text-xs font-bold text-logoCyan hover:text-logoMagenta">Ver archivo subido</a>`
+                        fileUrl
+                            ? `<a href="${escapeHTML(fileUrl)}" target="_blank" rel="noopener noreferrer" class="inline-flex mt-2 text-xs font-bold text-logoCyan hover:text-logoMagenta">Ver archivo subido</a>`
                             : ''
                     }
 
@@ -476,7 +600,11 @@ function updateCartUI() {
     }
 
     shippingEl.innerText =
-        formatCurrency(SHIPPING_PRICE);
+        includeShipping
+            ? 'A cotizar'
+            : 'Opcional';
+
+    updateOrderStatusUI();
 
     if (cart.length === 0) {
 
@@ -501,6 +629,8 @@ function updateCartUI() {
 
     totalEl.innerText =
         formatCurrency(getCartTotal());
+
+    updateOrderStatusUI();
 
 }
 
@@ -721,7 +851,7 @@ function buildOrderReviewHTML({
         </div>
         <div class="rounded-xl bg-white border border-gray-100 p-3">
             <div class="flex justify-between"><span>Subtotal</span><strong>${formatCurrency(getCartSubtotal())}</strong></div>
-            <div class="flex justify-between"><span>${includeShipping ? 'Envio' : 'Retiro'}</span><strong>${includeShipping ? formatCurrency(SHIPPING_PRICE) : 'Sin envio'}</strong></div>
+            <div class="flex justify-between"><span>${includeShipping ? 'Envio' : 'Retiro'}</span><strong>${includeShipping ? 'A cotizar' : 'Sin envio'}</strong></div>
             <div class="flex justify-between text-logoMagenta text-base border-t border-gray-100 mt-2 pt-2"><span>Total estimado</span><strong>${formatCurrency(getCartTotal())}</strong></div>
         </div>
         ${
@@ -799,6 +929,9 @@ function showOrderSuccess(orderId) {
     const message =
         document.getElementById('order-success-message');
 
+    const details =
+        document.getElementById('order-success-details');
+
     const whatsappLink =
         document.getElementById('order-success-whatsapp');
 
@@ -813,6 +946,14 @@ function showOrderSuccess(orderId) {
 
     message.innerText =
         `Orden ${orderId} enviada. Te contactaremos por WhatsApp para confirmar produccion.`;
+
+    if (details) {
+        details.innerHTML = `
+            <p><strong class="text-logoDark">Numero de orden:</strong> ${escapeHTML(orderId)}</p>
+            <p class="mt-2">Revisaremos tu archivo antes de producir para confirmar calidad, medida y acabado.</p>
+            <p class="mt-2">Si el pedido es urgente, avisanos por WhatsApp con este numero de orden.</p>
+        `;
+    }
 
     whatsappLink.href =
         `https://wa.me/${BUSINESS_CONFIG.whatsappNumber}?text=${encodeURIComponent(buildWhatsAppFollowUp(orderId))}`;
@@ -846,24 +987,24 @@ function buildOrderMessage({
         );
 
     let message =
-`ORDEN DTF
-
-ID de orden: ${orderId}
+`ORDEN DTF - ${orderId}
 Fecha: ${orderDate}
 
 CLIENTE
-Nombre: ${customerName}
-Telefono / WhatsApp: ${customerPhone}
+${customerName}
+WhatsApp: ${customerPhone}
 
-TOTAL
-Subtotal: ${formatCurrency(subtotal)}
-Envío: ${includeShipping ? formatCurrency(SHIPPING_PRICE) : 'No incluido'}
-Total estimado: ${formatCurrency(total)}
-Entrega: ${includeShipping ? 'Envio' : 'Retiro en tienda'}
+ENTREGA
+Tipo: ${includeShipping ? 'Envio' : 'Retiro en tienda'}
 ${includeShipping ? `Direccion: ${customerAddress}` : ''}
-${customerNotes ? `Nota del cliente: ${customerNotes}` : ''}
+${customerNotes ? `Nota: ${customerNotes}` : ''}
 
-PRODUCCIÓN
+RESUMEN
+Subtotal: ${formatCurrency(subtotal)}
+Envio: ${includeShipping ? 'A cotizar' : 'No incluido'}
+Total estimado: ${formatCurrency(total)}
+
+PRODUCTOS
 
 `;
 
@@ -873,29 +1014,13 @@ PRODUCCIÓN
             getCartItemTotal(item);
 
         message +=
-`${index + 1}. ${item.material}
-Medida: ${item.size}
-Copias: ${item.quantity}
-Precio: ${formatCurrency(itemTotal)}
+`${index + 1}. ${item.material} - ${item.size} - ${item.quantity} copia(s) - ${formatCurrency(itemTotal)}
 Archivo: ${item.fileName}
-Tipo: ${item.fileType}
-Tamaño: ${item.fileSize}
-Ver archivo: ${item.fileUrl || 'No disponible'}
+Link: ${getTrustedURL(item.fileUrl, ['res.cloudinary.com']) || 'No disponible'}
 
 `;
 
     });
-
-    message +=
-`------------------------------
-ENTREGA
-Producción regular: ${BUSINESS_CONFIG.deliveryEstimate}.
-
-REVISIÓN
-${BUSINESS_CONFIG.estimateNotice}
-
-NOTA INTERNA
-Revisar el archivo final antes de confirmar producción.`;
 
     return message;
 }
@@ -927,7 +1052,9 @@ async function checkoutOrder() {
     if (!customerName || !customerPhone) {
 
         showToast(
-            'Completa nombre y teléfono para enviar la orden.',
+            !customerName
+                ? 'Agrega el nombre del cliente para enviar la orden.'
+                : 'Agrega el WhatsApp del cliente para enviar la orden.',
             'error'
         );
 
@@ -938,7 +1065,7 @@ async function checkoutOrder() {
     if (!isValidDominicanPhone(customerPhone)) {
 
         showToast(
-            'Ingresa un telefono dominicano valido.',
+            'Ingresa un WhatsApp dominicano valido: 809, 829 o 849.',
             'error'
         );
 
@@ -960,7 +1087,7 @@ async function checkoutOrder() {
     if (hasMissingFileLinks()) {
 
         showToast(
-            'Hay un archivo sin link listo. Vuelve a subirlo antes de enviar.',
+            'Hay un archivo sin enlace listo. Vuelve a subirlo antes de enviar.',
             'error'
         );
 
@@ -1029,40 +1156,6 @@ async function checkoutOrder() {
     );
 
     formData.append(
-        'name',
-        customerName
-    );
-
-    formData.append(
-        'phone',
-        customerPhone
-    );
-
-    formData.append(
-        'order_id',
-        orderId
-    );
-
-    formData.append(
-        'delivery',
-        includeShipping ? 'Envio' : 'Retiro en tienda'
-    );
-
-    if (includeShipping) {
-        formData.append(
-            'address',
-            customerAddress
-        );
-    }
-
-    if (customerNotes) {
-        formData.append(
-            'notes',
-            customerNotes
-        );
-    }
-
-    formData.append(
         'message',
         message
     );
@@ -1115,7 +1208,7 @@ async function checkoutOrder() {
         console.error(error);
 
         showToast(
-            'No se pudo enviar la orden por correo.',
+            'No se pudo enviar la orden. Tu carrito se conserva para intentar de nuevo.',
             'error'
         );
 
@@ -1167,6 +1260,19 @@ export function initializeCart() {
             'change',
             handleShippingToggle
         );
+
+    [
+        'checkout-name',
+        'checkout-phone',
+        'checkout-address',
+        'checkout-notes'
+    ].forEach(id => {
+        document.getElementById(id)
+            ?.addEventListener(
+                'input',
+                updateOrderStatusUI
+            );
+    });
 
     document.getElementById('order-review-cancel')
         ?.addEventListener(
