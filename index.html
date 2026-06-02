@@ -162,15 +162,6 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
         <!-- PESTAÑA: INICIO -->
         <section id="tab-inicio" class="tab-content block space-y-16">
             
-            <div class="rounded-2xl bg-white border border-gray-100 shadow-sm px-4 py-3">
-                <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs md:text-sm font-bold text-logoDark">
-                    <span class="inline-flex items-center gap-2"><i class="fa-solid fa-calculator text-logoMagenta"></i> Cotiza en linea</span>
-                    <span class="inline-flex items-center gap-2"><i class="fa-solid fa-file-arrow-up text-logoCyan"></i> Sube tu archivo</span>
-                    <span class="inline-flex items-center gap-2"><i class="fa-solid fa-cart-shopping text-emerald-500"></i> Arma tu carrito</span>
-                    <span class="inline-flex items-center gap-2"><i class="fa-solid fa-envelope-circle-check text-logoYellow"></i> Orden por correo</span>
-                </div>
-            </div>
-
             <!-- HERO / SECCIÓN PRINCIPAL -->
             <div class="relative overflow-hidden bg-gradient-to-br from-logoDark via-logoDarkLight to-black text-white rounded-3xl p-8 md:p-16 shadow-2xl flex flex-col md:flex-row items-center gap-12">
                 <div class="absolute -top-20 -left-20 w-80 h-80 bg-logoCyan/30 rounded-full blur-[100px]"></div>
@@ -239,47 +230,6 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                             <p class="text-3xl font-black text-white">WhatsApp</p>
                             <p class="text-xs font-bold text-gray-300 mt-1 uppercase tracking-wider">Atencion directa</p>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="space-y-8">
-                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-                    <div class="max-w-2xl">
-                        <p class="text-xs uppercase tracking-wider text-logoMagenta font-black">Proceso MADE</p>
-                        <h2 class="text-3xl md:text-4xl font-extrabold text-logoDark mt-2">De archivo a produccion sin dar vueltas.</h2>
-                    </div>
-                    <p class="text-sm text-gray-500 max-w-md">El cliente cotiza rapido, deja el archivo listo y el equipo recibe una orden clara para revisar antes de producir.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
-                        <span class="w-10 h-10 rounded-xl bg-pink-50 text-logoMagenta flex items-center justify-center mb-4">
-                            <i class="fa-solid fa-file-arrow-up"></i>
-                        </span>
-                        <h3 class="font-black text-logoDark">Sube tu archivo</h3>
-                        <p class="text-sm text-gray-500 mt-2">PNG, PDF, AI o PSD para revisar el arte real del pedido.</p>
-                    </div>
-                    <div class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
-                        <span class="w-10 h-10 rounded-xl bg-cyan-50 text-logoCyan flex items-center justify-center mb-4">
-                            <i class="fa-solid fa-ruler-combined"></i>
-                        </span>
-                        <h3 class="font-black text-logoDark">Elige medidas</h3>
-                        <p class="text-sm text-gray-500 mt-2">Calculamos por tramo para que pagues segun el espacio necesario.</p>
-                    </div>
-                    <div class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
-                        <span class="w-10 h-10 rounded-xl bg-yellow-50 text-logoYellow flex items-center justify-center mb-4">
-                            <i class="fa-solid fa-magnifying-glass-chart"></i>
-                        </span>
-                        <h3 class="font-black text-logoDark">Revisamos</h3>
-                        <p class="text-sm text-gray-500 mt-2">Validamos archivo, medida y material antes de pasar a produccion.</p>
-                    </div>
-                    <div class="bg-logoDark text-white rounded-2xl p-5 shadow-sm">
-                        <span class="w-10 h-10 rounded-xl bg-white/10 text-white flex items-center justify-center mb-4">
-                            <i class="fa-solid fa-truck-fast"></i>
-                        </span>
-                        <h3 class="font-black">Producimos</h3>
-                        <p class="text-sm text-gray-300 mt-2">Entrega regular 24-48h segun volumen, con retiro o envio coordinado.</p>
                     </div>
                 </div>
             </div>
@@ -1042,6 +992,47 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
 
         <!-- PESTAÑA: GUÍA DE ARCHIVO -->
         <section id="tab-guia" class="tab-content hidden space-y-8">
+            <div class="space-y-8">
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                    <div class="max-w-2xl">
+                        <p class="text-xs uppercase tracking-wider text-logoMagenta font-black">Proceso MADE</p>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-logoDark mt-2">De archivo a produccion sin dar vueltas.</h2>
+                    </div>
+                    <p class="text-sm text-gray-500 max-w-md">El cliente cotiza rapido, deja el archivo listo y el equipo recibe una orden clara para revisar antes de producir.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
+                        <span class="w-10 h-10 rounded-xl bg-pink-50 text-logoMagenta flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-file-arrow-up"></i>
+                        </span>
+                        <h3 class="font-black text-logoDark">Sube tu archivo</h3>
+                        <p class="text-sm text-gray-500 mt-2">PNG, PDF, AI o PSD para revisar el arte real del pedido.</p>
+                    </div>
+                    <div class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
+                        <span class="w-10 h-10 rounded-xl bg-cyan-50 text-logoCyan flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-ruler-combined"></i>
+                        </span>
+                        <h3 class="font-black text-logoDark">Elige medidas</h3>
+                        <p class="text-sm text-gray-500 mt-2">Calculamos por tramo para que pagues segun el espacio necesario.</p>
+                    </div>
+                    <div class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
+                        <span class="w-10 h-10 rounded-xl bg-yellow-50 text-logoYellow flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        </span>
+                        <h3 class="font-black text-logoDark">Revisamos</h3>
+                        <p class="text-sm text-gray-500 mt-2">Validamos archivo, medida y material antes de pasar a produccion.</p>
+                    </div>
+                    <div class="bg-logoDark text-white rounded-2xl p-5 shadow-sm">
+                        <span class="w-10 h-10 rounded-xl bg-white/10 text-white flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </span>
+                        <h3 class="font-black">Producimos</h3>
+                        <p class="text-sm text-gray-300 mt-2">Entrega regular 24-48h segun volumen, con retiro o envio coordinado.</p>
+                    </div>
+                </div>
+            </div>
+
             <div class="bg-white rounded-3xl p-6 sticky top-28 md:p-8 border border-gray-100 shadow-sm max-w-4xl mx-auto space-y-8">
                 <div class="text-center space-y-3">
                     <h2 class="text-2xl md:text-3xl font-extrabold text-[#1E1E1E]">Antes de enviar tu archivo</h2>

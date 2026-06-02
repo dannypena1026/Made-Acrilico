@@ -12,6 +12,8 @@ import {
 
 let confirmResolver = null;
 
+const DEFAULT_TAB = 'inicio';
+
 const LEGAL_CONTENT = {
     privacy: {
         eyebrow: 'Políticas de privacidad',
@@ -147,7 +149,58 @@ function resolveConfirmModal(value) {
     }
 }
 
-export function switchTab(tabId) {
+function getValidTabId(tabId) {
+    return $id(`tab-${tabId}`)
+        ? tabId
+        : DEFAULT_TAB;
+}
+
+function getTabIdFromLocation() {
+    return getValidTabId(
+        window.location.hash.replace('#', '')
+    );
+}
+
+function getTabURL(tabId) {
+    const baseURL =
+        `${window.location.pathname}${window.location.search}`;
+
+    return tabId === DEFAULT_TAB
+        ? baseURL
+        : `${baseURL}#${tabId}`;
+}
+
+function updateTabHistory(tabId, replace = false) {
+    if (!window.history?.pushState) return;
+
+    const nextURL =
+        getTabURL(tabId);
+
+    const currentURL =
+        `${window.location.pathname}${window.location.search}${window.location.hash}`;
+
+    if (!replace && currentURL === nextURL) return;
+
+    const method =
+        replace
+            ? 'replaceState'
+            : 'pushState';
+
+    window.history[method](
+        { tabId },
+        '',
+        nextURL
+    );
+}
+
+export function switchTab(tabId, {
+    updateHistory = true,
+    replaceHistory = false,
+    scroll = true
+} = {}) {
+    const nextTabId =
+        getValidTabId(tabId);
+
     $all('.tab-content')
         .forEach(tab => {
             tab.classList.add('hidden');
@@ -155,12 +208,12 @@ export function switchTab(tabId) {
         });
 
     const activeTab =
-        $id(`tab-${tabId}`);
+        $id(`tab-${nextTabId}`);
 
     if (activeTab) {
         activeTab.classList.remove('hidden');
         activeTab.classList.add('block');
-        setCurrentTab(tabId);
+        setCurrentTab(nextTabId);
     }
 
     $all('.nav-btn')
@@ -178,7 +231,7 @@ export function switchTab(tabId) {
         });
 
     const activeButton =
-        $id(`nav-${tabId}`);
+        $id(`nav-${nextTabId}`);
 
     if (activeButton) {
         activeButton.classList.add(
@@ -193,15 +246,24 @@ export function switchTab(tabId) {
         );
     }
 
-    if (tabId === 'planilla') {
+    if (nextTabId === 'planilla') {
         renderWidthControlOptions();
         updateNestingCalculation();
     }
 
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
+    if (updateHistory) {
+        updateTabHistory(
+            nextTabId,
+            replaceHistory
+        );
+    }
+
+    if (scroll) {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
 }
 
 function applyBusinessConfig() {
@@ -483,6 +545,37 @@ function activateUvMode() {
 }
 
 function initializeNavigation() {
+    window.addEventListener(
+        'popstate',
+        event => {
+            switchTab(
+                event.state?.tabId || getTabIdFromLocation(),
+                {
+                    updateHistory: false,
+                    scroll: true
+                }
+            );
+        }
+    );
+
+    window.addEventListener(
+        'hashchange',
+        () => {
+            const nextTabId =
+                getTabIdFromLocation();
+
+            if (appState.currentTab === nextTabId) return;
+
+            switchTab(
+                nextTabId,
+                {
+                    updateHistory: false,
+                    scroll: true
+                }
+            );
+        }
+    );
+
     $all('[data-tab]')
         .forEach(button => {
             button.addEventListener(
@@ -682,9 +775,13 @@ export function initializeUI() {
 
     initializeMaterialControls();
 
-    if (appState.currentTab !== 'inicio') {
-        switchTab(appState.currentTab);
-    }
+    switchTab(
+        getTabIdFromLocation(),
+        {
+            replaceHistory: true,
+            scroll: false
+        }
+    );
 }
 
 const btnTextil =
