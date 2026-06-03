@@ -9,14 +9,6 @@
     transition: width 0.3s ease-in-out;
 }
 
-.home-hero-panel {
-    border-radius: 1.5rem 1.5rem 0 0;
-}
-
-.home-stats-panel {
-    border-radius: 0 0 1.5rem 1.5rem;
-}
-
 /* Custom scroll */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: #f1f1f1; }
