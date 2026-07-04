@@ -9,6 +9,34 @@
     transition: width 0.3s ease-in-out;
 }
 
+.brand-logo-header {
+    display: block;
+    height: 44px;
+    width: auto;
+    max-width: 170px;
+    object-fit: contain;
+}
+
+.brand-logo-footer {
+    display: block;
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+@media (min-width: 640px) {
+    .brand-logo-header {
+        height: 48px;
+        max-width: 210px;
+    }
+}
+
+@media (min-width: 768px) {
+    .brand-logo-header {
+        max-width: 230px;
+    }
+}
+
 @media (max-width: 767px) {
     main.py-8 {
         padding-bottom: 96px;
