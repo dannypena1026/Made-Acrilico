@@ -1,8 +1,8 @@
 export const BUSINESS_CONFIG = {
     name: 'MADE ACRÍLICO',
-    whatsappNumber: '18297078582',
-    phoneDisplay: '+1 (829) 707-8582',
-    phoneHref: '+18297078582',
+    whatsappNumber: '18298824820',
+    phoneDisplay: '+1 (809) 278-8080',
+    phoneHref: '+18092788080',
     email: 'madeacrilico@gmail.com',
     address: 'Plaza Comercial Herrera, Av. Isabel Aguiar, Santo Domingo',
     mapsUrl: 'https://www.google.com/maps/place/Made+Acrilico/data=!4m2!3m1!1s0x0:0x5e3e2a9a6b659d5f?sa=X&ved=1t:2428&ictx=111',
