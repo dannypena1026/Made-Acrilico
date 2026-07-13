@@ -20,6 +20,51 @@ function getFileExtension(file) {
         ?.toLowerCase();
 }
 
+function getAllowedExtensions() {
+    if (appState.currentMaterial === 'stickers') {
+        return [
+            ...BUSINESS_CONFIG.quoteFileExtensions.filter(
+                extension => extension !== 'psd'
+            ),
+            ...BUSINESS_CONFIG.stickerQuoteFileExtensions
+        ];
+    }
+
+    return [...BUSINESS_CONFIG.quoteFileExtensions];
+}
+
+function updateUploadRequirements() {
+    const uploadInput = document.getElementById('upload-design');
+    const copy = document.getElementById('upload-format-copy');
+    const stickerFormatLabels = document.querySelectorAll(
+        '[data-sticker-upload-format]'
+    );
+    const nonStickerFormatLabels = document.querySelectorAll(
+        '[data-hide-for-stickers]'
+    );
+    const isStickers = appState.currentMaterial === 'stickers';
+
+    if (uploadInput) {
+        uploadInput.accept = isStickers
+            ? '.png,.jpg,.jpeg,.jpe,.webp,.tif,.tiff,.pdf,.ai,image/png,image/jpeg,image/webp,image/tiff,application/pdf'
+            : '.png,.pdf,.ai,.psd,image/png,application/pdf';
+    }
+
+    if (copy) {
+        copy.textContent = isStickers
+            ? 'PNG, JPG, JPEG, WEBP, TIFF, PDF o AI. Usa buena resolución.'
+            : 'PNG transparente, PDF, AI o PSD. Evita capturas pixeladas.';
+    }
+
+    stickerFormatLabels.forEach(label => {
+        label.classList.toggle('hidden', !isStickers);
+    });
+
+    nonStickerFormatLabels.forEach(label => {
+        label.classList.toggle('hidden', isStickers);
+    });
+}
+
 function validateQuoteFile(file) {
     if (!file) {
         return {
@@ -31,12 +76,12 @@ function validateQuoteFile(file) {
     const extension =
         getFileExtension(file);
 
-    if (
-        !BUSINESS_CONFIG.quoteFileExtensions.includes(extension)
-    ) {
+    const allowedExtensions = getAllowedExtensions();
+
+    if (!allowedExtensions.includes(extension)) {
         return {
             valid: false,
-            message: `Formato no permitido. Usa ${BUSINESS_CONFIG.quoteFileExtensions.join(', ').toUpperCase()}.`
+            message: `Formato no permitido. Usa ${allowedExtensions.join(', ').toUpperCase()}.`
         };
     }
 
@@ -265,4 +310,10 @@ function initializeQuoteUpload() {
 
 export function initializeUploads() {
     initializeQuoteUpload();
+    updateUploadRequirements();
+
+    document.addEventListener(
+        'calculator:material-change',
+        updateUploadRequirements
+    );
 }

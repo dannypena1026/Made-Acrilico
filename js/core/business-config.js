@@ -11,6 +11,7 @@ export const BUSINESS_CONFIG = {
     estimateNotice: 'La cotización es estimada hasta revisar el archivo final.',
     maxUploadSizeMb: 10,
     quoteFileExtensions: ['png', 'pdf', 'ai', 'psd'],
+    stickerQuoteFileExtensions: ['jpg', 'jpeg', 'jpe', 'webp', 'tif', 'tiff'],
     web3FormsAccessKey: '31f462c5-1520-4135-94cd-9d4ad1ee28a1',
     cloudinaryCloudName: 'dlk09m4yx',
     cloudinaryUploadPreset: 'madeacrilico_uploads'

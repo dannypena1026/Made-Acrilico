@@ -931,6 +931,9 @@ Gracias.`;
 
 function activateTextilMode() {
     setCurrentMaterial('textil');
+    document.dispatchEvent(
+        new CustomEvent('calculator:material-change')
+    );
     setMaterialPressedState('textil');
     clearQuantityMinimumValidity();
 
@@ -991,6 +994,9 @@ function activateTextilMode() {
 
 function activateUvMode() {
     setCurrentMaterial('uv');
+    document.dispatchEvent(
+        new CustomEvent('calculator:material-change')
+    );
     setMaterialPressedState('uv');
     clearQuantityMinimumValidity();
 
@@ -1051,6 +1057,9 @@ function activateUvMode() {
 
 function activateStickersMode() {
     setCurrentMaterial('stickers');
+    document.dispatchEvent(
+        new CustomEvent('calculator:material-change')
+    );
     setMaterialPressedState('stickers');
 
     btnStickers?.classList.add(

@@ -1399,7 +1399,7 @@ class="hidden md:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                                 Sube el arte de tu pedido
                             </h4>
 
-                            <p class="text-sm text-gray-500 mt-2">
+                            <p id="upload-format-copy" class="text-sm text-gray-500 mt-2">
                                 PNG transparente, PDF, AI o PSD. Evita capturas pixeladas.
                             </p>
 
@@ -1417,8 +1417,16 @@ class="hidden md:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                                     AI
                                 </span>
 
-                                <span class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1 rounded-full">
+                                <span data-hide-for-stickers class="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1 rounded-full">
                                     PSD
+                                </span>
+
+                                <span data-sticker-upload-format class="hidden bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1 rounded-full">
+                                    JPG / JPEG
+                                </span>
+
+                                <span data-sticker-upload-format class="hidden bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1 rounded-full">
+                                    WEBP / TIFF
                                 </span>
 
                                 <span class="bg-pink-100 text-logoMagenta text-xs font-bold px-3 py-1 rounded-full">
@@ -2550,6 +2558,6 @@ class="hidden md:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
             <div id="legal-modal-content" class="p-5 overflow-y-auto text-sm text-gray-600 leading-relaxed space-y-4"></div>
         </div>
     </div>
-    <script type="module" src="js/app.js?v=1.7.0.3"></script>
+    <script type="module" src="js/app.js?v=1.7.0.4"></script>
 </body>
 </html>
