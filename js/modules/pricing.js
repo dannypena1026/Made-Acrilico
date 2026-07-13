@@ -45,6 +45,41 @@ function buildQuote() {
     const quantity =
         getQuantityValue();
 
+    if (appState.currentMaterial === 'stickers') {
+        const stickerMaterial =
+            document.getElementById('sticker-material')?.value || 'white';
+
+        const stickerWidth =
+            parseFloat(
+                document.getElementById('sticker-width')?.value
+            );
+
+        const stickerHeight =
+            parseFloat(
+                document.getElementById('sticker-height')?.value
+            );
+
+        const quote =
+            buildQuoteFromInput({
+                materialKey: 'stickers',
+                stickerMaterial,
+                stickerWidth,
+                stickerHeight,
+                quantity
+            });
+
+        if (quote.invalid) {
+            return {
+                ...quote,
+                warningId: 'stickers-warning',
+                material: quote.material || 'Stickers / Etiquetas',
+                quantity
+            };
+        }
+
+        return quote;
+    }
+
     if (appState.currentMaterial === 'textil') {
         const heightData =
             getSelectedHeight(
@@ -103,6 +138,9 @@ function setWarningState(quote) {
     const uvWarning =
         document.getElementById('uv-warning');
 
+    const stickersWarning =
+        document.getElementById('stickers-warning');
+
     textilWarning?.classList.toggle(
         'hidden',
         quote.warningId !== 'textil-warning'
@@ -111,6 +149,11 @@ function setWarningState(quote) {
     uvWarning?.classList.toggle(
         'hidden',
         quote.warningId !== 'uv-warning'
+    );
+
+    stickersWarning?.classList.toggle(
+        'hidden',
+        quote.warningId !== 'stickers-warning'
     );
 }
 
@@ -127,18 +170,29 @@ function renderQuote(quote) {
     const summaryYards =
         document.getElementById('summary-yards');
 
+    const summaryYardsLabel =
+        document.getElementById('summary-yards-label');
+
     const summaryPriceYard =
         document.getElementById('summary-price-yard');
 
+    const summaryPriceLabel =
+        document.getElementById('summary-price-label');
+
     const summaryTotal =
         document.getElementById('summary-total');
+
+    const summaryDeliveryEstimate =
+        document.getElementById('summary-delivery-estimate');
 
     if (
         !summaryMaterial ||
         !summarySize ||
         !summaryQty ||
         !summaryYards ||
+        !summaryYardsLabel ||
         !summaryPriceYard ||
+        !summaryPriceLabel ||
         !summaryTotal
     ) {
         return;
@@ -146,18 +200,44 @@ function renderQuote(quote) {
 
     setWarningState(quote);
 
+    const materialKey = quote.materialKey || appState.currentMaterial;
+
+    if (summaryDeliveryEstimate) {
+        summaryDeliveryEstimate.innerText =
+            materialKey === 'stickers'
+                ? '24-48 horas'
+                : '8-24 horas';
+    }
+
+    const quantityLabel =
+        materialKey === 'stickers'
+            ? `${quote.quantity} ${quote.quantity === 1 ? 'sticker' : 'stickers'}`
+            : `${quote.quantity} ${quote.quantity === 1 ? 'repetición' : 'repeticiones'}`;
+
     if (quote.invalid) {
         summaryMaterial.innerText =
             quote.material;
+
+        summaryYardsLabel.innerText =
+            materialKey === 'stickers'
+                ? 'Precio unitario'
+                : 'Yardas necesarias';
+
+        summaryPriceLabel.innerText =
+            materialKey === 'stickers'
+                ? 'Descuento aplicado'
+                : 'Precio por tramo';
 
         summarySize.innerText =
             'Medida pendiente';
 
         summaryQty.innerText =
-            `${quote.quantity} repetición(es)`;
+            quantityLabel;
 
         summaryYards.innerText =
-            '0.00 yd';
+            materialKey === 'stickers'
+                ? formatCurrency(0)
+                : '0.00 yd';
 
         summaryPriceYard.innerText =
             formatCurrency(0);
@@ -171,17 +251,31 @@ function renderQuote(quote) {
     summaryMaterial.innerText =
         quote.material;
 
+    summaryYardsLabel.innerText =
+        materialKey === 'stickers'
+            ? 'Precio unitario'
+            : 'Yardas necesarias';
+
+    summaryPriceLabel.innerText =
+        materialKey === 'stickers'
+            ? 'Descuento aplicado'
+            : 'Precio por tramo';
+
     summarySize.innerText =
         quote.size;
 
     summaryQty.innerText =
-        `${quote.quantity} repetición(es)`;
+        quote.labelQuantity || quantityLabel;
 
     summaryYards.innerText =
-        `${quote.yards.toFixed(2)} yd`;
+        materialKey === 'stickers'
+            ? formatCurrency(quote.unitPrice)
+            : `${quote.yards.toFixed(2)} yd`;
 
     summaryPriceYard.innerText =
-        formatCurrency(quote.pricePerYard);
+        materialKey === 'stickers'
+            ? `${((quote.discountRate || 0) * 100).toFixed(0)}%`
+            : formatCurrency(quote.pricePerYard);
 
     summaryTotal.innerText =
         formatCurrency(quote.total);

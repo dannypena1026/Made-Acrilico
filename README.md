@@ -1,35 +1,36 @@
-# MADE ACRILICO
+# MADE ACRÍLICO
 
-Pagina web oficial de MADE ACRILICO para cotizar pedidos DTF Textil y DTF UV, subir archivo de referencia, armar carrito y enviar la orden por correo al equipo.
+Página web oficial de MADE ACRÍLICO para presentar servicios gráficos, cotizar DTF Textil, DTF UV y stickers, recibir archivos de clientes, armar carrito y enviar órdenes a revisión.
 
 ## Funcionalidades principales
 
-- Inicio comercial con flujo de compra, servicios, tarifas, checklist y preguntas frecuentes.
-- Calculadora para DTF Textil y DTF UV con medidas fijas y personalizadas.
-- Validacion de medidas no permitidas y resumen automatico de cotizacion.
-- Subida de archivos a Cloudinary para enviar link descargable en la orden.
-- Carrito con persistencia local, duplicado, eliminacion y vaciado completo.
-- Estado del pedido dentro del carrito: archivo, datos, entrega y orden lista.
-- Envio opcional por RD$250.
-- Revision previa antes de enviar la orden.
-- Envio real de orden por correo mediante Web3Forms.
-- Confirmacion final con numero de orden y boton de seguimiento por WhatsApp.
-- Contacto, politicas de privacidad, terminos del servicio, favicon y preview social.
+- Inicio comercial con carrusel, acceso a tienda, resumen de servicios y sección "Quiénes somos".
+- Sección DTF independiente con servicios, tarifas, galería, checklist y preguntas frecuentes.
+- Sección Tienda para productos y artículos personalizados.
+- Calculador Express para DTF Textil, DTF UV y stickers.
+- Cálculo de stickers con mínimo, precio unitario y descuento automático interno.
+- Subida de archivos a Cloudinary para adjuntar referencia o arte final.
+- Carrito con persistencia local, resumen, impuestos, envío opcional y confirmación de orden.
+- Contacto con motivos de consulta, WhatsApp, teléfono, correo, mapa y asesoría de archivo.
+- Políticas de privacidad y términos de servicio desde modal legal.
+- SEO básico con canonical, sitemap, robots, favicon, preview social y JSON-LD.
+- Cabeceras de seguridad para el despliegue en Cloudflare Pages.
+- Assets optimizados en WebP para reducir peso de carga.
 
 ## Flujo del cliente
 
-1. El cliente revisa servicios o entra al Calculador Express.
-2. Selecciona material, medida, cantidad y sube archivo.
-3. Agrega el item al carrito.
-4. Completa nombre y WhatsApp.
-5. Activa envio si lo necesita y agrega direccion.
-6. Revisa la orden.
-7. Confirma el envio por correo.
-8. Puede avisar por WhatsApp usando el numero de orden.
+1. El cliente entra al Inicio, DTF, Tienda o Calculador Express.
+2. Selecciona material, medida y cantidad.
+3. Sube archivo cuando aplica.
+4. Agrega el producto al carrito.
+5. Completa datos de contacto y entrega.
+6. Revisa la orden antes de enviar.
+7. Envía la solicitud por correo mediante Web3Forms.
+8. Puede avisar por WhatsApp usando el número de orden.
 
-WhatsApp se usa como contacto rapido, asesoria de archivo y seguimiento. La orden formal se envia por correo con Web3Forms.
+WhatsApp se usa para atención rápida, asesoría de archivo y seguimiento. La orden formal se envía por correo mediante Web3Forms.
 
-## Configuracion del negocio
+## Configuración del negocio
 
 Los datos principales viven en:
 
@@ -40,17 +41,34 @@ js/core/business-config.js
 Desde ese archivo se modifican:
 
 - Nombre del negocio.
-- WhatsApp y telefono visible.
+- WhatsApp, teléfono visible y enlace telefónico.
 - Correo.
-- Direccion y enlace de Google Maps.
-- Precio de envio.
+- Dirección y enlace de Google Maps.
 - Tiempo de entrega.
-- Metodos de pago.
-- Aviso de cotizacion estimada.
+- Métodos de pago.
+- Aviso de cotización estimada.
 - Formatos permitidos para archivo.
 - Web3Forms Access Key.
 - Cloudinary Cloud Name y Upload Preset.
 - Precios por material.
+- Reglas de mínimos y descuentos.
+
+## Assets activos
+
+Los assets que actualmente usa la página son:
+
+```text
+assets/img/favicon-made-acrilico-v170.png
+assets/img/inicio.webp
+assets/img/lgo-madeacrilico-store.webp
+assets/img/madeacrilico-horizontal.webp
+assets/img/social-preview-made-acrilico-v170.png
+assets/img/stickers-optimized.webp
+assets/img/test_textil.webp
+assets/img/test_uv.webp
+```
+
+El logo visible, el favicon, la vista previa social y el dato estructurado usan las versiones optimizadas actuales.
 
 ## Servicios externos
 
@@ -92,7 +110,6 @@ js/
     pricing-engine.js
     state.js
   modules/
-    canvas.js
     cart.js
     pricing.js
     ui.js
@@ -105,6 +122,7 @@ scripts/
 test/
   pricing-engine.test.js
 index.html
+_headers
 package.json
 tailwind.config.cjs
 ```
@@ -137,24 +155,26 @@ npm test
 
 ## Checklist antes de publicar
 
+- Ejecutar `npm run build:css`.
 - Ejecutar `npm run check:js`.
 - Ejecutar `npm test`.
-- Ejecutar `npm run build:css`.
-- Probar carga de pagina sin errores de consola.
+- Probar navegación por hash: `#inicio`, `#dtf`, `#planilla`, `#guia`, `#contacto`, `#tienda`.
+- Probar que al recargar no aparezcan secciones o datos antiguos.
 - Probar subida de archivo.
-- Probar carrito con y sin envio.
-- Probar validacion de telefono.
-- Probar envio real de orden por correo.
-- Confirmar que el correo llega a la bandeja correcta.
-- Confirmar que los links de archivo abren correctamente.
+- Probar carrito con y sin envío.
+- Probar cálculo de Textil, UV y Stickers.
+- Probar formulario de contacto y envío de orden.
+- Confirmar que los enlaces de WhatsApp, teléfono, correo y mapa abren correctamente.
+- Confirmar que favicon y preview social se ven con los assets actuales.
 
 ## Notas de mantenimiento
 
 - Si cambian precios, actualiza `business-config.js` y ejecuta `npm test`.
 - Si cambian clases Tailwind en HTML o JS, ejecuta `npm run build:css`.
-- Si cambia el correo receptor, revisa la configuracion en Web3Forms.
-- No publiques una Web3Forms key o preset de Cloudinary que no correspondan al negocio.
+- Si cambia el correo receptor, revisa la configuración en Web3Forms.
+- Si cambian logos o previews, elimina assets antiguos no usados para evitar referencias fantasma.
+- No publiques una Web3Forms key o preset de Cloudinary que no corresponda al negocio.
 
 ## Autor
 
-- Danny Pena Adames - Desarrollador Web
+- Danny Peña Adames - Desarrollador Web

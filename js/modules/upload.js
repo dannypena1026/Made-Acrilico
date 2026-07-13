@@ -1,114 +1,7 @@
 import { BUSINESS_CONFIG } from '../core/business-config.js';
 import { appState, setUploadedFile } from '../core/state.js';
-import { addImageToCanvas } from './canvas.js';
+import { getTrustedURL } from '../utils/helpers.js';
 import { showToast } from './ui.js';
-
-function handleImageUpload(event) {
-    const files =
-        event.target.files;
-
-    if (!files || files.length === 0) return;
-
-    Array.from(files).forEach(file => {
-        if (!file.type.startsWith('image/')) {
-            showToast(
-                'Solo puedes agregar imágenes al diseñador visual.',
-                'error'
-            );
-            return;
-        }
-
-        readImageFile(
-            file,
-            addImageToCanvas
-        );
-    });
-
-    event.target.value = '';
-}
-
-function readImageFile(file, callback) {
-    const reader =
-        new FileReader();
-
-    reader.onload = event => {
-        const image =
-            new Image();
-
-        image.onload = () => {
-            callback(
-                event.target.result,
-                image
-            );
-        };
-
-        image.src =
-            event.target.result;
-    };
-
-    reader.readAsDataURL(file);
-}
-
-function setupDragAndDrop() {
-    const nestingCanvas =
-        document.getElementById('nesting-canvas');
-
-    if (!nestingCanvas) return;
-
-    nestingCanvas.addEventListener(
-        'dragover',
-        event => {
-            event.preventDefault();
-
-            nestingCanvas.classList.add(
-                'border-logoMagenta',
-                'bg-pink-50'
-            );
-        }
-    );
-
-    nestingCanvas.addEventListener(
-        'dragleave',
-        () => {
-            nestingCanvas.classList.remove(
-                'border-logoMagenta',
-                'bg-pink-50'
-            );
-        }
-    );
-
-    nestingCanvas.addEventListener(
-        'drop',
-        event => {
-            event.preventDefault();
-
-            nestingCanvas.classList.remove(
-                'border-logoMagenta',
-                'bg-pink-50'
-            );
-
-            const files =
-                event.dataTransfer.files;
-
-            if (!files.length) return;
-
-            Array.from(files).forEach(file => {
-                if (!file.type.startsWith('image/')) {
-                    showToast(
-                        'Solo puedes soltar imágenes en el diseñador visual.',
-                        'error'
-                    );
-                    return;
-                }
-
-                readImageFile(
-                    file,
-                    addImageToCanvas
-                );
-            });
-        }
-    );
-}
 
 function formatFileSize(bytes) {
     if (!bytes) return 'N/A';
@@ -213,7 +106,20 @@ async function uploadFileToCloudinary(file) {
         );
     }
 
-    return await response.json();
+    const uploaded = await response.json();
+    const trustedURL = getTrustedURL(
+        uploaded.secure_url,
+        ['res.cloudinary.com']
+    );
+
+    if (!trustedURL || !uploaded.public_id) {
+        throw new Error('Cloudinary devolvió una respuesta inválida.');
+    }
+
+    return {
+        ...uploaded,
+        secure_url: trustedURL
+    };
 }
 
 export function hasUploadedFile() {
@@ -341,7 +247,7 @@ function initializeQuoteUpload() {
                 renderUploadedFile();
 
                 showToast(
-                    'No se pudo subir el archivo. Intenta otra vez o contactanos por WhatsApp.',
+                    'No se pudo subir el archivo. Intenta otra vez o contáctanos por WhatsApp.',
                     'error'
                 );
             }
@@ -358,24 +264,5 @@ function initializeQuoteUpload() {
 }
 
 export function initializeUploads() {
-    const imageUploadInput =
-        document.getElementById(
-            'image-upload-input'
-        );
-
-    if (imageUploadInput) {
-        imageUploadInput.setAttribute(
-            'multiple',
-            true
-        );
-
-        imageUploadInput.addEventListener(
-            'change',
-            handleImageUpload
-        );
-
-        setupDragAndDrop();
-    }
-
     initializeQuoteUpload();
 }

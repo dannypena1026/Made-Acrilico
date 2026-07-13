@@ -1,11 +1,11 @@
 export const BUSINESS_CONFIG = {
     name: 'MADE ACRÍLICO',
     whatsappNumber: '18298824820',
-    phoneDisplay: '+1 (809) 278-8080',
-    phoneHref: '+18092788080',
-    email: 'madeacrilico@gmail.com',
+    phoneDisplay: '+1 (829) 882-4820',
+    phoneHref: '+18298824820',
+    email: 'info@madeacrilico.com',
     address: 'Plaza Comercial Herrera, Av. Isabel Aguiar, Santo Domingo',
-    mapsUrl: 'https://www.google.com/maps/place/Made+Acrilico/data=!4m2!3m1!1s0x0:0x5e3e2a9a6b659d5f?sa=X&ved=1t:2428&ictx=111',
+    mapsUrl: 'https://www.google.com/maps/place/Made+Acrílico/data=!4m2!3m1!1s0x0:0x5e3e2a9a6b659d5f?sa=X&ved=1t:2428&ictx=111',
     deliveryEstimate: '24-48 horas según volumen',
     paymentMethods: 'Transferencia o efectivo',
     estimateNotice: 'La cotización es estimada hasta revisar el archivo final.',
@@ -77,6 +77,32 @@ export const MATERIALS = {
                     }
                 ]
             }
+        }
+    },
+    stickers: {
+        rollWidth: 51,
+        separation: 0.10,
+        minQuantity: 100,
+        minTotal: 500,
+        displayName: 'Stickers / Etiquetas',
+        materials: {
+            white: {
+                label: 'Vinil Blanco',
+                pricePerSqFt: 100
+            },
+            transparent: {
+                label: 'Vinil Transparente',
+                pricePerSqFt: 100
+            },
+            holographic: {
+                label: 'Vinil Holográfico',
+                pricePerSqFt: 150
+            }
+        },
+        autoDiscount: {
+            quantityStep: 500,
+            increment: 0.03,
+            maxRate: 0.20
         }
     }
 };

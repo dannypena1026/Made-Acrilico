@@ -10,23 +10,33 @@ export function formatCurrency(value) {
 }
 
 export function generateId() {
-    if (crypto?.randomUUID) {
-        return crypto.randomUUID();
+    if (globalThis.crypto?.randomUUID) {
+        return globalThis.crypto.randomUUID();
     }
 
     return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
 export function saveToStorage(key, value) {
-    localStorage.setItem(
-        key,
-        JSON.stringify(value)
-    );
+    try {
+        localStorage.setItem(
+            key,
+            JSON.stringify(value)
+        );
+        return true;
+    } catch {
+        return false;
+    }
 }
 
 export function loadFromStorage(key, fallback = null) {
-    const data =
-        localStorage.getItem(key);
+    let data;
+
+    try {
+        data = localStorage.getItem(key);
+    } catch {
+        return fallback;
+    }
 
     if (!data) return fallback;
 
@@ -34,6 +44,15 @@ export function loadFromStorage(key, fallback = null) {
         return JSON.parse(data);
     } catch {
         return fallback;
+    }
+}
+
+export function removeFromStorage(key) {
+    try {
+        localStorage.removeItem(key);
+        return true;
+    } catch {
+        return false;
     }
 }
 

@@ -1,10 +1,12 @@
 import { BUSINESS_CONFIG } from '../core/business-config.js';
+import { calculateStickerQuote } from '../core/pricing-engine.js';
 import {
     escapeHTML,
     formatCurrency,
     generateId,
     getTrustedURL,
     loadFromStorage,
+    removeFromStorage,
     saveToStorage
 } from '../utils/helpers.js';
 import { getCurrentQuote } from './pricing.js';
@@ -21,10 +23,33 @@ import {
 
 const CART_STORAGE_KEY = 'made-acrilico-cart';
 const CART_SHIPPING_STORAGE_KEY = 'made-acrilico-shipping-enabled';
+const LEGACY_CART_STORAGE_KEY = 'made-acrílico-cart';
+const LEGACY_SHIPPING_STORAGE_KEY = 'made-acrílico-shipping-enabled';
 
 let cart = [];
 let includeShipping = false;
 let orderReviewResolver = null;
+let orderReviewFocusOrigin = null;
+let orderSuccessFocusOrigin = null;
+
+function lockModalScroll() {
+    document.documentElement.classList.add('overflow-hidden');
+    document.body.classList.add('overflow-hidden');
+}
+
+function unlockModalScroll() {
+    const dialogOpen =
+        Array.from(document.querySelectorAll('[role="dialog"]'))
+            .some(modal => !modal.classList.contains('hidden'));
+
+    const cartOpen =
+        !document.getElementById('cart-sidebar')?.classList.contains('translate-x-full');
+
+    if (dialogOpen || cartOpen) return;
+
+    document.documentElement.classList.remove('overflow-hidden');
+    document.body.classList.remove('overflow-hidden');
+}
 
 
 function saveCart() {
@@ -42,13 +67,17 @@ function loadCart() {
     const storedCart =
         loadFromStorage(
             CART_STORAGE_KEY,
-            []
+            loadFromStorage(LEGACY_CART_STORAGE_KEY, [])
         );
 
     cart =
-        storedCart
+        (Array.isArray(storedCart) ? storedCart : [])
         .map(normalizeCartItem)
         .filter(Boolean);
+
+    saveCart();
+
+    removeFromStorage(LEGACY_CART_STORAGE_KEY);
 
 }
 
@@ -68,8 +97,11 @@ function loadShippingPreference() {
     includeShipping =
         loadFromStorage(
             CART_SHIPPING_STORAGE_KEY,
-            false
+            loadFromStorage(LEGACY_SHIPPING_STORAGE_KEY, false)
         ) === true;
+
+    saveShippingPreference();
+    removeFromStorage(LEGACY_SHIPPING_STORAGE_KEY);
 
 }
 
@@ -85,36 +117,49 @@ function normalizeCartItem(item) {
     if (
         item.material &&
         Number.isFinite(item.unitPrice) &&
-        Number.isFinite(item.quantity)
+        item.unitPrice > 0 &&
+        Number.isFinite(item.quantity) &&
+        item.quantity > 0
     ) {
+
+        const quantity =
+            Math.min(1000000, Math.max(1, Math.floor(item.quantity)));
+
+        const calculatedTotal =
+            item.unitPrice * quantity;
 
         return {
             ...item,
             id: item.id ? String(item.id) : generateId(),
-            yards: Number.isFinite(item.yards) ? item.yards : 0,
-            chargedLength: Number.isFinite(item.chargedLength) ? item.chargedLength : 0,
-            fileName: item.fileName || 'Sin archivo',
-            fileType: item.fileType || 'N/A',
+            material: String(item.material).slice(0, 120),
+            size: String(item.size || 'Medida no especificada').slice(0, 120),
+            quantity,
+            unitPrice: item.unitPrice,
+            yards: Number.isFinite(item.yards) && item.yards >= 0 ? item.yards : 0,
+            chargedLength: Number.isFinite(item.chargedLength) && item.chargedLength >= 0 ? item.chargedLength : 0,
+            total: Number.isFinite(item.total) && item.total > 0 ? item.total : calculatedTotal,
+            fileName: String(item.fileName || 'Sin archivo').slice(0, 255),
+            fileType: String(item.fileType || 'N/A').slice(0, 120),
             fileSize: item.fileSize || 'N/A',
-            fileUrl: item.fileUrl || ''
+            fileUrl: String(item.fileUrl || '').slice(0, 2048)
         };
 
     }
 
-    if (item.title && Number.isFinite(item.price)) {
+    if (item.title && Number.isFinite(item.price) && item.price > 0) {
 
         return {
             id: item.id ? String(item.id) : generateId(),
-            material: item.title,
-            size: item.details || 'Medida no especificada',
+            material: String(item.title).slice(0, 120),
+            size: String(item.details || 'Medida no especificada').slice(0, 120),
             chargedLength: 0,
             yards: 0,
             quantity: 1,
             unitPrice: item.price,
-            fileName: item.fileName || 'Sin archivo',
-            fileType: item.fileType || 'N/A',
+            fileName: String(item.fileName || 'Sin archivo').slice(0, 255),
+            fileType: String(item.fileType || 'N/A').slice(0, 120),
             fileSize: item.fileSize || 'N/A',
-            fileUrl: item.fileUrl || ''
+            fileUrl: String(item.fileUrl || '').slice(0, 2048)
         };
 
     }
@@ -126,8 +171,22 @@ function normalizeCartItem(item) {
 
 function getCartItemTotal(item) {
 
+    if (item.materialKey === 'stickers') {
+        return item.total || (item.unitPrice * item.quantity);
+    }
+
     return item.unitPrice * item.quantity;
 
+}
+
+function getCartItemMinimumQuantity(item) {
+    return item.materialKey === 'stickers' &&
+        Number.isFinite(item.width) &&
+        Number.isFinite(item.height) &&
+        item.width <= 3 &&
+        item.height <= 3
+        ? 100
+        : 1;
 }
 
 
@@ -164,7 +223,13 @@ function generateOrderId(date = new Date()) {
             .map(value => String(value).padStart(2, '0'))
             .join('');
 
-    return `MA-${stamp}-${timeStamp}`;
+    const uniqueSuffix =
+        generateId()
+            .replace(/-/g, '')
+            .slice(-6)
+            .toUpperCase();
+
+    return `MA-${stamp}-${timeStamp}-${uniqueSuffix}`;
 
 }
 
@@ -280,8 +345,8 @@ function getOrderStatusRows() {
                     : !hasPhone
                         ? 'Falta WhatsApp'
                         : !validPhone
-                            ? 'Telefono invalido'
-                            : 'Falta direccion',
+                            ? 'Teléfono inválido'
+                            : 'Falta dirección',
             ready: dataReady
         },
         {
@@ -289,8 +354,8 @@ function getOrderStatusRows() {
             label: 'Entrega',
             message: includeShipping
                 ? deliveryReady
-                    ? 'Envio a cotizar'
-                    : 'Falta direccion'
+                    ? 'Envío a cotizar'
+                    : 'Falta dirección'
                 : 'Retiro',
             ready: deliveryReady
         },
@@ -361,6 +426,27 @@ function addNestingToCart() {
 
     }
 
+    if (quote.materialKey === 'stickers') {
+        const quantityInput =
+            document.getElementById('quantity');
+
+        const enteredQuantity =
+            parseInt(quantityInput?.value || 0, 10);
+
+        if (
+            quantityInput?.getAttribute('aria-invalid') === 'true' ||
+            !Number.isFinite(enteredQuantity) ||
+            enteredQuantity < quote.quantity
+        ) {
+            showToast(
+                `La cantidad mínima para esta medida es ${quote.quantity} stickers.`,
+                'error'
+            );
+            quantityInput?.focus();
+            return;
+        }
+    }
+
     if (!hasUploadedFile()) {
 
         showToast(
@@ -382,11 +468,17 @@ function addNestingToCart() {
 
         id: generateId(),
         material: quote.material,
+        materialKey: quote.materialKey,
+        stickerMaterialKey: quote.stickerMaterialKey,
+        width: quote.width,
+        height: quote.height,
         size: quote.size,
         chargedLength: quote.chargedLength,
         yards: quote.yards,
         quantity: quote.quantity,
         unitPrice: quote.unitPrice,
+        total: quote.total,
+        discountRate: quote.discountRate || 0,
         fileName: file.name,
         fileType: file.type,
         fileSize: file.size,
@@ -423,7 +515,7 @@ function renderEmptyCart(
 
             <span class="text-sm">
                 Cotización vacía.
-                ¡Arma tu planilla DTF!
+                Calcula un producto o solicita una orden personalizada.
             </span>
 
         </div>
@@ -463,7 +555,11 @@ function renderCartItem(item) {
                     </h4>
 
                     <p class="text-xs text-gray-500 mt-1 leading-relaxed">
-                        ${escapeHTML(item.size)} • ${escapeHTML(item.yards.toFixed(2))} yd cobradas
+                        ${escapeHTML(item.size)} • ${
+                            item.materialKey === 'stickers'
+                                ? `${escapeHTML((item.chargedLength || 0).toFixed(2))} in de material`
+                                : `${escapeHTML(item.yards.toFixed(2))} yd cobradas`
+                        }
                     </p>
 
                     <p class="text-xs text-gray-500 mt-2 leading-relaxed">
@@ -504,16 +600,25 @@ function renderCartItem(item) {
 
             <div class="grid grid-cols-[1fr_auto] gap-3 items-end border-t border-gray-200 pt-3">
 
-                <label class="text-xs uppercase tracking-wider text-gray-400 font-bold">
-                    Copias
-                    <input
-                        type="number"
-                        min="1"
-                        value="${escapeHTML(item.quantity)}"
-                        data-cart-quantity="${escapeHTML(item.id)}"
-                        class="mt-1 w-24 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-bold text-logoDark outline-none focus:border-logoMagenta"
-                    >
-                </label>
+                ${
+                    item.materialKey === 'stickers'
+                        ? `<div class="text-xs uppercase tracking-wider text-gray-400 font-bold">
+                            Stickers
+                            <p class="mt-1 text-sm normal-case tracking-normal font-black text-logoDark">
+                                Stickers: ${escapeHTML(item.quantity)}
+                            </p>
+                        </div>`
+                        : `<label class="text-xs uppercase tracking-wider text-gray-400 font-bold">
+                            Copias
+                            <input
+                                type="number"
+                                min="${getCartItemMinimumQuantity(item)}"
+                                value="${escapeHTML(item.quantity)}"
+                                data-cart-quantity="${escapeHTML(item.id)}"
+                                class="mt-1 w-24 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-bold text-logoDark outline-none focus:border-logoMagenta"
+                            >
+                        </label>`
+                }
 
                 <div class="text-right">
                     <span class="block text-xs uppercase tracking-wider text-gray-400 font-bold">
@@ -522,6 +627,9 @@ function renderCartItem(item) {
 
                     <span class="text-sm font-black text-logoMagenta">
                         ${formatCurrency(itemTotal)}
+                    </span>
+                    <span class="mt-1 block text-[11px] text-gray-400">
+                        Unitario: ${formatCurrency(item.unitPrice || 0)}
                     </span>
                 </div>
 
@@ -736,6 +844,26 @@ function updateCartItemQuantity(itemId, value) {
             ? quantity
             : 1;
 
+    if (item.materialKey === 'stickers') {
+        const quote =
+            calculateStickerQuote({
+                materialKey: item.stickerMaterialKey || 'white',
+                width: item.width,
+                height: item.height,
+                quantity: item.quantity
+            });
+
+        if (!quote.invalid) {
+            item.quantity = quote.quantity;
+            item.size = quote.size;
+            item.chargedLength = quote.chargedLength;
+            item.yards = quote.yards;
+            item.unitPrice = quote.unitPrice;
+            item.total = quote.total;
+            item.discountRate = quote.discountRate || 0;
+        }
+    }
+
     saveCart();
 
     updateCartUI();
@@ -817,7 +945,7 @@ function renderReviewItems() {
         <div class="rounded-xl bg-white border border-gray-100 p-3">
             <p class="font-extrabold text-logoDark">${index + 1}. ${escapeHTML(item.material)}</p>
             <p>Medida: ${escapeHTML(item.size)}</p>
-            <p>Copias: ${escapeHTML(item.quantity)}</p>
+            <p>${item.materialKey === 'stickers' ? 'Stickers' : 'Repeticiones'}: ${escapeHTML(item.quantity)}</p>
             <p>Total: <strong>${formatCurrency(getCartItemTotal(item))}</strong></p>
             <p class="truncate">Archivo: ${escapeHTML(item.fileName)}</p>
         </div>
@@ -850,13 +978,14 @@ function buildOrderReviewHTML({
             </div>
         </div>
         <div class="rounded-xl bg-white border border-gray-100 p-3">
-            <div class="flex justify-between"><span>Subtotal</span><strong>${formatCurrency(getCartSubtotal())}</strong></div>
-            <div class="flex justify-between"><span>${includeShipping ? 'Envio' : 'Retiro'}</span><strong>${includeShipping ? 'A cotizar' : 'Sin envio'}</strong></div>
-            <div class="flex justify-between text-logoMagenta text-base border-t border-gray-100 mt-2 pt-2"><span>Total estimado</span><strong>${formatCurrency(getCartTotal())}</strong></div>
+            <div class="flex justify-between"><span>Subtotal productos</span><strong>${formatCurrency(getCartSubtotal())}</strong></div>
+            <div class="flex justify-between"><span>Impuestos / ITBIS</span><strong>Se confirma</strong></div>
+            <div class="flex justify-between"><span>${includeShipping ? 'Envío' : 'Retiro'}</span><strong>${includeShipping ? 'A cotizar' : 'Sin envío'}</strong></div>
+            <div class="flex justify-between text-logoMagenta text-base border-t border-gray-100 mt-2 pt-2"><span>Total estimado inicial</span><strong>${formatCurrency(getCartTotal())}</strong></div>
         </div>
         ${
             includeShipping
-                ? `<div><p class="text-xs uppercase tracking-wider text-gray-400 font-bold">Direccion</p><p>${escapeHTML(customerAddress)}</p></div>`
+                ? `<div><p class="text-xs uppercase tracking-wider text-gray-400 font-bold">Dirección</p><p>${escapeHTML(customerAddress)}</p></div>`
                 : ''
         }
         ${
@@ -865,9 +994,10 @@ function buildOrderReviewHTML({
                 : ''
         }
         <div class="space-y-2">
-            <p class="text-xs uppercase tracking-wider text-gray-400 font-bold">Produccion</p>
+            <p class="text-xs uppercase tracking-wider text-gray-400 font-bold">Producción</p>
             ${renderReviewItems()}
         </div>
+        <p class="text-xs text-gray-500 leading-relaxed">La orden queda pendiente de revisión. Confirmamos archivo, impuestos, entrega, total final y pago antes de producir.</p>
     `;
 
 }
@@ -880,6 +1010,9 @@ function resolveOrderReview(value) {
 
     modal?.classList.add('hidden');
     modal?.classList.remove('flex');
+    unlockModalScroll();
+    orderReviewFocusOrigin?.focus?.();
+    orderReviewFocusOrigin = null;
 
     if (orderReviewResolver) {
         orderReviewResolver(value);
@@ -904,8 +1037,13 @@ function openOrderReview(orderData) {
     content.innerHTML =
         buildOrderReviewHTML(orderData);
 
+    orderReviewFocusOrigin = document.activeElement;
     modal.classList.remove('hidden');
     modal.classList.add('flex');
+    lockModalScroll();
+    window.requestAnimationFrame(
+        () => document.getElementById('order-review-cancel')?.focus()
+    );
 
     return new Promise(resolve => {
         orderReviewResolver = resolve;
@@ -916,7 +1054,7 @@ function openOrderReview(orderData) {
 
 function buildWhatsAppFollowUp(orderId) {
 
-    return `Hola ${BUSINESS_CONFIG.name}, acabo de enviar la orden ${orderId} desde la pagina.`;
+    return `Hola ${BUSINESS_CONFIG.name}, acabo de enviar la orden ${orderId} desde la página.`;
 
 }
 
@@ -937,7 +1075,7 @@ function showOrderSuccess(orderId) {
 
     if (!modal || !message || !whatsappLink) {
         showToast(
-            'Orden enviada. Te contactaremos por WhatsApp para confirmar produccion.',
+            'Orden enviada. Te contactaremos por WhatsApp para confirmar producción.',
             'info'
         );
 
@@ -945,21 +1083,26 @@ function showOrderSuccess(orderId) {
     }
 
     message.innerText =
-        `Orden ${orderId} enviada. Te contactaremos por WhatsApp para confirmar produccion.`;
+        `Orden ${orderId} enviada. Te contactaremos por WhatsApp para confirmar producción.`;
 
     if (details) {
         details.innerHTML = `
-            <p><strong class="text-logoDark">Numero de orden:</strong> ${escapeHTML(orderId)}</p>
+            <p><strong class="text-logoDark">Número de orden:</strong> ${escapeHTML(orderId)}</p>
             <p class="mt-2">Revisaremos tu archivo antes de producir para confirmar calidad, medida y acabado.</p>
-            <p class="mt-2">Si el pedido es urgente, avisanos por WhatsApp con este numero de orden.</p>
+            <p class="mt-2">Si el pedido es urgente, avísanos por WhatsApp con este número de orden.</p>
         `;
     }
 
     whatsappLink.href =
         `https://wa.me/${BUSINESS_CONFIG.whatsappNumber}?text=${encodeURIComponent(buildWhatsAppFollowUp(orderId))}`;
 
+    orderSuccessFocusOrigin = document.activeElement;
     modal.classList.remove('hidden');
     modal.classList.add('flex');
+    lockModalScroll();
+    window.requestAnimationFrame(
+        () => document.getElementById('order-success-close')?.focus()
+    );
 
 }
 
@@ -987,7 +1130,7 @@ function buildOrderMessage({
         );
 
     let message =
-`ORDEN DTF - ${orderId}
+`ORDEN MADE ACRÍLICO - ${orderId}
 Fecha: ${orderDate}
 
 CLIENTE
@@ -995,14 +1138,16 @@ ${customerName}
 WhatsApp: ${customerPhone}
 
 ENTREGA
-Tipo: ${includeShipping ? 'Envio' : 'Retiro en tienda'}
-${includeShipping ? `Direccion: ${customerAddress}` : ''}
+Tipo: ${includeShipping ? 'Envío' : 'Retiro en tienda'}
+${includeShipping ? `Dirección: ${customerAddress}` : ''}
 ${customerNotes ? `Nota: ${customerNotes}` : ''}
 
 RESUMEN
-Subtotal: ${formatCurrency(subtotal)}
-Envio: ${includeShipping ? 'A cotizar' : 'No incluido'}
-Total estimado: ${formatCurrency(total)}
+Subtotal productos: ${formatCurrency(subtotal)}
+Impuestos / ITBIS: Se confirma tras revisión
+Envío: ${includeShipping ? 'A cotizar' : 'No incluido'}
+Total estimado inicial: ${formatCurrency(total)}
+Estado: Pendiente de revisar archivo, entrega, impuestos y pago antes de producir
 
 PRODUCTOS
 
@@ -1013,8 +1158,13 @@ PRODUCTOS
         const itemTotal =
             getCartItemTotal(item);
 
+        const unitLabel =
+            item.materialKey === 'stickers'
+                ? item.quantity === 1 ? 'sticker' : 'stickers'
+                : item.quantity === 1 ? 'copia' : 'copias';
+
         message +=
-`${index + 1}. ${item.material} - ${item.size} - ${item.quantity} copia(s) - ${formatCurrency(itemTotal)}
+`${index + 1}. ${item.material} - ${item.size} - ${item.quantity} ${unitLabel} - ${formatCurrency(itemTotal)}
 Archivo: ${item.fileName}
 Link: ${getTrustedURL(item.fileUrl, ['res.cloudinary.com']) || 'No disponible'}
 
@@ -1065,7 +1215,7 @@ async function checkoutOrder() {
     if (!isValidDominicanPhone(customerPhone)) {
 
         showToast(
-            'Ingresa un WhatsApp dominicano valido: 809, 829 o 849.',
+            'Ingresa un WhatsApp dominicano válido: 809, 829 o 849.',
             'error'
         );
 
@@ -1076,7 +1226,7 @@ async function checkoutOrder() {
     if (includeShipping && !customerAddress) {
 
         showToast(
-            'Agrega la direccion para coordinar el envio.',
+            'Agrega la dirección para coordinar el envío.',
             'error'
         );
 
@@ -1145,9 +1295,11 @@ async function checkoutOrder() {
         BUSINESS_CONFIG.web3FormsAccessKey
     );
 
+    formData.append('botcheck', '');
+
     formData.append(
         'subject',
-        `Nueva orden DTF ${orderId} - ${customerName} - ${formatCurrency(orderTotal)}`
+        `Nueva solicitud MADE ACRÍLICO ${orderId} - ${customerName} - ${formatCurrency(orderTotal)}`
     );
 
     formData.append(
@@ -1311,6 +1463,9 @@ export function initializeCart() {
 
                 modal?.classList.add('hidden');
                 modal?.classList.remove('flex');
+                unlockModalScroll();
+                orderSuccessFocusOrigin?.focus?.();
+                orderSuccessFocusOrigin = null;
             }
         );
 

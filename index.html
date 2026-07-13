@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,7 @@
     <meta name="geo.placename" content="Santo Domingo, República Dominicana">
     <meta name="theme-color" content="#E52D7F">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-MhI+JYFFKJGLZ6XBy+WnvF2hsYy7Ao7k5YHAVgnhVXU='; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:; img-src 'self' data: blob: https://res.cloudinary.com; connect-src 'self' https://api.cloudinary.com https://api.web3forms.com; form-action 'self' https://api.web3forms.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-Ad8toF8EbxCX6Kxs9x30OVZ4BWgKrkn9K0WCK8pjzI4=' 'sha256-ZeKxUneB0/dhsrNpjZDXySGkJygcL7sI+FGg4s1orzw='; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:; img-src 'self' data: blob: https://res.cloudinary.com; connect-src 'self' https://api.cloudinary.com https://api.web3forms.com; form-action 'self' https://api.web3forms.com;">
     <link rel="canonical" href="https://www.madeacrilico.com/">
     <meta property="og:site_name" content="MADE ACRÍLICO">
     <meta property="og:title" content="MADE ACRÍLICO | DTF Textil, DTF UV y Stickers en Santo Domingo">
@@ -20,11 +20,13 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.madeacrilico.com/">
     <meta property="og:locale" content="es_DO">
-    <meta property="og:image" content="https://www.madeacrilico.com/assets/img/social-preview.svg">
+    <meta property="og:image" content="https://www.madeacrilico.com/assets/img/social-preview-made-acrilico-v170.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="MADE ACRÍLICO | DTF Textil, DTF UV y Stickers en Santo Domingo">
     <meta name="twitter:description" content="Cotiza impresión DTF textil, DTF UV adhesivo, stickers y etiquetas en Santo Domingo.">
-    <meta name="twitter:image" content="https://www.madeacrilico.com/assets/img/social-preview.svg">
+    <meta name="twitter:image" content="https://www.madeacrilico.com/assets/img/social-preview-made-acrilico-v170.png">
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -33,13 +35,13 @@
             "@type": "LocalBusiness",
             "@id": "https://www.madeacrilico.com/#business",
             "name": "MADE ACRÍLICO",
-            "alternateName": "Made Acrilico",
+            "alternateName": "Made Acrílico",
             "url": "https://www.madeacrilico.com/",
             "logo": "https://www.madeacrilico.com/assets/img/MADEACRILICO%20ORIZONTAL.png",
-            "image": "https://www.madeacrilico.com/assets/img/social-preview.svg",
+            "image": "https://www.madeacrilico.com/assets/img/social-preview-made-acrilico-v170.png",
             "description": "Taller gráfico en Santo Domingo especializado en impresión DTF textil, DTF UV adhesivo, stickers, etiquetas, acrílicos, corte y acabados comerciales.",
-            "email": "madeacrilico@gmail.com",
-            "telephone": "+1-829-707-8582",
+            "email": "info@madeacrilico.com",
+            "telephone": "+1-829-882-4820",
             "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Plaza Comercial Herrera, Av. Isabel Aguiar",
@@ -99,17 +101,53 @@
     ]
 }
     </script>
-    <link rel="icon" type="image/png" href="assets/img/favicon.png">
-    <link rel="apple-touch-icon" href="assets/img/favicon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/img/favicon-made-acrilico-v170.png">
+    <link rel="shortcut icon" href="assets/img/favicon-made-acrilico-v170.png">
+    <link rel="apple-touch-icon" href="assets/img/favicon-made-acrilico-v170.png">
+    <link rel="preload" as="image" href="assets/img/madeacrilico-horizontal.webp">
+    <link rel="preload" as="image" href="assets/img/etiquetas.webp" fetchpriority="high">
+    <style>
+        html[data-initial-tab] .tab-content { display: none !important; }
+        html[data-initial-tab="inicio"] #tab-inicio,
+        html[data-initial-tab="dtf"] #tab-dtf,
+        html[data-initial-tab="planilla"] #tab-planilla,
+        html[data-initial-tab="guia"] #tab-guia,
+        html[data-initial-tab="contacto"] #tab-contacto,
+        html[data-initial-tab="tienda"] #tab-tienda { display: block !important; }
+        html[data-initial-tab] .nav-btn {
+            background-color: transparent !important;
+            color: #4b5563 !important;
+            font-weight: 600 !important;
+        }
+        html[data-initial-tab="inicio"] #nav-inicio,
+        html[data-initial-tab="dtf"] #nav-dtf,
+        html[data-initial-tab="planilla"] #nav-planilla,
+        html[data-initial-tab="guia"] #nav-guia,
+        html[data-initial-tab="contacto"] #nav-contacto,
+        html[data-initial-tab="tienda"] #nav-tienda {
+            background-color: #fdf2f8 !important;
+            color: #E52D7F !important;
+            font-weight: 700 !important;
+        }
+    </style>
+    <script>
+        {
+            const requestedTab = window.location.hash.slice(1);
+            const validTabs = ['inicio', 'dtf', 'planilla', 'guia', 'contacto', 'tienda'];
+            document.documentElement.dataset.initialTab = validTabs.includes(requestedTab)
+                ? requestedTab
+                : 'inicio';
+        }
+    </script>
     <!-- Tailwind CSS -->
-    <link rel="stylesheet" href="css/tailwind.css">
+    <link rel="stylesheet" href="css/tailwind.css?v=1.7.0">
     <!-- FontAwesome para Iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css?v=1.7.0.3">
 </head>
 <body class="bg-[#F8F9FA] text-[#1E1E1E] min-h-screen font-sans antialiased overflow-x-hidden">
 
@@ -119,24 +157,28 @@
     </div>
 
     <!-- HEADER / NAVEGACIÓN -->
-    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100">
+    <header class="site-header sticky top-0 z-40 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <!-- Logotipo -->
                 <div id="logo-trigger" class="flex-shrink-0 cursor-pointer">
                     <img
-                        src="assets/img/MADEACRILICO%20ORIZONTAL.png"
+                        src="assets/img/madeacrilico-horizontal.webp"
                         alt="MADE ACRÍLICO"
                         width="185.47"
                         height="48"
+                        fetchpriority="high"
                         class="brand-logo-header"
                     >
                 </div>
 
                 <!-- Menú de Navegación -->
                 <nav class="hidden md:flex space-x-1 lg:space-x-4">
-                    <button type="button" data-tab="inicio" id="nav-inicio" class="nav-btn px-4 py-2 rounded-full text-sm font-bold transition-colors text-logoMagenta bg-pink-50">
+                    <button type="button" data-tab="inicio" id="nav-inicio" class="nav-btn px-4 py-2 rounded-full text-sm font-semibold text-gray-600 hover:text-logoMagenta transition-colors">
                         Inicio
+                    </button>
+                    <button type="button" data-tab="dtf" id="nav-dtf" class="nav-btn px-4 py-2 rounded-full text-sm font-semibold text-gray-600 hover:text-logoMagenta transition-colors">
+                        DTF
                     </button>
                     <button type="button" data-tab="planilla" id="nav-planilla" class="nav-btn px-4 py-2 rounded-full text-sm font-semibold text-gray-600 hover:text-logoMagenta transition-colors">
                         Calculador Express
@@ -147,11 +189,14 @@
                     <button type="button" data-tab="contacto" id="nav-contacto" class="nav-btn px-4 py-2 rounded-full text-sm font-semibold text-gray-600 hover:text-logoMagenta transition-colors">
                         Contacto
                     </button>
+                    <button type="button" data-tab="tienda" id="nav-tienda" class="nav-btn px-4 py-2 rounded-full text-sm font-semibold text-gray-600 hover:text-logoMagenta transition-colors">
+                        Tienda
+                    </button>
                 </nav>
 
                 <!-- Iconos de Acción y Contacto Rápido -->
                 <div class="flex items-center gap-4">
-                    <a data-business-whatsapp href="https://wa.me/18297078582" target="_blank" rel="noopener noreferrer" class="hidden lg:flex items-center gap-2 text-sm font-semibold bg-emerald-500 text-white px-4 py-2 rounded-full hover:bg-emerald-600 transition-all shadow-md">
+                    <a data-business-whatsapp href="https://wa.me/18298824820" target="_blank" rel="noopener noreferrer" class="hidden lg:flex items-center gap-2 text-sm font-semibold bg-emerald-500 text-white px-4 py-2 rounded-full hover:bg-emerald-600 transition-all shadow-md">
                         <i class="fab fa-whatsapp text-lg"></i>
                         <span>Cotizar por WhatsApp</span>
                     </a>
@@ -169,6 +214,8 @@
                     type="button"
                     id="mobile-menu-toggle"
                     aria-label="Abrir menú"
+                    aria-controls="mobile-menu"
+                    aria-expanded="false"
                     class="md:hidden p-2 text-gray-600 focus:outline-none">                        
                     <i class="fa-solid fa-bars text-2xl"></i>
                     </button>
@@ -180,55 +227,98 @@
     <!-- MENÚ MÓVIL DESPLEGABLE -->
 <div
 id="mobile-menu"
-class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 shadow-lg"
+class="hidden md:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white border-b border-gray-200 px-4 py-5 shadow-2xl"
 >
+    <div class="space-y-5">
+        <div class="space-y-2">
+            <p class="px-2 text-[10px] font-black uppercase tracking-wider text-gray-400">Principal</p>
+            <div class="grid grid-cols-1 gap-2">
+                <button
+                    type="button"
+                    data-tab="inicio"
+                    data-mobile-close="true"
+                    class="nav-btn-mobile flex w-full items-center gap-3 rounded-2xl bg-pink-50 px-4 py-3 text-left font-black text-logoMagenta"
+                >
+                    <i class="fa-solid fa-house w-5 text-center"></i>
+                    Inicio
+                </button>
 
-<button
-    type="button"
-    data-tab="inicio"
-    data-mobile-close="true"
-    class="nav-btn-mobile block w-full text-left py-2 font-bold text-logoMagenta"
->
-    Inicio
-</button>
+                <button
+                    type="button"
+                    data-tab="tienda"
+                    data-mobile-close="true"
+                    class="nav-btn-mobile flex w-full items-center justify-between gap-3 rounded-2xl border border-pink-100 bg-logoMagenta px-4 py-3 text-left font-black text-white shadow-md"
+                >
+                    <span class="flex items-center gap-3">
+                        <i class="fa-solid fa-bag-shopping w-5 text-center"></i>
+                        Tienda
+                    </span>
+                    <span class="rounded-full bg-white/20 px-2 py-1 text-[10px] uppercase tracking-wider">Store</span>
+                </button>
 
-<button
-    type="button"
-    data-tab="planilla"
-    data-mobile-close="true"
-    class="nav-btn-mobile block w-full text-left py-2 font-semibold text-gray-600 hover:text-logoMagenta"
->
-    Calculador Express
-</button>
+                <button
+                    type="button"
+                    data-tab="planilla"
+                    data-mobile-close="true"
+                    class="nav-btn-mobile flex w-full items-center gap-3 rounded-2xl bg-gray-50 px-4 py-3 text-left font-bold text-logoDark hover:bg-pink-50 hover:text-logoMagenta"
+                >
+                    <i class="fa-solid fa-calculator w-5 text-center text-logoCyan"></i>
+                    Calculador Express
+                </button>
+            </div>
+        </div>
 
-<button
-    type="button"
-    data-tab="guia"
-    data-mobile-close="true"
-    class="nav-btn-mobile block w-full text-left py-2 font-semibold text-gray-600 hover:text-logoMagenta"
->
-    Guía de Archivo
-</button>
+        <div class="space-y-2">
+            <p class="px-2 text-[10px] font-black uppercase tracking-wider text-gray-400">Servicios</p>
+            <div class="grid grid-cols-2 gap-2">
+                <button
+                    type="button"
+                    data-tab="dtf"
+                    data-mobile-close="true"
+                    class="nav-btn-mobile flex items-center gap-2 rounded-2xl bg-gray-50 px-4 py-3 text-left text-sm font-bold text-gray-600 hover:bg-cyan-50 hover:text-logoCyan"
+                >
+                    <i class="fa-solid fa-shirt w-5 text-center"></i>
+                    DTF
+                </button>
 
-<button
-    type="button"
-    data-tab="contacto"
-    data-mobile-close="true"
-    class="nav-btn-mobile block w-full text-left py-2 font-semibold text-gray-600 hover:text-logoMagenta"
->
-    Contacto
-</button>
+                <button
+                    type="button"
+                    data-tab="guia"
+                    data-mobile-close="true"
+                    class="nav-btn-mobile flex items-center gap-2 rounded-2xl bg-gray-50 px-4 py-3 text-left text-sm font-bold text-gray-600 hover:bg-yellow-50 hover:text-logoDark"
+                >
+                    <i class="fa-solid fa-file-circle-check w-5 text-center"></i>
+                    Guía
+                </button>
+            </div>
+        </div>
 
-<a
-    data-business-whatsapp
-    href="https://wa.me/18297078582"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="block text-center bg-emerald-500 text-white py-2.5 rounded-lg font-bold"
->
-    <i class="fab fa-whatsapp mr-2"></i>
-    Escríbenos
-</a>
+        <div class="space-y-2">
+            <p class="px-2 text-[10px] font-black uppercase tracking-wider text-gray-400">Ayuda</p>
+            <div class="grid grid-cols-1 gap-2">
+                <button
+                    type="button"
+                    data-tab="contacto"
+                    data-mobile-close="true"
+                    class="nav-btn-mobile flex w-full items-center gap-3 rounded-2xl bg-gray-50 px-4 py-3 text-left font-bold text-gray-600 hover:bg-pink-50 hover:text-logoMagenta"
+                >
+                    <i class="fa-solid fa-message w-5 text-center"></i>
+                    Contacto
+                </button>
+
+                <a
+                    data-business-whatsapp
+                    href="https://wa.me/18298824820"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex items-center justify-center gap-2 rounded-2xl bg-emerald-500 px-4 py-3 text-center font-black text-white shadow-md"
+                >
+                    <i class="fab fa-whatsapp"></i>
+                    Escríbenos por WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
 
 </div>
 
@@ -237,22 +327,285 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
         
         <!-- PESTAÑA: INICIO -->
         <section id="tab-inicio" class="tab-content block space-y-16">
+            <button
+                type="button"
+                data-go-tab="tienda"
+                class="group relative w-full rounded-2xl bg-logoMagenta px-5 py-4 pr-28 text-left shadow-lg transition-all hover:-translate-y-0.5 hover:bg-pink-600 hover:shadow-xl sm:px-8 sm:py-5 sm:pr-40"
+            >
+                <span class="block max-w-3xl">
+                    <span class="block text-sm font-black uppercase leading-tight tracking-wide text-white sm:text-lg">
+                        Conoce nuestra tienda de artículos personalizados
+                    </span>
+                    <span class="mt-1 block text-xs font-semibold text-white/85 sm:text-sm">
+                        Tienda dedicada a emprendedores del área gráfica.
+                    </span>
+                </span>
+                <span class="absolute right-4 top-1/2 flex -translate-y-1/2 items-center gap-2 sm:right-10">
+                    <img
+                            src="assets/img/lgo-madeacrilico-store.webp"
+                        alt="Made Acrílico Store"
+                        width="112"
+                        height="112"
+                        class="h-20 w-20 rounded-full object-cover shadow-2xl ring-4 ring-pink-300/60 transition-transform group-hover:scale-105 sm:h-28 sm:w-28"
+                        loading="eager"
+                        decoding="async"
+                    >
+                </span>
+            </button>
+
+            <div class="relative min-h-[620px] overflow-hidden rounded-[2rem] bg-logoDark shadow-2xl border border-gray-100">
+                <div class="hero-carousel absolute inset-0 bg-black">
+                    <figure class="hero-carousel-slide hero-carousel-slide-1">
+                        <img src="assets/img/etiquetas.webp" alt="Impresión DTF textil para ropa personalizada" width="899" height="492" loading="eager" decoding="async" fetchpriority="high">
+                    </figure>
+                    <figure class="hero-carousel-slide hero-carousel-slide-2">
+                        <img src="assets/img/test_uv.webp" alt="DTF UV adhesivo para vasos y empaques" width="1600" height="557" loading="eager" decoding="async">
+                    </figure>
+                    <figure class="hero-carousel-slide hero-carousel-slide-3">
+                        <img src="assets/img/stickers-optimized.webp" alt="Stickers personalizados para empaques y productos" width="1200" height="800" loading="eager" decoding="async">
+                    </figure>
+                    <div class="hero-carousel-dots" aria-hidden="true">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+
+                <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/52 to-black/12"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+
+                <div class="relative z-10 flex min-h-[620px] items-center px-6 py-14 sm:px-10 lg:px-16">
+                    <div class="max-w-3xl space-y-5 text-white">
+                        <h1 class="text-4xl font-black leading-[0.95] tracking-normal sm:text-5xl lg:text-7xl">
+                            Impresión gráfica para marcas que quieren verse listas.
+                        </h1>
+                        <p class="max-w-xl text-base leading-8 text-white/85 sm:text-lg">
+                            En MADE ACRÍLICO producimos DTF textil, DTF UV, stickers y acabados comerciales en Santo Domingo con revisión de archivo y atención directa.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-shell grid grid-cols-1 gap-6 bg-white p-6 shadow-lg border border-gray-100 md:p-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+                <div>
+                    <p class="text-xs uppercase tracking-wider text-logoMagenta font-black">Quiénes somos</p>
+                    <h2 class="mt-2 text-3xl font-black leading-tight text-logoDark md:text-5xl">
+                        Somos un taller gráfico enfocado en hacer que tu marca se vea profesional.
+                    </h2>
+                </div>
+                <div class="space-y-5 text-sm leading-8 text-gray-600 md:text-base">
+                    <p>
+                        En MADE ACRÍLICO trabajamos soluciones de impresión, rotulación, acrílico y personalización para emprendedores, empresas, tiendas y marcas que necesitan producir con buena terminación y atención directa.
+                    </p>
+                    <p>
+                        Nos enfocamos en entender lo que quieres entregar, revisar el archivo antes de producir y recomendar el material correcto según el uso: ropa, empaques, vehículos, letreros, exhibidores, artículos personalizados o piezas comerciales.
+                    </p>
+                    <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                        <div class="rounded-2xl bg-pink-50 p-4">
+                            <p class="text-lg font-black text-logoMagenta">Revisión</p>
+                            <p class="mt-1 text-xs font-bold uppercase tracking-wider text-gray-500">Antes de producir</p>
+                        </div>
+                        <div class="rounded-2xl bg-cyan-50 p-4">
+                            <p class="text-lg font-black text-logoCyan">Local</p>
+                            <p class="mt-1 text-xs font-bold uppercase tracking-wider text-gray-500">Santo Domingo</p>
+                        </div>
+                        <div class="rounded-2xl bg-yellow-50 p-4">
+                            <p class="text-lg font-black text-logoDark">Directo</p>
+                            <p class="mt-1 text-xs font-bold uppercase tracking-wider text-gray-500">Por WhatsApp</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-shell grid grid-cols-1 gap-3 bg-logoDark p-4 text-white shadow-lg sm:grid-cols-2 lg:grid-cols-4">
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                    <i class="fa-solid fa-file-circle-check text-logoMagenta text-xl"></i>
+                    <h3 class="mt-3 font-black">Revisión de archivo</h3>
+                    <p class="mt-2 text-xs leading-5 text-gray-300">Verificamos material, medida y archivo antes de producir.</p>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                    <i class="fa-solid fa-location-dot text-logoCyan text-xl"></i>
+                    <h3 class="mt-3 font-black">Producción local</h3>
+                    <p class="mt-2 text-xs leading-5 text-gray-300">DTF, stickers, acrílicos y letreros en Santo Domingo.</p>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                    <i class="fa-brands fa-whatsapp text-emerald-400 text-xl"></i>
+                    <h3 class="mt-3 font-black">Atención directa</h3>
+                    <p class="mt-2 text-xs leading-5 text-gray-300">Confirmamos dudas, acabados, entrega y tiempos por WhatsApp.</p>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                    <i class="fa-solid fa-truck-fast text-logoYellow text-xl"></i>
+                    <h3 class="mt-3 font-black">Retiro o envío</h3>
+                    <p class="mt-2 text-xs leading-5 text-gray-300">Puedes retirar en tienda o solicitar envío a cotizar.</p>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <div class="max-w-3xl">
+                    <p class="text-xs uppercase tracking-wider text-logoCyan font-black">Servicios</p>
+                    <h2 class="mt-2 text-3xl font-black leading-tight text-logoDark md:text-5xl">
+                        Lo que podemos producir para tu marca.
+                    </h2>
+                    <p class="mt-3 text-sm leading-7 text-gray-500 md:text-base">
+                        Desde DTF Textil en Santo Domingo y DTF UV para objetos hasta stickers personalizados, letreros en acrílico, rotulaciones, corte CNC y exhibidores.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 items-stretch gap-5 md:grid-cols-2 xl:grid-cols-4">
+                <div class="service-card flex flex-col rounded-3xl bg-logoDark p-6 text-white shadow-lg md:p-8">
+                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoMagenta text-xl">
+                        <i class="fa-solid fa-shirt"></i>
+                    </div>
+                    <h2 class="text-2xl font-black">DTF Textil</h2>
+                    <p class="mt-3 text-sm leading-7 text-gray-300">Transfers para camisetas, hoodies, uniformes, gorras y colecciones de marca.</p>
+                    <div class="mt-6 flex flex-wrap items-center gap-4">
+                        <button type="button" data-go-tab="dtf" class="inline-flex items-center gap-2 text-sm font-black text-logoMagenta">
+                            Ver textil <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                        <button type="button" data-material-info="textil" class="inline-flex items-center gap-2 text-sm font-black text-white/85 hover:text-white">
+                            Leer más <i class="fa-solid fa-circle-info"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="service-card flex flex-col rounded-3xl bg-white p-6 shadow-lg border border-cyan-100 md:p-8">
+                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoCyan text-xl text-white">
+                        <i class="fa-solid fa-spray-can-sparkles"></i>
+                    </div>
+                    <h2 class="text-2xl font-black text-logoDark">DTF UV</h2>
+                    <p class="mt-3 text-sm leading-7 text-gray-500">Adhesivos premium para vasos, acrílico, vidrio, metal, cosmética y empaques.</p>
+                    <div class="mt-6 flex flex-wrap items-center gap-4">
+                        <button type="button" data-go-tab="dtf" class="inline-flex items-center gap-2 text-sm font-black text-logoCyan">
+                            Ver UV <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                        <button type="button" data-material-info="uv" class="inline-flex items-center gap-2 text-sm font-black text-gray-500 hover:text-logoCyan">
+                            Leer más <i class="fa-solid fa-circle-info"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="service-card flex flex-col rounded-3xl bg-white p-6 shadow-lg border border-yellow-100 md:p-8">
+                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoYellow text-xl text-logoDark">
+                        <i class="fa-solid fa-tags"></i>
+                    </div>
+                    <h2 class="text-2xl font-black text-logoDark">Stickers</h2>
+                    <p class="mt-3 text-sm leading-7 text-gray-500">Etiquetas, sellos de empaque y stickers promocionales listos para productos.</p>
+                    <div class="mt-6 flex flex-wrap items-center gap-4">
+                        <button type="button" data-go-tab="planilla" data-calculator-material="stickers" class="inline-flex items-center gap-2 text-sm font-black text-logoDark">
+                            Cotizar stickers <i class="fa-solid fa-arrow-right text-logoMagenta"></i>
+                        </button>
+                        <button type="button" data-material-info="stickers" class="inline-flex items-center gap-2 text-sm font-black text-gray-500 hover:text-logoDark">
+                            Leer más <i class="fa-solid fa-circle-info"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="service-card flex flex-col rounded-3xl bg-white p-6 shadow-lg border border-gray-100 md:p-8">
+                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoDark text-xl text-white">
+                        <i class="fa-solid fa-sign-hanging"></i>
+                    </div>
+                    <h2 class="text-2xl font-black text-logoDark">Letreros</h2>
+                    <p class="mt-3 text-sm leading-7 text-gray-500">Letreros comerciales, placas y piezas visuales para negocios, locales y oficinas.</p>
+                    <button type="button" data-go-tab="contacto" class="mt-6 inline-flex items-center gap-2 text-sm font-black text-logoDark">
+                        Cotizar letrero <i class="fa-brands fa-whatsapp text-logoMagenta"></i>
+                    </button>
+                </div>
+
+                <div class="service-card flex flex-col rounded-3xl bg-white p-6 shadow-lg border border-pink-100 md:p-8">
+                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoMagenta text-xl text-white">
+                        <i class="fa-solid fa-pen-nib"></i>
+                    </div>
+                    <h2 class="text-2xl font-black text-logoDark">Rotulaciones</h2>
+                    <p class="mt-3 text-sm leading-7 text-gray-500">Rotulación para vitrinas, paredes, eventos, negocios y superficies comerciales.</p>
+                    <button type="button" data-go-tab="contacto" class="mt-6 inline-flex items-center gap-2 text-sm font-black text-logoMagenta">
+                        Cotizar rotulación <i class="fa-brands fa-whatsapp"></i>
+                    </button>
+                </div>
+
+                <div class="service-card flex flex-col rounded-3xl bg-white p-6 shadow-lg border border-cyan-100 md:p-8">
+                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoCyan text-xl text-white">
+                        <i class="fa-solid fa-car-side"></i>
+                    </div>
+                    <h2 class="text-2xl font-black text-logoDark">Rótulos para vehículos</h2>
+                    <p class="mt-3 text-sm leading-7 text-gray-500">Gráficos, identificación y piezas adhesivas para vehículos de trabajo y marcas móviles.</p>
+                    <button type="button" data-go-tab="contacto" class="mt-6 inline-flex items-center gap-2 text-sm font-black text-logoCyan">
+                        Cotizar vehículo <i class="fa-brands fa-whatsapp"></i>
+                    </button>
+                </div>
+
+                <div class="service-card flex flex-col rounded-3xl bg-white p-6 shadow-lg border border-yellow-100 md:p-8">
+                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoYellow text-xl text-logoDark">
+                        <i class="fa-solid fa-gift"></i>
+                    </div>
+                    <h2 class="text-2xl font-black text-logoDark">Artículos personalizados</h2>
+                    <p class="mt-3 text-sm leading-7 text-gray-500">Piezas promocionales, regalos corporativos y productos personalizados por encargo.</p>
+                    <button type="button" data-go-tab="contacto" class="mt-6 inline-flex items-center gap-2 text-sm font-black text-logoDark">
+                        Cotizar personalizado <i class="fa-brands fa-whatsapp text-logoMagenta"></i>
+                    </button>
+                </div>
+
+                <div class="service-card flex flex-col rounded-3xl bg-white p-6 shadow-lg border border-gray-100 md:p-8">
+                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoDark text-xl text-white">
+                        <i class="fa-solid fa-cube"></i>
+                    </div>
+                    <h2 class="text-2xl font-black text-logoDark">Productos en acrílico</h2>
+                    <p class="mt-3 text-sm leading-7 text-gray-500">Bases, placas, displays, piezas decorativas y soluciones en acrílico para negocios.</p>
+                    <button type="button" data-go-tab="contacto" class="mt-6 inline-flex items-center gap-2 text-sm font-black text-logoDark">
+                        Cotizar acrílico <i class="fa-brands fa-whatsapp text-logoMagenta"></i>
+                    </button>
+                </div>
+
+                <div class="service-card flex flex-col rounded-3xl bg-white p-6 shadow-lg border border-pink-100 md:p-8">
+                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoMagenta text-xl text-white">
+                        <i class="fa-solid fa-print"></i>
+                    </div>
+                    <h2 class="text-2xl font-black text-logoDark">Impresión gran formato</h2>
+                    <p class="mt-3 text-sm leading-7 text-gray-500">Material gráfico de gran tamaño para promociones, eventos, locales y publicidad.</p>
+                    <button type="button" data-go-tab="contacto" class="mt-6 inline-flex items-center gap-2 text-sm font-black text-logoMagenta">
+                        Cotizar gran formato <i class="fa-brands fa-whatsapp"></i>
+                    </button>
+                </div>
+
+                <div class="service-card flex flex-col rounded-3xl bg-white p-6 shadow-lg border border-cyan-100 md:p-8">
+                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoCyan text-xl text-white">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                    </div>
+                    <h2 class="text-2xl font-black text-logoDark">Corte CNC</h2>
+                    <p class="mt-3 text-sm leading-7 text-gray-500">Corte de piezas, formas, letras y componentes para proyectos comerciales y personalizados.</p>
+                    <button type="button" data-go-tab="contacto" class="mt-6 inline-flex items-center gap-2 text-sm font-black text-logoCyan">
+                        Cotizar CNC <i class="fa-brands fa-whatsapp"></i>
+                    </button>
+                </div>
+
+                <div class="service-card flex flex-col rounded-3xl bg-logoDark p-6 text-white shadow-lg md:p-8">
+                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-xl text-logoYellow">
+                        <i class="fa-solid fa-table-cells-large"></i>
+                    </div>
+                    <h2 class="text-2xl font-black">Exhibidores</h2>
+                    <p class="mt-3 text-sm leading-7 text-gray-300">Exhibidores, soportes y piezas para presentar productos en tiendas, ferias y puntos de venta.</p>
+                    <button type="button" data-go-tab="contacto" class="mt-6 inline-flex items-center gap-2 text-sm font-black text-logoYellow">
+                        Cotizar exhibidor <i class="fa-brands fa-whatsapp"></i>
+                    </button>
+                </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA: DTF -->
+        <section id="tab-dtf" class="tab-content hidden space-y-16">
             <div class="space-y-0 rounded-3xl overflow-hidden shadow-2xl">
             
             <!-- HERO / SECCIÓN PRINCIPAL -->
             <div class="relative overflow-hidden bg-gradient-to-br from-logoDark via-logoDarkLight to-black text-white p-8 md:p-16 flex flex-col md:flex-row items-center gap-12">
-                <div class="absolute -top-20 -left-20 w-80 h-80 bg-logoCyan/30 rounded-full blur-[100px]"></div>
-                <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-logoMagenta/30 rounded-full blur-[100px]"></div>
-                
                 <div class="relative z-10 flex-1 space-y-6">
-                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+                    <h2 class="text-4xl md:text-6xl font-extrabold leading-tight">
                         Cotiza <span class="text-logoCyan">DTF</span> Textil, <span class="text-logoMagenta">UV</span> y Stickers en Santo Domingo.
-                    </h1>
+                    </h2>
                     <p class="text-gray-300 text-lg max-w-xl">
-                        Calcula tu pedido en linea, manda tu archivo y recibe produccion local para ropa, vasos, empaques y marcas.
+                        Calcula tu pedido en línea, manda tu archivo y recibe producción local para ropa, vasos, empaques y marcas.
                     </p>
                     <p class="text-white/90 text-sm md:text-base max-w-xl font-semibold">
-                        DTF Textil desde RD$300. DTF UV para superficies rigidas. Stickers y etiquetas por encargo.
+                        DTF Textil desde RD$300. DTF UV para superficies rígidas. Stickers y etiquetas por encargo.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 pt-2">
                         <button type="button" data-go-tab="planilla" class="bg-logoMagenta hover:bg-logoMagenta/90 text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 transform hover:-translate-y-1">
@@ -268,7 +621,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
 
                 <div class="relative z-10 flex-1 w-full max-w-md">
                     <div class="bg-white/10 backdrop-blur-md border border-white/10 p-6 rounded-2xl shadow-xl space-y-6">
-                        <img src="assets/img/inicio.png" alt="Muestra de impresión DTF UV adhesivo" loading="lazy" decoding="async" class="w-full max-w-sm rounded-lg shadow-md hover:scale-105 transition">
+                        <img src="assets/img/inicio.webp" alt="Muestra de impresión DTF UV adhesivo" width="536" height="353" loading="lazy" decoding="async" class="w-full max-w-sm rounded-lg shadow-md hover:scale-105 transition">
                     </div>
                 </div>
             </div>
@@ -276,25 +629,25 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
             <div class="bg-logoDark text-white p-6 md:p-8 border-t border-white/10">
                 <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-8 lg:items-center">
                     <div>
-                        <p class="text-xs uppercase tracking-wider font-bold text-logoYellow">Produccion local</p>
+                        <p class="text-xs uppercase tracking-wider font-bold text-logoYellow">Producción local</p>
                         <h2 class="text-3xl md:text-4xl font-black mt-2">Hecho en Santo Domingo, listo para tu marca.</h2>
                     </div>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 divide-y md:divide-y-0 md:divide-x divide-white/10">
                         <div class="py-3 md:pr-4">
                             <p class="text-3xl font-black text-logoMagenta">8-24h</p>
-                            <p class="text-xs font-bold text-gray-300 mt-1 uppercase tracking-wider">Produccion regular</p>
+                            <p class="text-xs font-bold text-gray-300 mt-1 uppercase tracking-wider">Producción regular</p>
                         </div>
                         <div class="py-3 md:px-4">
-                            <p class="text-3xl font-black text-logoCyan">No minimo</p>
+                            <p class="text-3xl font-black text-logoCyan">No mínimo</p>
                             <p class="text-xs font-bold text-gray-300 mt-1 uppercase tracking-wider">Por pedido</p>
                         </div>
                         <div class="py-3 md:px-4">
                             <p class="text-3xl font-black text-logoYellow">Archivo</p>
-                            <p class="text-xs font-bold text-gray-300 mt-1 uppercase tracking-wider">Revision previa</p>
+                            <p class="text-xs font-bold text-gray-300 mt-1 uppercase tracking-wider">Revisión previa</p>
                         </div>
                         <div class="py-3 md:pl-4">
                             <p class="text-3xl font-black text-white">WhatsApp</p>
-                            <p class="text-xs font-bold text-gray-300 mt-1 uppercase tracking-wider">Atencion directa</p>
+                            <p class="text-xs font-bold text-gray-300 mt-1 uppercase tracking-wider">Atención directa</p>
                         </div>
                     </div>
                 </div>
@@ -303,15 +656,18 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
 
             <div class="space-y-8">
                 <div class="text-center max-w-3xl mx-auto space-y-2">
-                    <p class="text-3xl uppercase tracking-wider text-logoMagenta font-black">Servicios especializados</p>
-                    <p class="text-gray-500">Textil, UV y stickers se preparan diferente. Te guiamos segun el producto que quieres entregar.</p>
+                    <p class="text-xs uppercase tracking-wider text-logoMagenta font-black">Servicios especializados</p>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-logoDark">Textil, UV y stickers se preparan diferente.</h2>
+                    <p class="text-gray-500">Te guiamos según el producto que quieres entregar.</p>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
                     <div class="rounded-3xl overflow-hidden bg-logoDark text-white shadow-lg flex flex-col">
                         <div class="relative h-64 overflow-hidden bg-gray-50">
                             <img
-                                src="assets/img/test_uv.jpeg"
-                                alt="DTF UV adhesivo para vasos, acrilico, metal y empaques"
+                                src="assets/img/test_uv.webp"
+                                alt="DTF UV adhesivo para vasos, acrílico, metal y empaques"
+                                width="1600"
+                                height="557"
                                 loading="lazy"
                                 decoding="async"
                                 class="h-full w-full object-cover"
@@ -324,7 +680,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                         </div>
                         <div class="p-6 md:p-8 flex-1 flex flex-col justify-between gap-6">
                             <div class="space-y-4">
-                                <p class="text-sm text-gray-300">Adhesivo con acabado brillante para vasos, acrilico, vidrio, metal, frascos, cosmetica y empaques.</p>
+                                <p class="text-sm text-gray-300">Adhesivo con acabado brillante para vasos, acrílico, vidrio, metal, frascos, cosmética y empaques.</p>
                                 <div class="grid grid-cols-2 gap-3 text-sm">
                                     <div class="rounded-2xl bg-white/10 p-4">
                                         <p class="text-xs font-black uppercase text-logoCyan">Anchos</p>
@@ -332,16 +688,16 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                                     </div>
                                     <div class="rounded-2xl bg-white/10 p-4">
                                         <p class="text-xs font-black uppercase text-logoYellow">Uso</p>
-                                        <p class="font-black text-white mt-1">Superficies rigidas</p>
+                                        <p class="font-black text-white mt-1">Superficies rígidas</p>
                                     </div>
                                 </div>
                                 <div class="flex flex-wrap gap-2">
                                     <span class="text-xs font-bold bg-white/10 text-white px-3 py-1 rounded-full">Vasos</span>
                                     <span class="text-xs font-bold bg-white/10 text-white px-3 py-1 rounded-full">Empaques</span>
-                                    <span class="text-xs font-bold bg-white/10 text-white px-3 py-1 rounded-full">Acrilico</span>
+                                    <span class="text-xs font-bold bg-white/10 text-white px-3 py-1 rounded-full">Acrílico</span>
                                 </div>
                             </div>
-                            <button type="button" data-go-tab="planilla" class="w-full inline-flex items-center justify-center gap-2 bg-logoCyan hover:bg-logoMagenta text-white font-bold px-5 py-3 rounded-xl transition-all">
+                            <button type="button" data-go-tab="planilla" data-calculator-material="uv" class="w-full inline-flex items-center justify-center gap-2 bg-logoCyan hover:bg-logoMagenta text-white font-bold px-5 py-3 rounded-xl transition-all">
                                 Cotizar DTF UV
                                 <i class="fa-solid fa-arrow-right"></i>
                             </button>
@@ -351,8 +707,10 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     <div class="rounded-3xl overflow-hidden bg-white border border-pink-100 shadow-lg flex flex-col">
                         <div class="relative h-64 bg-logoDark overflow-hidden">
                             <img
-                                src="assets/img/test_textil.jpg"
-                                alt="Impresion DTF textil para camisetas y uniformes"
+                                src="assets/img/test_textil.webp"
+                                alt="Impresión DTF textil para camisetas y uniformes"
+                                width="548"
+                                height="191"
                                 loading="lazy"
                                 decoding="async"
                                 class="h-full w-full object-cover opacity-90"
@@ -382,7 +740,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                                     <span class="text-xs font-bold bg-gray-100 text-gray-600 px-3 py-1 rounded-full">Colecciones</span>
                                 </div>
                             </div>
-                            <button type="button" data-go-tab="planilla" class="w-full inline-flex items-center justify-center gap-2 bg-logoMagenta hover:bg-pink-600 text-white font-bold px-5 py-3 rounded-xl transition-all">
+                            <button type="button" data-go-tab="planilla" data-calculator-material="textil" class="w-full inline-flex items-center justify-center gap-2 bg-logoMagenta hover:bg-pink-600 text-white font-bold px-5 py-3 rounded-xl transition-all">
                                 Cotizar DTF Textil
                                 <i class="fa-solid fa-arrow-right"></i>
                             </button>
@@ -392,8 +750,10 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     <div class="rounded-3xl overflow-hidden bg-white border border-yellow-100 shadow-lg flex flex-col">
                         <div class="relative h-64 bg-gray-50 overflow-hidden">
                             <img
-                                src="assets/img/stickers-optimized.jpg"
+                                src="assets/img/stickers-optimized.webp"
                                 alt="Hojas de stickers personalizados para marcas y empaques"
+                                width="1200"
+                                height="800"
                                 loading="lazy"
                                 decoding="async"
                                 class="h-full w-full object-cover"
@@ -423,9 +783,9 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                                     <span class="text-xs font-bold bg-yellow-50 text-logoDark px-3 py-1 rounded-full">Marca</span>
                                 </div>
                             </div>
-                            <button type="button" data-go-tab="contacto" class="w-full inline-flex items-center justify-center gap-2 bg-logoDark hover:bg-logoMagenta text-white font-bold px-5 py-3 rounded-xl transition-all">
-                                Pedir stickers
-                                <i class="fa-brands fa-whatsapp"></i>
+                            <button type="button" data-go-tab="planilla" data-calculator-material="stickers" class="w-full inline-flex items-center justify-center gap-2 bg-logoDark hover:bg-logoMagenta text-white font-bold px-5 py-3 rounded-xl transition-all">
+                                Cotizar stickers
+                                <i class="fa-solid fa-arrow-right"></i>
                             </button>
                         </div>
                     </div>
@@ -435,18 +795,20 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
             <div class="space-y-8">
                 <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                     <div class="max-w-2xl">
-                        <p class="text-xs uppercase tracking-wider text-logoCyan font-black">Galeria MADE ACRÍLICO</p>
+                        <p class="text-xs uppercase tracking-wider text-logoCyan font-black">Galería MADE ACRÍLICO</p>
                         <h2 class="text-3xl md:text-4xl font-extrabold text-logoDark mt-2">Trabajos que destacan.</h2>
                     </div>
-                    <p class="text-sm text-gray-500 max-w-md">Una vista rapida de los usos que mas piden marcas, talleres y negocios locales.</p>
+                    <p class="text-sm text-gray-500 max-w-md">Una vista rápida de los usos que más piden marcas, talleres y negocios locales.</p>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
                     <div class="lg:col-span-2 rounded-3xl overflow-hidden bg-logoDark text-white shadow-xl grid grid-cols-1 md:grid-cols-[1fr_0.9fr]">
                         <div class="relative min-h-[280px] bg-black">
                             <img
-                                src="assets/img/test_textil.jpg"
-                                alt="Ejemplo de impresion DTF textil para prendas"
+                                src="assets/img/test_textil.webp"
+                                alt="Ejemplo de impresión DTF textil para prendas"
+                                width="548"
+                                height="191"
                                 loading="lazy"
                                 decoding="async"
                                 class="h-full w-full object-cover opacity-90"
@@ -462,18 +824,18 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                                     <span class="w-10 h-10 rounded-xl bg-white/10 text-logoCyan flex items-center justify-center shrink-0"><i class="fa-solid fa-shirt"></i></span>
                                     <div>
                                         <h4 class="font-black">Ropa y uniformes</h4>
-                                        <p class="text-sm text-gray-300 mt-1">Camisetas, hoodies, gorras, tote bags y piezas de coleccion.</p>
+                                        <p class="text-sm text-gray-300 mt-1">Camisetas, hoodies, gorras, tote bags y piezas de colección.</p>
                                     </div>
                                 </div>
                                 <div class="flex items-start gap-3">
                                     <span class="w-10 h-10 rounded-xl bg-white/10 text-logoMagenta flex items-center justify-center shrink-0"><i class="fa-solid fa-layer-group"></i></span>
                                     <div>
-                                        <h4 class="font-black">Produccion por encargo</h4>
-                                        <p class="text-sm text-gray-300 mt-1">Ideal para pedidos pequenos, lanzamientos y reposiciones rapidas.</p>
+                                        <h4 class="font-black">Producción por encargo</h4>
+                                        <p class="text-sm text-gray-300 mt-1">Ideal para pedidos pequeños, lanzamientos y reposiciones rápidas.</p>
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" data-go-tab="planilla" class="inline-flex items-center justify-center gap-2 bg-logoMagenta hover:bg-pink-600 text-white font-bold px-5 py-3 rounded-xl transition-all">
+                            <button type="button" data-go-tab="planilla" data-calculator-material="textil" class="inline-flex items-center justify-center gap-2 bg-logoMagenta hover:bg-pink-600 text-white font-bold px-5 py-3 rounded-xl transition-all">
                                 Cotizar una planilla
                                 <i class="fa-solid fa-arrow-right"></i>
                             </button>
@@ -484,21 +846,25 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                         <div class="rounded-3xl border border-gray-100 bg-white p-5 shadow-sm">
                             <div class="h-32 rounded-2xl overflow-hidden bg-cyan-50 mb-4">
                                 <img
-                                    src="assets/img/test_uv.jpeg"
+                                    src="assets/img/test_uv.webp"
                                     alt="Ejemplo de DTF UV adhesivo"
+                                    width="1600"
+                                    height="557"
                                     loading="lazy"
                                     decoding="async"
                                     class="h-full w-full object-cover"
                                 >
                             </div>
                             <h3 class="font-black text-logoDark">Objetos y empaques</h3>
-                            <p class="text-sm text-gray-500 mt-2">Vasos, acrilico, cosmetica, cajas, frascos y detalles de marca.</p>
+                            <p class="text-sm text-gray-500 mt-2">Vasos, acrílico, cosmética, cajas, frascos y detalles de marca.</p>
                         </div>
                         <div class="rounded-3xl border border-gray-100 bg-white p-5 shadow-sm">
                             <div class="h-32 rounded-2xl overflow-hidden bg-yellow-50 mb-4">
                                 <img
-                                    src="assets/img/stickers-optimized.jpg"
+                                    src="assets/img/stickers-optimized.webp"
                                     alt="Stickers personalizados impresos en hojas"
+                                    width="1200"
+                                    height="800"
                                     loading="lazy"
                                     decoding="async"
                                     class="h-full w-full object-cover"
@@ -524,8 +890,10 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     <div class="bg-white rounded-3xl overflow-hidden shadow-md border border-gray-100 flex flex-col hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
                         <div class="h-48 bg-gradient-to-tr from-[#E52D7F]/20 to-[#00A5DF]/10 flex items-center justify-center p-8 relative">
                             <span class="absolute top-4 left-4 bg-[#E52D7F] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Ancho Fijo: 22"</span>
-                            <img src="assets/img/test_textil.jpg"
+                            <img src="assets/img/test_textil.webp"
                             alt="Muestra de impresión DTF textil"
+                            width="548"
+                            height="191"
                             loading="lazy"
                             decoding="async"
                             class="w-full max-w-sm rounded-lg shadow-md hover:scale-105 transition">
@@ -538,8 +906,8 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                                     <li class="flex justify-between border-b border-gray-100 pb-1"><span>22" x 36" (Una Yarda)</span> <span class="text-logoMagenta font-bold">$500 DOP</span></li>
                                 </ul>
                             </div>
-                            <button type="button" data-go-tab="planilla" class="w-full bg-[#1E1E1E] hover:bg-logoMagenta text-white font-bold px-5 py-3 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
-                                <span>Cotizar Material</span> <i class="fa-solid fa-arrow-right"></i>
+                            <button type="button" data-go-tab="planilla" data-calculator-material="textil" class="w-full bg-[#1E1E1E] hover:bg-logoMagenta text-white font-bold px-5 py-3 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
+                                <span>Calcular DTF Textil</span> <i class="fa-solid fa-arrow-right"></i>
                             </button>
                         </div>
                     </div>
@@ -548,8 +916,10 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     <div class="bg-white rounded-3xl overflow-hidden shadow-md border border-gray-100 flex flex-col hover:shadow-xl transition-all">
                         <div class="h-48 bg-gradient-to-tr from-[#00A5DF]/20 to-[#F6D044]/10 flex items-center justify-center p-8 relative">
                             <span class="absolute top-4 left-4 bg-[#00A5DF] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Ancho: 16" o 11.5"</span>
-                            <img src="assets/img/test_uv.jpeg"
+                            <img src="assets/img/test_uv.webp"
                             alt="Muestra de impresión DTF UV adhesivo"
+                            width="1600"
+                            height="557"
                             loading="lazy"
                             decoding="async"
                             class="w-full max-w-sm rounded-lg shadow-md hover:scale-105 transition">
@@ -564,8 +934,8 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                                     <li class="flex justify-between border-b border-gray-100 pb-1"><span>16" x 36" (Yarda)</span> <span class="text-logoCyan font-bold">$1300 DOP</span></li>
                                 </ul>
                             </div>
-                            <button type="button" data-go-tab="planilla" class="w-full bg-[#1E1E1E] hover:bg-logoCyan text-white font-bold px-5 py-3 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
-                                <span>Cotizar Material</span> <i class="fa-solid fa-arrow-right"></i>
+                            <button type="button" data-go-tab="planilla" data-calculator-material="uv" class="w-full bg-[#1E1E1E] hover:bg-logoCyan text-white font-bold px-5 py-3 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
+                                <span>Calcular DTF UV</span> <i class="fa-solid fa-arrow-right"></i>
                             </button>
                         </div>
                     </div>
@@ -573,7 +943,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                 <div class="bg-logoDark text-white rounded-3xl p-6 md:p-8 shadow-lg flex flex-col md:flex-row md:items-center md:justify-between gap-5">
                     <div>
                         <p class="text-xs uppercase tracking-wider text-logoYellow font-black">Pedido exacto</p>
-                        <h3 class="text-2xl font-extrabold mt-1">Evita calcular a mano: arma la planilla y enviala directo.</h3>
+                        <h3 class="text-2xl font-extrabold mt-1">Evita calcular a mano: arma la planilla y envíala directo.</h3>
                     </div>
                     <button type="button" data-go-tab="planilla" class="inline-flex items-center justify-center gap-2 bg-logoMagenta hover:bg-pink-600 text-white font-bold px-6 py-3 rounded-xl transition-all">
                         Abrir calculador
@@ -587,10 +957,10 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                 <div class="lg:col-span-2 bg-white border border-gray-100 rounded-3xl p-6 md:p-8 shadow-sm">
                     <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                         <div>
-                            <p class="text-xs uppercase tracking-wider text-logoCyan font-black">Por que MADE ACRÍLICO</p>
+                            <p class="text-xs uppercase tracking-wider text-logoCyan font-black">Por qué MADE ACRÍLICO</p>
                             <h2 class="text-3xl md:text-4xl font-extrabold text-logoDark mt-2">Lo que define tus resultados.</h2>
                         </div>
-                        <p class="text-sm text-gray-500 max-w-md">La diferencia esta en elegir bien el material, producir local y coordinar claro desde el inicio.</p>
+                        <p class="text-sm text-gray-500 max-w-md">La diferencia está en elegir bien el material, producir local y coordinar claro desde el inicio.</p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
                         <div class="rounded-2xl bg-pink-50/30 border border-pink-100 p-5">
@@ -600,18 +970,18 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                         </div>
                         <div class="rounded-2xl bg-cyan-50/40 border border-cyan-100 p-5">
                             <span class="w-10 h-10 rounded-xl bg-logoCyan text-white flex items-center justify-center mb-4"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
-                            <h3 class="font-black text-logoDark">Eleccion clara</h3>
-                            <p class="text-sm text-gray-500 mt-2">Te ayudamos a escoger entre textil, UV, sticker o acrilico segun el uso.</p>
+                            <h3 class="font-black text-logoDark">Elección clara</h3>
+                            <p class="text-sm text-gray-500 mt-2">Te ayudamos a escoger entre textil, UV, sticker o acrílico según el uso.</p>
                         </div>
                         <div class="rounded-2xl bg-yellow-50 border border-yellow-100 p-5">
                             <span class="w-10 h-10 rounded-xl bg-logoYellow text-logoDark flex items-center justify-center mb-4"><i class="fa-solid fa-location-dot"></i></span>
-                            <h3 class="font-black text-logoDark">Produccion local</h3>
-                            <p class="text-sm text-gray-500 mt-2">Trabajamos en Santo Domingo con retiro, coordinacion y envio disponible.</p>
+                            <h3 class="font-black text-logoDark">Producción local</h3>
+                            <p class="text-sm text-gray-500 mt-2">Trabajamos en Santo Domingo con retiro, coordinación y envío disponible.</p>
                         </div>
                         <div class="rounded-2xl bg-gray-50 border border-gray-100 p-5">
                             <span class="w-10 h-10 rounded-xl bg-logoDark text-white flex items-center justify-center mb-4"><i class="fa-solid fa-comments"></i></span>
-                            <h3 class="font-black text-logoDark">Atencion directa</h3>
-                            <p class="text-sm text-gray-500 mt-2">WhatsApp rapido para dudas de medidas, acabados, cantidades y entrega.</p>
+                            <h3 class="font-black text-logoDark">Atención directa</h3>
+                            <p class="text-sm text-gray-500 mt-2">WhatsApp rápido para dudas de medidas, acabados, cantidades y entrega.</p>
                         </div>
                     </div>
                 </div>
@@ -619,8 +989,8 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                 <div class="bg-gradient-to-br from-logoCyan via-logoMagenta to-logoYellow rounded-3xl p-6 md:p-8 text-white shadow-lg flex flex-col justify-between gap-8">
                     <div>
                         <p class="text-xs uppercase tracking-wider font-black">Clientes comunes</p>
-                        <h2 class="text-3xl font-extrabold mt-2">Marcas, talleres y negocios que necesitan resolver rapido.</h2>
-                        <p class="text-sm text-white/90 mt-4">Ideal para ropa personalizada, empaques, vasos, cosmetica, promociones, etiquetas y pedidos por encargo.</p>
+                        <h2 class="text-3xl font-extrabold mt-2">Marcas, talleres y negocios que necesitan resolver rápido.</h2>
+                        <p class="text-sm text-white/90 mt-4">Ideal para ropa personalizada, empaques, vasos, cosmética, promociones, etiquetas y pedidos por encargo.</p>
                     </div>
                     <button type="button" data-go-tab="contacto" class="inline-flex items-center justify-center gap-2 bg-white text-logoDark hover:bg-gray-100 font-bold px-5 py-3 rounded-xl transition-all">
                         Consultar mi caso
@@ -633,7 +1003,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                 <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-6 lg:items-center">
                     <div>
                         <p class="text-xs uppercase tracking-wider text-logoMagenta font-black">Servicios en Santo Domingo</p>
-                        <h2 class="text-2xl md:text-3xl font-extrabold text-logoDark mt-1">Impresion grafica para marcas que necesitan producir rapido.</h2>
+                        <h2 class="text-2xl md:text-3xl font-extrabold text-logoDark mt-1">Impresión gráfica para marcas que necesitan producir rápido.</h2>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
                         <div class="rounded-2xl bg-pink-50 p-4">
@@ -642,14 +1012,14 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                         </div>
                         <div class="rounded-2xl bg-cyan-50 p-4">
                             <p class="text-xs font-black uppercase text-logoCyan">DTF UV</p>
-                            <p class="text-sm text-gray-500 mt-1">Adhesivo para vasos, acrilico y empaques.</p>
+                            <p class="text-sm text-gray-500 mt-1">Adhesivo para vasos, acrílico y empaques.</p>
                         </div>
                         <div class="rounded-2xl bg-yellow-50 p-4">
                             <p class="text-xs font-black uppercase text-logoDark">Stickers</p>
                             <p class="text-sm text-gray-500 mt-1">Etiquetas personalizadas para productos.</p>
                         </div>
                         <div class="rounded-2xl bg-gray-50 p-4">
-                            <p class="text-xs font-black uppercase text-logoDark">Acrilicos</p>
+                            <p class="text-xs font-black uppercase text-logoDark">Acrílicos</p>
                             <p class="text-sm text-gray-500 mt-1">Placas, letreros y acabados comerciales.</p>
                         </div>
                     </div>
@@ -676,11 +1046,11 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                 </div>
 
                 <h2 class="text-3xl md:text-5xl font-extrabold text-logoDark">
-                    Calculador Express DTF
+                    Calculador Express
                 </h2>
 
                 <p class="text-gray-500 mt-3 text-sm md:text-base">
-                    Elige material, medida y cantidad. Luego agrega tu archivo y envia la orden a revision.
+                    Elige material, medida y cantidad. Luego agrega tu archivo y envía la orden a revisión.
                 </p>
             </div>
 
@@ -696,10 +1066,10 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     </div>
                     <div class="px-6 py-6 md:px-8">
                         <p class="text-3xl font-black leading-none text-logoYellow md:text-4xl">Stickers</p>
-                        <p class="mt-3 text-xs font-black uppercase tracking-wider text-gray-300">Tamano y acabado</p>
+                        <p class="mt-3 text-xs font-black uppercase tracking-wider text-gray-300">Tamaño y acabado</p>
                     </div>
                     <div class="px-6 py-6 md:px-8">
-                        <p class="text-3xl font-black leading-none text-white md:text-4xl">Revision</p>
+                        <p class="text-3xl font-black leading-none text-white md:text-4xl">Revisión</p>
                         <p class="mt-3 text-xs font-black uppercase tracking-wider text-gray-300">Antes de producir</p>
                     </div>
                 </div>
@@ -721,13 +1091,14 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                             1. Selecciona el material
                         </h3>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4" role="group" aria-label="Material de impresión">
 
                             <!-- TEXTIL -->
                             <button
                                 id="btn-textil"
                                 type="button"
-                                class="h-16 rounded-2xl border-2 border-logoMagenta bg-pink-50 text-logoMagenta font-bold transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                                aria-pressed="true"
+                                class="h-16 rounded-2xl border-2 border-logoMagenta bg-pink-50 text-logoMagenta font-bold transition-all duration-300 hover:border-logoMagenta hover:text-logoMagenta hover:-translate-y-1 hover:shadow-lg"
                             >
                                 DTF Textil
                             </button>
@@ -736,6 +1107,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                             <button
                                 id="btn-uv"
                                 type="button"
+                                aria-pressed="false"
                                 class="h-16 rounded-2xl border border-gray-200 text-gray-600 font-bold transition-all duration-300 hover:border-logoCyan hover:text-logoCyan hover:-translate-y-1 hover:shadow-lg"
                             >
                                 DTF UV Adhesivo
@@ -743,15 +1115,32 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
 
                             <!-- STICKERS -->
                             <button
+                                id="btn-stickers"
                                 type="button"
-                                data-go-tab="contacto"
-                                class="h-16 rounded-2xl border border-yellow-100 bg-yellow-50 text-logoDark font-bold transition-all duration-300 hover:border-logoYellow hover:-translate-y-1 hover:shadow-lg"
+                                aria-pressed="false"
+                                class="h-16 rounded-2xl border border-gray-200 text-gray-600 font-bold transition-all duration-300 hover:border-logoYellow hover:text-logoDark hover:-translate-y-1 hover:shadow-lg"
                             >
                                 Stickers / Etiquetas
                             </button>
 
                         </div>
 
+                    </div>
+
+                    <div id="sticker-material-box" class="hidden">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4">
+                            2. Tipo de sticker
+                        </h3>
+
+                        <select
+                            id="sticker-material"
+                            aria-label="Tipo de sticker"
+                            class="w-full h-14 rounded-2xl border border-gray-200 bg-white px-4 font-bold outline-none transition-all duration-300 focus:ring-4 focus:ring-yellow-100 focus:border-logoYellow"
+                        >
+                            <option value="white">Vinil Blanco</option>
+                            <option value="transparent">Vinil Transparente</option>
+                            <option value="holographic">Vinil Holográfico</option>
+                        </select>
                     </div>
 
                     <!-- DIMENSIONES -->
@@ -778,6 +1167,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
 
                 <input
                     id="textil-width"
+                    aria-label="Ancho DTF Textil"
                     type="text"
                     value='22 pulgadas'
                     disabled
@@ -791,6 +1181,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
 
                 <select
                     id="uv-width"
+                    aria-label="Ancho DTF UV"
                     class="w-full h-14 rounded-2xl border border-gray-200 bg-white px-4 font-bold outline-none transition-all duration-300 focus:ring-4 focus:ring-cyan-100 focus:border-logoCyan"
                 >
 
@@ -803,6 +1194,23 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     </option>
 
                 </select>
+
+            </div>
+
+            <!-- STICKERS -->
+            <div id="sticker-width-box" class="hidden">
+
+                <input
+                    id="sticker-width"
+                    aria-label="Ancho del sticker en pulgadas"
+                    type="number"
+                    min="0.1"
+                    step="0.1"
+                    value="3"
+                    autocomplete="off"
+                    placeholder="Ancho en pulgadas"
+                    class="w-full h-14 rounded-2xl border border-yellow-200 px-4 font-bold outline-none transition-all duration-300 focus:ring-4 focus:ring-yellow-100 focus:border-logoYellow"
+                >
 
             </div>
 
@@ -823,6 +1231,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
 
                 <select
                     id="textil-size"
+                    aria-label="Largo DTF Textil"
                     class="w-full h-14 rounded-2xl border border-gray-200 bg-white px-4 font-bold outline-none transition-all duration-300 focus:ring-4 focus:ring-pink-100 focus:border-logoMagenta"
                 >
             
@@ -845,6 +1254,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
             
                     <input
                         id="textil-custom-height"
+                        aria-label="Largo personalizado DTF Textil"
                         type="number"
                         min="36"
                         placeholder="Mayor de 36 pulgadas"
@@ -862,10 +1272,11 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
             </div>
 
             <!-- UV -->
-            <div id="uv-size-selector" class="hidden mt-3 space-y-3">
+            <div id="uv-size-selector" class="hidden space-y-3">
 
                 <select
                     id="uv-size"
+                    aria-label="Largo DTF UV"
                     class="w-full h-14 rounded-2xl border border-gray-200 bg-white px-4 font-bold outline-none transition-all duration-300 focus:ring-4 focus:ring-cyan-100 focus:border-logoCyan"
                 >
 
@@ -896,6 +1307,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
 
                     <input
                         id="uv-custom-height"
+                        aria-label="Largo personalizado DTF UV"
                         type="number"
                         min="36"
                         placeholder="Mínimo 36 pulgadas"
@@ -912,6 +1324,29 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
 
             </div>
 
+            <!-- STICKERS -->
+            <div id="sticker-height-box" class="hidden space-y-3">
+
+                <input
+                    id="sticker-height"
+                    aria-label="Alto del sticker en pulgadas"
+                    type="number"
+                    min="0.1"
+                    step="0.1"
+                    value="4"
+                    autocomplete="off"
+                    placeholder="Alto en pulgadas"
+                    class="w-full h-14 rounded-2xl border border-yellow-200 px-4 font-bold outline-none transition-all duration-300 focus:ring-4 focus:ring-yellow-100 focus:border-logoYellow"
+                >
+
+                <p
+                id="stickers-warning"
+                class="hidden text-red-500 text-sm mt-2 font-semibold">
+                Revisa las medidas. El sticker debe caber dentro del rollo de 51 pulgadas.
+                </p>
+
+            </div>
+
         </div>
 
     </div>
@@ -922,16 +1357,25 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     <div>
 
                         <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4">
-                            3. Número de copias
+                            3. Cantidad
                         </h3>
 
                         <input
                             id="quantity"
+                            aria-label="Cantidad"
+                            aria-describedby="quantity-minimum-warning"
                             type="number"
                             value="1"
                             min="1"
+                            autocomplete="off"
                             class="w-full h-14 rounded-2xl border border-gray-200 px-4 font-bold outline-none transition-all duration-300 focus:ring-4 focus:ring-yellow-100 focus:border-logoYellow"
                         >
+                        <p
+                            id="quantity-minimum-warning"
+                            class="hidden mt-2 text-xs font-semibold text-gray-400"
+                        >
+                            El mínimo para esta medida es 100 stickers.
+                        </p>
 
                     </div>
 
@@ -1015,7 +1459,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                                 </button>
                             </div>
                             <p class="text-xs text-gray-500 mt-3">
-                                Archivo listo para adjuntar a la orden. El equipo lo revisara antes de producir.
+                                Archivo listo para adjuntar a la orden. El equipo lo revisará antes de producir.
                             </p>
                         </div>
 
@@ -1068,7 +1512,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                                 </span>
 
                                 <span id="summary-size" class="font-bold">
-                                    22 x 24 in
+                                    22 x 18 in
                                 </span>
                             </div>
 
@@ -1083,22 +1527,22 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                             </div>
 
                             <div class="flex justify-between items-center border-b border-white/5 pb-3">
-                                <span class="text-gray-400 text-sm">
+                                <span id="summary-yards-label" class="text-gray-400 text-sm">
                                     Yardas necesarias
                                 </span>
 
                                 <span id="summary-yards" class="font-bold text-logoYellow">
-                                    0.66 yd
+                                    0.50 yd
                                 </span>
                             </div>
 
                             <div class="flex justify-between items-center border-b border-white/5 pb-3">
-                                <span class="text-gray-400 text-sm">
+                                <span id="summary-price-label" class="text-gray-400 text-sm">
                                     Precio por tramo
                                 </span>
 
                                 <span id="summary-price-yard" class="font-bold">
-                                    $500 DOP
+                                    RD$300
                                 </span>
                             </div>
 
@@ -1107,7 +1551,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
                             <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
                                 <span class="text-[10px] uppercase tracking-wider text-gray-400 font-bold">Entrega</span>
-                                <p class="text-sm font-extrabold text-white mt-1">24-48 horas</p>
+                                <p id="summary-delivery-estimate" class="text-sm font-extrabold text-white mt-1">8-24 horas</p>
                                 <p class="text-xs text-gray-400 mt-1">Según volumen</p>
                             </div>
                             <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
@@ -1124,18 +1568,21 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
 
                                 <div>
                                     <p class="text-sm text-gray-400">
-                                        Total a pagar
+                                        Subtotal estimado
                                     </p>
 
                                     <h2 id="summary-total" class="text-5xl font-black text-logoCyan mt-2">
-                                        $330
+                                        RD$300
                                     </h2>
                                 </div>
 
                             </div>
 
                             <p class="mt-4 text-xs text-gray-400 leading-relaxed">
-                                Agrega al carrito y completa tus datos. Revisamos archivo, material y entrega antes de confirmar produccion.
+                                Agrega al carrito y completa tus datos. Revisamos archivo, material y entrega antes de confirmar producción.
+                            </p>
+                            <p class="mt-2 text-xs text-gray-500 leading-relaxed">
+                                Este importe todavía no es el total final. Impuestos, ITBIS y cargos de entrega se confirman al revisar la orden.
                             </p>
 
                             <!-- BOTÓN -->
@@ -1169,8 +1616,8 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                 <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr]">
                     <div class="p-6 md:p-8 border-b border-white/10 flex flex-col justify-between gap-6">
                         <div>
-                            <p class="text-xs uppercase tracking-wider text-logoYellow font-black">Como pedir</p>
-                            <h2 class="text-3xl md:text-4xl font-extrabold mt-2">De tu idea a produccion sin perder tiempo.</h2>
+                            <p class="text-xs uppercase tracking-wider text-logoYellow font-black">Cómo pedir</p>
+                            <h2 class="text-3xl md:text-4xl font-extrabold mt-2">De tu idea a producción sin perder tiempo.</h2>
                             <p class="text-sm text-gray-300 mt-4">Elige el material, calcula tu tramo y manda el archivo. Nosotros revisamos antes de imprimir para evitar errores caros.</p>
                         </div>
                         <div class="flex flex-col sm:flex-row gap-3">
@@ -1207,7 +1654,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                             </span>
                             <p class="text-xs font-black uppercase tracking-wider text-gray-300">Paso 3</p>
                             <h3 class="font-black text-xl mt-2">Sube archivo</h3>
-                            <p class="text-sm text-gray-300 mt-2">Envianos el arte final o consulta si todavia necesita ajustes.</p>
+                            <p class="text-sm text-gray-300 mt-2">Envíanos el arte final o consulta si todavía necesita ajustes.</p>
                         </div>
                         <div class="p-6">
                             <span class="w-12 h-12 rounded-2xl bg-white/10 text-emerald-500 flex items-center justify-center text-xl mb-5">
@@ -1225,9 +1672,9 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                 <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                     <div>
                         <p class="text-xs uppercase tracking-wider text-logoYellow font-black">Material correcto</p>
-                        <h2 class="text-2xl md:text-3xl font-extrabold mt-1">Que conviene para tu pedido?</h2>
+                        <h2 class="text-2xl md:text-3xl font-extrabold mt-1">¿Qué conviene para tu pedido?</h2>
                     </div>
-                    <p class="text-sm text-gray-300 max-w-md">Si no estas seguro, usa esta guia rapida.</p>
+                    <p class="text-sm text-gray-300 max-w-md">Si no estás seguro, usa esta guía rápida.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div class="rounded-2xl bg-white/10 p-5">
@@ -1238,7 +1685,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     <div class="rounded-2xl bg-white/10 p-5">
                         <span class="w-10 h-10 rounded-xl bg-logoCyan text-white flex items-center justify-center mb-4"><i class="fa-solid fa-mug-hot"></i></span>
                         <h3 class="font-black">DTF UV</h3>
-                        <p class="text-sm text-gray-300 mt-2">Para vasos, acrilico, vidrio, metal, frascos y empaques rigidos.</p>
+                        <p class="text-sm text-gray-300 mt-2">Para vasos, acrílico, vidrio, metal, frascos y empaques rígidos.</p>
                     </div>
                     <div class="rounded-2xl bg-white/10 p-5">
                         <span class="w-10 h-10 rounded-xl bg-logoYellow text-logoDark flex items-center justify-center mb-4"><i class="fa-solid fa-tags"></i></span>
@@ -1247,7 +1694,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     </div>
                     <div class="rounded-2xl bg-white/10 p-5">
                         <span class="w-10 h-10 rounded-xl bg-white text-logoDark flex items-center justify-center mb-4"><i class="fa-solid fa-gem"></i></span>
-                        <h3 class="font-black">Acrilicos</h3>
+                        <h3 class="font-black">Acrílicos</h3>
                         <p class="text-sm text-gray-300 mt-2">Para placas, letreros, exhibidores y detalles comerciales.</p>
                     </div>
                 </div>
@@ -1311,7 +1758,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                             <div class="p-3 bg-gray-100 text-logoDark rounded-xl text-xl font-bold"><i class="fa-solid fa-circle-check"></i></div>
                             <div>
                             <h4 class="font-bold text-lg mb-1">Duda antes de producir</h4>
-                            <p class="text-sm text-gray-500">Si no sabes si el archivo sirve, escribenos por WhatsApp antes de hacer la orden.</p>
+                            <p class="text-sm text-gray-500">Si no sabes si el archivo sirve, escríbenos por WhatsApp antes de hacer la orden.</p>
                         </div>
                     </div>
                 </div>
@@ -1323,8 +1770,8 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
         <section id="tab-contacto" class="tab-content hidden space-y-8">
             <div class="bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-sm max-w-5xl mx-auto space-y-8">
                 <div class="text-center space-y-2">
-                    <h2 class="text-2xl md:text-3xl font-extrabold text-[#1E1E1E]">Envia tu archivo y nosotros te asesoramos.</h2>
-                    <p class="text-gray-500 text-sm">Te respondemos con material recomendado, precio estimado, tiempo de produccion y forma de entrega.</p>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-[#1E1E1E]">Envía tu archivo y nosotros te asesoramos.</h2>
+                    <p class="text-gray-500 text-sm">Te respondemos con material recomendado, precio estimado, tiempo de producción y forma de entrega.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -1336,37 +1783,56 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                         </div>
 
                         <form id="contact-form" class="space-y-4">
-                            <div>
-                                <label class="text-xs font-bold text-gray-500 uppercase">Motivo</label>
-                                <select
-                                    id="contact-reason"
-                                    name="reason"
-                                    required
-                                    class="w-full border border-gray-200 rounded-xl p-3 focus:border-logoMagenta outline-none text-sm bg-white"
-                                >
-                                    <option value="Cotización">Cotización</option>
-                                    <option value="Enviar archivo">Enviar archivo</option>
-                                    <option value="Seguimiento de pedido">Seguimiento de pedido</option>
-                                    <option value="Otra consulta">Otra consulta</option>
-                                </select>
-                            </div>
+                            <fieldset>
+                                <legend class="text-xs font-bold text-gray-500 uppercase">Motivo</legend>
+                                <div class="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <label class="cursor-pointer">
+                                        <input class="peer sr-only" type="radio" name="reason" value="Cotización" checked>
+                                        <span class="flex items-center gap-3 rounded-2xl border border-gray-200 bg-white p-4 text-sm font-black text-logoDark transition-all peer-checked:border-logoMagenta peer-checked:bg-pink-50 peer-checked:text-logoMagenta hover:border-logoMagenta">
+                                            <i class="fa-solid fa-calculator"></i>
+                                            Cotización
+                                        </span>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input class="peer sr-only" type="radio" name="reason" value="Enviar archivo">
+                                        <span class="flex items-center gap-3 rounded-2xl border border-gray-200 bg-white p-4 text-sm font-black text-logoDark transition-all peer-checked:border-logoCyan peer-checked:bg-cyan-50 peer-checked:text-logoCyan hover:border-logoCyan">
+                                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                                            Enviar archivo
+                                        </span>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input class="peer sr-only" type="radio" name="reason" value="Seguimiento de pedido">
+                                        <span class="flex items-center gap-3 rounded-2xl border border-gray-200 bg-white p-4 text-sm font-black text-logoDark transition-all peer-checked:border-logoYellow peer-checked:bg-yellow-50 peer-checked:text-logoDark hover:border-logoYellow">
+                                            <i class="fa-solid fa-truck-fast"></i>
+                                            Seguimiento
+                                        </span>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input class="peer sr-only" type="radio" name="reason" value="Otra consulta">
+                                        <span class="flex items-center gap-3 rounded-2xl border border-gray-200 bg-white p-4 text-sm font-black text-logoDark transition-all peer-checked:border-logoDark peer-checked:bg-gray-100 hover:border-logoDark">
+                                            <i class="fa-solid fa-message"></i>
+                                            Otra consulta
+                                        </span>
+                                    </label>
+                                </div>
+                            </fieldset>
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="text-xs font-bold text-gray-500 uppercase">Nombre</label>
+                                    <label for="contact-name" class="text-xs font-bold text-gray-500 uppercase">Nombre</label>
                                     <input id="contact-name" name="name" type="text" required class="w-full border border-gray-200 rounded-xl p-3 focus:border-logoMagenta outline-none text-sm">
                                 </div>
                                 <div>
-                                    <label class="text-xs font-bold text-gray-500 uppercase">Teléfono</label>
+                                    <label for="contact-phone" class="text-xs font-bold text-gray-500 uppercase">Teléfono</label>
                                     <input id="contact-phone" name="phone" type="tel" required class="w-full border border-gray-200 rounded-xl p-3 focus:border-logoMagenta outline-none text-sm">
                                 </div>
                             </div>
                             <div>
-                                <label class="text-xs font-bold text-gray-500 uppercase">Correo</label>
+                                <label for="contact-email" class="text-xs font-bold text-gray-500 uppercase">Correo</label>
                                 <input id="contact-email" name="email" type="email" required class="w-full border border-gray-200 rounded-xl p-3 focus:border-logoMagenta outline-none text-sm">
                             </div>
                             <div>
-                                <label class="text-xs font-bold text-gray-500 uppercase">Mensaje</label>
+                                <label for="contact-message" class="text-xs font-bold text-gray-500 uppercase">Mensaje</label>
                                 <textarea id="contact-message" name="message" rows="4" required class="w-full border border-gray-200 rounded-xl p-3 focus:border-logoMagenta outline-none text-sm" placeholder="Cuéntanos qué necesitas imprimir, medidas, cantidad o cualquier detalle importante."></textarea>
                             </div>
                             <button type="submit" class="w-full bg-logoDark hover:bg-logoMagenta text-white font-bold py-3 rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
@@ -1387,26 +1853,26 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                                 </div>
                                 <div class="rounded-2xl bg-white border border-cyan-100 p-4">
                                     <p class="text-xs font-black uppercase text-logoCyan">Coordinamos</p>
-                                    <p class="text-sm font-bold text-logoDark mt-1">Retiro o envio disponible.</p>
+                                    <p class="text-sm font-bold text-logoDark mt-1">Retiro o envío disponible.</p>
                                 </div>
                             </div>
                             <div class="space-y-3 text-sm text-gray-600">
                                 <p class="flex items-start gap-3"><i class="fa-solid fa-location-dot text-logoMagenta mt-1"></i> <span data-business-address>Plaza Comercial Herrera, Av. Isabel Aguiar, Santo Domingo</span></p>
-                                <p class="flex items-center gap-3"><i class="fa-solid fa-phone text-logoCyan"></i> <a data-business-phone data-business-phone-text href="tel:+18297078582" class="hover:text-logoCyan font-semibold">+1 (829) 707-8582</a></p>
-                                <p class="flex items-center gap-3"><i class="fa-solid fa-envelope text-logoYellow"></i> <a data-business-email href="mailto:madeacrilico@gmail.com" class="hover:text-logoMagenta font-semibold">madeacrilico@gmail.com</a></p>
+                                <p class="flex items-center gap-3"><i class="fa-solid fa-phone text-logoCyan"></i> <a data-business-phone data-business-phone-text href="tel:+18298824820" class="hover:text-logoCyan font-semibold">+1 (829) 882-4820</a></p>
+                                <p class="flex items-center gap-3"><i class="fa-solid fa-envelope text-logoYellow"></i> <a data-business-email href="mailto:info@madeacrilico.com" class="hover:text-logoMagenta font-semibold">info@madeacrilico.com</a></p>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <a data-business-whatsapp href="https://wa.me/18297078582" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl py-3 px-4 text-sm font-bold transition-all">
+                        <a data-business-whatsapp href="https://wa.me/18298824820" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl py-3 px-4 text-sm font-bold transition-all">
                                 <i class="fa-brands fa-whatsapp"></i>
                                 WhatsApp
                             </a>
-                            <a data-business-phone href="tel:+18297078582" class="flex items-center justify-center gap-2 bg-white hover:bg-cyan-50 text-logoCyan border border-cyan-100 rounded-xl py-3 px-4 text-sm font-bold transition-all">
+                            <a data-business-phone href="tel:+18298824820" class="flex items-center justify-center gap-2 bg-white hover:bg-cyan-50 text-logoCyan border border-cyan-100 rounded-xl py-3 px-4 text-sm font-bold transition-all">
                                 <i class="fa-solid fa-phone"></i>
                                 Llamar
                             </a>
-                        <a data-business-maps href="https://www.google.com/maps/place/Made+Acrilico/data=!4m2!3m1!1s0x0:0x5e3e2a9a6b659d5f?sa=X&ved=1t:2428&ictx=111" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 bg-white hover:bg-pink-50 text-logoMagenta border border-pink-100 rounded-xl py-3 px-4 text-sm font-bold transition-all">
+                        <a data-business-maps href="https://www.google.com/maps/place/Made+Acrílico/data=!4m2!3m1!1s0x0:0x5e3e2a9a6b659d5f?sa=X&ved=1t:2428&ictx=111" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 bg-white hover:bg-pink-50 text-logoMagenta border border-pink-100 rounded-xl py-3 px-4 text-sm font-bold transition-all">
                                 <i class="fa-solid fa-location-dot"></i>
                                 Ubicación
                             </a>
@@ -1427,16 +1893,16 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
             <div class="bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-sm max-w-4xl mx-auto space-y-5">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
-                        <p class="text-xs uppercase tracking-wider text-logoMagenta font-black">Asesoria de archivo</p>
-                        <h3 class="text-2xl font-extrabold text-logoDark mt-1">No tienes tu archivo listo?</h3>
+                        <p class="text-xs uppercase tracking-wider text-logoMagenta font-black">Asesoría de archivo</p>
+                        <h3 class="text-2xl font-extrabold text-logoDark mt-1">¿No tienes tu archivo listo?</h3>
                     </div>
-                    <a data-business-whatsapp data-whatsapp-message="Hola Made Acrilico, necesito ayuda para preparar mi archivo." href="https://wa.me/18297078582" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-5 py-3 rounded-xl transition-all">
+                    <a data-business-whatsapp data-whatsapp-message="Hola Made Acrílico, necesito ayuda para preparar mi archivo." href="https://wa.me/18298824820" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-5 py-3 rounded-xl transition-all">
                         <i class="fa-brands fa-whatsapp"></i>
                         Pedir ayuda por WhatsApp
                     </a>
                 </div>
                 <p class="text-sm text-gray-500 leading-relaxed">
-                    Si tu arte necesita fondo transparente, textos a curvas, tamano real o revision de calidad, escribenos antes de producir. Te orientamos para evitar errores y retrasos.
+                    Si tu arte necesita fondo transparente, textos a curvas, tamaño real o revisión de calidad, escríbenos antes de producir. Te orientamos para evitar errores y retrasos.
                 </p>
             </div>
 
@@ -1446,48 +1912,267 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                 </div>
                 <div class="space-y-3">
                     <details class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
-                        <summary class="cursor-pointer font-extrabold text-logoDark">Que formatos aceptan?</summary>
-                        <p class="text-sm text-gray-500 mt-3">PNG, PDF, AI y PSD. Para mejores resultados usa tamano real, fondo transparente cuando aplique y 300 DPI.</p>
+                        <summary class="cursor-pointer font-extrabold text-logoDark">¿Qué formatos aceptan?</summary>
+                        <p class="text-sm text-gray-500 mt-3">PNG, PDF, AI y PSD. Para mejores resultados usa tamaño real, fondo transparente cuando aplique y 300 DPI.</p>
                     </details>
                     <details class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
-                        <summary class="cursor-pointer font-extrabold text-logoDark">Cuanto tarda la produccion?</summary>
-                        <p class="text-sm text-gray-500 mt-3">La produccion regular es de 24-48 horas segun volumen. Si es urgente, escribenos por WhatsApp antes de ordenar.</p>
+                        <summary class="cursor-pointer font-extrabold text-logoDark">¿Cuánto tarda la producción?</summary>
+                        <p class="text-sm text-gray-500 mt-3">DTF Textil y DTF UV suelen tomar de 8-24 horas. Los stickers se producen en 24-48 horas según volumen. Si es urgente, escríbenos por WhatsApp antes de ordenar.</p>
                     </details>
                     <details class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
-                        <summary class="cursor-pointer font-extrabold text-logoDark">Cual es la diferencia entre DTF Textil y DTF UV?</summary>
-                        <p class="text-sm text-gray-500 mt-3">DTF Textil se usa para ropa y telas. DTF UV es adhesivo premium para superficies rigidas como acrilico, vidrio, metal, vasos y empaques.</p>
+                        <summary class="cursor-pointer font-extrabold text-logoDark">¿Cuál es la diferencia entre DTF Textil y DTF UV?</summary>
+                        <p class="text-sm text-gray-500 mt-3">DTF Textil se usa para ropa y telas. DTF UV es adhesivo premium para superficies rígidas como acrílico, vidrio, metal, vasos y empaques.</p>
                     </details>
                     <details class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
-                        <summary class="cursor-pointer font-extrabold text-logoDark">Hacen stickers y etiquetas para productos?</summary>
-                        <p class="text-sm text-gray-500 mt-3">Si. Trabajamos stickers, etiquetas, sellos de empaque y material promocional para marcas, tiendas y emprendimientos.</p>
+                        <summary class="cursor-pointer font-extrabold text-logoDark">¿Hacen stickers y etiquetas para productos?</summary>
+                        <p class="text-sm text-gray-500 mt-3">Sí. Trabajamos stickers, etiquetas, sellos de empaque y material promocional para marcas, tiendas y emprendimientos.</p>
                     </details>
                     <details class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
-                        <summary class="cursor-pointer font-extrabold text-logoDark">La cotizacion es definitiva?</summary>
-                        <p class="text-sm text-gray-500 mt-3">Es una estimacion automatica. El equipo revisa el archivo final antes de confirmar produccion, acabado y entrega.</p>
+                        <summary class="cursor-pointer font-extrabold text-logoDark">¿La cotización es definitiva?</summary>
+                        <p class="text-sm text-gray-500 mt-3">Es una estimación automática. El equipo revisa el archivo final antes de confirmar producción, acabado y entrega.</p>
                     </details>
                     <details class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
-                        <summary class="cursor-pointer font-extrabold text-logoDark">Puedo pedir ayuda si mi archivo no esta listo?</summary>
-                        <p class="text-sm text-gray-500 mt-3">Si. Usa el boton de asesoria por WhatsApp y comparte tu caso para revisar material, medida y preparacion del archivo.</p>
+                        <summary class="cursor-pointer font-extrabold text-logoDark">¿Puedo pedir ayuda si mi archivo no está listo?</summary>
+                        <p class="text-sm text-gray-500 mt-3">Sí. Usa el botón de asesoría por WhatsApp y comparte tu caso para revisar material, medida y preparación del archivo.</p>
                     </details>
                     <details class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
-                        <summary class="cursor-pointer font-extrabold text-logoDark">Hacen envios?</summary>
-                        <p class="text-sm text-gray-500 mt-3">Si. Puedes solicitar cotizacion de envio en el carrito y agregar tu direccion para coordinar la entrega.</p>
+                        <summary class="cursor-pointer font-extrabold text-logoDark">¿Hacen envíos?</summary>
+                        <p class="text-sm text-gray-500 mt-3">Sí. Puedes solicitar cotización de envío en el carrito y agregar tu dirección para coordinar la entrega.</p>
                     </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA: TIENDA -->
+        <section id="tab-tienda" class="tab-content hidden space-y-8">
+            <div class="store-carousel relative overflow-hidden rounded-[2rem] bg-logoDark text-white shadow-2xl">
+                <div class="store-carousel-track" aria-hidden="true">
+                    <div class="store-carousel-set">
+                        <figure class="store-carousel-panel"><img src="assets/img/stickers-optimized.webp" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                        <figure class="store-carousel-panel"><img src="assets/img/test_uv.webp" alt="" width="1600" height="557" loading="lazy" decoding="async"></figure>
+                        <figure class="store-carousel-panel"><img src="assets/img/test_textil.webp" alt="" width="548" height="191" loading="lazy" decoding="async"></figure>
+                        <figure class="store-carousel-panel"><img src="assets/img/inicio.webp" alt="" width="536" height="353" loading="lazy" decoding="async"></figure>
+                        <figure class="store-carousel-panel"><img src="assets/img/etiquetas.webp" alt="" width="899" height="492" loading="lazy" decoding="async"></figure>
+                    </div>
+                    <div class="store-carousel-set">
+                        <figure class="store-carousel-panel"><img src="assets/img/stickers-optimized.webp" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                        <figure class="store-carousel-panel"><img src="assets/img/test_uv.webp" alt="" width="1600" height="557" loading="lazy" decoding="async"></figure>
+                        <figure class="store-carousel-panel"><img src="assets/img/test_textil.webp" alt="" width="548" height="191" loading="lazy" decoding="async"></figure>
+                        <figure class="store-carousel-panel"><img src="assets/img/inicio.webp" alt="" width="536" height="353" loading="lazy" decoding="async"></figure>
+                        <figure class="store-carousel-panel"><img src="assets/img/etiquetas.webp" alt="" width="899" height="492" loading="lazy" decoding="async"></figure>
+                    </div>
+                </div>
+
+                <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/58 to-black/10"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+
+                <div class="relative z-10 flex min-h-[460px] items-center px-6 py-12 sm:px-10 lg:px-14">
+                    <div class="max-w-3xl">
+                        <div class="mb-6 inline-flex items-center gap-3 rounded-full bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-wider text-white backdrop-blur">
+                            <span class="h-2 w-2 rounded-full bg-logoMagenta"></span>
+                            <img
+                                src="assets/img/lgo-madeacrilico-store.webp"
+                                alt=""
+                                aria-hidden="true"
+                                width="112"
+                                height="112"
+                                class="store-hero-badge-logo h-9 w-9 rounded-full object-cover ring-2 ring-pink-300/70 sm:hidden"
+                            >
+                            Made Acrílico Store
+                        </div>
+                        <h2 class="text-4xl font-black leading-[0.95] tracking-normal sm:text-5xl lg:text-7xl">
+                            Tienda física para artículos personalizados.
+                        </h2>
+                        <p class="mt-5 max-w-xl text-base leading-8 text-white/85 sm:text-lg">
+                            Productos, detalles, stickers, acrílicos y piezas gráficas para marcas, regalos y emprendimientos.
+                        </p>
+                        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+                            <button type="button" data-go-tab="contacto" class="inline-flex items-center justify-center gap-2 rounded-xl bg-logoMagenta px-6 py-3 text-sm font-black text-white transition-all hover:bg-pink-600">
+                                Cotizar artículo personalizado
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </button>
+                            <button type="button" data-go-tab="planilla" class="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-black text-logoDark transition-all hover:bg-gray-100">
+                                Calcular DTF o stickers
+                                <i class="fa-solid fa-calculator text-logoCyan"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <img
+                        src="assets/img/lgo-madeacrilico-store.webp"
+                        alt="Made Acrílico Store"
+                        width="112"
+                        height="112"
+                        class="absolute bottom-6 right-6 hidden h-24 w-24 rounded-full object-cover shadow-2xl ring-4 ring-pink-300/70 sm:block sm:bottom-10 sm:right-10 sm:h-32 sm:w-32"
+                        loading="lazy"
+                        decoding="async"
+                    >
+                </div>
+            </div>
+
+            <div class="rounded-3xl border border-pink-100 bg-white p-6 shadow-sm md:p-8">
+                <p class="text-xs font-black uppercase tracking-wider text-logoMagenta">Tienda y servicios en Santo Domingo</p>
+                <h2 class="mt-2 text-2xl font-black leading-tight text-logoDark md:text-4xl">
+                    Artículos para sublimación, acrílicos personalizados, DTF UV, DTF Textil y letreros comerciales.
+                </h2>
+                <p class="mt-4 max-w-4xl text-sm leading-7 text-gray-500 md:text-base">
+                    En nuestra tienda física puedes consultar productos para sublimación, láminas DTF, reconocimientos, letreros en acrílico, stickers, etiquetas y piezas personalizadas. Cada pedido se revisa por material, tamaño, cantidad y acabado antes de producir.
+                </p>
+            </div>
+
+            <div class="space-y-6">
+                <article class="store-feature-card grid grid-cols-1 overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm lg:grid-cols-2">
+                    <div class="store-feature-media min-h-[280px] bg-gray-50">
+                        <img src="assets/img/inicio.webp" alt="Artículos para sublimación" width="536" height="353" loading="lazy" decoding="async" class="store-feature-image h-full min-h-[280px] w-full object-cover">
+                    </div>
+                    <div class="flex flex-col justify-center p-6 md:p-10">
+                        <p class="text-xs font-black uppercase tracking-wider text-logoMagenta">Tienda física</p>
+                        <h3 class="mt-2 text-3xl font-black leading-tight text-logoDark">Ventas de artículos para sublimación</h3>
+                        <p class="mt-4 text-sm leading-7 text-gray-500">Insumos y artículos listos para personalizar: piezas para regalos, productos promocionales y mercancía para emprendedores del área gráfica.</p>
+                        <button type="button" data-go-tab="contacto" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoMagenta">
+                            Consultar disponibilidad <i class="fa-brands fa-whatsapp"></i>
+                        </button>
+                    </div>
+                </article>
+
+                <article class="store-feature-card grid grid-cols-1 overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm lg:grid-cols-2">
+                    <div class="flex flex-col justify-center p-6 md:p-10 lg:order-1">
+                        <p class="text-xs font-black uppercase tracking-wider text-logoCyan">Acrílico personalizado</p>
+                        <h3 class="mt-2 text-3xl font-black leading-tight text-logoDark">Ventas de productos en acrílico personalizados</h3>
+                        <p class="mt-4 text-sm leading-7 text-gray-500">Placas, exhibidores, bases, detalles corporativos y piezas a medida para negocios, eventos y marcas.</p>
+                        <button type="button" data-go-tab="contacto" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoCyan">
+                            Cotizar acrílico <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <div class="store-feature-art store-feature-art-cyan min-h-[280px] lg:order-2" role="img" aria-label="Ilustración de productos personalizados en acrílico">
+                        <i class="fa-solid fa-cubes-stacked"></i>
+                        <span>Acrílico a medida</span>
+                    </div>
+                </article>
+
+                <article class="store-feature-card grid grid-cols-1 overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm lg:grid-cols-2">
+                    <div class="store-feature-media min-h-[280px] bg-gray-50">
+                        <img src="assets/img/test_uv.webp" alt="Servicio UV DTF" width="1600" height="557" loading="lazy" decoding="async" class="store-feature-image h-full min-h-[280px] w-full object-cover">
+                    </div>
+                    <div class="flex flex-col justify-center p-6 md:p-10">
+                        <p class="text-xs font-black uppercase tracking-wider text-logoCyan">DTF UV</p>
+                        <h3 class="mt-2 text-3xl font-black leading-tight text-logoDark">Servicio UV DTF</h3>
+                        <p class="mt-4 text-sm leading-7 text-gray-500">Adhesivos premium para vasos, acrílico, vidrio, metal, empaques, cosmética y productos rígidos con acabado limpio.</p>
+                        <button type="button" data-go-tab="planilla" data-calculator-material="uv" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoCyan">
+                            Calcular UV <i class="fa-solid fa-calculator"></i>
+                        </button>
+                    </div>
+                </article>
+
+                <article class="store-feature-card grid grid-cols-1 overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm lg:grid-cols-2">
+                    <div class="flex flex-col justify-center p-6 md:p-10 lg:order-1">
+                        <p class="text-xs font-black uppercase tracking-wider text-logoMagenta">DTF Textil</p>
+                        <h3 class="mt-2 text-3xl font-black leading-tight text-logoDark">Servicio DTF TEXTIL</h3>
+                        <p class="mt-4 text-sm leading-7 text-gray-500">Transfers para camisetas, hoodies, uniformes, gorras, colecciones y marcas que necesitan producción regular.</p>
+                        <button type="button" data-go-tab="planilla" data-calculator-material="textil" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoMagenta">
+                            Calcular textil <i class="fa-solid fa-calculator"></i>
+                        </button>
+                    </div>
+                    <div class="store-feature-media min-h-[280px] bg-logoDark lg:order-2">
+                        <img src="assets/img/test_textil.webp" alt="Servicio DTF Textil" width="548" height="191" loading="lazy" decoding="async" class="store-feature-image h-full min-h-[280px] w-full object-cover">
+                    </div>
+                </article>
+
+                <article class="store-feature-card grid grid-cols-1 overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm lg:grid-cols-2">
+                    <div class="store-feature-duo min-h-[280px]" role="img" aria-label="Muestras de láminas DTF UV y DTF Textil">
+                        <img src="assets/img/test_uv.webp" alt="" width="1600" height="557" loading="lazy" decoding="async">
+                        <img src="assets/img/test_textil.webp" alt="" width="548" height="191" loading="lazy" decoding="async">
+                    </div>
+                    <div class="flex flex-col justify-center p-6 md:p-10">
+                        <p class="text-xs font-black uppercase tracking-wider text-logoYellow">Láminas impresas</p>
+                        <h3 class="mt-2 text-3xl font-black leading-tight text-logoDark">Ventas de láminas en UV DTF y DTF TEXTIL</h3>
+                        <p class="mt-4 text-sm leading-7 text-gray-500">Láminas por tramo para talleres, marcas y revendedores que necesitan material listo para aplicar o entregar.</p>
+                        <button type="button" data-go-tab="contacto" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoDark">
+                            Consultar láminas <i class="fa-brands fa-whatsapp text-logoMagenta"></i>
+                        </button>
+                    </div>
+                </article>
+
+                <article class="store-feature-card grid grid-cols-1 overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm lg:grid-cols-2">
+                    <div class="flex flex-col justify-center p-6 md:p-10 lg:order-1">
+                        <p class="text-xs font-black uppercase tracking-wider text-logoMagenta">Premiaciones</p>
+                        <h3 class="mt-2 text-3xl font-black leading-tight text-logoDark">Reconocimientos</h3>
+                        <p class="mt-4 text-sm leading-7 text-gray-500">Reconocimientos, placas y piezas conmemorativas para empresas, instituciones, eventos y regalos corporativos.</p>
+                        <button type="button" data-go-tab="contacto" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoMagenta">
+                            Cotizar reconocimiento <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <div class="store-feature-art store-feature-art-magenta min-h-[280px] lg:order-2" role="img" aria-label="Ilustración de reconocimientos y placas personalizadas">
+                        <i class="fa-solid fa-award"></i>
+                        <span>Reconocimientos</span>
+                    </div>
+                </article>
+
+                <article class="store-feature-card grid grid-cols-1 overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm lg:grid-cols-2">
+                    <div class="store-feature-art store-feature-art-dark min-h-[280px]" role="img" aria-label="Ilustración de letreros comerciales en acrílico">
+                        <i class="fa-solid fa-sign-hanging"></i>
+                        <span>Letreros comerciales</span>
+                    </div>
+                    <div class="flex flex-col justify-center p-6 md:p-10">
+                        <p class="text-xs font-black uppercase tracking-wider text-logoCyan">Letreros comerciales</p>
+                        <h3 class="mt-2 text-3xl font-black leading-tight text-logoDark">Letreros en acrílico</h3>
+                        <p class="mt-4 text-sm leading-7 text-gray-500">Letreros, rótulos, señalética y piezas visuales para locales, oficinas, exhibiciones y puntos de venta.</p>
+                        <button type="button" data-go-tab="contacto" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoCyan">
+                            Cotizar letrero <i class="fa-brands fa-whatsapp"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+
+            <div class="rounded-3xl bg-white border border-gray-100 p-6 md:p-8 shadow-sm">
+                <div class="grid grid-cols-1 gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+                    <div>
+                        <p class="text-xs uppercase tracking-wider text-logoCyan font-black">Cómo comprar</p>
+                        <h3 class="mt-2 text-2xl md:text-4xl font-black text-logoDark leading-tight">La tienda todavía confirma cada orden antes de producir.</h3>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="rounded-2xl bg-gray-50 p-4">
+                            <p class="text-lg font-black text-logoMagenta">1</p>
+                            <p class="mt-1 text-sm font-bold text-logoDark">Elige producto</p>
+                            <p class="mt-1 text-xs text-gray-500">Selecciona la línea que necesitas.</p>
+                        </div>
+                        <div class="rounded-2xl bg-gray-50 p-4">
+                            <p class="text-lg font-black text-logoCyan">2</p>
+                            <p class="mt-1 text-sm font-bold text-logoDark">Calcula o consulta</p>
+                            <p class="mt-1 text-xs text-gray-500">Usa el calculador o WhatsApp.</p>
+                        </div>
+                        <div class="rounded-2xl bg-gray-50 p-4">
+                            <p class="text-lg font-black text-logoYellow">3</p>
+                            <p class="mt-1 text-sm font-bold text-logoDark">Confirmamos</p>
+                            <p class="mt-1 text-xs text-gray-500">Revisamos archivo y entrega.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <div class="fixed md:hidden inset-x-0 bottom-0 z-40 bg-white/90 backdrop-blur-md border-t border-gray-100 p-3">
-        <div class="grid grid-cols-2 gap-3">
-            <button type="button" data-go-tab="planilla" class="inline-flex items-center justify-center gap-2 bg-logoMagenta text-white font-bold py-3 rounded-xl shadow-lg">
-                <i class="fa-solid fa-calculator"></i>
-                Cotizar
+    <div class="mobile-action-bar fixed md:hidden inset-x-0 bottom-0 z-40 bg-white/90 backdrop-blur-md border-t border-gray-100 p-3">
+        <div class="grid grid-cols-[1fr_auto] gap-3">
+            <button
+                type="button"
+                id="mobile-floating-action"
+                data-go-tab="planilla"
+                class="inline-flex min-w-0 items-center justify-center gap-2 rounded-xl bg-logoMagenta px-4 py-3 font-black text-white shadow-lg"
+            >
+                <i id="mobile-floating-action-icon" class="fa-solid fa-calculator shrink-0"></i>
+                <span id="mobile-floating-action-label" class="truncate">Cotizar</span>
             </button>
-            <a data-business-whatsapp href="https://wa.me/18297078582" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-emerald-500 text-white font-bold py-3 rounded-xl shadow-lg">
-                <i class="fa-brands fa-whatsapp"></i>
-                WhatsApp
+            <a
+                data-business-whatsapp
+                href="https://wa.me/18298824820"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Escribir por WhatsApp"
+                class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500 text-white shadow-lg"
+            >
+                <i class="fa-brands fa-whatsapp text-xl"></i>
             </a>
         </div>
     </div>
@@ -1497,7 +2182,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
         <div class="p-4 sm:p-6 border-b border-gray-100 flex justify-between items-center gap-3">
             <h3 class="font-bold text-lg flex items-center gap-2">
                 <i class="fa-solid fa-basket-shopping text-logoMagenta"></i>
-                <span>Carrito de Producción</span>
+                <span>Cotización de Producción</span>
             </h3>
             <div class="flex items-center gap-2 shrink-0">
                 <button
@@ -1521,21 +2206,22 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
         <div class="p-4 sm:p-6 flex-1 min-h-0 overflow-y-auto space-y-4 pb-4" id="cart-items-container">
             <div class="text-center py-12 text-gray-400 space-y-2">
                 <i class="fa-solid fa-basket-shopping text-4xl block"></i>
-                <span class="text-sm">Cotización vacía. ¡Arma tu planilla DTF!</span>
+                <span class="text-sm">Cotización vacía. Calcula un producto o solicita una orden personalizada.</span>
             </div>
         </div>
 
         <div class="max-h-[55vh] overflow-y-auto p-4 sm:p-6 border-t border-gray-100 space-y-3 bg-white">
             <div class="space-y-1.5 text-xs text-gray-600">
-                <div class="flex justify-between"><span>Subtotal:</span> <span id="cart-subtotal" class="font-bold">$0 DOP</span></div>
+                <div class="flex justify-between"><span>Subtotal de productos:</span> <span id="cart-subtotal" class="font-bold">$0 DOP</span></div>
+                <div class="flex justify-between"><span>Impuestos / ITBIS:</span> <span class="font-bold text-gray-400">Se confirma</span></div>
                 <div class="grid grid-cols-2 gap-2">
                     <div class="rounded-xl border border-gray-200 bg-gray-50 px-3 py-3">
                         <p class="text-[10px] uppercase tracking-wider text-gray-400 font-black">Retiro</p>
                         <p class="text-xs font-bold text-logoDark mt-1">Plaza Comercial Herrera</p>
                     </div>
                     <div class="rounded-xl border border-cyan-100 bg-cyan-50 px-3 py-3">
-                        <p class="text-[10px] uppercase tracking-wider text-logoCyan font-black">Envio</p>
-                        <p class="text-xs font-bold text-logoDark mt-1">Cotizacion opcional</p>
+                        <p class="text-[10px] uppercase tracking-wider text-logoCyan font-black">Envío</p>
+                        <p class="text-xs font-bold text-logoDark mt-1">Cotización opcional</p>
                     </div>
                 </div>
                 <label class="flex items-center justify-between gap-3 rounded-xl border border-gray-200 bg-white px-3 py-3 cursor-pointer">
@@ -1545,24 +2231,25 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                             id="cart-shipping-toggle"
                             class="h-4 w-4 accent-logoMagenta"
                         >
-                        Necesito envio
+                        Necesito envío
                     </span>
                     <span id="cart-shipping" class="font-black text-logoCyan">Opcional</span>
                 </label>
                 <div class="flex justify-between text-sm text-[#1E1E1E] font-bold border-t border-gray-200 pt-2">
-                    <span>Total Estimado:</span> <span id="cart-total" class="font-black text-logoMagenta">$0 DOP</span>
+                    <span>Total estimado inicial:</span> <span id="cart-total" class="font-black text-logoMagenta">$0 DOP</span>
                 </div>
             </div>
             <div id="cart-order-status" class="text-xs text-gray-500 leading-relaxed">
                 <div id="cart-order-status-list" class="flex flex-wrap gap-x-3 gap-y-1"></div>
             </div>
             <details class="rounded-xl bg-gray-50 border border-gray-200 px-3 py-2 text-xs text-gray-500 leading-relaxed">
-                <summary class="cursor-pointer font-bold text-logoDark">Que pasa despues de enviar?</summary>
+                <summary class="cursor-pointer font-bold text-logoDark">¿Qué pasa después de enviar?</summary>
                 <div class="space-y-1 pt-2">
-                    <p><strong class="text-logoDark">Revision:</strong> confirmamos archivo, material y medida.</p>
-                    <p><strong class="text-logoDark">Entrega:</strong> producción regular 24-48 horas según volumen.</p>
+                    <p><strong class="text-logoDark">Revisión:</strong> confirmamos archivo, material y medida.</p>
+                    <p><strong class="text-logoDark">Entrega:</strong> DTF Textil y UV en 8-24 horas; stickers en 24-48 horas, según volumen.</p>
+                    <p><strong class="text-logoDark">Impuestos:</strong> ITBIS y cargos aplicables se confirman al revisar.</p>
                     <p><strong class="text-logoDark">Pago:</strong> transferencia o efectivo.</p>
-                    <p><strong class="text-logoDark">Nota:</strong> el total se confirma despues de revisar el archivo final.</p>
+                    <p><strong class="text-logoDark">Nota:</strong> esta cotización no inicia producción hasta confirmar archivo, total y pago.</p>
                 </div>
             </details>
             <div class="grid grid-cols-1 gap-3">
@@ -1579,7 +2266,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     type="tel"
                     autocomplete="tel"
                     inputmode="tel"
-                    aria-label="Telefono o WhatsApp"
+                    aria-label="Teléfono o WhatsApp"
                     placeholder="Teléfono / WhatsApp"
                     class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-logoMagenta"
                 >
@@ -1587,8 +2274,8 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     id="checkout-address"
                     type="text"
                     autocomplete="street-address"
-                    aria-label="Direccion de envio"
-                    placeholder="Direccion de envio o referencia"
+                    aria-label="Dirección de envío"
+                    placeholder="Dirección de envío o referencia"
                     class="hidden w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-logoMagenta"
                 >
                 <textarea
@@ -1600,7 +2287,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                 ></textarea>
             </div>
             <button id="cart-checkout-btn" type="button" class="w-full bg-[#1E1E1E] hover:bg-logoMagenta text-white font-bold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2">
-                <i class="fa-solid fa-paper-plane text-lg"></i> Enviar orden a revision
+                <i class="fa-solid fa-paper-plane text-lg"></i> Enviar orden a revisión
             </button>
         </div>
     </div>
@@ -1662,7 +2349,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     type="button"
                     id="order-review-close"
                     class="text-gray-400 hover:text-logoDark transition-all"
-                    aria-label="Cerrar revision"
+                    aria-label="Cerrar revisión"
                 >
                     <i class="fa-solid fa-xmark"></i>
                 </button>
@@ -1699,13 +2386,13 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
             </div>
             <div class="space-y-2">
                 <h3 class="text-xl font-extrabold text-logoDark">Orden enviada</h3>
-                <p id="order-success-message" class="text-sm text-gray-500 leading-relaxed">Revisaremos tu archivo y te contactaremos por WhatsApp para confirmar produccion.</p>
+                <p id="order-success-message" class="text-sm text-gray-500 leading-relaxed">Revisaremos tu archivo y te contactaremos por WhatsApp para confirmar producción.</p>
             </div>
             <div id="order-success-details" class="rounded-xl bg-gray-50 border border-gray-100 p-4 text-left text-sm text-gray-600 leading-relaxed"></div>
             <div class="grid grid-cols-1 gap-3">
                 <a
                     id="order-success-whatsapp"
-                    href="https://wa.me/18297078582"
+                    href="https://wa.me/18298824820"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="w-full rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 transition-all flex items-center justify-center gap-2"
@@ -1732,7 +2419,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                 <div class="space-y-4">
                     <div class="inline-flex rounded-xl bg-white px-3 py-2">
                         <img
-                            src="assets/img/MADEACRILICO%20ORIZONTAL.png"
+                            src="assets/img/madeacrilico-horizontal.webp"
                             alt="MADE ACRÍLICO"
                             width="185.47"
                             height="48"
@@ -1742,7 +2429,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                         >
                     </div>
                     <p class="text-xs text-gray-400">
-                        Taller grafico en Santo Domingo para DTF Textil, DTF UV, stickers, etiquetas, acrilicos y acabados para marcas.
+                        Taller gráfico en Santo Domingo para DTF Textil, DTF UV, stickers, etiquetas, acrílicos y acabados para marcas.
                     </p>
                 </div>
 
@@ -1750,10 +2437,10 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                 <div class="space-y-4">
                     <h4 class="font-bold text-sm text-logoYellow uppercase tracking-wider">Productos & Servicios</h4>
                     <ul class="space-y-2 text-xs text-gray-400">
-                        <li><button type="button" data-go-tab="planilla" class="text-left hover:text-white transition-colors">DTF Textil por Yarda</button></li>
-                        <li><button type="button" data-go-tab="planilla" class="text-left hover:text-white transition-colors">DTF UV Adhesivo</button></li>
-                        <li><button type="button" data-go-tab="contacto" class="text-left hover:text-white transition-colors">Stickers y etiquetas</button></li>
-                        <li><button type="button" data-go-tab="contacto" class="text-left hover:text-white transition-colors">Acrilicos y acabados</button></li>
+                        <li><a href="dtf-textil.html" class="text-left hover:text-white transition-colors">DTF Textil por Yarda</a></li>
+                        <li><a href="dtf-uv.html" class="text-left hover:text-white transition-colors">DTF UV Adhesivo</a></li>
+                        <li><a href="stickers.html" class="text-left hover:text-white transition-colors">Stickers y etiquetas</a></li>
+                        <li><a href="tienda.html" class="text-left hover:text-white transition-colors">Acrílicos y acabados</a></li>
                     </ul>
                 </div>
 
@@ -1764,7 +2451,7 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                         <li><button type="button" data-go-tab="guia" class="text-left hover:text-white transition-colors">Guía de Preparación de Archivos</button></li>
                         <li><button type="button" data-go-tab="contacto" class="text-left hover:text-white transition-colors">Envíos y Entregas Nacionales</button></li>
                         <li><button type="button" data-go-tab="planilla" class="text-left hover:text-white transition-colors">Calculador Express</button></li>
-                        <li><a data-business-whatsapp href="https://wa.me/18297078582" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Atención por WhatsApp</a></li>
+                        <li><a data-business-whatsapp href="https://wa.me/18298824820" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Atención por WhatsApp</a></li>
                     </ul>
                 </div>
 
@@ -1773,8 +2460,8 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
                     <h4 class="font-bold text-sm text-white uppercase tracking-wider">Síguenos en Redes</h4>
                     <p class="text-xs text-gray-400">Mantente al tanto de ofertas exclusivas y nuevos materiales disponibles.</p>
                     <div class="flex gap-3">
-                    <a href="https://instagram.com/madeacrilico" target="_blank" rel="noopener noreferrer" aria-label="Instagram de MADE Acrilico" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-logoCyan hover:text-white transition-all text-gray-400"><i class="fab fa-instagram text-sm"></i></a>
-                    <a href="https://tiktok.com/@madeacrilico" target="_blank" rel="noopener noreferrer" aria-label="TikTok de MADE Acrilico" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-logoYellow hover:text-white transition-all text-gray-400"><i class="fab fa-tiktok text-sm"></i></a>
+                    <a href="https://instagram.com/madeacrilico" target="_blank" rel="noopener noreferrer" aria-label="Instagram de MADE Acrílico" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-logoCyan hover:text-white transition-all text-gray-400"><i class="fab fa-instagram text-sm"></i></a>
+                    <a href="https://tiktok.com/@madeacrilico" target="_blank" rel="noopener noreferrer" aria-label="TikTok de MADE Acrílico" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-logoYellow hover:text-white transition-all text-gray-400"><i class="fab fa-tiktok text-sm"></i></a>
                     </div>
                 </div>
             </div>
@@ -1791,6 +2478,53 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
             </div>
         </div>
     </footer>
+
+    <div
+        id="material-info-modal"
+        class="fixed inset-0 z-[90] hidden items-center justify-center bg-black/60 px-4"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="material-info-title"
+    >
+        <div class="w-full max-w-xl max-h-[85vh] overflow-hidden rounded-2xl bg-white shadow-2xl flex flex-col">
+            <div class="p-5 border-b border-gray-100 flex items-start justify-between gap-4">
+                <div>
+                    <span id="material-info-eyebrow" class="text-xs uppercase tracking-wider text-logoMagenta font-bold">Material</span>
+                    <h3 id="material-info-title" class="text-2xl font-extrabold text-logoDark mt-1">Información</h3>
+                </div>
+                <button
+                    type="button"
+                    id="material-info-close"
+                    class="w-10 h-10 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 transition-all flex items-center justify-center shrink-0"
+                    aria-label="Cerrar información del material"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="material-info-content" class="p-5 overflow-y-auto text-sm text-gray-600 leading-relaxed space-y-4"></div>
+            <div class="border-t border-gray-100 p-5 flex flex-col sm:flex-row gap-3 justify-end">
+                <button
+                    type="button"
+                    id="material-info-calculate"
+                    class="inline-flex items-center justify-center gap-2 rounded-xl bg-logoMagenta px-5 py-3 text-sm font-bold text-white hover:bg-pink-600 transition-all"
+                >
+                    Calcular
+                    <i class="fa-solid fa-calculator"></i>
+                </button>
+                <a
+                    data-business-whatsapp
+                    data-whatsapp-message="Hola Made Acrílico, quiero orientación sobre un material."
+                    href="https://wa.me/18298824820"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-200 px-5 py-3 text-sm font-bold text-logoDark hover:bg-gray-50 transition-all"
+                >
+                    Consultar
+                    <i class="fa-brands fa-whatsapp text-logoMagenta"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <div
         id="legal-modal"
@@ -1816,6 +2550,6 @@ class="hidden md:hidden bg-white border-b border-gray-200 py-4 px-6 space-y-3 sh
             <div id="legal-modal-content" class="p-5 overflow-y-auto text-sm text-gray-600 leading-relaxed space-y-4"></div>
         </div>
     </div>
-    <script type="module" src="js/app.js?v=20260602"></script>
+    <script type="module" src="js/app.js?v=1.7.0.3"></script>
 </body>
 </html>

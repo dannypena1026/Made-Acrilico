@@ -1,14 +1,3 @@
-.grid-bg {
-    background-color: #f3f4f6;
-    background-image: 
-        linear-gradient(to right, rgba(0,0,0,0.06) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0,0,0,0.06) 1px, transparent 1px);
-    background-size: 25px 25px; /* 1 Pulgada = 25px en nuestra escala */
-}
-#nesting-canvas {
-    transition: width 0.3s ease-in-out;
-}
-
 .brand-logo-header {
     display: block;
     height: 44px;
@@ -22,6 +11,247 @@
     height: 40px;
     width: auto;
     object-fit: contain;
+}
+
+.section-shell {
+    border-radius: 24px;
+}
+
+.service-card {
+    min-height: 100%;
+}
+
+.service-card button,
+.service-card a {
+    margin-top: auto;
+}
+
+.store-feature-card img {
+    aspect-ratio: 16 / 10;
+}
+
+#summary-total {
+    overflow-wrap: anywhere;
+}
+
+.hero-carousel-slide {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    transform: scale(1.035);
+    animation: heroCarousel 15s infinite;
+}
+
+.hero-carousel-slide-1 {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.hero-carousel-slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.05) 35%, rgba(0,0,0,0.72) 100%);
+}
+
+.hero-carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-carousel-slide figcaption {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    bottom: 24px;
+    z-index: 2;
+    color: #fff;
+}
+
+.hero-carousel-slide figcaption span {
+    display: block;
+    margin-bottom: 8px;
+    color: #F6D044;
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.hero-carousel-slide figcaption strong {
+    display: block;
+    max-width: 480px;
+    font-size: clamp(1.8rem, 4vw, 3.4rem);
+    font-weight: 900;
+    line-height: 0.95;
+}
+
+.hero-carousel-slide-2 {
+    animation-delay: 5s;
+}
+
+.hero-carousel-slide-3 {
+    animation-delay: 10s;
+}
+
+.hero-carousel-dots {
+    position: absolute;
+    left: 24px;
+    top: 24px;
+    z-index: 3;
+    display: flex;
+    gap: 8px;
+}
+
+.hero-carousel-dots span {
+    display: block;
+    width: 36px;
+    height: 5px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.55);
+    animation: heroCarouselDot 15s infinite;
+}
+
+.hero-carousel-dots span:nth-child(2) {
+    animation-delay: 5s;
+}
+
+.hero-carousel-dots span:nth-child(3) {
+    animation-delay: 10s;
+}
+
+@keyframes heroCarousel {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    6%,
+    30% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    36%,
+    100% {
+        opacity: 0;
+        transform: scale(1.035);
+    }
+}
+
+@keyframes heroCarouselDot {
+    0%, 30% {
+        background: #F6D044;
+    }
+    36%, 100% {
+        background: rgba(255,255,255,0.55);
+    }
+}
+
+.store-carousel {
+    isolation: isolate;
+}
+
+.store-carousel-track {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    gap: 0;
+    width: max-content;
+    animation: storeCarouselTrack 30s linear infinite;
+    will-change: transform;
+}
+
+.store-carousel-set {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 14px;
+    padding: 18px 7px;
+}
+
+.store-carousel-panel {
+    flex: 0 0 clamp(220px, 34vw, 420px);
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 24px;
+    background: #111;
+    box-shadow: 0 28px 80px rgba(0,0,0,0.28);
+}
+
+.store-feature-art {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    overflow: hidden;
+    color: #fff;
+}
+
+.store-feature-art::before,
+.store-feature-art::after {
+    content: "";
+    position: absolute;
+    width: 96px;
+    height: 220%;
+    transform: rotate(24deg);
+    opacity: 0.18;
+    background: #fff;
+}
+
+.store-feature-art::before { left: 12%; }
+.store-feature-art::after { right: 12%; }
+
+.store-feature-art i,
+.store-feature-art span {
+    position: relative;
+    z-index: 1;
+}
+
+.store-feature-art i { font-size: 4rem; }
+.store-feature-art span {
+    font-size: 1.15rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.store-feature-art-cyan { background: #00A5DF; }
+.store-feature-art-magenta { background: #E52D7F; }
+.store-feature-art-dark { background: #1E1E1E; color: #F6D044; }
+
+.store-feature-duo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    background: #1E1E1E;
+}
+
+.store-feature-duo img {
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    object-fit: cover;
+}
+
+.store-carousel-panel img {
+    width: 100%;
+    height: 100%;
+    min-height: 424px;
+    object-fit: cover;
+    display: block;
+    filter: saturate(1.08) contrast(1.02);
+}
+
+@keyframes storeCarouselTrack {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 @media (min-width: 640px) {
@@ -38,8 +268,128 @@
 }
 
 @media (max-width: 767px) {
+    .site-header,
+    .mobile-action-bar {
+        background-color: #fff;
+    }
+
+    body[data-active-tab="tienda"] .site-header,
+    body[data-active-tab="tienda"] .mobile-action-bar {
+        position: static;
+    }
+
+    body[data-active-tab="tienda"] main.py-8 {
+        padding-bottom: 2rem;
+    }
+
     main.py-8 {
         padding-bottom: 96px;
+    }
+
+    #tab-inicio {
+        gap: 2.25rem;
+    }
+
+    #tab-inicio > button[data-go-tab="tienda"] {
+        padding-right: 6.25rem;
+    }
+
+    #tab-inicio > button[data-go-tab="tienda"] img {
+        width: 4.5rem;
+        height: 4.5rem;
+    }
+
+    #tab-inicio .relative.min-h-\[620px\],
+    #tab-inicio .relative.z-10.flex.min-h-\[620px\] {
+        min-height: 500px;
+    }
+
+    #tab-inicio h1 {
+        font-size: clamp(2.45rem, 13vw, 4rem);
+    }
+
+    .hero-carousel-slide figcaption {
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+    }
+
+    .hero-carousel-dots {
+        left: 18px;
+        top: 18px;
+    }
+
+    .store-carousel-set {
+        gap: 10px;
+        padding: 12px 5px;
+    }
+
+    .store-carousel-panel {
+        flex-basis: 78vw;
+    }
+
+    .store-carousel-panel {
+        border-radius: 20px;
+    }
+
+    .store-carousel-panel img {
+        min-height: 360px;
+    }
+
+    .store-carousel .min-h-\[460px\] {
+        min-height: 390px;
+    }
+
+    .store-carousel h2 {
+        max-width: 100%;
+        font-size: clamp(2.3rem, 10.5vw, 3.25rem);
+    }
+
+    .store-carousel img[alt="Made Acrílico Store"] {
+        width: 5rem;
+        height: 5rem;
+    }
+
+    .store-carousel .store-hero-badge-logo {
+        width: 2.25rem !important;
+        height: 2.25rem !important;
+    }
+
+    #tab-tienda .store-feature-media {
+        min-height: 0;
+    }
+
+    #tab-tienda .store-feature-media .store-feature-image {
+        display: block;
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        object-fit: contain;
+    }
+
+    #summary-total {
+        font-size: clamp(2.25rem, 11vw, 3.25rem);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-carousel-slide {
+        animation: none;
+        opacity: 0;
+        transform: none;
+    }
+
+    .hero-carousel-slide-1 {
+        opacity: 1;
+    }
+
+    .store-carousel-track {
+        animation: none;
+        transform: none;
+    }
+
+    .hero-carousel-dots span {
+        animation: none;
     }
 }
 
