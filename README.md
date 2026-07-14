@@ -59,8 +59,10 @@ Los assets que actualmente usa la página son:
 
 ```text
 assets/img/favicon-made-acrilico-v170.png
+assets/img/etiquetas.webp
 assets/img/inicio.webp
 assets/img/lgo-madeacrilico-store.webp
+assets/img/MADEACRILICO ORIZONTAL.png
 assets/img/madeacrilico-horizontal.webp
 assets/img/social-preview-made-acrilico-v170.png
 assets/img/stickers-optimized.webp
@@ -82,6 +84,8 @@ web3FormsAccessKey: 'TU_ACCESS_KEY'
 
 Si Web3Forms falla, el carrito se conserva para que el cliente pueda intentar otra vez.
 
+La Access Key se utiliza desde el navegador y, por diseño, no funciona como un secreto de servidor. Restringe el dominio autorizado, activa protección contra abuso en el panel y rota la clave si detectas tráfico inesperado.
+
 ### Cloudinary
 
 Se usa para subir el archivo del cliente y colocar el link en la orden.
@@ -92,6 +96,8 @@ cloudinaryUploadPreset: 'madeacrilico_uploads'
 ```
 
 Si Cloudinary falla, el cliente debe intentar nuevamente o pedir ayuda por WhatsApp.
+
+El preset es unsigned porque la aplicación no tiene backend. Debe limitar formatos, peso, carpeta y transformaciones desde Cloudinary. Para una protección más fuerte, reemplaza este flujo por firmas generadas en un backend o Worker y añade rate limiting o Turnstile.
 
 ## Estructura general
 
@@ -107,6 +113,7 @@ js/
   core/
     business-config.js
     constants.js
+    file-policy.js
     pricing-engine.js
     state.js
   modules/
@@ -119,7 +126,10 @@ js/
     helpers.js
 scripts/
   check-js.mjs
+  check-project.mjs
 test/
+  file-policy.test.js
+  helpers.test.js
   pricing-engine.test.js
 index.html
 _headers
@@ -147,6 +157,12 @@ Revisar JavaScript:
 npm run check:js
 ```
 
+Validar HTML, rutas locales y hashes de CSP:
+
+```bash
+npm run check:project
+```
+
 Ejecutar pruebas:
 
 ```bash
@@ -157,6 +173,7 @@ npm test
 
 - Ejecutar `npm run build:css`.
 - Ejecutar `npm run check:js`.
+- Ejecutar `npm run check:project`.
 - Ejecutar `npm test`.
 - Probar navegación por hash: `#inicio`, `#dtf`, `#planilla`, `#guia`, `#contacto`, `#tienda`.
 - Probar que al recargar no aparezcan secciones o datos antiguos.
@@ -173,7 +190,11 @@ npm test
 - Si cambian clases Tailwind en HTML o JS, ejecuta `npm run build:css`.
 - Si cambia el correo receptor, revisa la configuración en Web3Forms.
 - Si cambian logos o previews, elimina assets antiguos no usados para evitar referencias fantasma.
-- No publiques una Web3Forms key o preset de Cloudinary que no corresponda al negocio.
+- No reutilices la Access Key de Web3Forms ni el preset unsigned de Cloudinary fuera de este dominio; aplica las restricciones disponibles en ambos paneles.
+
+## Límites de la arquitectura actual
+
+El proyecto es una aplicación estática: no incluye backend propio, base de datos, autenticación ni roles. Los precios y validaciones del navegador mejoran la experiencia, pero la revisión humana antes de producir sigue siendo la autoridad final. No uses el total del frontend como comprobante de pago ni como autorización automática de producción.
 
 ## Autor
 

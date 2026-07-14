@@ -1,3 +1,33 @@
+.skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    transform: translateY(-180%);
+    border-radius: 0.5rem;
+    background: #1e1e1e;
+    color: #fff;
+    padding: 0.75rem 1rem;
+    font-weight: 800;
+    transition: transform 160ms ease;
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+:focus-visible {
+    outline: 3px solid #00a5df;
+    outline-offset: 3px;
+}
+
+button:disabled,
+input:disabled,
+select:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
 .brand-logo-header {
     display: block;
     height: 44px;
@@ -30,7 +60,20 @@
     aspect-ratio: 16 / 10;
 }
 
+.store-feature-card h3,
+.store-feature-art span,
+.store-carousel h2 {
+    overflow-wrap: anywhere;
+}
+
 #summary-total {
+    overflow-wrap: anywhere;
+}
+
+#tab-dtf .grid p,
+#tab-planilla .grid p,
+#tab-guia .grid h3 {
+    max-width: 100%;
     overflow-wrap: anywhere;
 }
 
@@ -84,7 +127,7 @@
 .hero-carousel-slide figcaption strong {
     display: block;
     max-width: 480px;
-    font-size: clamp(1.8rem, 4vw, 3.4rem);
+    font-size: 3.4rem;
     font-weight: 900;
     line-height: 0.95;
 }
@@ -305,7 +348,7 @@
     }
 
     #tab-inicio h1 {
-        font-size: clamp(2.45rem, 13vw, 4rem);
+        font-size: 2.5rem;
     }
 
     .hero-carousel-slide figcaption {
@@ -342,7 +385,7 @@
 
     .store-carousel h2 {
         max-width: 100%;
-        font-size: clamp(2.3rem, 10.5vw, 3.25rem);
+        font-size: 2.25rem;
     }
 
     .store-carousel img[alt="Made Acrílico Store"] {
@@ -368,11 +411,46 @@
     }
 
     #summary-total {
-        font-size: clamp(2.25rem, 11vw, 3.25rem);
+        font-size: 2.75rem;
+    }
+
+    .hero-carousel-slide figcaption strong {
+        font-size: 1.8rem;
+    }
+
+    .site-footer {
+        padding-bottom: 5.5rem;
+    }
+}
+
+@media (max-width: 374px) {
+    #tab-inicio h1 {
+        font-size: 2.25rem;
+    }
+
+    .store-carousel h2 {
+        font-size: 1.875rem;
+    }
+
+    #summary-total {
+        font-size: 2.25rem;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+
     .hero-carousel-slide {
         animation: none;
         opacity: 0;

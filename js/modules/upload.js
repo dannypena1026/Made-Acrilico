@@ -1,7 +1,18 @@
 import { BUSINESS_CONFIG } from '../core/business-config.js';
+import {
+    getAllowedExtensions,
+    getFileExtension,
+    validateFileMetadata,
+    validateFileSignature
+} from '../core/file-policy.js';
 import { appState, setUploadedFile } from '../core/state.js';
 import { getTrustedURL } from '../utils/helpers.js';
 import { showToast } from './ui.js';
+
+const UPLOAD_TIMEOUT_MS = 30000;
+
+let activeUploadController = null;
+let uploadRequestId = 0;
 
 function formatFileSize(bytes) {
     if (!bytes) return 'N/A';
@@ -11,26 +22,6 @@ function formatFileSize(bytes) {
     }
 
     return `${(bytes / 1024 / 1024).toFixed(2)} MB`;
-}
-
-function getFileExtension(file) {
-    return file.name
-        .split('.')
-        .pop()
-        ?.toLowerCase();
-}
-
-function getAllowedExtensions() {
-    if (appState.currentMaterial === 'stickers') {
-        return [
-            ...BUSINESS_CONFIG.quoteFileExtensions.filter(
-                extension => extension !== 'psd'
-            ),
-            ...BUSINESS_CONFIG.stickerQuoteFileExtensions
-        ];
-    }
-
-    return [...BUSINESS_CONFIG.quoteFileExtensions];
 }
 
 function updateUploadRequirements() {
@@ -43,11 +34,21 @@ function updateUploadRequirements() {
         '[data-hide-for-stickers]'
     );
     const isStickers = appState.currentMaterial === 'stickers';
+    const allowedExtensions =
+        getAllowedExtensions(
+            appState.currentMaterial,
+            BUSINESS_CONFIG
+        );
 
     if (uploadInput) {
-        uploadInput.accept = isStickers
-            ? '.png,.jpg,.jpeg,.jpe,.webp,.tif,.tiff,.pdf,.ai,image/png,image/jpeg,image/webp,image/tiff,application/pdf'
-            : '.png,.pdf,.ai,.psd,image/png,application/pdf';
+        const mimeTypes = isStickers
+            ? ['image/png', 'image/jpeg', 'image/webp', 'image/tiff', 'application/pdf']
+            : ['image/png', 'application/pdf'];
+
+        uploadInput.accept = [
+            ...allowedExtensions.map(extension => `.${extension}`),
+            ...mimeTypes
+        ].join(',');
     }
 
     if (copy) {
@@ -63,41 +64,20 @@ function updateUploadRequirements() {
     nonStickerFormatLabels.forEach(label => {
         label.classList.toggle('hidden', isStickers);
     });
-}
 
-function validateQuoteFile(file) {
-    if (!file) {
-        return {
-            valid: false,
-            message: 'Selecciona un archivo para continuar.'
-        };
+    const uploadedExtension =
+        getFileExtension(appState.uploadedFile?.name);
+
+    if (
+        uploadedExtension &&
+        !allowedExtensions.includes(uploadedExtension)
+    ) {
+        clearUploadedFile();
+        showToast(
+            'El archivo anterior no es compatible con el material seleccionado. Sube uno nuevo.',
+            'error'
+        );
     }
-
-    const extension =
-        getFileExtension(file);
-
-    const allowedExtensions = getAllowedExtensions();
-
-    if (!allowedExtensions.includes(extension)) {
-        return {
-            valid: false,
-            message: `Formato no permitido. Usa ${allowedExtensions.join(', ').toUpperCase()}.`
-        };
-    }
-
-    const maxBytes =
-        BUSINESS_CONFIG.maxUploadSizeMb * 1024 * 1024;
-
-    if (file.size > maxBytes) {
-        return {
-            valid: false,
-            message: `El archivo supera ${BUSINESS_CONFIG.maxUploadSizeMb} MB. Reduce el peso del diseño o envíalo directamente por WhatsApp.`
-        };
-    }
-
-    return {
-        valid: true
-    };
 }
 
 function isCloudinaryConfigured() {
@@ -113,7 +93,7 @@ function getCloudinaryResourceType(file) {
         : 'raw';
 }
 
-async function uploadFileToCloudinary(file) {
+async function uploadFileToCloudinary(file, signal) {
     if (!isCloudinaryConfigured()) {
         throw new Error(
             'Cloudinary no está configurado.'
@@ -141,7 +121,8 @@ async function uploadFileToCloudinary(file) {
             `https://api.cloudinary.com/v1_1/${BUSINESS_CONFIG.cloudinaryCloudName}/${resourceType}/upload`,
             {
                 method: 'POST',
-                body: formData
+                body: formData,
+                signal
             }
         );
 
@@ -186,7 +167,7 @@ export function getUploadedFileMetadata() {
 
     return {
         name: appState.uploadedFile.name,
-        type: appState.uploadedFile.type || getFileExtension(appState.uploadedFile)?.toUpperCase() || 'N/A',
+        type: appState.uploadedFile.type || getFileExtension(appState.uploadedFile.name)?.toUpperCase() || 'N/A',
         size: formatFileSize(appState.uploadedFile.size),
         url: appState.uploadedFile.cloudinaryUrl || ''
     };
@@ -222,7 +203,40 @@ function renderUploadedFile() {
             : `${file.type} • ${file.size}`;
 }
 
+function setUploadBusy(isBusy) {
+    const uploadInput =
+        document.getElementById('upload-design');
+
+    const dropzone =
+        document.getElementById('upload-dropzone');
+
+    const status =
+        document.getElementById('upload-progress-status');
+
+    if (uploadInput) {
+        uploadInput.disabled = isBusy;
+    }
+
+    dropzone?.setAttribute('aria-busy', String(isBusy));
+    dropzone?.classList.toggle('opacity-70', isBusy);
+    dropzone?.classList.toggle('cursor-wait', isBusy);
+
+    if (status) {
+        status.textContent = isBusy
+            ? 'Subiendo archivo. No cierres esta página.'
+            : '';
+    }
+}
+
+function abortActiveUpload() {
+    activeUploadController?.abort();
+    activeUploadController = null;
+}
+
 function clearUploadedFile() {
+    uploadRequestId += 1;
+    abortActiveUpload();
+    setUploadBusy(false);
     setUploadedFile(null);
 
     const uploadInput =
@@ -247,12 +261,50 @@ function initializeQuoteUpload() {
             const file =
                 event.target.files?.[0] || null;
 
-            const validation =
-                validateQuoteFile(file);
+            uploadRequestId += 1;
+            const requestId = uploadRequestId;
+            abortActiveUpload();
 
-            if (!validation.valid) {
+            const metadataValidation =
+                validateFileMetadata(
+                    file,
+                    {
+                        material: appState.currentMaterial,
+                        config: BUSINESS_CONFIG
+                    }
+                );
+
+            if (!metadataValidation.valid) {
                 showToast(
-                    validation.message,
+                    metadataValidation.message,
+                    'error'
+                );
+                event.target.value = '';
+                setUploadedFile(null);
+                renderUploadedFile();
+                return;
+            }
+
+            let signatureValidation;
+
+            try {
+                signatureValidation =
+                    await validateFileSignature(
+                        file,
+                        metadataValidation.extension
+                    );
+            } catch {
+                signatureValidation = {
+                    valid: false,
+                    message: 'No se pudo leer el archivo. Exporta el diseño nuevamente e intenta otra vez.'
+                };
+            }
+
+            if (requestId !== uploadRequestId) return;
+
+            if (!signatureValidation.valid) {
+                showToast(
+                    signatureValidation.message,
                     'error'
                 );
                 event.target.value = '';
@@ -266,14 +318,32 @@ function initializeQuoteUpload() {
                 'info'
             );
 
+            const controller =
+                new AbortController();
+
+            activeUploadController = controller;
+            setUploadBusy(true);
+
+            const timeoutId =
+                window.setTimeout(
+                    () => controller.abort(),
+                    UPLOAD_TIMEOUT_MS
+                );
+
             try {
                 const uploaded =
-                    await uploadFileToCloudinary(file);
+                    await uploadFileToCloudinary(
+                        file,
+                        controller.signal
+                    );
+
+                if (requestId !== uploadRequestId) return;
 
                 setUploadedFile({
                     name: file.name,
                     type: file.type,
                     size: file.size,
+                    material: appState.currentMaterial,
                     cloudinaryUrl: uploaded.secure_url,
                     cloudinaryPublicId: uploaded.public_id
                 });
@@ -285,16 +355,25 @@ function initializeQuoteUpload() {
                     'info'
                 );
             } catch (error) {
-                console.error(error);
+                if (requestId !== uploadRequestId) return;
 
                 event.target.value = '';
                 setUploadedFile(null);
                 renderUploadedFile();
 
                 showToast(
-                    'No se pudo subir el archivo. Intenta otra vez o contáctanos por WhatsApp.',
+                    error?.name === 'AbortError'
+                        ? 'La subida tardó demasiado. Revisa tu conexión e intenta otra vez.'
+                        : 'No se pudo subir el archivo. Intenta otra vez o contáctanos por WhatsApp.',
                     'error'
                 );
+            } finally {
+                window.clearTimeout(timeoutId);
+
+                if (requestId === uploadRequestId) {
+                    activeUploadController = null;
+                    setUploadBusy(false);
+                }
             }
         }
     );
@@ -314,6 +393,28 @@ export function initializeUploads() {
 
     document.addEventListener(
         'calculator:material-change',
-        updateUploadRequirements
+        () => {
+            const uploadInput =
+                document.getElementById('upload-design');
+
+            const uploadPending =
+                Boolean(activeUploadController) ||
+                Boolean(
+                    uploadInput?.files?.length &&
+                    !appState.uploadedFile
+                );
+
+            if (uploadPending) {
+                uploadRequestId += 1;
+                abortActiveUpload();
+                setUploadBusy(false);
+
+                if (uploadInput) {
+                    uploadInput.value = '';
+                }
+            }
+
+            updateUploadRequirements();
+        }
     );
 }

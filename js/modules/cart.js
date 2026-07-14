@@ -1,5 +1,8 @@
 import { BUSINESS_CONFIG } from '../core/business-config.js';
-import { calculateStickerQuote } from '../core/pricing-engine.js';
+import {
+    buildQuoteFromInput,
+    calculateStickerQuote
+} from '../core/pricing-engine.js';
 import {
     escapeHTML,
     formatCurrency,
@@ -25,6 +28,7 @@ const CART_STORAGE_KEY = 'made-acrilico-cart';
 const CART_SHIPPING_STORAGE_KEY = 'made-acrilico-shipping-enabled';
 const LEGACY_CART_STORAGE_KEY = 'made-acrílico-cart';
 const LEGACY_SHIPPING_STORAGE_KEY = 'made-acrílico-shipping-enabled';
+const ORDER_TIMEOUT_MS = 20000;
 
 let cart = [];
 let includeShipping = false;
@@ -115,29 +119,30 @@ function normalizeCartItem(item) {
     }
 
     if (
-        item.material &&
-        Number.isFinite(item.unitPrice) &&
-        item.unitPrice > 0 &&
-        Number.isFinite(item.quantity) &&
-        item.quantity > 0
+        ['textil', 'uv', 'stickers'].includes(item.materialKey) &&
+        Number.isFinite(Number(item.quantity)) &&
+        Number(item.quantity) > 0
     ) {
 
         const quantity =
-            Math.min(1000000, Math.max(1, Math.floor(item.quantity)));
+            Math.min(1000000, Math.max(1, Math.floor(Number(item.quantity))));
 
-        const calculatedTotal =
-            item.unitPrice * quantity;
+        const quote =
+            buildQuoteFromInput({
+                materialKey: item.materialKey,
+                height: Number(item.height),
+                quantity,
+                uvWidth: Number(item.width),
+                stickerMaterial: item.stickerMaterialKey || 'white',
+                stickerWidth: Number(item.width),
+                stickerHeight: Number(item.height)
+            });
+
+        if (quote.invalid) return null;
 
         return {
-            ...item,
+            ...quote,
             id: item.id ? String(item.id) : generateId(),
-            material: String(item.material).slice(0, 120),
-            size: String(item.size || 'Medida no especificada').slice(0, 120),
-            quantity,
-            unitPrice: item.unitPrice,
-            yards: Number.isFinite(item.yards) && item.yards >= 0 ? item.yards : 0,
-            chargedLength: Number.isFinite(item.chargedLength) && item.chargedLength >= 0 ? item.chargedLength : 0,
-            total: Number.isFinite(item.total) && item.total > 0 ? item.total : calculatedTotal,
             fileName: String(item.fileName || 'Sin archivo').slice(0, 255),
             fileType: String(item.fileType || 'N/A').slice(0, 120),
             fileSize: item.fileSize || 'N/A',
@@ -332,7 +337,7 @@ function getOrderStatusRows() {
                 ? 'Listo'
                 : hasItems
                     ? 'Pendiente'
-                    : 'Sin item',
+                    : 'Sin ítem',
             ready: filesReady
         },
         {
@@ -580,7 +585,8 @@ function renderCartItem(item) {
                         data-cart-action="duplicate"
                         data-cart-id="${escapeHTML(item.id)}"
                         class="text-gray-400 hover:text-logoCyan transition-all"
-                        title="Duplicar item"
+                        title="Duplicar ítem"
+                        aria-label="Duplicar ${escapeHTML(item.material)}"
                     >
                         <i class="fa-solid fa-copy"></i>
                     </button>
@@ -590,7 +596,8 @@ function renderCartItem(item) {
                         data-cart-action="remove"
                         data-cart-id="${escapeHTML(item.id)}"
                         class="text-red-500 hover:text-red-700 transition-all"
-                        title="Eliminar item"
+                        title="Eliminar ítem"
+                        aria-label="Eliminar ${escapeHTML(item.material)}"
                     >
                         <i class="fa-solid fa-trash"></i>
                     </button>
@@ -613,6 +620,7 @@ function renderCartItem(item) {
                             <input
                                 type="number"
                                 min="${getCartItemMinimumQuantity(item)}"
+                                max="1000000"
                                 value="${escapeHTML(item.quantity)}"
                                 data-cart-quantity="${escapeHTML(item.id)}"
                                 class="mt-1 w-24 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-bold text-logoDark outline-none focus:border-logoMagenta"
@@ -682,13 +690,16 @@ function updateCartUI() {
     }
 
     const itemCount =
-        cart.reduce(
-            (sum, item) => sum + item.quantity,
-            0
-        );
+        cart.length;
 
     countEl.innerText =
         itemCount;
+
+    document.getElementById('cart-toggle-btn')
+        ?.setAttribute(
+            'aria-label',
+            `Abrir carrito, ${itemCount} ${itemCount === 1 ? 'producto' : 'productos'}`
+        );
 
     clearCartBtn?.classList.toggle(
         'hidden',
@@ -841,7 +852,7 @@ function updateCartItemQuantity(itemId, value) {
 
     item.quantity =
         Number.isFinite(quantity) && quantity > 0
-            ? quantity
+            ? Math.min(1000000, quantity)
             : 1;
 
     if (item.materialKey === 'stickers') {
@@ -930,10 +941,10 @@ function handleShippingToggle(event) {
 function getCheckoutDetails() {
 
     return {
-        customerName: document.getElementById('checkout-name')?.value.trim() || '',
-        customerPhone: document.getElementById('checkout-phone')?.value.trim() || '',
-        customerAddress: document.getElementById('checkout-address')?.value.trim() || '',
-        customerNotes: document.getElementById('checkout-notes')?.value.trim() || ''
+        customerName: document.getElementById('checkout-name')?.value.trim().slice(0, 100) || '',
+        customerPhone: document.getElementById('checkout-phone')?.value.trim().slice(0, 20) || '',
+        customerAddress: document.getElementById('checkout-address')?.value.trim().slice(0, 300) || '',
+        customerNotes: document.getElementById('checkout-notes')?.value.trim().slice(0, 1000) || ''
     };
 
 }
@@ -1277,6 +1288,7 @@ async function checkoutOrder() {
 
     if (checkoutBtn) {
         checkoutBtn.disabled = true;
+        checkoutBtn.setAttribute('aria-busy', 'true');
         checkoutBtn.innerHTML =
             '<i class="fa-solid fa-spinner fa-spin"></i> Enviando orden...';
     }
@@ -1312,6 +1324,15 @@ async function checkoutOrder() {
         message
     );
 
+    const controller =
+        new AbortController();
+
+    const timeoutId =
+        window.setTimeout(
+            () => controller.abort(),
+            ORDER_TIMEOUT_MS
+        );
+
     try {
 
         const response =
@@ -1319,7 +1340,8 @@ async function checkoutOrder() {
                 'https://api.web3forms.com/submit',
                 {
                     method: 'POST',
-                    body: formData
+                    body: formData,
+                    signal: controller.signal
                 }
             );
 
@@ -1356,18 +1378,20 @@ async function checkoutOrder() {
         showOrderSuccess(orderId);
 
     } catch (error) {
-
-        console.error(error);
-
         showToast(
-            'No se pudo enviar la orden. Tu carrito se conserva para intentar de nuevo.',
+            error?.name === 'AbortError'
+                ? 'La solicitud tardó demasiado. Tu carrito se conserva para intentar de nuevo.'
+                : 'No se pudo enviar la orden. Tu carrito se conserva para intentar de nuevo.',
             'error'
         );
 
     } finally {
 
+        window.clearTimeout(timeoutId);
+
         if (checkoutBtn) {
             checkoutBtn.disabled = false;
+            checkoutBtn.removeAttribute('aria-busy');
             checkoutBtn.innerHTML =
                 originalText;
         }

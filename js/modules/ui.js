@@ -5,6 +5,7 @@ import { calculatePrice } from './pricing.js';
 
 let confirmResolver = null;
 let activeDialog = null;
+let cartFocusOrigin = null;
 const dialogFocusOrigins = new WeakMap();
 
 const DEFAULT_TAB = 'inicio';
@@ -283,6 +284,12 @@ export function showToast(message, type = 'info') {
     toast.className =
         `rounded-2xl border ${toneClass} shadow-xl px-4 py-3 text-sm font-bold max-w-xs transition-all`;
 
+    toast.setAttribute(
+        'role',
+        type === 'error' ? 'alert' : 'status'
+    );
+    toast.setAttribute('aria-atomic', 'true');
+
     toast.innerText =
         message;
 
@@ -358,8 +365,20 @@ function getTabIdFromLocation() {
 }
 
 function getTabURL(tabId) {
+    const url =
+        new URL(window.location.href);
+
+    if (tabId === 'planilla') {
+        url.searchParams.set(
+            'material',
+            appState.currentMaterial
+        );
+    } else {
+        url.searchParams.delete('material');
+    }
+
     const baseURL =
-        `${window.location.pathname}${window.location.search}`;
+        `${url.pathname}${url.search}`;
 
     return tabId === DEFAULT_TAB
         ? baseURL
@@ -520,9 +539,12 @@ export function switchTab(tabId, {
     }
 
     if (scroll) {
+        const reduceMotion =
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
         window.scrollTo({
             top: 0,
-            behavior: 'smooth'
+            behavior: reduceMotion ? 'auto' : 'smooth'
         });
     }
 }
@@ -652,10 +674,21 @@ function getFocusableElements(container) {
 function handleGlobalKeydown(event) {
     const visibleDialogs =
         Array.from(document.querySelectorAll('[role="dialog"]'))
-            .filter(modal => !modal.classList.contains('hidden'));
+            .filter(modal =>
+                !modal.classList.contains('hidden') &&
+                !modal.inert
+            );
 
     const topDialog =
         visibleDialogs[visibleDialogs.length - 1];
+
+    const mobileMenu =
+        $id('mobile-menu');
+
+    const openMobileMenu =
+        mobileMenu && !mobileMenu.classList.contains('hidden')
+            ? mobileMenu
+            : null;
 
     if (event.key === 'Escape') {
         if (topDialog) {
@@ -666,10 +699,11 @@ function handleGlobalKeydown(event) {
             if (topDialog.id === 'material-info-modal') closeMaterialInfoModal();
             if (topDialog.id === 'order-review-modal') $id('order-review-cancel')?.click();
             if (topDialog.id === 'order-success-modal') $id('order-success-close')?.click();
+            if (topDialog.id === 'cart-sidebar') closeCart();
             return;
         }
 
-        if (!$id('mobile-menu')?.classList.contains('hidden')) {
+        if (openMobileMenu) {
             closeMobileMenu({ restoreFocus: true });
             return;
         }
@@ -681,9 +715,12 @@ function handleGlobalKeydown(event) {
         return;
     }
 
-    if (event.key !== 'Tab' || !topDialog) return;
+    const focusScope =
+        topDialog || openMobileMenu;
 
-    const focusable = getFocusableElements(topDialog);
+    if (event.key !== 'Tab' || !focusScope) return;
+
+    const focusable = getFocusableElements(focusScope);
     if (focusable.length === 0) return;
 
     const first = focusable[0];
@@ -794,7 +831,10 @@ function lockPageScroll() {
 function unlockPageScroll() {
     const dialogOpen =
         Array.from($all('[role="dialog"]'))
-            .some(modal => !modal.classList.contains('hidden'));
+            .some(modal =>
+                !modal.classList.contains('hidden') &&
+                !modal.inert
+            );
 
     const cartOpen =
         !$id('cart-sidebar')?.classList.contains('translate-x-full');
@@ -829,11 +869,21 @@ export function toggleCart() {
     );
 
     if (willOpen) {
+        cartFocusOrigin = document.activeElement;
+        cartSidebar.inert = false;
+        $id('cart-toggle-btn')?.setAttribute('aria-expanded', 'true');
         lockPageScroll();
+        window.requestAnimationFrame(
+            () => $id('cart-close-btn')?.focus()
+        );
         return;
     }
 
+    cartSidebar.inert = true;
+    $id('cart-toggle-btn')?.setAttribute('aria-expanded', 'false');
     unlockPageScroll();
+    cartFocusOrigin?.focus?.();
+    cartFocusOrigin = null;
 }
 
 export function openCart() {
@@ -845,6 +895,10 @@ export function openCart() {
 
     if (!cartSidebar || !cartOverlay) return;
 
+    if (!cartSidebar.classList.contains('translate-x-full')) return;
+
+    cartFocusOrigin = document.activeElement;
+
     cartSidebar.classList.remove(
         'translate-x-full'
     );
@@ -853,7 +907,12 @@ export function openCart() {
         'hidden'
     );
 
+    cartSidebar.inert = false;
+    $id('cart-toggle-btn')?.setAttribute('aria-expanded', 'true');
     lockPageScroll();
+    window.requestAnimationFrame(
+        () => $id('cart-close-btn')?.focus()
+    );
 }
 
 export function closeCart() {
@@ -865,6 +924,9 @@ export function closeCart() {
 
     if (!cartSidebar || !cartOverlay) return;
 
+    const wasOpen =
+        !cartSidebar.classList.contains('translate-x-full');
+
     cartSidebar.classList.add(
         'translate-x-full'
     );
@@ -873,7 +935,14 @@ export function closeCart() {
         'hidden'
     );
 
+    cartSidebar.inert = true;
+    $id('cart-toggle-btn')?.setAttribute('aria-expanded', 'false');
     unlockPageScroll();
+
+    if (wasOpen) {
+        cartFocusOrigin?.focus?.();
+        cartFocusOrigin = null;
+    }
 }
 
 function handleFormSubmit(event) {
@@ -916,16 +985,18 @@ Gracias.`;
         `https://wa.me/${BUSINESS_CONFIG.whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
     const whatsappWindow =
-        window.open(
-            whatsappURL,
-            '_blank',
-            'noopener,noreferrer'
-        );
+        window.open('', '_blank');
 
-    if (whatsappWindow) {
-        whatsappWindow.opener = null;
+    if (!whatsappWindow) {
+        showToast(
+            'El navegador bloqueó WhatsApp. Permite ventanas emergentes e intenta otra vez.',
+            'error'
+        );
+        return;
     }
 
+    whatsappWindow.opener = null;
+    whatsappWindow.location.replace(whatsappURL);
     event.target?.reset();
 }
 
@@ -1128,7 +1199,13 @@ function activateCalculatorMaterial(material) {
         stickers: activateStickersMode
     };
 
-    activators[material]?.();
+    if (!activators[material]) return;
+
+    activators[material]();
+
+    if (appState.currentTab === 'planilla') {
+        updateTabHistory('planilla', true);
+    }
 }
 
 function clearQuantityMinimumValidity() {
@@ -1421,7 +1498,7 @@ function initializeConfirmModal() {
     );
 }
 
-function initializeMaterialControls() {
+function initializeMaterialControls(initialMaterial = 'textil') {
     btnTextil?.addEventListener(
         'click',
         () => {
@@ -1520,17 +1597,18 @@ function initializeMaterialControls() {
     );
 
     resetCalculatorDefaults();
-    activateTextilMode();
+    activateCalculatorMaterial(initialMaterial);
 }
 
-function activateRequestedMaterial() {
-    if (getTabIdFromLocation() !== 'planilla') return;
-
+function getRequestedMaterial() {
     const requestedMaterial =
         new URLSearchParams(window.location.search)
             .get('material');
 
-    activateCalculatorMaterial(requestedMaterial);
+    return getTabIdFromLocation() === 'planilla' &&
+        ['textil', 'uv', 'stickers'].includes(requestedMaterial)
+        ? requestedMaterial
+        : 'textil';
 }
 
 function resetCalculatorDefaults() {
@@ -1575,8 +1653,9 @@ export function initializeUI() {
         handleFormSubmit
     );
 
-    initializeMaterialControls();
-    activateRequestedMaterial();
+    initializeMaterialControls(
+        getRequestedMaterial()
+    );
 
     switchTab(
         getTabIdFromLocation(),
@@ -1587,6 +1666,7 @@ export function initializeUI() {
     );
 
     delete document.documentElement.dataset.initialTab;
+    delete document.documentElement.dataset.initialMaterial;
 }
 
 const btnTextil =

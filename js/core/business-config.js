@@ -20,7 +20,7 @@ export const BUSINESS_CONFIG = {
 export const MATERIALS = {
     textil: {
         width: 22,
-        label: 'DTF TEXTIL (22")',
+        label: 'DTF Textil (22")',
         displayName: 'DTF Textil',
         tiers: [
             {
