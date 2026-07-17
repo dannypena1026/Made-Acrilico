@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json.schemastore.org/wrangler.json",
+  "name": "made-acrilico-secure-api",
+  "main": "src/index.js",
+  "workers_dev": false,
+  "compatibility_date": "2026-07-15",
+  "compatibility_flags": ["nodejs_compat"],
+  "routes": [
+    {
+      "pattern": "madeacrilico.com/api/*",
+      "zone_name": "madeacrilico.com"
+    },
+    {
+      "pattern": "www.madeacrilico.com/api/*",
+      "zone_name": "madeacrilico.com"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "ORDERS_DB",
+      "database_name": "made-acrilico-orders",
+      "database_id": "62a7c5ff-32b9-4515-9635-c8ba201860e0",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "RATE_LIMITER",
+        "class_name": "RateLimiter"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["RateLimiter"]
+    }
+  ]
+}

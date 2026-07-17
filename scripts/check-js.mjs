@@ -4,7 +4,8 @@ import { spawnSync } from 'node:child_process';
 
 const roots = [
     'js',
-    'test'
+    'test',
+    'worker/src'
 ];
 
 async function collectJavaScriptFiles(directory) {

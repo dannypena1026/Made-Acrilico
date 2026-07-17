@@ -1,13 +1,16 @@
 {
   "name": "made-acrilico",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "private": true,
   "type": "module",
   "scripts": {
     "build:css": "tailwindcss -c tailwind.config.cjs -i ./css/tailwind.input.css -o ./css/tailwind.css --minify",
     "check:js": "node scripts/check-js.mjs",
     "check:project": "node scripts/check-project.mjs",
-    "test": "node --test"
+    "test": "node --test",
+    "dev": "node scripts/dev-server.mjs",
+    "dev:worker": "npx wrangler dev --config worker/wrangler.jsonc --local --ip 0.0.0.0 --port 8787",
+    "deploy:worker": "npx wrangler deploy --config worker/wrangler.jsonc"
   },
   "devDependencies": {
     "tailwindcss": "3.4.17"

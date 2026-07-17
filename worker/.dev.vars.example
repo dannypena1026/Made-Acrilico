@@ -1,0 +1,10 @@
+# Copia este archivo como worker/.dev.vars y reemplaza cada valor.
+# Nunca subas worker/.dev.vars a Git.
+ASSET_TOKEN_SECRET=
+WEB3FORMS_ACCESS_KEY=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_UPLOAD_PRESET=
+# Solo para el panel interno. Usa una contraseña larga y un secreto aleatorio distinto.
+ADMIN_PASSWORD=
+ADMIN_SESSION_SECRET=
+ALLOWED_ORIGINS=http://localhost:4190,http://127.0.0.1:4190,http://192.168.100.98:4190

@@ -9,7 +9,9 @@ Página web oficial de MADE ACRÍLICO para presentar servicios gráficos, cotiza
 - Sección Tienda para productos y artículos personalizados.
 - Calculador Express para DTF Textil, DTF UV y stickers.
 - Cálculo de stickers con mínimo, precio unitario y descuento automático interno.
-- Subida de archivos a Cloudinary para adjuntar referencia o arte final.
+- Subida validada de archivos a Cloudinary a través de un Cloudflare Worker, sin credenciales en el navegador.
+- Registro durable de órdenes y eventos en Cloudflare D1 antes del envío de correo.
+- Panel interno de operaciones con sesión segura para pedidos, estados, pagos manuales, datos comerciales, precios e imágenes principales.
 - Carrito con persistencia local, resumen, impuestos, envío opcional y confirmación de orden.
 - Contacto con motivos de consulta, WhatsApp, teléfono, correo, mapa y asesoría de archivo.
 - Políticas de privacidad y términos de servicio desde modal legal.
@@ -25,20 +27,20 @@ Página web oficial de MADE ACRÍLICO para presentar servicios gráficos, cotiza
 4. Agrega el producto al carrito.
 5. Completa datos de contacto y entrega.
 6. Revisa la orden antes de enviar.
-7. Envía la solicitud por correo mediante Web3Forms.
+7. Envía la solicitud al Worker, que recalcula la cotización y la entrega por correo mediante Web3Forms.
 8. Puede avisar por WhatsApp usando el número de orden.
 
-WhatsApp se usa para atención rápida, asesoría de archivo y seguimiento. La orden formal se envía por correo mediante Web3Forms.
+WhatsApp se usa para atención rápida, asesoría de archivo y seguimiento. La orden formal pasa por el Worker antes de enviarse por correo mediante Web3Forms.
 
 ## Configuración del negocio
 
-Los datos principales viven en:
+Los valores de respaldo del negocio viven en:
 
 ```text
 js/core/business-config.js
 ```
 
-Desde ese archivo se modifican:
+Para cambios diarios usa `admin.html`, que guarda los cambios validados en Cloudflare D1. Ese archivo queda como respaldo y permite modificar:
 
 - Nombre del negocio.
 - WhatsApp, teléfono visible y enlace telefónico.
@@ -48,10 +50,10 @@ Desde ese archivo se modifican:
 - Métodos de pago.
 - Aviso de cotización estimada.
 - Formatos permitidos para archivo.
-- Web3Forms Access Key.
-- Cloudinary Cloud Name y Upload Preset.
+- URL opcional del Worker si se publica en un subdominio, en vez de bajo `/api`.
 - Precios por material.
 - Reglas de mínimos y descuentos.
+- Imágenes principales del inicio, tienda y páginas de servicio.
 
 ## Assets activos
 
@@ -74,30 +76,15 @@ El logo visible, el favicon, la vista previa social y el dato estructurado usan 
 
 ## Servicios externos
 
-### Web3Forms
+### Worker protegido
 
-Se usa para enviar la orden al correo configurado en la cuenta de Web3Forms.
+Las claves de servicios externos y Web3Forms no viven en `business-config.js` ni se cargan en el navegador. Los diseños pasan por el Worker, que valida archivos, limita abuso por IP, recalcula la cotización y envía la solicitud. Cloudinary se usa con un preset unsigned restringido al que solo llama el Worker.
 
-```js
-web3FormsAccessKey: 'TU_ACCESS_KEY'
-```
+Consulta [worker/README.md](worker/README.md) para configurar desarrollo, secretos y rutas de producción.
 
-Si Web3Forms falla, el carrito se conserva para que el cliente pueda intentar otra vez.
+El panel interno está en `admin.html`. No aparece en la navegación comercial y exige una sesión con contraseña configurada como secreto del Worker; consulta la sección “Panel interno protegido” del documento del Worker. Los cambios se aplican a nuevas cotizaciones; las órdenes guardadas mantienen su propio cálculo histórico.
 
-La Access Key se utiliza desde el navegador y, por diseño, no funciona como un secreto de servidor. Restringe el dominio autorizado, activa protección contra abuso en el panel y rota la clave si detectas tráfico inesperado.
-
-### Cloudinary
-
-Se usa para subir el archivo del cliente y colocar el link en la orden.
-
-```js
-cloudinaryCloudName: 'TU_CLOUD_NAME',
-cloudinaryUploadPreset: 'madeacrilico_uploads'
-```
-
-Si Cloudinary falla, el cliente debe intentar nuevamente o pedir ayuda por WhatsApp.
-
-El preset es unsigned porque la aplicación no tiene backend. Debe limitar formatos, peso, carpeta y transformaciones desde Cloudinary. Para una protección más fuerte, reemplaza este flujo por firmas generadas en un backend o Worker y añade rate limiting o Turnstile.
+Al migrar, rota la clave anterior de Web3Forms y elimina las credenciales o presets de Cloudinary que ya no se utilicen antes de desplegar la nueva web.
 
 ## Estructura general
 
@@ -124,6 +111,10 @@ js/
   utils/
     dom.js
     helpers.js
+worker/
+  src/
+    index.js
+  wrangler.jsonc
 scripts/
   check-js.mjs
   check-project.mjs
@@ -169,6 +160,12 @@ Ejecutar pruebas:
 npm test
 ```
 
+Iniciar la API protegida durante desarrollo:
+
+```bash
+npm run dev:worker
+```
+
 ## Checklist antes de publicar
 
 - Ejecutar `npm run build:css`.
@@ -177,7 +174,7 @@ npm test
 - Ejecutar `npm test`.
 - Probar navegación por hash: `#inicio`, `#dtf`, `#planilla`, `#guia`, `#contacto`, `#tienda`.
 - Probar que al recargar no aparezcan secciones o datos antiguos.
-- Probar subida de archivo.
+- Probar subida de archivo con el Worker iniciado.
 - Probar carrito con y sin envío.
 - Probar cálculo de Textil, UV y Stickers.
 - Probar formulario de contacto y envío de orden.
@@ -186,15 +183,15 @@ npm test
 
 ## Notas de mantenimiento
 
-- Si cambian precios, actualiza `business-config.js` y ejecuta `npm test`.
+- Para cambios diarios de contactos, precios, mínimos, descuentos e imágenes usa `admin.html`. Edita `business-config.js` solo para actualizar los valores de respaldo incluidos en el repositorio y después ejecuta `npm test`.
 - Si cambian clases Tailwind en HTML o JS, ejecuta `npm run build:css`.
-- Si cambia el correo receptor, revisa la configuración en Web3Forms.
+- Si cambia el correo receptor, actualiza el secreto `WEB3FORMS_ACCESS_KEY` del Worker.
 - Si cambian logos o previews, elimina assets antiguos no usados para evitar referencias fantasma.
-- No reutilices la Access Key de Web3Forms ni el preset unsigned de Cloudinary fuera de este dominio; aplica las restricciones disponibles en ambos paneles.
+- No compartas los secretos del Worker ni subas `worker/.dev.vars` al repositorio.
 
 ## Límites de la arquitectura actual
 
-El proyecto es una aplicación estática: no incluye backend propio, base de datos, autenticación ni roles. Los precios y validaciones del navegador mejoran la experiencia, pero la revisión humana antes de producir sigue siendo la autoridad final. No uses el total del frontend como comprobante de pago ni como autorización automática de producción.
+El sitio conserva una interfaz estática, pero usa un Cloudflare Worker y Cloudflare D1 para procesar archivos, órdenes y configuración de forma protegida. El panel cuenta con una única contraseña de operaciones, no con usuarios o roles separados. La revisión humana antes de producir sigue siendo la autoridad final; no uses el total como comprobante de pago ni como autorización automática de producción.
 
 ## Autor
 

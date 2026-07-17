@@ -26,13 +26,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/tailwind.css?v=1.7.0.1">
-    <link rel="stylesheet" href="css/styles.css?v=1.7.0.4">
+    <link rel="stylesheet" href="css/styles.css?v=1.7.2">
 </head>
 <body class="flex min-h-screen flex-col bg-gray-50 font-sans text-logoDark antialiased">
     <header class="border-b border-gray-100 bg-white">
         <div class="mx-auto flex h-20 max-w-6xl items-center justify-between gap-3 px-4">
             <a href="index.html#inicio" aria-label="Ir al inicio" class="min-w-0">
-                <img src="assets/img/madeacrilico-horizontal.webp" alt="MADE ACRÍLICO" width="185" height="48" class="brand-logo-header max-w-[145px] sm:max-w-[210px]">
+                <img src="assets/img/madeacrilico-horizontal.webp" data-site-image="brand-logo" alt="MADE ACRÍLICO" width="185" height="48" class="brand-logo-header max-w-[145px] sm:max-w-[210px]">
             </a>
             <a href="index.html#tienda" class="shrink-0 rounded-xl bg-logoMagenta px-3 py-3 text-xs font-black text-white sm:px-5 sm:text-sm">Ver tienda</a>
         </div>
@@ -45,7 +45,7 @@
                     <h1 class="mt-3 text-3xl font-black leading-tight sm:text-4xl md:text-6xl">Artículos personalizados y servicios gráficos.</h1>
                     <p class="mt-5 leading-8 text-gray-300">Consulta artículos para sublimación, productos en acrílico, DTF, stickers, reconocimientos y letreros comerciales en nuestra tienda de Santo Domingo.</p>
                 </div>
-                <img src="assets/img/inicio.webp" alt="Artículos personalizados disponibles en tienda" width="536" height="353" class="w-full rounded-2xl object-cover shadow-2xl">
+                <img src="assets/img/inicio.webp" data-site-image="store-sublimation" alt="Artículos personalizados disponibles en tienda" width="536" height="353" class="w-full rounded-2xl object-cover shadow-2xl">
             </div>
         </section>
         <section class="mx-auto max-w-6xl px-4 py-14">
@@ -53,10 +53,28 @@
             <p class="mt-4 max-w-3xl leading-8 text-gray-600">Cada orden se confirma por material, medida, cantidad, acabado y disponibilidad. Visítanos en Plaza Comercial Herrera, Av. Isabel Aguiar, Santo Domingo.</p>
             <a href="index.html#tienda" class="mt-8 inline-flex rounded-xl bg-logoMagenta px-6 py-3 font-black text-white">Explorar productos y servicios</a>
         </section>
+        <section class="seo-service-section" aria-labelledby="store-details-title">
+            <div>
+                <p class="seo-service-eyebrow">Tienda de artículos personalizados</p>
+                <h2 id="store-details-title">Una tienda física para resolver productos y producción gráfica en un mismo lugar.</h2>
+                <p class="seo-service-intro">En MADE ACRÍLICO puedes consultar artículos para sublimación, productos en acrílico, DTF UV, DTF Textil, stickers, reconocimientos y letreros. Cada solicitud se confirma antes de producir para revisar el material, medida, acabado y disponibilidad.</p>
+                <div class="seo-service-grid">
+                    <div><h3>Qué puedes consultar</h3><ul><li>Productos e insumos para personalización.</li><li>Placas, exhibidores, reconocimientos y letreros.</li><li>Láminas DTF, stickers y etiquetas para marcas.</li></ul></div>
+                    <div><h3>Cómo funciona la atención</h3><p>Elige el servicio o producto, calcula cuando aplique y consulta por WhatsApp. Confirmamos el archivo, la producción y la entrega antes de iniciar el trabajo.</p></div>
+                </div>
+                <div class="seo-faq-list" aria-label="Preguntas frecuentes de la tienda">
+                    <details><summary>¿La tienda vende artículos listos y personalizados?</summary><p>Ambas opciones se consultan según disponibilidad. Algunos productos se personalizan por encargo y requieren confirmar medida, arte y tiempo de producción.</p></details>
+                    <details><summary>¿Puedo visitar la tienda física?</summary><p>Sí. Estamos en Plaza Comercial Herrera, Av. Isabel Aguiar, Santo Domingo. Recomendamos consultar antes si buscas una pieza o material específico.</p></details>
+                    <details><summary>¿Dónde calculo DTF o stickers?</summary><p>El Calculador Express del sitio permite preparar una cotización de DTF Textil, DTF UV o stickers antes de enviarla a revisión.</p></details>
+                </div>
+                <nav class="seo-service-links" aria-label="Enlaces relacionados con la tienda"><a href="index.html#tienda">Explorar tienda y servicios</a><a href="index.html#planilla">Abrir Calculador Express</a><a href="index.html#contacto">Ver contacto y ubicación</a></nav>
+            </div>
+        </section>
     </main>
     <footer class="bg-logoDark px-4 py-8 text-center text-sm text-gray-300">
         <p>&copy; 2026 MADE ACRÍLICO. Taller gráfico en Santo Domingo.</p>
         <a href="index.html#contacto" class="mt-2 inline-block font-bold text-white">Contacto y ubicación</a>
     </footer>
+    <script type="module" src="js/static-site-config.js"></script>
 </body>
 </html>

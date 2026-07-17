@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operaciones | MADE ACRÍLICO</title>
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="theme-color" content="#1E1E1E">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' https://res.cloudinary.com; connect-src 'self' https://madeacrilico.com http://*:8787; form-action 'none';">
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/img/favicon-made-acrilico-v170.png">
+    <link rel="stylesheet" href="css/tailwind.css?v=1.7.1">
+    <link rel="stylesheet" href="css/styles.css?v=1.7.2">
+    <link rel="stylesheet" href="css/admin.css?v=1.7.2">
+</head>
+<body class="admin-body bg-slate-100 text-slate-900">
+    <a href="#admin-main" class="skip-link">Saltar al contenido principal</a>
+    <header class="admin-header">
+        <div class="admin-shell">
+            <a href="index.html" class="admin-brand" aria-label="Volver al sitio público de Made Acrílico">
+                <img src="assets/img/madeacrilico-horizontal.webp" alt="MADE ACRÍLICO" width="560" height="175">
+                <span>Centro de operaciones</span>
+            </a>
+            <div class="admin-header-actions">
+                <p id="admin-session-status" class="admin-session-status" aria-live="polite">Sesión cerrada</p>
+                <button id="admin-logout" class="admin-logout" type="button" hidden>Cerrar sesión</button>
+            </div>
+        </div>
+    </header>
+
+    <main id="admin-login-view" class="admin-shell admin-login" tabindex="-1">
+        <section class="admin-login-card" aria-labelledby="admin-login-title">
+            <p class="admin-eyebrow">Acceso interno</p>
+            <h1 id="admin-login-title">Pedidos y producción</h1>
+            <p>Ingresa la contraseña de operaciones para consultar y actualizar las órdenes.</p>
+            <form id="admin-login-form">
+                <label>Contraseña<input name="password" type="password" autocomplete="current-password" required minlength="12"></label>
+                <button type="submit">Entrar al panel</button>
+                <p id="admin-login-message" class="admin-login-message" aria-live="polite"></p>
+            </form>
+        </section>
+    </main>
+
+    <main id="admin-main" class="admin-shell admin-main" tabindex="-1" hidden>
+        <section class="admin-intro" aria-labelledby="admin-title">
+            <div>
+                <p class="admin-eyebrow">Centro de control</p>
+                <h1 id="admin-title">Pedidos y producción</h1>
+                <p>Revisa solicitudes, confirma pagos y lleva cada orden hasta su entrega.</p>
+            </div>
+            <div class="admin-intro-actions">
+                <span class="admin-live-indicator">Operaciones activas</span>
+                <button id="admin-refresh" class="admin-icon-button" type="button" title="Actualizar pedidos" aria-label="Actualizar pedidos">↻</button>
+            </div>
+        </section>
+
+        <div class="admin-view-tabs" role="tablist" aria-label="Secciones del panel">
+            <button type="button" class="is-active" role="tab" aria-selected="true" data-admin-view="orders">Pedidos</button>
+            <button type="button" role="tab" aria-selected="false" data-admin-view="configuration">Configuración</button>
+            <button type="button" role="tab" aria-selected="false" data-admin-view="images">Imágenes</button>
+        </div>
+
+        <section id="admin-orders-view" class="admin-view" aria-label="Pedidos y producción">
+        <section class="admin-metrics" aria-label="Resumen de órdenes">
+            <article class="admin-metric-card"><span class="admin-metric-accent admin-metric-accent-magenta" aria-hidden="true"></span><span>Total de órdenes</span><strong id="metric-total-orders">-</strong></article>
+            <article class="admin-metric-card"><span class="admin-metric-accent admin-metric-accent-cyan" aria-hidden="true"></span><span>Últimos 30 días</span><strong id="metric-last-30-days">-</strong></article>
+            <article class="admin-metric-card"><span class="admin-metric-accent admin-metric-accent-yellow" aria-hidden="true"></span><span>Total estimado</span><strong id="metric-total-estimated">-</strong></article>
+            <article class="admin-metric-card"><span class="admin-metric-accent admin-metric-accent-dark" aria-hidden="true"></span><span>Pendientes de revisar</span><strong id="metric-pending-review">-</strong></article>
+            <article class="admin-metric-card"><span class="admin-metric-accent admin-metric-accent-cyan" aria-hidden="true"></span><span>Material más cotizado</span><strong id="metric-top-material">-</strong></article>
+        </section>
+
+        <section class="admin-workspace" aria-label="Gestión de órdenes">
+            <div class="admin-orders-panel">
+                <div class="admin-panel-heading">
+                    <div><p class="admin-panel-kicker">Bandeja</p><h2>Órdenes recientes</h2></div>
+                    <span id="admin-orders-count" class="admin-muted" aria-live="polite"></span>
+                </div>
+                <div class="admin-filters">
+                    <label>
+                        <span>Buscar</span>
+                        <input id="admin-search" type="search" placeholder="Orden, cliente o teléfono" autocomplete="off">
+                    </label>
+                    <label>
+                        <span>Estado</span>
+                        <select id="admin-status-filter">
+                            <option value="">Todos los estados</option>
+                            <option value="pending_review">Pendiente de revisión</option>
+                            <option value="pending_notification">Aviso pendiente</option>
+                            <option value="in_review">Revisando archivo</option>
+                            <option value="approved">Aprobada</option>
+                            <option value="in_production">En producción</option>
+                            <option value="ready">Lista</option>
+                            <option value="completed">Entregada</option>
+                            <option value="cancelled">Cancelada</option>
+                        </select>
+                    </label>
+                </div>
+                <div id="admin-orders-list" class="admin-orders-list" aria-live="polite"></div>
+                <div class="admin-pagination">
+                    <button id="admin-prev-page" type="button">Anterior</button>
+                    <span id="admin-page-label">Página 1</span>
+                    <button id="admin-next-page" type="button">Siguiente</button>
+                </div>
+            </div>
+
+            <aside id="admin-order-detail" class="admin-detail-panel" aria-live="polite">
+                <div class="admin-empty-state">
+                    <strong>Selecciona una orden</strong>
+                    <span>Verás aquí los datos del cliente, archivos, historial y acciones de producción.</span>
+                </div>
+            </aside>
+        </section>
+        </section>
+
+        <section id="admin-configuration-view" class="admin-view" aria-label="Configuración comercial" hidden>
+            <div id="admin-config-content" class="admin-settings-panel" aria-live="polite"></div>
+        </section>
+
+        <section id="admin-images-view" class="admin-view" aria-label="Biblioteca de imágenes" hidden>
+            <div id="admin-images-content" class="admin-settings-panel" aria-live="polite"></div>
+        </section>
+    </main>
+    <div id="admin-toast" class="admin-toast" role="status" aria-live="polite" hidden></div>
+    <script type="module" src="js/admin.js?v=1.7.2"></script>
+</body>
+</html>

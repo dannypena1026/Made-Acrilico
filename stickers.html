@@ -26,13 +26,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/tailwind.css?v=1.7.0.1">
-    <link rel="stylesheet" href="css/styles.css?v=1.7.0.4">
+    <link rel="stylesheet" href="css/styles.css?v=1.7.2">
 </head>
 <body class="flex min-h-screen flex-col bg-gray-50 font-sans text-logoDark antialiased">
     <header class="border-b border-gray-100 bg-white">
         <div class="mx-auto flex h-20 max-w-6xl items-center justify-between gap-3 px-4">
             <a href="index.html#inicio" aria-label="Ir al inicio" class="min-w-0">
-                <img src="assets/img/madeacrilico-horizontal.webp" alt="MADE ACRÍLICO" width="185" height="48" class="brand-logo-header max-w-[145px] sm:max-w-[210px]">
+                <img src="assets/img/madeacrilico-horizontal.webp" data-site-image="brand-logo" alt="MADE ACRÍLICO" width="185" height="48" class="brand-logo-header max-w-[145px] sm:max-w-[210px]">
             </a>
             <a href="index.html?material=stickers#planilla" class="shrink-0 rounded-xl bg-logoYellow px-3 py-3 text-xs font-black text-logoDark sm:px-5 sm:text-sm">Calcular stickers</a>
         </div>
@@ -45,7 +45,7 @@
                     <h1 class="mt-3 text-3xl font-black leading-tight sm:text-4xl md:text-6xl">Stickers personalizados para productos y empaques.</h1>
                     <p class="mt-5 leading-8 text-gray-600">Cotiza por ancho, alto, material y cantidad. El calculador organiza el rollo automáticamente y muestra precio unitario y descuento aplicado.</p>
                 </div>
-                <img src="assets/img/stickers-optimized.webp" alt="Hojas de stickers personalizados" width="1200" height="800" class="w-full rounded-2xl object-cover shadow-xl">
+                <img src="assets/img/stickers-optimized.webp" data-site-image="home-stickers" alt="Hojas de stickers personalizados" width="1200" height="800" class="w-full rounded-2xl object-cover shadow-xl">
             </div>
         </section>
         <section class="mx-auto max-w-6xl px-4 py-14">
@@ -53,10 +53,32 @@
             <p class="mt-4 max-w-3xl leading-8 text-gray-600">Las medidas pequeñas tienen un mínimo de 100 unidades y RD$500. Para stickers que superen 3 pulgadas se permiten cantidades menores con precio calculado según el material utilizado.</p>
             <a href="index.html?material=stickers#planilla" class="mt-8 inline-flex rounded-xl bg-logoMagenta px-6 py-3 font-black text-white">Abrir calculador de stickers</a>
         </section>
+        <section class="seo-service-section" aria-labelledby="stickers-details-title">
+            <div>
+                <p class="seo-service-eyebrow">Stickers y etiquetas personalizadas</p>
+                <h2 id="stickers-details-title">Etiquetas para productos, empaques, regalos y marcas.</h2>
+                <p class="seo-service-intro">Cotiza stickers por medida, acabado y cantidad. El calculador organiza la producción según el rollo, respeta los mínimos de las medidas pequeñas y muestra un precio unitario orientativo antes de enviar la solicitud.</p>
+                <p class="seo-service-intro">Son útiles para empaques, frascos, bolsas, productos de marca, eventos y piezas promocionales. Selecciona el material según el acabado que buscas y carga una imagen lista para revisar.</p>
+                <div class="seo-service-grid">
+                    <div><h3>Acabados disponibles</h3><ul><li>Vinil blanco para etiquetas y empaques.</li><li>Vinil transparente para frascos y superficies claras.</li><li>Vinil holográfico para detalles llamativos.</li></ul></div>
+                    <div><h3>Reglas de cantidad</h3><p>Las etiquetas de hasta 3 pulgadas tienen un mínimo de 100 unidades y un mínimo de RD$500. Sobre 3 pulgadas puedes ingresar cantidades menores y el precio cambia según la medida.</p></div>
+                    <div><h3>Cómo cotizar</h3><p>Indica ancho, alto, material y cantidad. El calculador organiza el rollo automáticamente, muestra el precio unitario y aplica el descuento por cantidad cuando corresponde.</p></div>
+                </div>
+                <div class="seo-faq-list" aria-label="Preguntas frecuentes de stickers">
+                    <details><summary>¿Puedo pedir menos de 100 stickers?</summary><p>Sí, cuando la medida supera 3 pulgadas. En tamaños pequeños se mantiene el mínimo de 100 unidades para hacer viable la producción.</p></details>
+                    <details><summary>¿Qué archivos puedo subir para stickers?</summary><p>Se admiten PNG, PDF, AI, JPG, JPEG, WEBP y TIFF. PSD no se acepta en stickers para evitar archivos pesados o incompatibles.</p></details>
+                    <details><summary>¿El descuento por cantidad se muestra?</summary><p>El descuento se calcula automáticamente a partir de 500 stickers y se refleja en el resumen cuando aplica, con un límite máximo del 20%.</p></details>
+                    <details><summary>¿Cuál material debo elegir para un frasco?</summary><p>El vinil transparente suele funcionar bien cuando quieres que el diseño se integre a una superficie clara. Si buscas máxima legibilidad sobre un empaque, el vinil blanco es una opción práctica.</p></details>
+                    <details><summary>¿Puedo mezclar varios diseños en una orden?</summary><p>Sí. Agrega cada diseño con su medida, material y cantidad correspondiente para que el resumen de la solicitud sea claro durante la revisión.</p></details>
+                </div>
+                <nav class="seo-service-links" aria-label="Enlaces relacionados con stickers"><a href="index.html?material=stickers#planilla">Cotizar stickers</a><a href="tienda.html">Visitar la tienda</a><a href="index.html#guia">Ver guía de archivo</a></nav>
+            </div>
+        </section>
     </main>
     <footer class="bg-logoDark px-4 py-8 text-center text-sm text-gray-300">
         <p>&copy; 2026 MADE ACRÍLICO. Taller gráfico en Santo Domingo.</p>
         <a href="index.html#contacto" class="mt-2 inline-block font-bold text-white">Contacto y ubicación</a>
     </footer>
+    <script type="module" src="js/static-site-config.js"></script>
 </body>
 </html>

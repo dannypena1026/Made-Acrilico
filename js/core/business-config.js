@@ -1,4 +1,4 @@
-export const BUSINESS_CONFIG = {
+export const DEFAULT_BUSINESS_CONFIG = {
     name: 'MADE ACRÍLICO',
     whatsappNumber: '18298824820',
     phoneDisplay: '+1 (829) 882-4820',
@@ -12,12 +12,12 @@ export const BUSINESS_CONFIG = {
     maxUploadSizeMb: 10,
     quoteFileExtensions: ['png', 'pdf', 'ai', 'psd'],
     stickerQuoteFileExtensions: ['jpg', 'jpeg', 'jpe', 'webp', 'tif', 'tiff'],
-    web3FormsAccessKey: '31f462c5-1520-4135-94cd-9d4ad1ee28a1',
-    cloudinaryCloudName: 'dlk09m4yx',
-    cloudinaryUploadPreset: 'madeacrilico_uploads'
+    // En produccion se usa el mismo dominio mediante /api. Solo cambia esta URL
+    // si el Worker se publica en un subdominio independiente.
+    secureApiBaseUrl: ''
 };
 
-export const MATERIALS = {
+export const DEFAULT_MATERIALS = {
     textil: {
         width: 22,
         label: 'DTF Textil (22")',
@@ -37,6 +37,7 @@ export const MATERIALS = {
         label: 'DTF UV',
         widths: {
             '11.5': {
+                enabled: false,
                 label: 'DTF UV (11.5")',
                 tiers: [
                     {
@@ -58,6 +59,7 @@ export const MATERIALS = {
                 ]
             },
             '16': {
+                enabled: true,
                 label: 'DTF UV (16")',
                 tiers: [
                     {
@@ -109,3 +111,49 @@ export const MATERIALS = {
 };
 
 export const PX_PER_INCH = 24;
+
+// The public site starts with these local values. The panel can safely replace
+// them at runtime with the validated configuration stored in the Worker.
+export let BUSINESS_CONFIG = structuredClone(DEFAULT_BUSINESS_CONFIG);
+export let MATERIALS = structuredClone(DEFAULT_MATERIALS);
+
+function isPlainObject(value) {
+    return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+}
+
+function mergeKnownShape(defaultValue, incomingValue) {
+    if (Array.isArray(defaultValue)) {
+        return Array.isArray(incomingValue) ? incomingValue : structuredClone(defaultValue);
+    }
+
+    if (!isPlainObject(defaultValue)) {
+        return incomingValue ?? defaultValue;
+    }
+
+    const merged = {};
+    Object.entries(defaultValue).forEach(([key, value]) => {
+        merged[key] = mergeKnownShape(value, incomingValue?.[key]);
+    });
+    return merged;
+}
+
+export function applyRuntimeBusinessConfig(configuration = {}) {
+    if (!isPlainObject(configuration)) return false;
+
+    const nextBusiness = mergeKnownShape(
+        DEFAULT_BUSINESS_CONFIG,
+        configuration.business
+    );
+    const nextMaterials = mergeKnownShape(
+        DEFAULT_MATERIALS,
+        configuration.materials
+    );
+
+    if (!nextBusiness.name || !nextBusiness.whatsappNumber || !nextMaterials.textil?.tiers?.length) {
+        return false;
+    }
+
+    BUSINESS_CONFIG = nextBusiness;
+    MATERIALS = nextMaterials;
+    return true;
+}

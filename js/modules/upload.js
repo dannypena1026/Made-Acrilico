@@ -1,4 +1,5 @@
 import { BUSINESS_CONFIG } from '../core/business-config.js';
+import { getSecureApiUrl } from '../core/secure-api.js';
 import {
     getAllowedExtensions,
     getFileExtension,
@@ -6,7 +7,6 @@ import {
     validateFileSignature
 } from '../core/file-policy.js';
 import { appState, setUploadedFile } from '../core/state.js';
-import { getTrustedURL } from '../utils/helpers.js';
 import { showToast } from './ui.js';
 
 const UPLOAD_TIMEOUT_MS = 30000;
@@ -80,29 +80,7 @@ function updateUploadRequirements() {
     }
 }
 
-function isCloudinaryConfigured() {
-    return Boolean(
-        BUSINESS_CONFIG.cloudinaryCloudName &&
-        BUSINESS_CONFIG.cloudinaryUploadPreset
-    );
-}
-
-function getCloudinaryResourceType(file) {
-    return file.type.startsWith('image/')
-        ? 'auto'
-        : 'raw';
-}
-
-async function uploadFileToCloudinary(file, signal) {
-    if (!isCloudinaryConfigured()) {
-        throw new Error(
-            'Cloudinary no está configurado.'
-        );
-    }
-
-    const resourceType =
-        getCloudinaryResourceType(file);
-
+async function uploadFileSecurely(file, material, signal) {
     const formData =
         new FormData();
 
@@ -111,14 +89,11 @@ async function uploadFileToCloudinary(file, signal) {
         file
     );
 
-    formData.append(
-        'upload_preset',
-        BUSINESS_CONFIG.cloudinaryUploadPreset
-    );
+    formData.append('material', material);
 
     const response =
         await fetch(
-            `https://api.cloudinary.com/v1_1/${BUSINESS_CONFIG.cloudinaryCloudName}/${resourceType}/upload`,
+            getSecureApiUrl('/api/uploads'),
             {
                 method: 'POST',
                 body: formData,
@@ -126,26 +101,13 @@ async function uploadFileToCloudinary(file, signal) {
             }
         );
 
-    if (!response.ok) {
-        throw new Error(
-            'No se pudo subir el archivo.'
-        );
+    const uploaded = await response.json().catch(() => ({}));
+
+    if (!response.ok || !uploaded.success) {
+        throw new Error(uploaded.message || 'No se pudo subir el archivo.');
     }
 
-    const uploaded = await response.json();
-    const trustedURL = getTrustedURL(
-        uploaded.secure_url,
-        ['res.cloudinary.com']
-    );
-
-    if (!trustedURL || !uploaded.public_id) {
-        throw new Error('Cloudinary devolvió una respuesta inválida.');
-    }
-
-    return {
-        ...uploaded,
-        secure_url: trustedURL
-    };
+    return uploaded;
 }
 
 export function hasUploadedFile() {
@@ -169,7 +131,7 @@ export function getUploadedFileMetadata() {
         name: appState.uploadedFile.name,
         type: appState.uploadedFile.type || getFileExtension(appState.uploadedFile.name)?.toUpperCase() || 'N/A',
         size: formatFileSize(appState.uploadedFile.size),
-        url: appState.uploadedFile.cloudinaryUrl || ''
+        ready: Boolean(appState.uploadedFile.assetToken)
     };
 }
 
@@ -198,7 +160,7 @@ function renderUploadedFile() {
     summary.classList.remove('hidden');
     nameEl.innerText = file.name;
     metaEl.innerText =
-        file.url
+        file.ready
             ? `${file.type} • ${file.size} • Archivo listo`
             : `${file.type} • ${file.size}`;
 }
@@ -332,8 +294,9 @@ function initializeQuoteUpload() {
 
             try {
                 const uploaded =
-                    await uploadFileToCloudinary(
+                    await uploadFileSecurely(
                         file,
+                        appState.currentMaterial,
                         controller.signal
                     );
 
@@ -344,8 +307,7 @@ function initializeQuoteUpload() {
                     type: file.type,
                     size: file.size,
                     material: appState.currentMaterial,
-                    cloudinaryUrl: uploaded.secure_url,
-                    cloudinaryPublicId: uploaded.public_id
+                    assetToken: uploaded.assetToken
                 });
 
                 renderUploadedFile();

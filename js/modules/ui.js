@@ -1,4 +1,4 @@
-import { BUSINESS_CONFIG } from '../core/business-config.js';
+import { BUSINESS_CONFIG, MATERIALS } from '../core/business-config.js';
 import { appState, setCurrentMaterial, setCurrentTab } from '../core/state.js';
 import { $all, $id } from '../utils/dom.js';
 import { calculatePrice } from './pricing.js';
@@ -63,16 +63,16 @@ const MOBILE_FLOATING_ACTIONS = {
         className: 'bg-logoMagenta'
     },
     contacto: {
-        label: 'WhatsApp directo',
+        label: 'Escribir por WhatsApp',
         icon: 'fa-brands fa-whatsapp',
         action: 'whatsapp',
         className: 'bg-emerald-500'
     },
     tienda: {
-        label: 'Ver productos',
-        icon: 'fa-solid fa-bag-shopping',
-        tab: 'tienda',
-        className: 'bg-logoMagenta'
+        label: 'Consultar tienda',
+        icon: 'fa-brands fa-whatsapp',
+        action: 'whatsapp',
+        className: 'bg-emerald-500'
     }
 };
 
@@ -550,6 +550,7 @@ export function switchTab(tabId, {
 }
 
 function applyBusinessConfig() {
+    syncUvWidthAvailability();
     $all('[data-business-whatsapp]')
         .forEach(link => {
             const message =
@@ -594,6 +595,29 @@ function applyBusinessConfig() {
             link.href =
                 BUSINESS_CONFIG.mapsUrl;
         });
+}
+
+function syncUvWidthAvailability() {
+    const selector = $id('uv-width');
+    if (!selector) return;
+
+    const preferredWidth = getPreferredUvWidth();
+
+    selector.querySelectorAll('option').forEach(option => {
+        const configuredWidth = MATERIALS.uv.widths[option.value];
+        const enabled = Boolean(configuredWidth?.enabled);
+        option.disabled = !enabled;
+        option.textContent = `${option.value} pulgadas${enabled ? '' : ' (NO DISPONIBLE)'}`;
+    });
+
+    if (preferredWidth) selector.value = preferredWidth;
+    selector.disabled = !preferredWidth;
+}
+
+function getPreferredUvWidth() {
+    if (MATERIALS.uv.widths['16']?.enabled) return '16';
+    if (MATERIALS.uv.widths['11.5']?.enabled) return '11.5';
+    return '';
 }
 
 function openLegalModal(type) {
@@ -1615,7 +1639,7 @@ function resetCalculatorDefaults() {
     const defaults = {
         'textil-size': '18',
         'textil-custom-height': '',
-        'uv-width': '16',
+        'uv-width': getPreferredUvWidth(),
         'uv-size': '11',
         'uv-custom-height': '',
         'sticker-material': 'white',

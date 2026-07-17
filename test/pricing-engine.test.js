@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { applyRuntimeBusinessConfig } from '../js/core/business-config.js';
 
 import {
     buildQuoteFromInput,
@@ -49,7 +50,22 @@ test('DTF UV 16 usa sus tramos de precio', () => {
     assert.equal(quote.unitPrice, 900);
 });
 
-test('DTF UV 11.5 usa sus tramos de precio', () => {
+test('DTF UV 11.5 se bloquea mientras está deshabilitado', () => {
+    const quote = buildQuoteFromInput({
+        materialKey: 'uv',
+        uvWidth: 11.5,
+        height: 36,
+        quantity: 1
+    });
+
+    assert.equal(quote.invalid, true);
+    assert.equal(quote.reason, 'uv_width_disabled');
+});
+
+test('DTF UV 11.5 usa sus tramos cuando se habilita', () => {
+    applyRuntimeBusinessConfig({
+        materials: { uv: { widths: { '11.5': { enabled: true } } } }
+    });
     const quote =
         buildQuoteFromInput({
             materialKey: 'uv',

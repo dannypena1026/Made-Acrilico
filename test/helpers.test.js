@@ -6,21 +6,21 @@ import { getTrustedURL } from '../js/utils/helpers.js';
 test('getTrustedURL acepta HTTPS del host permitido', () => {
     assert.equal(
         getTrustedURL(
-            'https://res.cloudinary.com/demo/image/upload/file.png',
-            ['res.cloudinary.com']
+            'https://madeacrilico.com/api/files/temporal',
+            ['madeacrilico.com']
         ),
-        'https://res.cloudinary.com/demo/image/upload/file.png'
+        'https://madeacrilico.com/api/files/temporal'
     );
 });
 
 test('getTrustedURL rechaza protocolos ejecutables y datos embebidos', () => {
     assert.equal(
-        getTrustedURL('javascript:alert(1)', ['res.cloudinary.com']),
+        getTrustedURL('javascript:alert(1)', ['madeacrilico.com']),
         ''
     );
 
     assert.equal(
-        getTrustedURL('data:text/html,<script>alert(1)</script>', ['res.cloudinary.com']),
+        getTrustedURL('data:text/html,<script>alert(1)</script>', ['madeacrilico.com']),
         ''
     );
 });
@@ -28,8 +28,8 @@ test('getTrustedURL rechaza protocolos ejecutables y datos embebidos', () => {
 test('getTrustedURL rechaza dominios parecidos o no autorizados', () => {
     assert.equal(
         getTrustedURL(
-            'https://res.cloudinary.com.evil.example/file.png',
-            ['res.cloudinary.com']
+            'https://madeacrilico.com.evil.example/file.png',
+            ['madeacrilico.com']
         ),
         ''
     );
@@ -37,7 +37,7 @@ test('getTrustedURL rechaza dominios parecidos o no autorizados', () => {
     assert.equal(
         getTrustedURL(
             'https://example.com/file.png',
-            ['res.cloudinary.com']
+            ['madeacrilico.com']
         ),
         ''
     );

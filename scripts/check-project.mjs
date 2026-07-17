@@ -7,10 +7,15 @@ const htmlFiles = [
     'dtf-textil.html',
     'dtf-uv.html',
     'stickers.html',
-    'tienda.html'
+    'tienda.html',
+    'admin.html'
 ];
 
 const errors = [];
+const cssFiles = [
+    'css/styles.css',
+    'css/admin.css'
+];
 
 async function fileExists(filePath) {
     try {
@@ -31,6 +36,37 @@ function isLocalReference(reference) {
         reference.startsWith('http://') ||
         reference.startsWith('https://')
     );
+}
+
+function validateCssBraces(filePath, source) {
+    const withoutCommentsAndStrings =
+        source
+            .replace(/\/\*[\s\S]*?\*\//g, match => match.replace(/[^\n]/g, ' '))
+            .replace(/'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"/g, match => match.replace(/[^\n]/g, ' '));
+
+    const openings = [];
+
+    for (let index = 0; index < withoutCommentsAndStrings.length; index += 1) {
+        const character = withoutCommentsAndStrings[index];
+
+        if (character === '{') {
+            openings.push(index);
+            continue;
+        }
+
+        if (character === '}') {
+            if (openings.length === 0) {
+                errors.push(`${filePath}: llave de cierre sin apertura.`);
+                return;
+            }
+
+            openings.pop();
+        }
+    }
+
+    if (openings.length > 0) {
+        errors.push(`${filePath}: bloque CSS sin cerrar.`);
+    }
 }
 
 for (const htmlFile of htmlFiles) {
@@ -70,6 +106,10 @@ for (const htmlFile of htmlFiles) {
     }
 }
 
+for (const cssFile of cssFiles) {
+    validateCssBraces(cssFile, await readFile(cssFile, 'utf8'));
+}
+
 const indexSource =
     await readFile('index.html', 'utf8');
 
@@ -106,5 +146,5 @@ if (errors.length > 0) {
 }
 
 process.stdout.write(
-    `Proyecto válido: ${htmlFiles.length} HTML, ${inlineScripts.length} scripts inline y todas las rutas locales verificadas.\n`
+    `Proyecto válido: ${htmlFiles.length} HTML, ${cssFiles.length} CSS, ${inlineScripts.length} scripts inline y todas las rutas locales verificadas.\n`
 );

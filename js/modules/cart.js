@@ -1,17 +1,24 @@
 import { BUSINESS_CONFIG } from '../core/business-config.js';
-import {
-    buildQuoteFromInput,
-    calculateStickerQuote
-} from '../core/pricing-engine.js';
+import { calculateStickerQuote } from '../core/pricing-engine.js';
 import {
     escapeHTML,
     formatCurrency,
-    generateId,
-    getTrustedURL,
-    loadFromStorage,
-    removeFromStorage,
-    saveToStorage
+    generateId
 } from '../utils/helpers.js';
+import {
+    getCartItemMinimumQuantity,
+    getCartItemTotal,
+    generateOrderId,
+    isValidDominicanPhone,
+    normalizeCartItem
+} from './cart-utils.js';
+import {
+    loadCartItems,
+    loadShippingPreference as loadStoredShippingPreference,
+    saveCartItems,
+    saveShippingPreference as saveStoredShippingPreference
+} from './cart-storage.js';
+import { submitOrder } from './order-service.js';
 import { getCurrentQuote } from './pricing.js';
 import {
     getUploadedFile,
@@ -24,10 +31,6 @@ import {
     showToast
 } from './ui.js';
 
-const CART_STORAGE_KEY = 'made-acrilico-cart';
-const CART_SHIPPING_STORAGE_KEY = 'made-acrilico-shipping-enabled';
-const LEGACY_CART_STORAGE_KEY = 'made-acrílico-cart';
-const LEGACY_SHIPPING_STORAGE_KEY = 'made-acrílico-shipping-enabled';
 const ORDER_TIMEOUT_MS = 20000;
 
 let cart = [];
@@ -57,141 +60,22 @@ function unlockModalScroll() {
 
 
 function saveCart() {
-
-    saveToStorage(
-        CART_STORAGE_KEY,
-        cart
-    );
-
+    saveCartItems(cart);
 }
 
 
 function loadCart() {
-
-    const storedCart =
-        loadFromStorage(
-            CART_STORAGE_KEY,
-            loadFromStorage(LEGACY_CART_STORAGE_KEY, [])
-        );
-
-    cart =
-        (Array.isArray(storedCart) ? storedCart : [])
-        .map(normalizeCartItem)
-        .filter(Boolean);
-
-    saveCart();
-
-    removeFromStorage(LEGACY_CART_STORAGE_KEY);
-
+    cart = loadCartItems(normalizeCartItem);
 }
 
 
 function saveShippingPreference() {
-
-    saveToStorage(
-        CART_SHIPPING_STORAGE_KEY,
-        includeShipping
-    );
-
+    saveStoredShippingPreference(includeShipping);
 }
 
 
 function loadShippingPreference() {
-
-    includeShipping =
-        loadFromStorage(
-            CART_SHIPPING_STORAGE_KEY,
-            loadFromStorage(LEGACY_SHIPPING_STORAGE_KEY, false)
-        ) === true;
-
-    saveShippingPreference();
-    removeFromStorage(LEGACY_SHIPPING_STORAGE_KEY);
-
-}
-
-
-function normalizeCartItem(item) {
-
-    if (!item || typeof item !== 'object') {
-
-        return null;
-
-    }
-
-    if (
-        ['textil', 'uv', 'stickers'].includes(item.materialKey) &&
-        Number.isFinite(Number(item.quantity)) &&
-        Number(item.quantity) > 0
-    ) {
-
-        const quantity =
-            Math.min(1000000, Math.max(1, Math.floor(Number(item.quantity))));
-
-        const quote =
-            buildQuoteFromInput({
-                materialKey: item.materialKey,
-                height: Number(item.height),
-                quantity,
-                uvWidth: Number(item.width),
-                stickerMaterial: item.stickerMaterialKey || 'white',
-                stickerWidth: Number(item.width),
-                stickerHeight: Number(item.height)
-            });
-
-        if (quote.invalid) return null;
-
-        return {
-            ...quote,
-            id: item.id ? String(item.id) : generateId(),
-            fileName: String(item.fileName || 'Sin archivo').slice(0, 255),
-            fileType: String(item.fileType || 'N/A').slice(0, 120),
-            fileSize: item.fileSize || 'N/A',
-            fileUrl: String(item.fileUrl || '').slice(0, 2048)
-        };
-
-    }
-
-    if (item.title && Number.isFinite(item.price) && item.price > 0) {
-
-        return {
-            id: item.id ? String(item.id) : generateId(),
-            material: String(item.title).slice(0, 120),
-            size: String(item.details || 'Medida no especificada').slice(0, 120),
-            chargedLength: 0,
-            yards: 0,
-            quantity: 1,
-            unitPrice: item.price,
-            fileName: String(item.fileName || 'Sin archivo').slice(0, 255),
-            fileType: String(item.fileType || 'N/A').slice(0, 120),
-            fileSize: item.fileSize || 'N/A',
-            fileUrl: String(item.fileUrl || '').slice(0, 2048)
-        };
-
-    }
-
-    return null;
-
-}
-
-
-function getCartItemTotal(item) {
-
-    if (item.materialKey === 'stickers') {
-        return item.total || (item.unitPrice * item.quantity);
-    }
-
-    return item.unitPrice * item.quantity;
-
-}
-
-function getCartItemMinimumQuantity(item) {
-    return item.materialKey === 'stickers' &&
-        Number.isFinite(item.width) &&
-        Number.isFinite(item.height) &&
-        item.width <= 3 &&
-        item.height <= 3
-        ? 100
-        : 1;
+    includeShipping = loadStoredShippingPreference();
 }
 
 
@@ -212,61 +96,10 @@ function getCartTotal() {
 }
 
 
-function generateOrderId(date = new Date()) {
-
-    const stamp =
-        date.toISOString()
-            .slice(0, 10)
-            .replace(/-/g, '');
-
-    const timeStamp =
-        [
-            date.getHours(),
-            date.getMinutes(),
-            date.getSeconds()
-        ]
-            .map(value => String(value).padStart(2, '0'))
-            .join('');
-
-    const uniqueSuffix =
-        generateId()
-            .replace(/-/g, '')
-            .slice(-6)
-            .toUpperCase();
-
-    return `MA-${stamp}-${timeStamp}-${uniqueSuffix}`;
-
-}
-
-
-function normalizeDominicanPhone(phone) {
-
-    const digits =
-        String(phone || '').replace(/\D/g, '');
-
-    if (digits.length === 11 && digits.startsWith('1')) {
-        return digits.slice(1);
-    }
-
-    return digits;
-
-}
-
-
-function isValidDominicanPhone(phone) {
-
-    const digits =
-        normalizeDominicanPhone(phone);
-
-    return /^8(?:09|29|49)\d{7}$/.test(digits);
-
-}
-
-
 function hasMissingFileLinks() {
 
     return cart.some(
-        item => !item.fileUrl
+        item => !item.fileToken
     );
 
 }
@@ -487,7 +320,7 @@ function addNestingToCart() {
         fileName: file.name,
         fileType: file.type,
         fileSize: file.size,
-        fileUrl: uploadedFile?.cloudinaryUrl || file.url || ''
+        fileToken: uploadedFile?.assetToken || ''
 
     };
 
@@ -541,12 +374,6 @@ function renderCartItem(item) {
     const itemTotal =
         getCartItemTotal(item);
 
-    const fileUrl =
-        getTrustedURL(
-            item.fileUrl,
-            ['res.cloudinary.com']
-        );
-
     return `
 
         <div class="bg-gray-50 border border-gray-100 rounded-2xl p-4 space-y-4" data-cart-item="${escapeHTML(item.id)}">
@@ -571,11 +398,7 @@ function renderCartItem(item) {
                         Archivo: ${escapeHTML(item.fileName)}
                     </p>
 
-                    ${
-                        fileUrl
-                            ? `<a href="${escapeHTML(fileUrl)}" target="_blank" rel="noopener noreferrer" class="inline-flex mt-2 text-xs font-bold text-logoCyan hover:text-logoMagenta">Ver archivo subido</a>`
-                            : ''
-                    }
+                    <p class="mt-2 text-xs font-bold text-logoCyan">Archivo validado y adjunto a la orden</p>
 
                 </div>
 
@@ -1118,72 +941,32 @@ function showOrderSuccess(orderId) {
 }
 
 
-function buildOrderMessage({
+function buildSecureOrderPayload({
     customerName,
     customerPhone,
     customerAddress,
     customerNotes,
     orderId
 }) {
-    const subtotal =
-        getCartSubtotal();
-
-    const total =
-        getCartTotal();
-
-    const orderDate =
-        new Date().toLocaleString(
-            'es-DO',
-            {
-                dateStyle: 'short',
-                timeStyle: 'short'
-            }
-        );
-
-    let message =
-`ORDEN MADE ACRÍLICO - ${orderId}
-Fecha: ${orderDate}
-
-CLIENTE
-${customerName}
-WhatsApp: ${customerPhone}
-
-ENTREGA
-Tipo: ${includeShipping ? 'Envío' : 'Retiro en tienda'}
-${includeShipping ? `Dirección: ${customerAddress}` : ''}
-${customerNotes ? `Nota: ${customerNotes}` : ''}
-
-RESUMEN
-Subtotal productos: ${formatCurrency(subtotal)}
-Impuestos / ITBIS: Se confirma tras revisión
-Envío: ${includeShipping ? 'A cotizar' : 'No incluido'}
-Total estimado inicial: ${formatCurrency(total)}
-Estado: Pendiente de revisar archivo, entrega, impuestos y pago antes de producir
-
-PRODUCTOS
-
-`;
-
-    cart.forEach((item, index) => {
-
-        const itemTotal =
-            getCartItemTotal(item);
-
-        const unitLabel =
-            item.materialKey === 'stickers'
-                ? item.quantity === 1 ? 'sticker' : 'stickers'
-                : item.quantity === 1 ? 'copia' : 'copias';
-
-        message +=
-`${index + 1}. ${item.material} - ${item.size} - ${item.quantity} ${unitLabel} - ${formatCurrency(itemTotal)}
-Archivo: ${item.fileName}
-Link: ${getTrustedURL(item.fileUrl, ['res.cloudinary.com']) || 'No disponible'}
-
-`;
-
-    });
-
-    return message;
+    return {
+        orderId,
+        customer: {
+            name: customerName,
+            phone: customerPhone,
+            address: customerAddress,
+            notes: customerNotes
+        },
+        fulfillment: includeShipping ? 'shipping' : 'pickup',
+        items: cart.map(item => ({
+            materialKey: item.materialKey,
+            stickerMaterialKey: item.stickerMaterialKey || '',
+            width: item.width,
+            height: item.height,
+            quantity: item.quantity,
+            fileName: item.fileName,
+            fileToken: item.fileToken
+        }))
+    };
 }
 
 
@@ -1256,17 +1039,6 @@ async function checkoutOrder() {
 
     }
 
-    if (!BUSINESS_CONFIG.web3FormsAccessKey) {
-
-        showToast(
-            'Falta configurar la clave de Web3Forms.',
-            'error'
-        );
-
-        return;
-
-    }
-
     const orderId =
         generateOrderId();
 
@@ -1293,36 +1065,8 @@ async function checkoutOrder() {
             '<i class="fa-solid fa-spinner fa-spin"></i> Enviando orden...';
     }
 
-    const message =
-        buildOrderMessage(orderData);
-
-    const orderTotal =
-        getCartTotal();
-
-    const formData =
-        new FormData();
-
-    formData.append(
-        'access_key',
-        BUSINESS_CONFIG.web3FormsAccessKey
-    );
-
-    formData.append('botcheck', '');
-
-    formData.append(
-        'subject',
-        `Nueva solicitud MADE ACRÍLICO ${orderId} - ${customerName} - ${formatCurrency(orderTotal)}`
-    );
-
-    formData.append(
-        'from_name',
-        `${BUSINESS_CONFIG.name} Web`
-    );
-
-    formData.append(
-        'message',
-        message
-    );
+    const orderPayload =
+        buildSecureOrderPayload(orderData);
 
     const controller =
         new AbortController();
@@ -1334,25 +1078,7 @@ async function checkoutOrder() {
         );
 
     try {
-
-        const response =
-            await fetch(
-                'https://api.web3forms.com/submit',
-                {
-                    method: 'POST',
-                    body: formData,
-                    signal: controller.signal
-                }
-            );
-
-        const result =
-            await response.json();
-
-        if (!response.ok || !result.success) {
-            throw new Error(
-                result.message || 'No se pudo enviar la orden.'
-            );
-        }
+        await submitOrder(orderPayload, controller.signal);
 
         cart = [];
         includeShipping = false;

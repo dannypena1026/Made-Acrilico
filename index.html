@@ -12,7 +12,7 @@
     <meta name="geo.placename" content="Santo Domingo, República Dominicana">
     <meta name="theme-color" content="#E52D7F">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; worker-src 'none'; script-src 'self' 'sha256-XORIYIk5Nfbkh6yPH1rMHzCI//eh1le6S9ViYbIYQhw=' 'sha256-EkqC02AdD2GyyhcybEXxuZfdPHZdh4Ow/iItL6PPrzw='; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:; img-src 'self' data: blob: https://res.cloudinary.com; connect-src 'self' https://api.cloudinary.com https://api.web3forms.com; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; worker-src 'none'; script-src 'self' 'sha256-XORIYIk5Nfbkh6yPH1rMHzCI//eh1le6S9ViYbIYQhw=' 'sha256-EkqC02AdD2GyyhcybEXxuZfdPHZdh4Ow/iItL6PPrzw='; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self' https://madeacrilico.com http://*:8787; form-action 'self';">
     <link rel="canonical" href="https://www.madeacrilico.com/">
     <meta property="og:site_name" content="MADE ACRÍLICO">
     <meta property="og:title" content="MADE ACRÍLICO | DTF Textil, DTF UV y Stickers en Santo Domingo">
@@ -159,7 +159,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css?v=1.7.1-colors">
+    <link rel="stylesheet" href="css/styles.css?v=1.7.2">
 </head>
 <body class="bg-[#F8F9FA] text-[#1E1E1E] min-h-screen font-sans antialiased overflow-x-hidden">
 
@@ -178,6 +178,7 @@
                 <button id="logo-trigger" type="button" aria-label="Ir al inicio" class="flex-shrink-0 cursor-pointer">
                     <img
                         src="assets/img/madeacrilico-horizontal.webp"
+                        data-site-image="brand-logo"
                         alt="MADE ACRÍLICO"
                         width="185"
                         height="48"
@@ -359,7 +360,8 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                 </span>
                 <span class="absolute right-4 top-1/2 flex -translate-y-1/2 items-center gap-2 sm:right-10">
                     <img
-                            src="assets/img/lgo-madeacrilico-store.webp"
+                        src="assets/img/lgo-madeacrilico-store.webp"
+                        data-site-image="store-badge"
                         alt="Made Acrílico Store"
                         width="112"
                         height="112"
@@ -373,13 +375,13 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
             <div class="relative min-h-[620px] overflow-hidden rounded-[2rem] bg-logoDark shadow-2xl border border-gray-100">
                 <div class="hero-carousel absolute inset-0 bg-black">
                     <figure class="hero-carousel-slide hero-carousel-slide-1">
-                        <img src="assets/img/etiquetas.webp" alt="Impresión DTF textil para ropa personalizada" width="899" height="492" loading="eager" decoding="async" fetchpriority="high">
+                        <img src="assets/img/etiquetas.webp" data-site-image="home-textil" alt="Impresión DTF textil para ropa personalizada" width="899" height="492" loading="eager" decoding="async" fetchpriority="high">
                     </figure>
                     <figure class="hero-carousel-slide hero-carousel-slide-2">
-                        <img src="assets/img/test_uv.webp" alt="DTF UV adhesivo para vasos y empaques" width="1600" height="557" loading="eager" decoding="async">
+                        <img src="assets/img/test_uv.webp" data-site-image="home-uv" alt="DTF UV adhesivo para vasos y empaques" width="1600" height="557" loading="eager" decoding="async">
                     </figure>
                     <figure class="hero-carousel-slide hero-carousel-slide-3">
-                        <img src="assets/img/stickers-optimized.webp" alt="Stickers personalizados para empaques y productos" width="1200" height="800" loading="eager" decoding="async">
+                        <img src="assets/img/stickers-optimized.webp" data-site-image="home-stickers" alt="Stickers personalizados para empaques y productos" width="1200" height="800" loading="eager" decoding="async">
                     </figure>
                     <div class="hero-carousel-dots" aria-hidden="true">
                         <span></span>
@@ -606,6 +608,42 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                 </div>
                 </div>
             </div>
+
+            <section class="customer-review-band customer-review-band-compact" aria-labelledby="reviews-title">
+                <div>
+                    <p class="customer-review-kicker">Experiencias reales</p>
+                    <h2 id="reviews-title">Opiniones de clientes de MADE ACRÍLICO.</h2>
+                    <p>Consulta las reseñas compartidas en Google o deja tu experiencia si ya trabajaste con nosotros.</p>
+                    <p class="customer-review-trust" aria-label="Calificación de 4.5 de 5 basada en 25 reseñas de Google">
+                        <span class="customer-review-score">4.5</span>
+                        <span class="customer-review-google"><i class="fa-brands fa-google" aria-hidden="true"></i> 25 reseñas en Google</span>
+                    </p>
+                </div>
+                <div class="customer-review-actions">
+                    <a data-business-maps href="https://www.google.com/maps/place/Made+Acr%C3%ADlico/data=!4m2!3m1!1s0x0:0x5e3e2a9a6b659d5f?sa=X&amp;ved=1t:2428&amp;ictx=111" target="_blank" rel="noopener noreferrer" class="customer-review-primary">
+                        Ver en Google <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <a data-business-maps href="https://www.google.com/maps/place/Made+Acr%C3%ADlico/data=!4m2!3m1!1s0x0:0x5e3e2a9a6b659d5f?sa=X&amp;ved=1t:2428&amp;ictx=111" target="_blank" rel="noopener noreferrer" class="customer-review-secondary">
+                        Dejar reseña <i class="fa-solid fa-star"></i>
+                    </a>
+                </div>
+                <div id="customer-reviews-carousel" class="customer-reviews-carousel" aria-label="Reseñas de clientes" hidden>
+                    <div class="customer-reviews-carousel-heading">
+                        <p class="customer-reviews-summary">Reseñas compartidas por clientes</p>
+                        <a data-business-maps href="https://www.google.com/maps/place/Made+Acr%C3%ADlico/data=!4m2!3m1!1s0x0:0x5e3e2a9a6b659d5f?sa=X&amp;ved=1t:2428&amp;ictx=111" target="_blank" rel="noopener noreferrer">
+                            Ver perfil de Google <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="customer-reviews-viewport">
+                        <div id="customer-reviews-track" class="customer-reviews-track" aria-live="polite"></div>
+                    </div>
+                    <div id="customer-reviews-controls" class="customer-reviews-controls" aria-label="Controles de reseñas">
+                        <button id="customer-reviews-previous" type="button" aria-label="Ver reseña anterior"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button>
+                        <span id="customer-reviews-position" aria-live="polite"></span>
+                        <button id="customer-reviews-next" type="button" aria-label="Ver reseña siguiente"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </section>
         </section>
 
         <!-- PESTAÑA: DTF -->
@@ -638,7 +676,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
 
                 <div class="relative z-10 flex-1 w-full max-w-md">
                     <div class="bg-white/10 backdrop-blur-md border border-white/10 p-6 rounded-2xl shadow-xl space-y-6">
-                        <img src="assets/img/inicio.webp" alt="Muestra de impresión DTF UV adhesivo" width="536" height="353" loading="lazy" decoding="async" class="w-full max-w-sm rounded-lg shadow-md hover:scale-105 transition">
+                        <img src="assets/img/inicio.webp" data-site-image="store-sublimation" alt="Muestra de impresión DTF UV adhesivo" width="536" height="353" loading="lazy" decoding="async" class="w-full max-w-sm rounded-lg shadow-md hover:scale-105 transition">
                     </div>
                 </div>
             </div>
@@ -682,6 +720,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <div class="relative h-64 overflow-hidden bg-gray-50">
                             <img
                                 src="assets/img/test_uv.webp"
+                                data-site-image="home-uv"
                                 alt="DTF UV adhesivo para vasos, acrílico, metal y empaques"
                                 width="1600"
                                 height="557"
@@ -725,6 +764,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <div class="relative h-64 bg-logoDark overflow-hidden">
                             <img
                                 src="assets/img/test_textil.webp"
+                                data-site-image="home-textil"
                                 alt="Impresión DTF textil para camisetas y uniformes"
                                 width="548"
                                 height="191"
@@ -768,6 +808,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <div class="relative h-64 bg-gray-50 overflow-hidden">
                             <img
                                 src="assets/img/stickers-optimized.webp"
+                                data-site-image="home-stickers"
                                 alt="Hojas de stickers personalizados para marcas y empaques"
                                 width="1200"
                                 height="800"
@@ -1054,7 +1095,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
     <div class="max-w-7xl mx-auto">
 
         <!-- CARD PRINCIPAL -->
-        <div data-calculator-root class="bg-white rounded-[32px] border border-gray-100 shadow-sm p-6 md:p-10">
+        <div data-calculator-root class="calculator-surface bg-white rounded-[32px] border border-gray-100 shadow-sm p-6 md:p-10">
 
             <!-- HEADER -->
             <div class="text-center mb-10">
@@ -1071,7 +1112,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                 </p>
             </div>
 
-            <div class="mb-10 overflow-hidden rounded-[28px] bg-logoDark text-white shadow-xl">
+            <div class="calculator-material-rail mb-10 overflow-hidden rounded-[28px] bg-logoDark text-white shadow-xl">
                 <div class="grid grid-cols-1 divide-y divide-white/10 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
                     <div class="px-6 py-6 md:px-8">
                         <p class="text-3xl font-black leading-none text-logoMagenta md:text-4xl">Textil</p>
@@ -1639,7 +1680,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
 </section>
 
         <!-- PESTAÑA: GUÍA DE ARCHIVO -->
-        <section id="tab-guia" class="tab-content hidden space-y-8">
+        <section id="tab-guia" class="guide-page tab-content hidden space-y-8">
             <div class="bg-logoDark text-white rounded-3xl overflow-hidden shadow-xl">
                 <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr]">
                     <div class="p-6 md:p-8 border-b border-white/10 flex flex-col justify-between gap-6">
@@ -1795,8 +1836,8 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
         </section>
 
         <!-- PESTAÑA: CONTACTO -->
-        <section id="tab-contacto" class="tab-content hidden space-y-8">
-            <div class="bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-sm max-w-5xl mx-auto space-y-8">
+        <section id="tab-contacto" class="contact-page tab-content hidden space-y-8">
+            <div class="contact-surface bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-sm max-w-5xl mx-auto space-y-8">
                 <div class="text-center space-y-2">
                     <h2 class="text-2xl md:text-3xl font-extrabold text-[#1E1E1E]">Envía tu archivo y nosotros te asesoramos.</h2>
                     <p class="text-gray-500 text-sm">Te respondemos con material recomendado, precio estimado, tiempo de producción y forma de entrega.</p>
@@ -1972,7 +2013,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
         </section>
 
         <!-- PESTAÑA: TIENDA -->
-        <section id="tab-tienda" class="tab-content hidden space-y-8">
+        <section id="tab-tienda" class="store-page tab-content hidden space-y-8">
             <div class="store-carousel relative overflow-hidden rounded-[2rem] bg-logoDark text-white shadow-2xl">
                 <div class="store-carousel-track" aria-hidden="true">
                     <div class="store-carousel-set">
@@ -2000,6 +2041,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                             <span class="h-2 w-2 rounded-full bg-logoMagenta"></span>
                             <img
                                 src="assets/img/lgo-madeacrilico-store.webp"
+                                data-site-image="store-badge"
                                 alt=""
                                 aria-hidden="true"
                                 width="112"
@@ -2015,10 +2057,10 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                             Productos, detalles, stickers, acrílicos y piezas gráficas para marcas, regalos y emprendimientos.
                         </p>
                         <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-                            <button type="button" data-go-tab="contacto" class="inline-flex items-center justify-center gap-2 rounded-xl bg-logoMagenta px-6 py-3 text-sm font-black text-white transition-all hover:bg-pink-600">
+                            <a data-business-whatsapp data-whatsapp-message="Hola Made Acrílico, quiero cotizar un artículo personalizado de la tienda." href="https://wa.me/18298824820" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-xl bg-logoMagenta px-6 py-3 text-sm font-black text-white transition-all hover:bg-pink-600">
                                 Cotizar artículo personalizado
                                 <i class="fa-brands fa-whatsapp"></i>
-                            </button>
+                            </a>
                             <button type="button" data-go-tab="planilla" class="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-black text-logoDark transition-all hover:bg-gray-100">
                                 Calcular DTF o stickers
                                 <i class="fa-solid fa-calculator text-logoCyan"></i>
@@ -2028,6 +2070,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
 
                     <img
                         src="assets/img/lgo-madeacrilico-store.webp"
+                        data-site-image="store-badge"
                         alt="Made Acrílico Store"
                         width="112"
                         height="112"
@@ -2051,15 +2094,16 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
             <div class="space-y-6">
                 <article class="store-feature-card grid grid-cols-1 overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm lg:grid-cols-2">
                     <div class="store-feature-media min-h-[280px] bg-gray-50">
-                        <img src="assets/img/inicio.webp" alt="Artículos para sublimación" width="536" height="353" loading="lazy" decoding="async" class="store-feature-image h-full min-h-[280px] w-full object-cover">
+                        <img src="assets/img/inicio.webp" data-site-image="store-sublimation" alt="Artículos para sublimación" width="536" height="353" loading="lazy" decoding="async" class="store-feature-image h-full min-h-[280px] w-full object-cover">
                     </div>
                     <div class="flex flex-col justify-center p-6 md:p-10">
                         <p class="text-xs font-black uppercase tracking-wider text-logoMagenta">Tienda física</p>
                         <h3 class="mt-2 text-2xl font-black leading-tight text-logoDark sm:text-3xl">Ventas de artículos para sublimación</h3>
                         <p class="mt-4 text-sm leading-7 text-gray-500">Insumos y artículos listos para personalizar: piezas para regalos, productos promocionales y mercancía para emprendedores del área gráfica.</p>
-                        <button type="button" data-go-tab="contacto" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoMagenta">
+                        <p class="store-feature-fit"><span>Ideal para</span> Regalos, emprendimientos y productos promocionales.</p>
+                        <a data-business-whatsapp data-whatsapp-message="Hola Made Acrílico, quiero consultar disponibilidad de artículos para sublimación." href="https://wa.me/18298824820" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoMagenta">
                             Consultar disponibilidad <i class="fa-brands fa-whatsapp"></i>
-                        </button>
+                        </a>
                     </div>
                 </article>
 
@@ -2068,9 +2112,10 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <p class="text-xs font-black uppercase tracking-wider text-logoCyan">Acrílico personalizado</p>
                         <h3 class="mt-2 text-2xl font-black leading-tight text-logoDark sm:text-3xl">Ventas de productos en acrílico personalizados</h3>
                         <p class="mt-4 text-sm leading-7 text-gray-500">Placas, exhibidores, bases, detalles corporativos y piezas a medida para negocios, eventos y marcas.</p>
-                        <button type="button" data-go-tab="contacto" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoCyan">
+                        <p class="store-feature-fit"><span>Ideal para</span> Negocios, eventos y señalización personalizada.</p>
+                        <a data-business-whatsapp data-whatsapp-message="Hola Made Acrílico, quiero cotizar un producto en acrílico personalizado." href="https://wa.me/18298824820" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoCyan">
                             Cotizar acrílico <i class="fa-solid fa-arrow-right"></i>
-                        </button>
+                        </a>
                     </div>
                     <div class="store-feature-art store-feature-art-cyan min-h-[280px] lg:order-2" role="img" aria-label="Ilustración de productos personalizados en acrílico">
                         <i class="fa-solid fa-cubes-stacked"></i>
@@ -2080,12 +2125,13 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
 
                 <article class="store-feature-card grid grid-cols-1 overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm lg:grid-cols-2">
                     <div class="store-feature-media min-h-[280px] bg-gray-50">
-                        <img src="assets/img/test_uv.webp" alt="Servicio DTF UV" width="1600" height="557" loading="lazy" decoding="async" class="store-feature-image h-full min-h-[280px] w-full object-cover">
+                        <img src="assets/img/test_uv.webp" data-site-image="store-uv" alt="Servicio DTF UV" width="1600" height="557" loading="lazy" decoding="async" class="store-feature-image h-full min-h-[280px] w-full object-cover">
                     </div>
                     <div class="flex flex-col justify-center p-6 md:p-10">
                         <p class="text-xs font-black uppercase tracking-wider text-logoCyan">DTF UV</p>
                         <h3 class="mt-2 text-2xl font-black leading-tight text-logoDark sm:text-3xl">Servicio DTF UV</h3>
                         <p class="mt-4 text-sm leading-7 text-gray-500">Adhesivos premium para vasos, acrílico, vidrio, metal, empaques, cosmética y productos rígidos con acabado limpio.</p>
+                        <p class="store-feature-fit"><span>Ideal para</span> Vasos, frascos, empaques y superficies lisas.</p>
                         <button type="button" data-go-tab="planilla" data-calculator-material="uv" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoCyan">
                             Calcular UV <i class="fa-solid fa-calculator"></i>
                         </button>
@@ -2097,12 +2143,13 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <p class="text-xs font-black uppercase tracking-wider text-logoMagenta">DTF Textil</p>
                         <h3 class="mt-2 text-2xl font-black leading-tight text-logoDark sm:text-3xl">Servicio DTF Textil</h3>
                         <p class="mt-4 text-sm leading-7 text-gray-500">Transfers para camisetas, hoodies, uniformes, gorras, colecciones y marcas que necesitan producción regular.</p>
+                        <p class="store-feature-fit"><span>Ideal para</span> Ropa de marca, uniformes y colecciones.</p>
                         <button type="button" data-go-tab="planilla" data-calculator-material="textil" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoMagenta">
                             Calcular textil <i class="fa-solid fa-calculator"></i>
                         </button>
                     </div>
                     <div class="store-feature-media min-h-[280px] bg-logoDark lg:order-2">
-                        <img src="assets/img/test_textil.webp" alt="Servicio DTF Textil" width="548" height="191" loading="lazy" decoding="async" class="store-feature-image h-full min-h-[280px] w-full object-cover">
+                        <img src="assets/img/test_textil.webp" data-site-image="store-textil" alt="Servicio DTF Textil" width="548" height="191" loading="lazy" decoding="async" class="store-feature-image h-full min-h-[280px] w-full object-cover">
                     </div>
                 </article>
 
@@ -2115,9 +2162,10 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <p class="text-xs font-black uppercase tracking-wider text-amber-700">Láminas impresas</p>
                         <h3 class="mt-2 text-2xl font-black leading-tight text-logoDark sm:text-3xl">Ventas de láminas en DTF UV y DTF Textil</h3>
                         <p class="mt-4 text-sm leading-7 text-gray-500">Láminas por tramo para talleres, marcas y revendedores que necesitan material listo para aplicar o entregar.</p>
-                        <button type="button" data-go-tab="contacto" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoDark">
+                        <p class="store-feature-fit"><span>Ideal para</span> Talleres, marcas y revendedores.</p>
+                        <a data-business-whatsapp data-whatsapp-message="Hola Made Acrílico, quiero consultar láminas DTF UV y DTF Textil." href="https://wa.me/18298824820" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoDark">
                             Consultar láminas <i class="fa-brands fa-whatsapp text-logoMagenta"></i>
-                        </button>
+                        </a>
                     </div>
                 </article>
 
@@ -2126,9 +2174,10 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <p class="text-xs font-black uppercase tracking-wider text-logoMagenta">Premiaciones</p>
                         <h3 class="mt-2 text-2xl font-black leading-tight text-logoDark sm:text-3xl">Reconocimientos</h3>
                         <p class="mt-4 text-sm leading-7 text-gray-500">Reconocimientos, placas y piezas conmemorativas para empresas, instituciones, eventos y regalos corporativos.</p>
-                        <button type="button" data-go-tab="contacto" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoMagenta">
+                        <p class="store-feature-fit"><span>Ideal para</span> Premiaciones, eventos y regalos corporativos.</p>
+                        <a data-business-whatsapp data-whatsapp-message="Hola Made Acrílico, quiero cotizar reconocimientos personalizados." href="https://wa.me/18298824820" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoMagenta">
                             Cotizar reconocimiento <i class="fa-solid fa-arrow-right"></i>
-                        </button>
+                        </a>
                     </div>
                     <div class="store-feature-art store-feature-art-magenta min-h-[280px] lg:order-2" role="img" aria-label="Ilustración de reconocimientos y placas personalizadas">
                         <i class="fa-solid fa-award"></i>
@@ -2145,9 +2194,10 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <p class="text-xs font-black uppercase tracking-wider text-logoCyan">Letreros comerciales</p>
                         <h3 class="mt-2 text-2xl font-black leading-tight text-logoDark sm:text-3xl">Letreros en acrílico</h3>
                         <p class="mt-4 text-sm leading-7 text-gray-500">Letreros, rótulos, señalética y piezas visuales para locales, oficinas, exhibiciones y puntos de venta.</p>
-                        <button type="button" data-go-tab="contacto" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoCyan">
+                        <p class="store-feature-fit"><span>Ideal para</span> Locales, oficinas, ferias y puntos de venta.</p>
+                        <a data-business-whatsapp data-whatsapp-message="Hola Made Acrílico, quiero cotizar un letrero en acrílico." href="https://wa.me/18298824820" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoCyan">
                             Cotizar letrero <i class="fa-brands fa-whatsapp"></i>
-                        </button>
+                        </a>
                     </div>
                 </article>
             </div>
@@ -2278,16 +2328,18 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
             <div id="cart-order-status" class="text-xs text-gray-500 leading-relaxed">
                 <div id="cart-order-status-list" class="flex flex-wrap gap-x-3 gap-y-1"></div>
             </div>
-            <details class="rounded-xl bg-gray-50 border border-gray-200 px-3 py-2 text-xs text-gray-500 leading-relaxed">
-                <summary class="cursor-pointer font-bold text-logoDark">¿Qué pasa después de enviar?</summary>
-                <div class="space-y-1 pt-2">
-                    <p><strong class="text-logoDark">Revisión:</strong> confirmamos archivo, material y medida.</p>
-                    <p><strong class="text-logoDark">Entrega:</strong> DTF Textil y UV en 8-24 horas; stickers en 24-48 horas, según volumen.</p>
-                    <p><strong class="text-logoDark">Impuestos:</strong> ITBIS y cargos aplicables se confirman al revisar.</p>
-                    <p><strong class="text-logoDark">Pago:</strong> transferencia o efectivo.</p>
-                    <p><strong class="text-logoDark">Nota:</strong> esta cotización no inicia producción hasta confirmar archivo, total y pago.</p>
+            <section class="checkout-next-steps" aria-labelledby="checkout-next-steps-title">
+                <div class="checkout-next-steps-heading">
+                    <p id="checkout-next-steps-title">Después de enviar tu orden</p>
+                    <span>Producción inicia tras tu aprobación</span>
                 </div>
-            </details>
+                <ol>
+                    <li><span>1</span><p><strong>Revisamos</strong> archivo, material y medida.</p></li>
+                    <li><span>2</span><p><strong>Confirmamos</strong> total final, impuestos, entrega y pago.</p></li>
+                    <li><span>3</span><p><strong>Producimos</strong> cuando apruebas el pedido.</p></li>
+                </ol>
+                <p class="checkout-next-steps-note">DTF Textil y UV: 8-24 h. Stickers: 24-48 h. Los tiempos dependen del volumen y comienzan después de la confirmación.</p>
+            </section>
             <div class="grid grid-cols-1 gap-3">
                 <input
                     id="checkout-name"
@@ -2465,6 +2517,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     <div class="inline-flex rounded-xl bg-white px-3 py-2">
                         <img
                             src="assets/img/madeacrilico-horizontal.webp"
+                            data-site-image="brand-logo"
                             alt="MADE ACRÍLICO"
                             width="185"
                             height="48"
@@ -2502,8 +2555,8 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
 
                 <!-- Redes Sociales y Newsletter -->
                 <div class="space-y-4">
-                    <h2 class="font-bold text-sm text-white uppercase tracking-wider">Síguenos en Redes</h2>
-                    <p class="text-xs text-gray-400">Mantente al tanto de ofertas exclusivas y nuevos materiales disponibles.</p>
+                    <h2 class="font-bold text-sm text-white uppercase tracking-wider">Redes y novedades</h2>
+                    <p class="text-xs text-gray-400">Mira trabajos recientes, nuevos materiales y ejemplos de producción.</p>
                     <div class="flex gap-3">
                     <a href="https://instagram.com/madeacrilico" target="_blank" rel="noopener noreferrer" aria-label="Instagram de MADE Acrílico" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-logoCyan hover:text-white transition-all text-gray-400"><i class="fab fa-instagram text-sm"></i></a>
                     <a href="https://tiktok.com/@madeacrilico" target="_blank" rel="noopener noreferrer" aria-label="TikTok de MADE Acrílico" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-logoYellow hover:text-white transition-all text-gray-400"><i class="fab fa-tiktok text-sm"></i></a>
@@ -2596,6 +2649,6 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
             <div id="legal-modal-content" class="p-5 overflow-y-auto text-sm text-gray-600 leading-relaxed space-y-4"></div>
         </div>
     </div>
-    <script type="module" src="js/app.js?v=1.7.0.4"></script>
+    <script type="module" src="js/app.js?v=1.7.2"></script>
 </body>
 </html>

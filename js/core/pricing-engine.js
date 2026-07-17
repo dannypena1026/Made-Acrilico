@@ -255,6 +255,16 @@ export function buildQuoteFromInput({
         MATERIALS.uv.widths[normalizedUvWidth] ||
         MATERIALS.uv.widths['16'];
 
+    if (!material?.enabled) {
+        return {
+            invalid: true,
+            materialKey: 'uv',
+            material: material?.label || 'DTF UV',
+            quantity: normalizedQuantity,
+            reason: 'uv_width_disabled'
+        };
+    }
+
     const priceData =
         calculateTieredPrice(
             height,
