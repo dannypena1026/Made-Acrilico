@@ -40,37 +40,37 @@ const TAB_METADATA = {
 const MOBILE_FLOATING_ACTIONS = {
     inicio: {
         label: 'Cotizar ahora',
-        icon: 'fa-solid fa-calculator',
+        icon: 'site-icon site-icon-calculator',
         tab: 'planilla',
-        className: 'bg-logoMagenta'
+        className: 'a11y-bg-magenta'
     },
     dtf: {
         label: 'Calcular DTF',
-        icon: 'fa-solid fa-calculator',
+        icon: 'site-icon site-icon-calculator',
         tab: 'planilla',
-        className: 'bg-logoCyan'
+        className: 'a11y-bg-cyan'
     },
     planilla: {
         label: 'Agregar al carrito',
-        icon: 'fa-solid fa-basket-shopping',
+        icon: 'site-icon site-icon-basket-shopping',
         action: 'add-to-cart',
         className: 'bg-logoDark'
     },
     guia: {
         label: 'Calcular material',
-        icon: 'fa-solid fa-calculator',
+        icon: 'site-icon site-icon-calculator',
         tab: 'planilla',
-        className: 'bg-logoMagenta'
+        className: 'a11y-bg-magenta'
     },
     contacto: {
         label: 'Escribir por WhatsApp',
-        icon: 'fa-brands fa-whatsapp',
+        icon: 'brand-icon brand-icon-whatsapp',
         action: 'whatsapp',
         className: 'bg-emerald-500'
     },
     tienda: {
         label: 'Consultar tienda',
-        icon: 'fa-brands fa-whatsapp',
+        icon: 'brand-icon brand-icon-whatsapp',
         action: 'whatsapp',
         className: 'bg-emerald-500'
     }
@@ -440,7 +440,9 @@ function updateMobileFloatingAction(tabId) {
         'bg-logoMagenta',
         'bg-logoCyan',
         'bg-logoDark',
-        'bg-emerald-500'
+        'bg-emerald-500',
+        'a11y-bg-magenta',
+        'a11y-bg-cyan'
     );
 
     button.classList.add(
@@ -791,12 +793,27 @@ function closeAccessibleDialog(modal) {
     dialogFocusOrigins.delete(modal);
 }
 
+function updateMobileMenuLayout() {
+    const menu =
+        $id('mobile-menu');
+    const header =
+        document.querySelector('.site-header');
+
+    if (!menu || !header) return;
+
+    const menuTop = Math.max(0, header.getBoundingClientRect().bottom);
+    const availableHeight = Math.max(
+        160,
+        window.innerHeight - menuTop
+    );
+
+    menu.style.top = `${menuTop}px`;
+    menu.style.maxHeight = `${availableHeight}px`;
+}
+
 function toggleMobileMenu() {
     const menu =
         $id('mobile-menu');
-
-    const header =
-        document.querySelector('header');
 
     if (!menu) return;
 
@@ -806,30 +823,16 @@ function toggleMobileMenu() {
     const toggle =
         $id('mobile-menu-toggle');
 
-    if (willOpen && header) {
-        const headerRect =
-            header.getBoundingClientRect();
-
-        const top =
-            Math.max(0, headerRect.bottom);
-
-        menu.style.top =
-            `${top}px`;
-
-        menu.style.maxHeight =
-            `calc(100vh - ${top}px)`;
-    }
+    if (willOpen) updateMobileMenuLayout();
 
     menu.classList.toggle('hidden');
     toggle?.setAttribute('aria-expanded', String(willOpen));
     toggle?.setAttribute('aria-label', willOpen ? 'Cerrar menú' : 'Abrir menú');
 
     if (willOpen) {
-        lockPageScroll();
-        menu.querySelector('button')?.focus();
+        menu.querySelector('button')?.focus({ preventScroll: true });
     } else {
-        unlockPageScroll();
-        toggle?.focus();
+        toggle?.focus({ preventScroll: true });
     }
 }
 
@@ -842,14 +845,23 @@ function closeMobileMenu({ restoreFocus = false } = {}) {
     menu.classList.add('hidden');
     toggle?.setAttribute('aria-expanded', 'false');
     toggle?.setAttribute('aria-label', 'Abrir menú');
-    unlockPageScroll();
 
-    if (restoreFocus) toggle?.focus();
+    if (restoreFocus) toggle?.focus({ preventScroll: true });
+}
+
+function handleMobileViewportChange() {
+    if (window.innerWidth >= 1024) {
+        closeMobileMenu();
+        return;
+    }
+
+    if (!$id('mobile-menu')?.classList.contains('hidden')) {
+        updateMobileMenuLayout();
+    }
 }
 
 function lockPageScroll() {
     document.documentElement.classList.add('overflow-hidden');
-    document.body.classList.add('overflow-hidden');
 }
 
 function unlockPageScroll() {
@@ -863,12 +875,10 @@ function unlockPageScroll() {
     const cartOpen =
         !$id('cart-sidebar')?.classList.contains('translate-x-full');
 
-    const menuOpen =
-        !$id('mobile-menu')?.classList.contains('hidden');
-
-    if (dialogOpen || cartOpen || menuOpen) return;
+    if (dialogOpen || cartOpen) return;
 
     document.documentElement.classList.remove('overflow-hidden');
+    // Remove the legacy body lock in case an older cached script left it set.
     document.body.classList.remove('overflow-hidden');
 }
 
@@ -1366,13 +1376,13 @@ function initializeNavigation() {
             button.addEventListener(
                 'click',
                 () => {
-                    switchTab(button.dataset.tab);
-
                     if (
                         button.dataset.mobileClose === 'true'
                     ) {
                         closeMobileMenu();
                     }
+
+                    switchTab(button.dataset.tab);
                 }
             );
         });
@@ -1418,6 +1428,13 @@ function initializeNavigation() {
         'click',
         toggleMobileMenu
     );
+
+    document.querySelector('[data-mobile-menu-close]')?.addEventListener(
+        'click',
+        () => closeMobileMenu({ restoreFocus: true })
+    );
+
+    window.addEventListener('resize', handleMobileViewportChange);
 }
 
 function initializeLegalModal() {

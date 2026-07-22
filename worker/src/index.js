@@ -108,10 +108,17 @@ async function hmac(value, secret) {
 }
 
 function constantTimeEqual(left, right) {
-    if (left.length !== right.length) return false;
+    const leftBytes = new TextEncoder().encode(String(left));
+    const rightBytes = new TextEncoder().encode(String(right));
+    if (leftBytes.byteLength !== rightBytes.byteLength) return false;
+
+    if (typeof crypto.subtle.timingSafeEqual === 'function') {
+        return crypto.subtle.timingSafeEqual(leftBytes, rightBytes);
+    }
+
     let difference = 0;
-    for (let index = 0; index < left.length; index += 1) {
-        difference |= left.charCodeAt(index) ^ right.charCodeAt(index);
+    for (let index = 0; index < leftBytes.byteLength; index += 1) {
+        difference |= leftBytes[index] ^ rightBytes[index];
     }
     return difference === 0;
 }
@@ -187,12 +194,31 @@ function corsHeaders(request, env) {
         : {};
 }
 
+function getRequestId(request) {
+    const candidate = request.headers.get('CF-Ray') || request.headers.get('X-Request-ID') || 'local';
+    return cleanText(candidate, 80).replace(/[^a-zA-Z0-9._:-]/g, '') || 'unknown';
+}
+
+function logWorkerError(request, operation, error) {
+    const url = new URL(request.url);
+    console.error({
+        level: 'error',
+        event: 'worker_request_failed',
+        operation,
+        requestId: getRequestId(request),
+        method: request.method,
+        path: url.pathname,
+        errorName: cleanText(error?.name || 'Error', 80)
+    });
+}
+
 function json(request, env, status, body) {
     return new Response(JSON.stringify(body), {
         status,
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
             'Cache-Control': 'no-store',
+            'X-Request-ID': getRequestId(request),
             ...corsHeaders(request, env)
         }
     });
@@ -391,7 +417,7 @@ function formatDop(value) {
     }).format(value);
 }
 
-function normalizeOrderItem(item) {
+function normalizeOrderItem(item, materials = DEFAULT_MATERIALS) {
     if (!item || typeof item !== 'object') return null;
     const materialKey = cleanText(item.materialKey, 20);
     const quantity = Math.floor(Number(item.quantity));
@@ -410,7 +436,7 @@ function normalizeOrderItem(item) {
         stickerMaterial: cleanText(item.stickerMaterialKey, 30) || 'white',
         stickerWidth: width,
         stickerHeight: height
-    });
+    }, materials);
 
     return quote.invalid ? null : quote;
 }
@@ -778,6 +804,11 @@ async function deliverOrderEmail(env, order) {
 }
 
 async function handleUpload(request, env) {
+    const contentType = request.headers.get('Content-Type') || '';
+    if (!/^multipart\/form-data(?:;|$)/i.test(contentType)) {
+        return json(request, env, 415, { success: false, message: 'La carga debe enviarse como formulario multipart.' });
+    }
+
     if (!hasCloudinaryUpload(env)) {
         return json(request, env, 503, { success: false, message: 'El almacenamiento de archivos no está disponible. Intenta nuevamente en unos minutos.' });
     }
@@ -786,7 +817,10 @@ async function handleUpload(request, env) {
         return json(request, env, 413, { success: false, message: 'El archivo supera 10 MB.' });
     }
 
-    const formData = await request.formData();
+    const formData = await request.formData().catch(() => null);
+    if (!formData) {
+        return json(request, env, 400, { success: false, message: 'No se pudo leer el formulario de carga.' });
+    }
     const file = formData.get('file');
     const material = cleanText(formData.get('material'), 20);
 
@@ -944,7 +978,12 @@ async function handleAdminSiteImageReset(request, env, slot) {
 }
 
 async function handleOrder(request, env) {
-    const body = await request.json().catch(() => null);
+    let body;
+    try {
+        body = await request.json();
+    } catch {
+        return json(request, env, 400, { success: false, message: 'El cuerpo de la orden debe ser JSON válido.' });
+    }
     if (!body || typeof body !== 'object' || !Array.isArray(body.items) || body.items.length === 0 || body.items.length > MAX_ORDER_ITEMS) {
         return json(request, env, 400, { success: false, message: 'La orden no tiene productos válidos.' });
     }
@@ -976,9 +1015,10 @@ async function handleOrder(request, env) {
         });
     }
 
+    const siteConfiguration = await getSiteConfiguration(env);
     const items = [];
     for (const rawItem of body.items) {
-        const quote = normalizeOrderItem(rawItem);
+        const quote = normalizeOrderItem(rawItem, siteConfiguration.materials);
         const asset = await verifyAssetToken(rawItem?.fileToken, env.ASSET_TOKEN_SECRET);
         if (!quote || !asset || asset.material !== quote.materialKey || !isCloudinaryAssetUrl(asset.url, env.CLOUDINARY_CLOUD_NAME)) {
             return json(request, env, 400, { success: false, message: 'Uno de los archivos no es válido o venció. Súbelo nuevamente.' });
@@ -1015,7 +1055,8 @@ async function handleOrder(request, env) {
 
     try {
         emailSent = await deliverOrderEmail(env, order);
-    } catch {
+    } catch (error) {
+        logWorkerError(request, 'order_email_delivery', error);
         emailSent = false;
     }
     await updateOrderEmailStatus(env, order.id, {
@@ -1275,7 +1316,8 @@ export default {
                 }
 
                 return json(request, env, 405, { success: false, message: 'Método o ruta interna no permitidos.' });
-            } catch {
+            } catch (error) {
+                logWorkerError(request, 'admin_request', error);
                 return json(request, env, 500, { success: false, message: 'No se pudo procesar la operación interna.' });
             }
         }
@@ -1308,7 +1350,8 @@ export default {
             }
 
             return json(request, env, 404, { success: false, message: 'Ruta no encontrada.' });
-        } catch {
+        } catch (error) {
+            logWorkerError(request, 'public_request', error);
             return json(request, env, 500, { success: false, message: 'No se pudo procesar la solicitud. Intenta nuevamente.' });
         }
     }

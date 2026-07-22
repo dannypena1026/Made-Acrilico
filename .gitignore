@@ -3,3 +3,6 @@ node_modules/
 **/.DS_Store
 worker/.dev.vars
 worker/.wrangler/
+playwright-report/
+test-results/
+backups/

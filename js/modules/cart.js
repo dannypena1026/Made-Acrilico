@@ -6,6 +6,7 @@ import {
     generateId
 } from '../utils/helpers.js';
 import {
+    createOrderIntentFingerprint,
     getCartItemMinimumQuantity,
     getCartItemTotal,
     generateOrderId,
@@ -32,6 +33,7 @@ import {
 } from './ui.js';
 
 const ORDER_TIMEOUT_MS = 20000;
+const PENDING_ORDER_KEY = 'madeAcrilicoPendingOrder';
 
 let cart = [];
 let includeShipping = false;
@@ -118,7 +120,7 @@ function renderStatusRow({
                 ? 'text-emerald-600'
                 : 'text-gray-500'
         }">
-            <i class="fa-solid ${icon} ${
+            <i class="site-icon ${icon} ${
                 ready
                     ? 'text-emerald-500'
                     : 'text-logoYellow'
@@ -164,7 +166,7 @@ function getOrderStatusRows() {
 
     return [
         {
-            icon: filesReady ? 'fa-file-circle-check' : 'fa-file-circle-exclamation',
+            icon: filesReady ? 'site-icon-file-circle-check' : 'site-icon-file-circle-exclamation',
             label: 'Archivo',
             message: filesReady
                 ? 'Listo'
@@ -174,7 +176,7 @@ function getOrderStatusRows() {
             ready: filesReady
         },
         {
-            icon: dataReady ? 'fa-user-check' : 'fa-user-pen',
+            icon: dataReady ? 'site-icon-user-check' : 'site-icon-user-pen',
             label: 'Datos',
             message: dataReady
                 ? 'Completos'
@@ -188,7 +190,7 @@ function getOrderStatusRows() {
             ready: dataReady
         },
         {
-            icon: includeShipping ? 'fa-truck-fast' : 'fa-store',
+            icon: includeShipping ? 'site-icon-truck-fast' : 'site-icon-store',
             label: 'Entrega',
             message: includeShipping
                 ? deliveryReady
@@ -198,7 +200,7 @@ function getOrderStatusRows() {
             ready: deliveryReady
         },
         {
-            icon: orderReady ? 'fa-envelope-circle-check' : 'fa-circle-info',
+            icon: orderReady ? 'site-icon-envelope-circle-check' : 'site-icon-circle-info',
             label: 'Orden',
             message: orderReady
                 ? 'Lista'
@@ -349,7 +351,7 @@ function renderEmptyCart(
 
         <div class="text-center py-12 text-gray-400 space-y-2">
 
-            <i class="fa-solid fa-basket-shopping text-4xl block"></i>
+            <i class="site-icon site-icon-basket-shopping text-4xl block"></i>
 
             <span class="text-sm">
                 Cotización vacía.
@@ -411,7 +413,7 @@ function renderCartItem(item) {
                         title="Duplicar ítem"
                         aria-label="Duplicar ${escapeHTML(item.material)}"
                     >
-                        <i class="fa-solid fa-copy"></i>
+                        <i class="site-icon site-icon-copy"></i>
                     </button>
 
                     <button
@@ -422,7 +424,7 @@ function renderCartItem(item) {
                         title="Eliminar ítem"
                         aria-label="Eliminar ${escapeHTML(item.material)}"
                     >
-                        <i class="fa-solid fa-trash"></i>
+                        <i class="site-icon site-icon-trash"></i>
                     </button>
                 </div>
 
@@ -969,6 +971,55 @@ function buildSecureOrderPayload({
     };
 }
 
+function readPendingOrder() {
+    try {
+        const pendingOrder = JSON.parse(sessionStorage.getItem(PENDING_ORDER_KEY) || 'null');
+        return pendingOrder &&
+            /^MA-\d{8}-\d{6}-[A-Z0-9]{6}$/.test(pendingOrder.orderId) &&
+            /^[a-f0-9]{64}$/.test(pendingOrder.fingerprint)
+            ? pendingOrder
+            : null;
+    } catch {
+        return null;
+    }
+}
+
+function savePendingOrder(pendingOrder) {
+    try {
+        sessionStorage.setItem(PENDING_ORDER_KEY, JSON.stringify(pendingOrder));
+    } catch {
+        // El checkout sigue funcionando aunque el navegador bloquee sessionStorage.
+    }
+}
+
+function clearPendingOrder(orderId) {
+    const pendingOrder = readPendingOrder();
+    if (!pendingOrder || pendingOrder.orderId !== orderId) return;
+
+    try {
+        sessionStorage.removeItem(PENDING_ORDER_KEY);
+    } catch {
+        // No hace falta interrumpir una orden confirmada por un fallo de almacenamiento.
+    }
+}
+
+async function getOrderIdForCheckout(checkoutDetails) {
+    const unsignedPayload = buildSecureOrderPayload({
+        ...checkoutDetails,
+        orderId: ''
+    });
+    const fingerprint = await createOrderIntentFingerprint(unsignedPayload);
+    const pendingOrder = readPendingOrder();
+
+    if (pendingOrder?.fingerprint === fingerprint) {
+        return pendingOrder.orderId;
+    }
+
+    const orderId = generateOrderId();
+    savePendingOrder({ orderId, fingerprint });
+    return orderId;
+}
+
 
 async function checkoutOrder() {
 
@@ -1040,7 +1091,7 @@ async function checkoutOrder() {
     }
 
     const orderId =
-        generateOrderId();
+        await getOrderIdForCheckout(checkoutDetails);
 
     const orderData = {
         ...checkoutDetails,
@@ -1062,7 +1113,7 @@ async function checkoutOrder() {
         checkoutBtn.disabled = true;
         checkoutBtn.setAttribute('aria-busy', 'true');
         checkoutBtn.innerHTML =
-            '<i class="fa-solid fa-spinner fa-spin"></i> Enviando orden...';
+            '<i class="site-icon site-icon-spinner site-icon-spin"></i> Enviando orden...';
     }
 
     const orderPayload =
@@ -1100,6 +1151,8 @@ async function checkoutOrder() {
         saveCart();
         saveShippingPreference();
         updateCartUI();
+
+        clearPendingOrder(orderId);
 
         showOrderSuccess(orderId);
 

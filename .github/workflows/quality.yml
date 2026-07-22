@@ -1,0 +1,58 @@
+name: Calidad
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Compilar CSS
+        run: npm run build:css
+
+      - name: Compilar JavaScript
+        run: npm run build:js
+
+      - name: Verificar artefacto CSS
+        run: git diff --exit-code -- css/tailwind.css js/dist
+
+      - name: Validar HTML
+        run: npm run check:html
+
+      - name: Validar JavaScript
+        run: npm run check:js
+
+      - name: Validar estructura y rutas
+        run: npm run check:project
+
+      - name: Ejecutar pruebas unitarias
+        run: npm test
+
+      - name: Auditar dependencias
+        run: npm audit --audit-level=high
+
+      - name: Instalar Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Ejecutar pruebas de navegador
+        run: npm run test:e2e
+
+      - name: Validar Worker
+        run: npx --yes wrangler@4.113.0 deploy --config worker/wrangler.jsonc --dry-run

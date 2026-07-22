@@ -18,6 +18,8 @@ Página web oficial de MADE ACRÍLICO para presentar servicios gráficos, cotiza
 - SEO básico con canonical, sitemap, robots, favicon, preview social y JSON-LD.
 - Cabeceras de seguridad para el despliegue en Cloudflare Pages.
 - Assets optimizados en WebP para reducir peso de carga.
+- Variantes responsivas de imágenes para reducir transferencia móvil.
+- Pruebas unitarias, estructurales y de navegador con CI en GitHub Actions.
 
 ## Flujo del cliente
 
@@ -70,6 +72,21 @@ assets/img/social-preview-made-acrilico-v170.png
 assets/img/stickers-optimized.webp
 assets/img/test_textil.webp
 assets/img/test_uv.webp
+assets/img/test_uv-800.webp
+assets/img/stickers-600.webp
+assets/img/stickers-800.webp
+assets/img/etiquetas-600.webp
+assets/img/etiquetas-750.webp
+assets/img/lgo-madeacrilico-store-160.webp
+assets/img/favicon-made-acrilico-64.png
+assets/img/apple-touch-icon-180.png
+assets/fonts/plus-jakarta-sans-latin.woff2
+assets/fonts/OFL-PlusJakartaSans.txt
+assets/icons/whatsapp.svg
+assets/icons/google.svg
+assets/icons/instagram.svg
+assets/icons/tiktok.svg
+assets/icons/solid/
 ```
 
 El logo visible, el favicon, la vista previa social y el dato estructurado usan las versiones optimizadas actuales.
@@ -122,6 +139,13 @@ test/
   file-policy.test.js
   helpers.test.js
   pricing-engine.test.js
+e2e/
+  site.spec.js
+docs/
+  OPERACIONES.md
+  RETENCION-DE-DATOS.md
+.github/workflows/quality.yml
+404.html
 index.html
 _headers
 package.json
@@ -142,6 +166,12 @@ Generar CSS:
 npm run build:css
 ```
 
+Generar JavaScript optimizado:
+
+```bash
+npm run build:js
+```
+
 Revisar JavaScript:
 
 ```bash
@@ -151,6 +181,7 @@ npm run check:js
 Validar HTML, rutas locales y hashes de CSP:
 
 ```bash
+npm run check:html
 npm run check:project
 ```
 
@@ -158,6 +189,13 @@ Ejecutar pruebas:
 
 ```bash
 npm test
+```
+
+Ejecutar pruebas de navegador:
+
+```bash
+npx playwright install chromium
+npm run test:e2e
 ```
 
 Iniciar la API protegida durante desarrollo:
@@ -169,9 +207,13 @@ npm run dev:worker
 ## Checklist antes de publicar
 
 - Ejecutar `npm run build:css`.
+- Ejecutar `npm run build:js`.
 - Ejecutar `npm run check:js`.
+- Ejecutar `npm run check:html`.
 - Ejecutar `npm run check:project`.
 - Ejecutar `npm test`.
+- Ejecutar `npm run test:e2e`.
+- Ejecutar `npm audit --audit-level=high`.
 - Probar navegación por hash: `#inicio`, `#dtf`, `#planilla`, `#guia`, `#contacto`, `#tienda`.
 - Probar que al recargar no aparezcan secciones o datos antiguos.
 - Probar subida de archivo con el Worker iniciado.
@@ -188,6 +230,8 @@ npm run dev:worker
 - Si cambia el correo receptor, actualiza el secreto `WEB3FORMS_ACCESS_KEY` del Worker.
 - Si cambian logos o previews, elimina assets antiguos no usados para evitar referencias fantasma.
 - No compartas los secretos del Worker ni subas `worker/.dev.vars` al repositorio.
+- Sigue [docs/OPERACIONES.md](docs/OPERACIONES.md) para respaldos, migraciones, observabilidad e incidentes.
+- No automatices eliminación de datos hasta aprobar [docs/RETENCION-DE-DATOS.md](docs/RETENCION-DE-DATOS.md).
 
 ## Límites de la arquitectura actual
 

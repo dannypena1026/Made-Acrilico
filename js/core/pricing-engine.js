@@ -52,9 +52,9 @@ export function calculateStickerQuote({
     width,
     height,
     quantity = 1
-}) {
+}, materials = MATERIALS) {
     const stickersConfig =
-        MATERIALS.stickers;
+        materials.stickers;
 
     const material =
         stickersConfig.materials[materialKey] ||
@@ -150,7 +150,7 @@ export function calculateStickerQuote({
         Math.ceil(totalSqFtUsed * material.pricePerSqFt);
 
     const configuredDiscountRate =
-        calculateStickerDiscount(normalizedQuantity);
+        calculateStickerDiscount(normalizedQuantity, stickersConfig.autoDiscount);
 
     const calculatedTotal =
         Math.ceil(initialCost * (1 - configuredDiscountRate));
@@ -199,7 +199,7 @@ export function buildQuoteFromInput({
     stickerMaterial = 'white',
     stickerWidth,
     stickerHeight
-}) {
+}, materials = MATERIALS) {
     const normalizedQuantity =
         Number.isFinite(quantity) && quantity > 0
             ? quantity
@@ -212,19 +212,19 @@ export function buildQuoteFromInput({
                 width: stickerWidth,
                 height: stickerHeight,
                 quantity: normalizedQuantity
-            });
+            }, materials);
         }
 
         return {
             invalid: true,
-            material: materialKey === 'uv' ? MATERIALS.uv.widths[String(uvWidth)]?.label || 'DTF UV' : 'DTF Textil',
+            material: materialKey === 'uv' ? materials.uv.widths[String(uvWidth)]?.label || 'DTF UV' : 'DTF Textil',
             quantity: normalizedQuantity
         };
     }
 
     if (materialKey === 'textil') {
         const material =
-            MATERIALS.textil;
+            materials.textil;
 
         const priceData =
             calculateTieredPrice(
@@ -252,8 +252,8 @@ export function buildQuoteFromInput({
         String(parseFloat(uvWidth) || 16);
 
     const material =
-        MATERIALS.uv.widths[normalizedUvWidth] ||
-        MATERIALS.uv.widths['16'];
+        materials.uv.widths[normalizedUvWidth] ||
+        materials.uv.widths['16'];
 
     if (!material?.enabled) {
         return {

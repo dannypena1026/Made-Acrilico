@@ -40,12 +40,34 @@ export function applyRuntimeImages(documentRoot = document) {
         }
 
         image.src = savedImage.url;
+        image.removeAttribute('srcset');
+        image.removeAttribute('sizes');
         if (savedImage.alt) image.alt = savedImage.alt;
     });
 }
 
 export function getRuntimeSiteConfiguration() {
     return runtimeConfiguration;
+}
+
+function applyRuntimeStructuredData(configuration) {
+    const script = document.getElementById('business-structured-data');
+    const business = configuration?.business;
+    if (!script || !business) return;
+
+    try {
+        const data = JSON.parse(script.textContent);
+        const localBusiness = data?.['@graph']?.find(item => item?.['@type'] === 'LocalBusiness');
+        if (!localBusiness) return;
+
+        localBusiness.name = business.name;
+        localBusiness.email = business.email;
+        localBusiness.telephone = business.phoneHref;
+        localBusiness.address.streetAddress = business.address;
+        script.textContent = JSON.stringify(data);
+    } catch {
+        // The static structured data remains valid if runtime synchronization fails.
+    }
 }
 
 export async function loadRuntimeSiteConfiguration() {
@@ -67,7 +89,9 @@ export async function loadRuntimeSiteConfiguration() {
                 runtimeImages = payload.config.images && typeof payload.config.images === 'object'
                     ? payload.config.images
                     : {};
-                return applyRuntimeBusinessConfig(payload.config);
+                const applied = applyRuntimeBusinessConfig(payload.config);
+                if (applied) applyRuntimeStructuredData(payload.config);
+                return applied;
             } catch {
                 return false;
             } finally {

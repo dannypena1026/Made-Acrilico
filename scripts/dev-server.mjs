@@ -1,6 +1,7 @@
 import { createReadStream, existsSync, statSync } from 'node:fs';
 import { createServer, request as proxyRequest } from 'node:http';
 import { extname, resolve } from 'node:path';
+import { createGzip } from 'node:zlib';
 
 const PORT = Number(process.env.PORT || 4190);
 const HOST = process.env.HOST || '0.0.0.0';
@@ -22,10 +23,32 @@ const CONTENT_TYPES = {
     '.woff2': 'font/woff2'
 };
 
+const COMPRESSIBLE_EXTENSIONS = new Set(['.css', '.html', '.js', '.json', '.svg']);
+
 function safeFilePath(pathname) {
-    const requested = pathname === '/' ? '/index.html' : pathname;
-    const filePath = resolve(ROOT, `.${decodeURIComponent(requested)}`);
-    return filePath.startsWith(`${ROOT}/`) ? filePath : null;
+    let decodedPath;
+    try {
+        decodedPath = decodeURIComponent(pathname);
+    } catch {
+        return null;
+    }
+
+    const normalizedPath = decodedPath === '/'
+        ? '/index.html'
+        : decodedPath.replace(/\/+$/, '');
+    const filePath = resolve(ROOT, `.${normalizedPath}`);
+    if (!filePath.startsWith(`${ROOT}/`)) return null;
+
+    if (existsSync(filePath) && statSync(filePath).isFile()) return filePath;
+
+    if (!extname(normalizedPath)) {
+        const htmlPath = resolve(ROOT, `.${normalizedPath}.html`);
+        if (htmlPath.startsWith(`${ROOT}/`) && existsSync(htmlPath) && statSync(htmlPath).isFile()) {
+            return htmlPath;
+        }
+    }
+
+    return null;
 }
 
 function proxyApi(request, response) {
@@ -58,6 +81,35 @@ function proxyApi(request, response) {
     request.pipe(upstream);
 }
 
+function serveFile(request, response, filePath, status = 200, extraHeaders = {}) {
+    const extension = extname(filePath).toLowerCase();
+    const acceptsGzip = /(?:^|,)\s*gzip\s*(?:,|$)/i.test(request.headers['accept-encoding'] || '');
+    const useGzip = acceptsGzip && COMPRESSIBLE_EXTENSIONS.has(extension);
+    const headers = {
+        'Content-Type': CONTENT_TYPES[extension] || 'application/octet-stream',
+        'Cache-Control': 'no-store',
+        ...extraHeaders
+    };
+
+    if (useGzip) {
+        headers['Content-Encoding'] = 'gzip';
+        headers.Vary = 'Accept-Encoding';
+    }
+
+    response.writeHead(status, headers);
+    if (request.method === 'HEAD') {
+        response.end();
+        return;
+    }
+
+    const stream = createReadStream(filePath);
+    if (useGzip) {
+        stream.pipe(createGzip()).pipe(response);
+        return;
+    }
+    stream.pipe(response);
+}
+
 const server = createServer((request, response) => {
     const url = new URL(request.url || '/', `http://${request.headers.host || 'localhost'}`);
     if (url.pathname.startsWith('/api/')) {
@@ -66,21 +118,12 @@ const server = createServer((request, response) => {
     }
 
     const filePath = safeFilePath(url.pathname);
-    if (!filePath || !existsSync(filePath) || !statSync(filePath).isFile()) {
-        response.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
-        response.end('Archivo no encontrado');
+    if (!filePath) {
+        serveFile(request, response, resolve(ROOT, '404.html'), 404);
         return;
     }
 
-    response.writeHead(200, {
-        'Content-Type': CONTENT_TYPES[extname(filePath).toLowerCase()] || 'application/octet-stream',
-        'Cache-Control': 'no-store'
-    });
-    if (request.method === 'HEAD') {
-        response.end();
-        return;
-    }
-    createReadStream(filePath).pipe(response);
+    serveFile(request, response, filePath);
 });
 
 server.listen(PORT, HOST, () => {

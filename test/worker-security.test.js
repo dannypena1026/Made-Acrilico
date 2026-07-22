@@ -36,6 +36,29 @@ test('el Worker recalcula una cotización y descarta totales enviados por el nav
     assert.equal(item.materialKey, 'textil');
 });
 
+test('el Worker usa los precios validados del panel al recalcular una orden', () => {
+    const configuration = normalizeSiteConfiguration({
+        materials: {
+            textil: {
+                tiers: [
+                    { length: 18, price: 375 },
+                    { length: 36, price: 650 }
+                ]
+            }
+        }
+    });
+    const item = normalizeOrderItem({
+        materialKey: 'textil',
+        width: 22,
+        height: 18,
+        quantity: 2,
+        total: 1
+    }, configuration.materials);
+
+    assert.equal(item.unitPrice, 375);
+    assert.equal(item.total, 750);
+});
+
 test('el token de un archivo se valida y no acepta alteraciones', async () => {
     const secret = 'prueba-secreta-larga';
     const token = await createAssetToken({

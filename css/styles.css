@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 300 800;
+    font-display: swap;
+    src: url('../assets/fonts/plus-jakarta-sans-latin.woff2') format('woff2');
+}
+
 .skip-link {
     position: fixed;
     top: 0.75rem;
@@ -21,6 +29,61 @@
     outline-offset: 3px;
 }
 
+.a11y-bg-magenta {
+    background-color: #d32670 !important;
+}
+
+.a11y-bg-magenta:hover {
+    background-color: #bd1f66 !important;
+}
+
+.a11y-bg-cyan {
+    background-color: #007fa8 !important;
+}
+
+.a11y-bg-cyan:hover {
+    background-color: #006f94 !important;
+}
+
+.a11y-text-magenta {
+    color: #c2185b !important;
+}
+
+.a11y-text-cyan {
+    color: #006f94 !important;
+}
+
+.a11y-text-magenta-on-dark {
+    color: #ff5ba5 !important;
+}
+
+.brand-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    flex: 0 0 auto;
+    background-color: currentColor;
+    vertical-align: -0.125em;
+    -webkit-mask: var(--brand-icon) center / contain no-repeat;
+    mask: var(--brand-icon) center / contain no-repeat;
+}
+
+.brand-icon-whatsapp {
+    --brand-icon: url('../assets/icons/whatsapp.svg');
+}
+
+.brand-icon-google {
+    --brand-icon: url('../assets/icons/google.svg');
+}
+
+.brand-icon-instagram {
+    --brand-icon: url('../assets/icons/instagram.svg');
+}
+
+.brand-icon-tiktok {
+    --brand-icon: url('../assets/icons/tiktok.svg');
+}
+
 button:disabled,
 input:disabled,
 select:disabled {
@@ -41,6 +104,10 @@ select:disabled {
     height: 40px;
     width: auto;
     object-fit: contain;
+}
+
+.mobile-menu-panel {
+    overscroll-behavior: contain;
 }
 
 .section-shell {
@@ -316,7 +383,6 @@ select:disabled {
         background-color: #fff;
     }
 
-    body[data-active-tab="tienda"] .site-header,
     body[data-active-tab="tienda"] .mobile-action-bar {
         position: static;
     }

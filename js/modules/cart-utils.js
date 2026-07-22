@@ -92,6 +92,12 @@ export function generateOrderId(date = new Date()) {
     return `MA-${stamp}-${timeStamp}-${uniqueSuffix}`;
 }
 
+export async function createOrderIntentFingerprint(orderPayload) {
+    const bytes = new TextEncoder().encode(JSON.stringify(orderPayload));
+    const digest = await crypto.subtle.digest('SHA-256', bytes);
+    return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
+}
+
 export function normalizeDominicanPhone(phone) {
     const digits = String(phone || '').replace(/\D/g, '');
 

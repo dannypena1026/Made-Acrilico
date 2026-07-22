@@ -7,17 +7,17 @@
     <meta name="robots" content="noindex, nofollow, noarchive">
     <meta name="theme-color" content="#1E1E1E">
     <meta name="referrer" content="no-referrer">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' https://res.cloudinary.com; connect-src 'self' https://madeacrilico.com http://*:8787; form-action 'none';">
-    <link rel="icon" type="image/png" sizes="512x512" href="assets/img/favicon-made-acrilico-v170.png">
-    <link rel="stylesheet" href="css/tailwind.css?v=1.7.1">
-    <link rel="stylesheet" href="css/styles.css?v=1.7.2">
-    <link rel="stylesheet" href="css/admin.css?v=1.7.2">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' https://res.cloudinary.com; connect-src 'self' https://madeacrilico.com; form-action 'none';">
+    <link rel="icon" type="image/png" sizes="64x64" href="assets/img/favicon-made-acrilico-64.png">
+    <link rel="stylesheet" href="css/tailwind.css?v=1.7.3">
+    <link rel="stylesheet" href="css/styles.css?v=1.7.3">
+    <link rel="stylesheet" href="css/admin.css?v=1.7.3">
 </head>
 <body class="admin-body bg-slate-100 text-slate-900">
     <a href="#admin-main" class="skip-link">Saltar al contenido principal</a>
     <header class="admin-header">
         <div class="admin-shell">
-            <a href="index.html" class="admin-brand" aria-label="Volver al sitio público de Made Acrílico">
+            <a href="/" class="admin-brand" aria-label="Volver al sitio público de Made Acrílico">
                 <img src="assets/img/madeacrilico-horizontal.webp" alt="MADE ACRÍLICO" width="560" height="175">
                 <span>Centro de operaciones</span>
             </a>
@@ -28,8 +28,8 @@
         </div>
     </header>
 
-    <main id="admin-login-view" class="admin-shell admin-login" tabindex="-1">
-        <section class="admin-login-card" aria-labelledby="admin-login-title">
+    <main id="admin-login-view" class="admin-shell admin-login" tabindex="-1" aria-label="Acceso al panel interno">
+        <section class="admin-login-card">
             <p class="admin-eyebrow">Acceso interno</p>
             <h1 id="admin-login-title">Pedidos y producción</h1>
             <p>Ingresa la contraseña de operaciones para consultar y actualizar las órdenes.</p>
@@ -41,8 +41,8 @@
         </section>
     </main>
 
-    <main id="admin-main" class="admin-shell admin-main" tabindex="-1" hidden>
-        <section class="admin-intro" aria-labelledby="admin-title">
+    <main id="admin-main" class="admin-shell admin-main" tabindex="-1" aria-label="Panel interno de operaciones" hidden>
+        <section class="admin-intro">
             <div>
                 <p class="admin-eyebrow">Centro de control</p>
                 <h1 id="admin-title">Pedidos y producción</h1>
@@ -60,7 +60,7 @@
             <button type="button" role="tab" aria-selected="false" data-admin-view="images">Imágenes</button>
         </div>
 
-        <section id="admin-orders-view" class="admin-view" aria-label="Pedidos y producción">
+        <section id="admin-orders-view" class="admin-view" aria-label="Vista de gestión de pedidos">
         <section class="admin-metrics" aria-label="Resumen de órdenes">
             <article class="admin-metric-card"><span class="admin-metric-accent admin-metric-accent-magenta" aria-hidden="true"></span><span>Total de órdenes</span><strong id="metric-total-orders">-</strong></article>
             <article class="admin-metric-card"><span class="admin-metric-accent admin-metric-accent-cyan" aria-hidden="true"></span><span>Últimos 30 días</span><strong id="metric-last-30-days">-</strong></article>
@@ -121,6 +121,6 @@
         </section>
     </main>
     <div id="admin-toast" class="admin-toast" role="status" aria-live="polite" hidden></div>
-    <script type="module" src="js/admin.js?v=1.7.2"></script>
+    <script type="module" src="js/dist/admin.min.js?v=1.7.3"></script>
 </body>
 </html>

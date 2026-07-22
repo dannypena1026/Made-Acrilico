@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
+    createOrderIntentFingerprint,
     generateOrderId,
     getCartItemMinimumQuantity,
     getCartItemTotal,
@@ -47,4 +48,23 @@ test('genera un identificador de orden legible y único por sufijo', () => {
     const orderId = generateOrderId(date);
 
     assert.match(orderId, /^MA-20260716-143045-[A-Z0-9]{6}$/);
+});
+
+test('genera una huella estable para reintentar la misma orden sin duplicarla', async () => {
+    const payload = {
+        customer: { name: 'Cliente', phone: '8298824820' },
+        fulfillment: 'pickup',
+        items: [{ materialKey: 'textil', height: 18, quantity: 1 }]
+    };
+
+    const first = await createOrderIntentFingerprint(payload);
+    const second = await createOrderIntentFingerprint(structuredClone(payload));
+    const changed = await createOrderIntentFingerprint({
+        ...payload,
+        items: [{ materialKey: 'textil', height: 18, quantity: 2 }]
+    });
+
+    assert.match(first, /^[a-f0-9]{64}$/);
+    assert.equal(first, second);
+    assert.notEqual(first, changed);
 });

@@ -12,7 +12,7 @@
     <meta name="geo.placename" content="Santo Domingo, República Dominicana">
     <meta name="theme-color" content="#E52D7F">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; worker-src 'none'; script-src 'self' 'sha256-XORIYIk5Nfbkh6yPH1rMHzCI//eh1le6S9ViYbIYQhw=' 'sha256-EkqC02AdD2GyyhcybEXxuZfdPHZdh4Ow/iItL6PPrzw='; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self' https://madeacrilico.com http://*:8787; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; worker-src 'none'; script-src 'self' 'sha256-o/0Qx2y3ijVj3Ipz9C9QloPa0ecME5wyg9SyYcc78nM=' 'sha256-EkqC02AdD2GyyhcybEXxuZfdPHZdh4Ow/iItL6PPrzw=' https://static.cloudflareinsights.com; style-src 'self'; style-src-elem 'self' 'sha256-3oAEWW7WgedXQclQEnneSHTZY3XERoIgrMY0NXQ/x64='; style-src-attr 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://res.cloudinary.com; connect-src 'self' https://madeacrilico.com https://cloudflareinsights.com; form-action 'self';">
     <link rel="canonical" href="https://www.madeacrilico.com/">
     <meta property="og:site_name" content="MADE ACRÍLICO">
     <meta property="og:title" content="MADE ACRÍLICO | DTF Textil, DTF UV y Stickers en Santo Domingo">
@@ -27,7 +27,7 @@
     <meta name="twitter:title" content="MADE ACRÍLICO | DTF Textil, DTF UV y Stickers en Santo Domingo">
     <meta name="twitter:description" content="Cotiza impresión DTF textil, DTF UV adhesivo, stickers y etiquetas en Santo Domingo.">
     <meta name="twitter:image" content="https://www.madeacrilico.com/assets/img/social-preview-made-acrilico-v170.png">
-    <script type="application/ld+json">
+    <script id="business-structured-data" type="application/ld+json">
 {
     "@context": "https://schema.org",
     "@graph": [
@@ -40,7 +40,7 @@
             "logo": "https://www.madeacrilico.com/assets/img/MADEACRILICO%20ORIZONTAL.png",
             "image": "https://www.madeacrilico.com/assets/img/social-preview-made-acrilico-v170.png",
             "description": "Taller gráfico en Santo Domingo especializado en impresión DTF textil, DTF UV adhesivo, stickers, etiquetas, acrílicos, corte y acabados comerciales.",
-            "email": "info@madeacrilico.com",
+            "email": "contacto@madeacrilico.com",
             "telephone": "+1-829-882-4820",
             "address": {
                 "@type": "PostalAddress",
@@ -101,11 +101,11 @@
     ]
 }
     </script>
-    <link rel="icon" type="image/png" sizes="512x512" href="assets/img/favicon-made-acrilico-v170.png">
-    <link rel="shortcut icon" href="assets/img/favicon-made-acrilico-v170.png">
-    <link rel="apple-touch-icon" href="assets/img/favicon-made-acrilico-v170.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="assets/img/favicon-made-acrilico-64.png">
+    <link rel="shortcut icon" href="assets/img/favicon-made-acrilico-64.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon-180.png">
     <link rel="preload" as="image" href="assets/img/madeacrilico-horizontal.webp">
-    <link rel="preload" as="image" href="assets/img/etiquetas.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/img/etiquetas.webp" imagesrcset="assets/img/etiquetas-600.webp 600w, assets/img/etiquetas-750.webp 750w, assets/img/etiquetas.webp 899w" imagesizes="(max-width: 768px) 100vw, 50vw" fetchpriority="high">
     <style>
         html[data-initial-tab] .tab-content { display: none !important; }
         html[data-initial-tab="inicio"] #tab-inicio,
@@ -152,14 +152,10 @@
         }
     </script>
     <!-- Tailwind CSS -->
-    <link rel="stylesheet" href="css/tailwind.css?v=1.7.1-colors">
+    <link rel="stylesheet" href="css/tailwind.css?v=1.7.3">
     <!-- FontAwesome para Iconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css?v=1.7.2">
+    <link rel="stylesheet" href="assets/icons/solid/icons.css?v=1.7.3">
+    <link rel="stylesheet" href="css/styles.css?v=1.7.3">
 </head>
 <body class="bg-[#F8F9FA] text-[#1E1E1E] min-h-screen font-sans antialiased overflow-x-hidden">
 
@@ -212,7 +208,7 @@
                 <!-- Iconos de Acción y Contacto Rápido -->
                 <div class="flex items-center gap-4">
                     <a data-business-whatsapp href="https://wa.me/18298824820" target="_blank" rel="noopener noreferrer" class="hidden lg:flex items-center gap-2 text-sm font-semibold bg-emerald-500 text-white px-4 py-2 rounded-full hover:bg-emerald-600 transition-all shadow-md">
-                        <i class="fab fa-whatsapp text-lg"></i>
+                        <i class="brand-icon brand-icon-whatsapp text-lg"></i>
                         <span>Cotizar por WhatsApp</span>
                     </a>
                     <!-- Carrito con Badge -->
@@ -223,7 +219,7 @@
                     aria-controls="cart-sidebar"
                     aria-expanded="false"
                     class="relative p-2.5 rounded-full hover:bg-gray-100 transition-all text-logoDark flex items-center justify-center">
-                        <i class="fa-solid fa-basket-shopping text-xl"></i>
+                        <i class="site-icon site-icon-basket-shopping text-xl"></i>
                         <span id="cart-count" aria-hidden="true" class="absolute -top-1 -right-1 bg-logoMagenta text-white text-[10px] font-bold min-w-5 h-5 px-1 rounded-full flex items-center justify-center border-2 border-white">0</span>
                     </button>
                     <!-- Botón de Menú Móvil -->
@@ -234,7 +230,7 @@
                     aria-controls="mobile-menu"
                     aria-expanded="false"
                     class="lg:hidden p-2 text-gray-600">
-                    <i class="fa-solid fa-bars text-2xl"></i>
+                    <i class="site-icon site-icon-bars text-2xl"></i>
                     </button>
                 </div>
             </div>
@@ -245,9 +241,22 @@
 <nav
 id="mobile-menu"
 aria-label="Navegación móvil"
-class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white border-b border-gray-200 px-4 py-5 shadow-2xl"
+class="mobile-menu-panel hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white border-b border-gray-200 px-4 py-5 shadow-2xl"
 >
     <div class="space-y-5">
+        <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+            <p class="text-xs font-black uppercase tracking-wider text-gray-500">Menú</p>
+            <button
+                type="button"
+                data-mobile-menu-close
+                aria-label="Cerrar menú"
+                title="Cerrar menú"
+                class="flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition-colors hover:bg-gray-100 hover:text-logoDark"
+            >
+                <i class="site-icon site-icon-xmark text-xl" aria-hidden="true"></i>
+            </button>
+        </div>
+
         <div class="space-y-2">
             <p class="px-2 text-[10px] font-black uppercase tracking-wider text-gray-400">Principal</p>
             <div class="grid grid-cols-1 gap-2">
@@ -257,7 +266,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     data-mobile-close="true"
                     class="nav-btn-mobile flex w-full items-center gap-3 rounded-2xl bg-pink-50 px-4 py-3 text-left font-black text-logoMagenta"
                 >
-                    <i class="fa-solid fa-house w-5 text-center"></i>
+                    <i class="site-icon site-icon-house w-5 text-center"></i>
                     Inicio
                 </button>
 
@@ -268,7 +277,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     class="nav-btn-mobile flex w-full items-center justify-between gap-3 rounded-2xl border border-pink-100 bg-logoMagenta px-4 py-3 text-left font-black text-white shadow-md"
                 >
                     <span class="flex items-center gap-3">
-                        <i class="fa-solid fa-bag-shopping w-5 text-center"></i>
+                        <i class="site-icon site-icon-bag-shopping w-5 text-center"></i>
                         Tienda
                     </span>
                     <span class="rounded-full bg-white/20 px-2 py-1 text-[10px] uppercase tracking-wider">Store</span>
@@ -280,7 +289,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     data-mobile-close="true"
                     class="nav-btn-mobile flex w-full items-center gap-3 rounded-2xl bg-gray-50 px-4 py-3 text-left font-bold text-logoDark hover:bg-pink-50 hover:text-logoMagenta"
                 >
-                    <i class="fa-solid fa-calculator w-5 text-center text-logoCyan"></i>
+                    <i class="site-icon site-icon-calculator w-5 text-center text-logoCyan"></i>
                     Calculador Express
                 </button>
             </div>
@@ -295,7 +304,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     data-mobile-close="true"
                     class="nav-btn-mobile flex items-center gap-2 rounded-2xl bg-gray-50 px-4 py-3 text-left text-sm font-bold text-gray-600 hover:bg-cyan-50 hover:text-logoCyan"
                 >
-                    <i class="fa-solid fa-shirt w-5 text-center"></i>
+                    <i class="site-icon site-icon-shirt w-5 text-center"></i>
                     DTF
                 </button>
 
@@ -305,7 +314,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     data-mobile-close="true"
                     class="nav-btn-mobile flex items-center gap-2 rounded-2xl bg-gray-50 px-4 py-3 text-left text-sm font-bold text-gray-600 hover:bg-yellow-50 hover:text-logoDark"
                 >
-                    <i class="fa-solid fa-file-circle-check w-5 text-center"></i>
+                    <i class="site-icon site-icon-file-circle-check w-5 text-center"></i>
                     Guía
                 </button>
             </div>
@@ -320,7 +329,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     data-mobile-close="true"
                     class="nav-btn-mobile flex w-full items-center gap-3 rounded-2xl bg-gray-50 px-4 py-3 text-left font-bold text-gray-600 hover:bg-pink-50 hover:text-logoMagenta"
                 >
-                    <i class="fa-solid fa-message w-5 text-center"></i>
+                    <i class="site-icon site-icon-message w-5 text-center"></i>
                     Contacto
                 </button>
 
@@ -331,7 +340,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     rel="noopener noreferrer"
                     class="flex items-center justify-center gap-2 rounded-2xl bg-emerald-500 px-4 py-3 text-center font-black text-white shadow-md"
                 >
-                    <i class="fab fa-whatsapp"></i>
+                    <i class="brand-icon brand-icon-whatsapp"></i>
                     Escríbenos por WhatsApp
                 </a>
             </div>
@@ -348,7 +357,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
             <button
                 type="button"
                 data-go-tab="tienda"
-                class="group relative w-full rounded-2xl bg-logoMagenta px-5 py-4 pr-28 text-left shadow-lg transition-all hover:-translate-y-0.5 hover:bg-pink-600 hover:shadow-xl sm:px-8 sm:py-5 sm:pr-40"
+                class="a11y-bg-magenta group relative w-full rounded-2xl px-5 py-4 pr-28 text-left shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl sm:px-8 sm:py-5 sm:pr-40"
             >
                 <span class="block max-w-3xl">
                     <span class="block text-sm font-black uppercase leading-tight tracking-wide text-white sm:text-lg">
@@ -361,6 +370,8 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                 <span class="absolute right-4 top-1/2 flex -translate-y-1/2 items-center gap-2 sm:right-10">
                     <img
                         src="assets/img/lgo-madeacrilico-store.webp"
+                        srcset="assets/img/lgo-madeacrilico-store-160.webp 160w, assets/img/lgo-madeacrilico-store.webp 647w"
+                        sizes="(max-width: 640px) 72px, 112px"
                         data-site-image="store-badge"
                         alt="Made Acrílico Store"
                         width="112"
@@ -375,13 +386,13 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
             <div class="relative min-h-[620px] overflow-hidden rounded-[2rem] bg-logoDark shadow-2xl border border-gray-100">
                 <div class="hero-carousel absolute inset-0 bg-black">
                     <figure class="hero-carousel-slide hero-carousel-slide-1">
-                        <img src="assets/img/etiquetas.webp" data-site-image="home-textil" alt="Impresión DTF textil para ropa personalizada" width="899" height="492" loading="eager" decoding="async" fetchpriority="high">
+                        <img src="assets/img/etiquetas.webp" srcset="assets/img/etiquetas-600.webp 600w, assets/img/etiquetas-750.webp 750w, assets/img/etiquetas.webp 899w" sizes="(max-width: 768px) 100vw, 50vw" data-site-image="home-textil" alt="Impresión DTF textil para ropa personalizada" width="899" height="492" loading="eager" fetchpriority="high">
                     </figure>
                     <figure class="hero-carousel-slide hero-carousel-slide-2">
-                        <img src="assets/img/test_uv.webp" data-site-image="home-uv" alt="DTF UV adhesivo para vasos y empaques" width="1600" height="557" loading="eager" decoding="async">
+                        <img src="assets/img/test_uv.webp" srcset="assets/img/test_uv-800.webp 800w, assets/img/test_uv.webp 1600w" sizes="(max-width: 768px) 100vw, 50vw" data-site-image="home-uv" alt="DTF UV adhesivo para vasos y empaques" width="1600" height="557" loading="lazy" decoding="async">
                     </figure>
                     <figure class="hero-carousel-slide hero-carousel-slide-3">
-                        <img src="assets/img/stickers-optimized.webp" data-site-image="home-stickers" alt="Stickers personalizados para empaques y productos" width="1200" height="800" loading="eager" decoding="async">
+                        <img src="assets/img/stickers-optimized.webp" srcset="assets/img/stickers-600.webp 600w, assets/img/stickers-800.webp 800w, assets/img/stickers-optimized.webp 1200w" sizes="(max-width: 768px) 100vw, 50vw" data-site-image="home-stickers" alt="Stickers personalizados para empaques y productos" width="1200" height="800" loading="lazy" decoding="async">
                     </figure>
                     <div class="hero-carousel-dots" aria-hidden="true">
                         <span></span>
@@ -407,7 +418,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
 
             <div class="section-shell grid grid-cols-1 gap-6 bg-white p-6 shadow-lg border border-gray-100 md:p-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
                 <div>
-                    <p class="text-xs uppercase tracking-wider text-logoMagenta font-black">Quiénes somos</p>
+                    <p class="a11y-text-magenta text-xs uppercase tracking-wider font-black">Quiénes somos</p>
                     <h2 class="mt-2 text-3xl font-black leading-tight text-logoDark md:text-5xl">
                         Somos un taller gráfico enfocado en hacer que tu marca se vea profesional.
                     </h2>
@@ -421,11 +432,11 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     </p>
                     <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
                         <div class="rounded-2xl bg-pink-50 p-4">
-                            <p class="text-lg font-black text-logoMagenta">Revisión</p>
+                            <p class="a11y-text-magenta text-lg font-black">Revisión</p>
                             <p class="mt-1 text-xs font-bold uppercase tracking-wider text-gray-600">Antes de producir</p>
                         </div>
                         <div class="rounded-2xl bg-cyan-50 p-4">
-                            <p class="text-lg font-black text-logoCyan">Local</p>
+                            <p class="a11y-text-cyan text-lg font-black">Local</p>
                             <p class="mt-1 text-xs font-bold uppercase tracking-wider text-gray-600">Santo Domingo</p>
                         </div>
                         <div class="rounded-2xl bg-yellow-50 p-4">
@@ -438,22 +449,22 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
 
             <div class="section-shell grid grid-cols-1 gap-3 bg-logoDark p-4 text-white shadow-lg sm:grid-cols-2 lg:grid-cols-4">
                 <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
-                    <i class="fa-solid fa-file-circle-check text-logoMagenta text-xl"></i>
+                    <i class="site-icon site-icon-file-circle-check text-logoMagenta text-xl"></i>
                     <h3 class="mt-3 font-black">Revisión de archivo</h3>
                     <p class="mt-2 text-xs leading-5 text-gray-300">Verificamos material, medida y archivo antes de producir.</p>
                 </div>
                 <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
-                    <i class="fa-solid fa-location-dot text-logoCyan text-xl"></i>
+                    <i class="site-icon site-icon-location-dot text-logoCyan text-xl"></i>
                     <h3 class="mt-3 font-black">Producción local</h3>
                     <p class="mt-2 text-xs leading-5 text-gray-300">DTF, stickers, acrílicos y letreros en Santo Domingo.</p>
                 </div>
                 <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
-                    <i class="fa-brands fa-whatsapp text-emerald-400 text-xl"></i>
+                    <i class="brand-icon brand-icon-whatsapp text-emerald-400 text-xl"></i>
                     <h3 class="mt-3 font-black">Atención directa</h3>
                     <p class="mt-2 text-xs leading-5 text-gray-300">Confirmamos dudas, acabados, entrega y tiempos por WhatsApp.</p>
                 </div>
                 <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
-                    <i class="fa-solid fa-truck-fast text-logoYellow text-xl"></i>
+                    <i class="site-icon site-icon-truck-fast text-logoYellow text-xl"></i>
                     <h3 class="mt-3 font-black">Retiro o envío</h3>
                     <p class="mt-2 text-xs leading-5 text-gray-300">Puedes retirar en tienda o solicitar envío a cotizar.</p>
                 </div>
@@ -461,7 +472,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
 
             <div class="space-y-8">
                 <div class="max-w-3xl">
-                    <p class="text-xs uppercase tracking-wider text-logoCyan font-black">Servicios</p>
+                    <p class="a11y-text-cyan text-xs uppercase tracking-wider font-black">Servicios</p>
                     <h2 class="mt-2 text-3xl font-black leading-tight text-logoDark md:text-5xl">
                         Lo que podemos producir para tu marca.
                     </h2>
@@ -473,137 +484,137 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                 <div class="grid grid-cols-1 items-stretch gap-5 md:grid-cols-2 xl:grid-cols-4">
                 <div class="service-card flex flex-col rounded-3xl bg-logoDark p-6 text-white shadow-lg md:p-8">
                     <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoMagenta text-xl">
-                        <i class="fa-solid fa-shirt"></i>
+                        <i class="site-icon site-icon-shirt"></i>
                     </div>
                     <h2 class="text-2xl font-black">DTF Textil</h2>
                     <p class="mt-3 text-sm leading-7 text-gray-300">Transfers para camisetas, hoodies, uniformes, gorras y colecciones de marca.</p>
                     <div class="mt-6 flex flex-wrap items-center gap-4">
-                        <button type="button" data-go-tab="dtf" class="inline-flex items-center gap-2 text-sm font-black text-logoMagenta">
-                            Ver textil <i class="fa-solid fa-arrow-right"></i>
+                        <button type="button" data-go-tab="dtf" class="a11y-text-magenta-on-dark inline-flex items-center gap-2 text-sm font-black">
+                            Ver textil <i class="site-icon site-icon-arrow-right"></i>
                         </button>
                         <button type="button" data-material-info="textil" class="inline-flex items-center gap-2 text-sm font-black text-white/85 hover:text-white">
-                            Leer más <i class="fa-solid fa-circle-info"></i>
+                            Leer más <i class="site-icon site-icon-circle-info"></i>
                         </button>
                     </div>
                 </div>
 
                 <div class="service-card flex flex-col rounded-3xl bg-white p-6 shadow-lg border border-cyan-100 md:p-8">
                     <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoCyan text-xl text-white">
-                        <i class="fa-solid fa-spray-can-sparkles"></i>
+                        <i class="site-icon site-icon-spray-can-sparkles"></i>
                     </div>
                     <h2 class="text-2xl font-black text-logoDark">DTF UV</h2>
                     <p class="mt-3 text-sm leading-7 text-gray-500">Adhesivos premium para vasos, acrílico, vidrio, metal, cosmética y empaques.</p>
                     <div class="mt-6 flex flex-wrap items-center gap-4">
-                        <button type="button" data-go-tab="dtf" class="inline-flex items-center gap-2 text-sm font-black text-logoCyan">
-                            Ver UV <i class="fa-solid fa-arrow-right"></i>
+                        <button type="button" data-go-tab="dtf" class="a11y-text-cyan inline-flex items-center gap-2 text-sm font-black">
+                            Ver UV <i class="site-icon site-icon-arrow-right"></i>
                         </button>
                         <button type="button" data-material-info="uv" class="inline-flex items-center gap-2 text-sm font-black text-gray-500 hover:text-logoCyan">
-                            Leer más <i class="fa-solid fa-circle-info"></i>
+                            Leer más <i class="site-icon site-icon-circle-info"></i>
                         </button>
                     </div>
                 </div>
 
                 <div class="service-card flex flex-col rounded-3xl bg-white p-6 shadow-lg border border-yellow-100 md:p-8">
                     <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoYellow text-xl text-logoDark">
-                        <i class="fa-solid fa-tags"></i>
+                        <i class="site-icon site-icon-tags"></i>
                     </div>
                     <h2 class="text-2xl font-black text-logoDark">Stickers</h2>
                     <p class="mt-3 text-sm leading-7 text-gray-500">Etiquetas, sellos de empaque y stickers promocionales listos para productos.</p>
                     <div class="mt-6 flex flex-wrap items-center gap-4">
                         <button type="button" data-go-tab="planilla" data-calculator-material="stickers" class="inline-flex items-center gap-2 text-sm font-black text-logoDark">
-                            Cotizar stickers <i class="fa-solid fa-arrow-right text-logoMagenta"></i>
+                            Cotizar stickers <i class="site-icon site-icon-arrow-right text-logoMagenta"></i>
                         </button>
                         <button type="button" data-material-info="stickers" class="inline-flex items-center gap-2 text-sm font-black text-gray-500 hover:text-logoDark">
-                            Leer más <i class="fa-solid fa-circle-info"></i>
+                            Leer más <i class="site-icon site-icon-circle-info"></i>
                         </button>
                     </div>
                 </div>
 
                 <div class="service-card flex flex-col rounded-3xl bg-white p-6 shadow-lg border border-gray-100 md:p-8">
                     <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoDark text-xl text-white">
-                        <i class="fa-solid fa-sign-hanging"></i>
+                        <i class="site-icon site-icon-sign-hanging"></i>
                     </div>
                     <h2 class="text-2xl font-black text-logoDark">Letreros</h2>
                     <p class="mt-3 text-sm leading-7 text-gray-500">Letreros comerciales, placas y piezas visuales para negocios, locales y oficinas.</p>
                     <button type="button" data-go-tab="contacto" class="mt-6 inline-flex items-center gap-2 text-sm font-black text-logoDark">
-                        Cotizar letrero <i class="fa-brands fa-whatsapp text-logoMagenta"></i>
+                        Cotizar letrero <i class="brand-icon brand-icon-whatsapp text-logoMagenta"></i>
                     </button>
                 </div>
 
                 <div class="service-card flex flex-col rounded-3xl bg-white p-6 shadow-lg border border-pink-100 md:p-8">
                     <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoMagenta text-xl text-white">
-                        <i class="fa-solid fa-pen-nib"></i>
+                        <i class="site-icon site-icon-pen-nib"></i>
                     </div>
                     <h2 class="text-2xl font-black text-logoDark">Rotulaciones</h2>
                     <p class="mt-3 text-sm leading-7 text-gray-500">Rotulación para vitrinas, paredes, eventos, negocios y superficies comerciales.</p>
-                    <button type="button" data-go-tab="contacto" class="mt-6 inline-flex items-center gap-2 text-sm font-black text-logoMagenta">
-                        Cotizar rotulación <i class="fa-brands fa-whatsapp"></i>
+                    <button type="button" data-go-tab="contacto" class="a11y-text-magenta mt-6 inline-flex items-center gap-2 text-sm font-black">
+                        Cotizar rotulación <i class="brand-icon brand-icon-whatsapp"></i>
                     </button>
                 </div>
 
                 <div class="service-card flex flex-col rounded-3xl bg-white p-6 shadow-lg border border-cyan-100 md:p-8">
                     <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoCyan text-xl text-white">
-                        <i class="fa-solid fa-car-side"></i>
+                        <i class="site-icon site-icon-car-side"></i>
                     </div>
                     <h2 class="text-2xl font-black text-logoDark">Rótulos para vehículos</h2>
                     <p class="mt-3 text-sm leading-7 text-gray-500">Gráficos, identificación y piezas adhesivas para vehículos de trabajo y marcas móviles.</p>
-                    <button type="button" data-go-tab="contacto" class="mt-6 inline-flex items-center gap-2 text-sm font-black text-logoCyan">
-                        Cotizar vehículo <i class="fa-brands fa-whatsapp"></i>
+                    <button type="button" data-go-tab="contacto" class="a11y-text-cyan mt-6 inline-flex items-center gap-2 text-sm font-black">
+                        Cotizar vehículo <i class="brand-icon brand-icon-whatsapp"></i>
                     </button>
                 </div>
 
                 <div class="service-card flex flex-col rounded-3xl bg-white p-6 shadow-lg border border-yellow-100 md:p-8">
                     <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoYellow text-xl text-logoDark">
-                        <i class="fa-solid fa-gift"></i>
+                        <i class="site-icon site-icon-gift"></i>
                     </div>
                     <h2 class="text-2xl font-black text-logoDark">Artículos personalizados</h2>
                     <p class="mt-3 text-sm leading-7 text-gray-500">Piezas promocionales, regalos corporativos y productos personalizados por encargo.</p>
                     <button type="button" data-go-tab="contacto" class="mt-6 inline-flex items-center gap-2 text-sm font-black text-logoDark">
-                        Cotizar personalizado <i class="fa-brands fa-whatsapp text-logoMagenta"></i>
+                        Cotizar personalizado <i class="brand-icon brand-icon-whatsapp text-logoMagenta"></i>
                     </button>
                 </div>
 
                 <div class="service-card flex flex-col rounded-3xl bg-white p-6 shadow-lg border border-gray-100 md:p-8">
                     <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoDark text-xl text-white">
-                        <i class="fa-solid fa-cube"></i>
+                        <i class="site-icon site-icon-cube"></i>
                     </div>
                     <h2 class="text-2xl font-black text-logoDark">Productos en acrílico</h2>
                     <p class="mt-3 text-sm leading-7 text-gray-500">Bases, placas, displays, piezas decorativas y soluciones en acrílico para negocios.</p>
                     <button type="button" data-go-tab="contacto" class="mt-6 inline-flex items-center gap-2 text-sm font-black text-logoDark">
-                        Cotizar acrílico <i class="fa-brands fa-whatsapp text-logoMagenta"></i>
+                        Cotizar acrílico <i class="brand-icon brand-icon-whatsapp text-logoMagenta"></i>
                     </button>
                 </div>
 
                 <div class="service-card flex flex-col rounded-3xl bg-white p-6 shadow-lg border border-pink-100 md:p-8">
                     <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoMagenta text-xl text-white">
-                        <i class="fa-solid fa-print"></i>
+                        <i class="site-icon site-icon-print"></i>
                     </div>
                     <h2 class="text-2xl font-black text-logoDark">Impresión gran formato</h2>
                     <p class="mt-3 text-sm leading-7 text-gray-500">Material gráfico de gran tamaño para promociones, eventos, locales y publicidad.</p>
-                    <button type="button" data-go-tab="contacto" class="mt-6 inline-flex items-center gap-2 text-sm font-black text-logoMagenta">
-                        Cotizar gran formato <i class="fa-brands fa-whatsapp"></i>
+                    <button type="button" data-go-tab="contacto" class="a11y-text-magenta mt-6 inline-flex items-center gap-2 text-sm font-black">
+                        Cotizar gran formato <i class="brand-icon brand-icon-whatsapp"></i>
                     </button>
                 </div>
 
                 <div class="service-card flex flex-col rounded-3xl bg-white p-6 shadow-lg border border-cyan-100 md:p-8">
                     <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-logoCyan text-xl text-white">
-                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                        <i class="site-icon site-icon-screwdriver-wrench"></i>
                     </div>
                     <h2 class="text-2xl font-black text-logoDark">Corte CNC</h2>
                     <p class="mt-3 text-sm leading-7 text-gray-500">Corte de piezas, formas, letras y componentes para proyectos comerciales y personalizados.</p>
-                    <button type="button" data-go-tab="contacto" class="mt-6 inline-flex items-center gap-2 text-sm font-black text-logoCyan">
-                        Cotizar CNC <i class="fa-brands fa-whatsapp"></i>
+                    <button type="button" data-go-tab="contacto" class="a11y-text-cyan mt-6 inline-flex items-center gap-2 text-sm font-black">
+                        Cotizar CNC <i class="brand-icon brand-icon-whatsapp"></i>
                     </button>
                 </div>
 
                 <div class="service-card flex flex-col rounded-3xl bg-logoDark p-6 text-white shadow-lg md:p-8">
                     <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-xl text-logoYellow">
-                        <i class="fa-solid fa-table-cells-large"></i>
+                        <i class="site-icon site-icon-table-cells-large"></i>
                     </div>
                     <h2 class="text-2xl font-black">Exhibidores</h2>
                     <p class="mt-3 text-sm leading-7 text-gray-300">Exhibidores, soportes y piezas para presentar productos en tiendas, ferias y puntos de venta.</p>
                     <button type="button" data-go-tab="contacto" class="mt-6 inline-flex items-center gap-2 text-sm font-black text-logoYellow">
-                        Cotizar exhibidor <i class="fa-brands fa-whatsapp"></i>
+                        Cotizar exhibidor <i class="brand-icon brand-icon-whatsapp"></i>
                     </button>
                 </div>
                 </div>
@@ -614,35 +625,35 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     <p class="customer-review-kicker">Experiencias reales</p>
                     <h2 id="reviews-title">Opiniones de clientes de MADE ACRÍLICO.</h2>
                     <p>Consulta las reseñas compartidas en Google o deja tu experiencia si ya trabajaste con nosotros.</p>
-                    <p class="customer-review-trust" aria-label="Calificación de 4.5 de 5 basada en 25 reseñas de Google">
+                    <p class="customer-review-trust" role="img" aria-label="Calificación de 4.5 de 5 basada en 25 reseñas de Google">
                         <span class="customer-review-score">4.5</span>
-                        <span class="customer-review-google"><i class="fa-brands fa-google" aria-hidden="true"></i> 25 reseñas en Google</span>
+                        <span class="customer-review-google"><i class="brand-icon brand-icon-google" aria-hidden="true"></i> 25 reseñas en Google</span>
                     </p>
                 </div>
                 <div class="customer-review-actions">
                     <a data-business-maps href="https://www.google.com/maps/place/Made+Acr%C3%ADlico/data=!4m2!3m1!1s0x0:0x5e3e2a9a6b659d5f?sa=X&amp;ved=1t:2428&amp;ictx=111" target="_blank" rel="noopener noreferrer" class="customer-review-primary">
-                        Ver en Google <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        Ver en Google <i class="site-icon site-icon-arrow-up-right-from-square"></i>
                     </a>
                     <a data-business-maps href="https://www.google.com/maps/place/Made+Acr%C3%ADlico/data=!4m2!3m1!1s0x0:0x5e3e2a9a6b659d5f?sa=X&amp;ved=1t:2428&amp;ictx=111" target="_blank" rel="noopener noreferrer" class="customer-review-secondary">
-                        Dejar reseña <i class="fa-solid fa-star"></i>
+                        Dejar reseña <i class="site-icon site-icon-star"></i>
                     </a>
                 </div>
-                <div id="customer-reviews-carousel" class="customer-reviews-carousel" aria-label="Reseñas de clientes" hidden>
+                <section id="customer-reviews-carousel" class="customer-reviews-carousel" aria-label="Reseñas de clientes" hidden>
                     <div class="customer-reviews-carousel-heading">
                         <p class="customer-reviews-summary">Reseñas compartidas por clientes</p>
                         <a data-business-maps href="https://www.google.com/maps/place/Made+Acr%C3%ADlico/data=!4m2!3m1!1s0x0:0x5e3e2a9a6b659d5f?sa=X&amp;ved=1t:2428&amp;ictx=111" target="_blank" rel="noopener noreferrer">
-                            Ver perfil de Google <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                            Ver perfil de Google <i class="site-icon site-icon-arrow-up-right-from-square" aria-hidden="true"></i>
                         </a>
                     </div>
                     <div class="customer-reviews-viewport">
                         <div id="customer-reviews-track" class="customer-reviews-track" aria-live="polite"></div>
                     </div>
-                    <div id="customer-reviews-controls" class="customer-reviews-controls" aria-label="Controles de reseñas">
-                        <button id="customer-reviews-previous" type="button" aria-label="Ver reseña anterior"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button>
+                    <div id="customer-reviews-controls" class="customer-reviews-controls" role="group" aria-label="Controles de reseñas">
+                        <button id="customer-reviews-previous" type="button" aria-label="Ver reseña anterior"><i class="site-icon site-icon-arrow-left" aria-hidden="true"></i></button>
                         <span id="customer-reviews-position" aria-live="polite"></span>
-                        <button id="customer-reviews-next" type="button" aria-label="Ver reseña siguiente"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                        <button id="customer-reviews-next" type="button" aria-label="Ver reseña siguiente"><i class="site-icon site-icon-arrow-right" aria-hidden="true"></i></button>
                     </div>
-                </div>
+                </section>
             </section>
         </section>
 
@@ -664,11 +675,11 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 pt-2">
                         <button type="button" data-go-tab="planilla" class="bg-logoMagenta hover:bg-logoMagenta/90 text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 transform hover:-translate-y-1">
-                            <i class="fa-solid fa-calculator"></i>
+                            <i class="site-icon site-icon-calculator"></i>
                             <span>Calcular mi pedido</span>
                         </button>
                         <button type="button" data-go-tab="contacto" class="bg-white/10 hover:bg-logoCyan text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
-                            <i class="fa-brands fa-whatsapp"></i>
+                            <i class="brand-icon brand-icon-whatsapp"></i>
                             <span>Hablar por WhatsApp</span>
                         </button>
                     </div>
@@ -720,6 +731,8 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <div class="relative h-64 overflow-hidden bg-gray-50">
                             <img
                                 src="assets/img/test_uv.webp"
+                                srcset="assets/img/test_uv-800.webp 800w, assets/img/test_uv.webp 1600w"
+                                sizes="(max-width: 768px) 100vw, 50vw"
                                 data-site-image="home-uv"
                                 alt="DTF UV adhesivo para vasos, acrílico, metal y empaques"
                                 width="1600"
@@ -755,7 +768,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                             </div>
                             <button type="button" data-go-tab="planilla" data-calculator-material="uv" class="w-full inline-flex items-center justify-center gap-2 bg-logoCyan hover:bg-logoMagenta text-white font-bold px-5 py-3 rounded-xl transition-all">
                                 Cotizar DTF UV
-                                <i class="fa-solid fa-arrow-right"></i>
+                                <i class="site-icon site-icon-arrow-right"></i>
                             </button>
                         </div>
                     </div>
@@ -799,7 +812,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                             </div>
                             <button type="button" data-go-tab="planilla" data-calculator-material="textil" class="w-full inline-flex items-center justify-center gap-2 bg-logoMagenta hover:bg-pink-600 text-white font-bold px-5 py-3 rounded-xl transition-all">
                                 Cotizar DTF Textil
-                                <i class="fa-solid fa-arrow-right"></i>
+                                <i class="site-icon site-icon-arrow-right"></i>
                             </button>
                         </div>
                     </div>
@@ -808,6 +821,8 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <div class="relative h-64 bg-gray-50 overflow-hidden">
                             <img
                                 src="assets/img/stickers-optimized.webp"
+                                srcset="assets/img/stickers-600.webp 600w, assets/img/stickers-800.webp 800w, assets/img/stickers-optimized.webp 1200w"
+                                sizes="(max-width: 768px) 100vw, 50vw"
                                 data-site-image="home-stickers"
                                 alt="Hojas de stickers personalizados para marcas y empaques"
                                 width="1200"
@@ -843,7 +858,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                             </div>
                             <button type="button" data-go-tab="planilla" data-calculator-material="stickers" class="w-full inline-flex items-center justify-center gap-2 bg-logoDark hover:bg-logoMagenta text-white font-bold px-5 py-3 rounded-xl transition-all">
                                 Cotizar stickers
-                                <i class="fa-solid fa-arrow-right"></i>
+                                <i class="site-icon site-icon-arrow-right"></i>
                             </button>
                         </div>
                     </div>
@@ -879,14 +894,14 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <div class="p-6 md:p-8 flex flex-col justify-between gap-6">
                             <div class="space-y-4">
                                 <div class="flex items-start gap-3">
-                                    <span class="w-10 h-10 rounded-xl bg-white/10 text-logoCyan flex items-center justify-center shrink-0"><i class="fa-solid fa-shirt"></i></span>
+                                    <span class="w-10 h-10 rounded-xl bg-white/10 text-logoCyan flex items-center justify-center shrink-0"><i class="site-icon site-icon-shirt"></i></span>
                                     <div>
                                         <h4 class="font-black">Ropa y uniformes</h4>
                                         <p class="text-sm text-gray-300 mt-1">Camisetas, hoodies, gorras, tote bags y piezas de colección.</p>
                                     </div>
                                 </div>
                                 <div class="flex items-start gap-3">
-                                    <span class="w-10 h-10 rounded-xl bg-white/10 text-logoMagenta flex items-center justify-center shrink-0"><i class="fa-solid fa-layer-group"></i></span>
+                                    <span class="w-10 h-10 rounded-xl bg-white/10 text-logoMagenta flex items-center justify-center shrink-0"><i class="site-icon site-icon-layer-group"></i></span>
                                     <div>
                                         <h4 class="font-black">Producción por encargo</h4>
                                         <p class="text-sm text-gray-300 mt-1">Ideal para pedidos pequeños, lanzamientos y reposiciones rápidas.</p>
@@ -895,7 +910,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                             </div>
                             <button type="button" data-go-tab="planilla" data-calculator-material="textil" class="inline-flex items-center justify-center gap-2 bg-logoMagenta hover:bg-pink-600 text-white font-bold px-5 py-3 rounded-xl transition-all">
                                 Cotizar una planilla
-                                <i class="fa-solid fa-arrow-right"></i>
+                                <i class="site-icon site-icon-arrow-right"></i>
                             </button>
                         </div>
                     </div>
@@ -965,7 +980,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                                 </ul>
                             </div>
                             <button type="button" data-go-tab="planilla" data-calculator-material="textil" class="w-full bg-[#1E1E1E] hover:bg-logoMagenta text-white font-bold px-5 py-3 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
-                                <span>Calcular DTF Textil</span> <i class="fa-solid fa-arrow-right"></i>
+                                <span>Calcular DTF Textil</span> <i class="site-icon site-icon-arrow-right"></i>
                             </button>
                         </div>
                     </div>
@@ -975,6 +990,8 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <div class="h-48 bg-gradient-to-tr from-[#00A5DF]/20 to-[#F6D044]/10 flex items-center justify-center p-8 relative">
                             <span class="absolute top-4 left-4 bg-[#00A5DF] text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Ancho: 16" o 11.5"</span>
                             <img src="assets/img/test_uv.webp"
+                                srcset="assets/img/test_uv-800.webp 800w, assets/img/test_uv.webp 1600w"
+                                sizes="(max-width: 768px) 100vw, 50vw"
                             alt="Muestra de impresión DTF UV adhesivo"
                             width="1600"
                             height="557"
@@ -993,7 +1010,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                                 </ul>
                             </div>
                             <button type="button" data-go-tab="planilla" data-calculator-material="uv" class="w-full bg-[#1E1E1E] hover:bg-logoCyan text-white font-bold px-5 py-3 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
-                                <span>Calcular DTF UV</span> <i class="fa-solid fa-arrow-right"></i>
+                                <span>Calcular DTF UV</span> <i class="site-icon site-icon-arrow-right"></i>
                             </button>
                         </div>
                     </div>
@@ -1005,7 +1022,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     </div>
                     <button type="button" data-go-tab="planilla" class="inline-flex items-center justify-center gap-2 bg-logoMagenta hover:bg-pink-600 text-white font-bold px-6 py-3 rounded-xl transition-all">
                         Abrir calculador
-                        <i class="fa-solid fa-arrow-right"></i>
+                        <i class="site-icon site-icon-arrow-right"></i>
                     </button>
 
                 </div>
@@ -1022,22 +1039,22 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
                         <div class="rounded-2xl bg-pink-50/30 border border-pink-100 p-5">
-                            <span class="w-10 h-10 rounded-xl bg-logoMagenta text-white flex items-center justify-center mb-4"><i class="fa-solid fa-file-circle-check"></i></span>
+                            <span class="w-10 h-10 rounded-xl bg-logoMagenta text-white flex items-center justify-center mb-4"><i class="site-icon site-icon-file-circle-check"></i></span>
                             <h3 class="font-black text-logoDark">Acabado correcto</h3>
                             <p class="text-sm text-gray-500 mt-2">Priorizamos que la pieza final se vea limpia, usable y lista para entregar.</p>
                         </div>
                         <div class="rounded-2xl bg-cyan-50/40 border border-cyan-100 p-5">
-                            <span class="w-10 h-10 rounded-xl bg-logoCyan text-white flex items-center justify-center mb-4"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                            <span class="w-10 h-10 rounded-xl bg-logoCyan text-white flex items-center justify-center mb-4"><i class="site-icon site-icon-wand-magic-sparkles"></i></span>
                             <h3 class="font-black text-logoDark">Elección clara</h3>
                             <p class="text-sm text-gray-500 mt-2">Te ayudamos a escoger entre textil, UV, sticker o acrílico según el uso.</p>
                         </div>
                         <div class="rounded-2xl bg-yellow-50 border border-yellow-100 p-5">
-                            <span class="w-10 h-10 rounded-xl bg-logoYellow text-logoDark flex items-center justify-center mb-4"><i class="fa-solid fa-location-dot"></i></span>
+                            <span class="w-10 h-10 rounded-xl bg-logoYellow text-logoDark flex items-center justify-center mb-4"><i class="site-icon site-icon-location-dot"></i></span>
                             <h3 class="font-black text-logoDark">Producción local</h3>
                             <p class="text-sm text-gray-500 mt-2">Trabajamos en Santo Domingo con retiro, coordinación y envío disponible.</p>
                         </div>
                         <div class="rounded-2xl bg-gray-50 border border-gray-100 p-5">
-                            <span class="w-10 h-10 rounded-xl bg-logoDark text-white flex items-center justify-center mb-4"><i class="fa-solid fa-comments"></i></span>
+                            <span class="w-10 h-10 rounded-xl bg-logoDark text-white flex items-center justify-center mb-4"><i class="site-icon site-icon-comments"></i></span>
                             <h3 class="font-black text-logoDark">Atención directa</h3>
                             <p class="text-sm text-gray-500 mt-2">WhatsApp rápido para dudas de medidas, acabados, cantidades y entrega.</p>
                         </div>
@@ -1052,7 +1069,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     </div>
                     <button type="button" data-go-tab="contacto" class="inline-flex items-center justify-center gap-2 bg-white text-logoDark hover:bg-gray-100 font-bold px-5 py-3 rounded-xl transition-all">
                         Consultar mi caso
-                        <i class="fa-brands fa-whatsapp text-logoMagenta"></i>
+                        <i class="brand-icon brand-icon-whatsapp text-logoMagenta"></i>
                     </button>
                 </div>
             </div>
@@ -1100,7 +1117,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
             <!-- HEADER -->
             <div class="text-center mb-10">
                 <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-cyan-50 text-logoCyan text-3xl mb-4">
-                    <i class="fa-solid fa-calculator"></i>
+                    <i class="site-icon site-icon-calculator"></i>
                 </div>
 
                 <h2 class="text-3xl md:text-5xl font-extrabold text-logoDark">
@@ -1451,7 +1468,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         >
 
                             <span class="w-20 h-20 rounded-full bg-pink-50 text-logoMagenta flex items-center justify-center text-4xl mb-5 group-hover:scale-110 transition-all duration-300">
-                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                <i class="site-icon site-icon-cloud-arrow-up"></i>
                             </span>
 
                             <span class="font-extrabold text-xl text-logoDark">
@@ -1524,7 +1541,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                                     title="Quitar archivo"
                                     aria-label="Quitar archivo"
                                 >
-                                    <i class="fa-solid fa-xmark"></i>
+                                    <i class="site-icon site-icon-xmark"></i>
                                 </button>
                             </div>
                             <p class="text-xs text-gray-500 mt-3">
@@ -1547,7 +1564,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <div class="flex items-center gap-3 mb-8">
 
                             <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-logoCyan text-xl">
-                                <i class="fa-solid fa-receipt"></i>
+                                <i class="site-icon site-icon-receipt"></i>
                             </div>
 
                             <div>
@@ -1660,7 +1677,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                                 type="button"
                                 class="w-full mt-8 bg-logoMagenta hover:bg-pink-600 transition-all duration-300 hover:-translate-y-1 text-white h-16 rounded-2xl font-extrabold text-lg shadow-xl flex items-center justify-center gap-3"
                             >
-                                <i class="fa-solid fa-basket-shopping"></i>
+                                <i class="site-icon site-icon-basket-shopping"></i>
                                 Agregar al carrito
                             </button>
 
@@ -1692,18 +1709,18 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <div class="flex flex-col sm:flex-row gap-3">
                             <button type="button" data-go-tab="planilla" class="inline-flex items-center justify-center gap-2 bg-logoMagenta hover:bg-logoCyan text-white font-bold px-5 py-3 rounded-xl transition-all">
                                 Calcular ahora
-                                <i class="fa-solid fa-calculator"></i>
+                                <i class="site-icon site-icon-calculator"></i>
                             </button>
                             <button type="button" data-go-tab="contacto" class="inline-flex items-center justify-center gap-2 bg-logoCyan hover:bg-pink-600 text-white font-bold px-5 py-3 rounded-xl transition-all">
                                 Pedir ayuda
-                                <i class="fa-brands fa-whatsapp"></i>
+                                <i class="brand-icon brand-icon-whatsapp"></i>
                             </button>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/10">
                         <div class="p-4 xl:p-6">
                             <span class="w-12 h-12 rounded-2xl bg-white/10 text-logoCyan flex items-center justify-center text-xl mb-5">
-                                <i class="fa-solid fa-layer-group"></i>
+                                <i class="site-icon site-icon-layer-group"></i>
                             </span>
                             <p class="text-xs font-black uppercase tracking-wider text-gray-300">Paso 1</p>
                             <h3 class="font-black text-lg mt-2 xl:text-xl">Escoge material</h3>
@@ -1711,7 +1728,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         </div>
                         <div class="p-4 xl:p-6">
                             <span class="w-12 h-12 rounded-2xl bg-white/10 text-logoYellow flex items-center justify-center text-xl mb-5">
-                                <i class="fa-solid fa-ruler-combined"></i>
+                                <i class="site-icon site-icon-ruler-combined"></i>
                             </span>
                             <p class="text-xs font-black uppercase tracking-wider text-gray-300">Paso 2</p>
                             <h3 class="font-black text-lg mt-2 xl:text-xl">Define medida</h3>
@@ -1719,7 +1736,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         </div>
                         <div class="p-4 xl:p-6">
                             <span class="w-12 h-12 rounded-2xl bg-white/10 text-logoMagenta flex items-center justify-center text-xl mb-5">
-                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                <i class="site-icon site-icon-cloud-arrow-up"></i>
                             </span>
                             <p class="text-xs font-black uppercase tracking-wider text-gray-300">Paso 3</p>
                             <h3 class="font-black text-lg mt-2 xl:text-xl">Sube archivo</h3>
@@ -1727,7 +1744,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         </div>
                         <div class="p-4 xl:p-6">
                             <span class="w-12 h-12 rounded-2xl bg-white/10 text-emerald-500 flex items-center justify-center text-xl mb-5">
-                                <i class="fa-solid fa-circle-check"></i>
+                                <i class="site-icon site-icon-circle-check"></i>
                             </span>
                             <p class="text-xs font-black uppercase tracking-wider text-gray-300">Paso 4</p>
                             <h3 class="font-black text-lg mt-2 xl:text-xl">Confirmamos</h3>
@@ -1747,22 +1764,22 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div class="rounded-2xl bg-white/10 p-5">
-                        <span class="w-10 h-10 rounded-xl bg-logoMagenta text-white flex items-center justify-center mb-4"><i class="fa-solid fa-shirt"></i></span>
+                        <span class="w-10 h-10 rounded-xl bg-logoMagenta text-white flex items-center justify-center mb-4"><i class="site-icon site-icon-shirt"></i></span>
                         <h3 class="font-black">DTF Textil</h3>
                         <p class="text-sm text-gray-300 mt-2">Para camisetas, hoodies, gorras, tote bags y uniformes.</p>
                     </div>
                     <div class="rounded-2xl bg-white/10 p-5">
-                        <span class="w-10 h-10 rounded-xl bg-logoCyan text-white flex items-center justify-center mb-4"><i class="fa-solid fa-mug-hot"></i></span>
+                        <span class="w-10 h-10 rounded-xl bg-logoCyan text-white flex items-center justify-center mb-4"><i class="site-icon site-icon-mug-hot"></i></span>
                         <h3 class="font-black">DTF UV</h3>
                         <p class="text-sm text-gray-300 mt-2">Para vasos, acrílico, vidrio, metal, frascos y empaques rígidos.</p>
                     </div>
                     <div class="rounded-2xl bg-white/10 p-5">
-                        <span class="w-10 h-10 rounded-xl bg-logoYellow text-logoDark flex items-center justify-center mb-4"><i class="fa-solid fa-tags"></i></span>
+                        <span class="w-10 h-10 rounded-xl bg-logoYellow text-logoDark flex items-center justify-center mb-4"><i class="site-icon site-icon-tags"></i></span>
                         <h3 class="font-black">Stickers</h3>
                         <p class="text-sm text-gray-300 mt-2">Para etiquetas de producto, sellos de empaque y promociones.</p>
                     </div>
                     <div class="rounded-2xl bg-white/10 p-5">
-                        <span class="w-10 h-10 rounded-xl bg-white text-logoDark flex items-center justify-center mb-4"><i class="fa-solid fa-gem"></i></span>
+                        <span class="w-10 h-10 rounded-xl bg-white text-logoDark flex items-center justify-center mb-4"><i class="site-icon site-icon-gem"></i></span>
                         <h3 class="font-black">Acrílicos</h3>
                         <p class="text-sm text-gray-300 mt-2">Para placas, letreros, exhibidores y detalles comerciales.</p>
                     </div>
@@ -1786,23 +1803,23 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="space-y-6">
                         <div class="flex gap-4 items-start">
-                            <div class="p-3 bg-pink-50 text-logoMagenta rounded-xl text-xl font-bold"><i class="fa-solid fa-ruler-combined"></i></div>
+                            <div class="p-3 bg-pink-50 text-logoMagenta rounded-xl text-xl font-bold"><i class="site-icon site-icon-ruler-combined"></i></div>
                             <div>
-                                <h4 class="font-bold text-lg mb-1">Tamaño real</h4>
+                                <h3 class="font-bold text-lg mb-1">Tamaño real</h3>
                                 <p class="text-sm text-gray-500">Prepara el arte con la medida exacta que quieres imprimir. Así evitamos escalarlo y perder nitidez.</p>
                             </div>
                         </div>
                         <div class="flex gap-4 items-start">
-                            <div class="p-3 bg-cyan-50 text-logoCyan rounded-xl text-xl font-bold"><i class="fa-solid fa-droplet"></i></div>
+                            <div class="p-3 bg-cyan-50 text-logoCyan rounded-xl text-xl font-bold"><i class="site-icon site-icon-droplet"></i></div>
                             <div>
-                                <h4 class="font-bold text-lg mb-1">Color y resolución</h4>
+                                <h3 class="font-bold text-lg mb-1">Color y resolución</h3>
                                 <p class="text-sm text-gray-500">Trabaja en CMYK y exporta a 300 DPI. Los archivos en RGB pueden variar de tono al imprimirse.</p>
                             </div>
                         </div>
                         <div class="flex gap-4 items-start">
-                            <div class="p-3 bg-yellow-50 text-logoYellow rounded-xl text-xl font-bold"><i class="fa-solid fa-font"></i></div>
+                            <div class="p-3 bg-yellow-50 text-logoYellow rounded-xl text-xl font-bold"><i class="site-icon site-icon-font"></i></div>
                             <div>
-                                <h4 class="font-bold text-lg mb-1">Textos a curvas</h4>
+                                <h3 class="font-bold text-lg mb-1">Textos a curvas</h3>
                                 <p class="text-sm text-gray-500">Si envías PDF o AI, convierte las fuentes a curvas o contornos para evitar cambios de tipografía.</p>
                             </div>
                         </div>
@@ -1810,23 +1827,23 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
 
                     <div class="space-y-6">
                         <div class="flex gap-4 items-start">
-                            <div class="p-3 bg-emerald-50 text-emerald-500 rounded-xl text-xl font-bold"><i class="fa-solid fa-layer-group"></i></div>
+                            <div class="p-3 bg-emerald-50 text-emerald-500 rounded-xl text-xl font-bold"><i class="site-icon site-icon-layer-group"></i></div>
                             <div>
-                                <h4 class="font-bold text-lg mb-1">Fondo transparente</h4>
+                                <h3 class="font-bold text-lg mb-1">Fondo transparente</h3>
                                 <p class="text-sm text-gray-500">Si tu diseño no debe llevar fondo, envíalo con transparencia.</p>
                             </div>
                         </div>
                         <div class="flex gap-4 items-start">
-                            <div class="p-3 bg-red-50 text-red-500 rounded-xl text-xl font-bold"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                            <div class="p-3 bg-red-50 text-red-500 rounded-xl text-xl font-bold"><i class="site-icon site-icon-triangle-exclamation"></i></div>
                             <div>
-                                <h4 class="font-bold text-lg mb-1">Evita archivos problemáticos</h4>
+                                <h3 class="font-bold text-lg mb-1">Evita archivos problemáticos</h3>
                                 <p class="text-sm text-gray-500">No envíes capturas, imágenes pixeladas, fondos blancos no deseados ni líneas menores a 1 mm.</p>
                             </div>
                         </div>
                         <div class="flex gap-4 items-start">
-                            <div class="p-3 bg-gray-100 text-logoDark rounded-xl text-xl font-bold"><i class="fa-solid fa-circle-check"></i></div>
+                            <div class="p-3 bg-gray-100 text-logoDark rounded-xl text-xl font-bold"><i class="site-icon site-icon-circle-check"></i></div>
                             <div>
-                            <h4 class="font-bold text-lg mb-1">Duda antes de producir</h4>
+                            <h3 class="font-bold text-lg mb-1">Duda antes de producir</h3>
                             <p class="text-sm text-gray-500">Si no sabes si el archivo sirve, escríbenos por WhatsApp antes de hacer la orden.</p>
                         </div>
                     </div>
@@ -1858,28 +1875,28 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                                     <label class="cursor-pointer">
                                         <input class="peer sr-only" type="radio" name="reason" value="Cotización" checked>
                                         <span class="flex items-center gap-3 rounded-2xl border border-gray-200 bg-white p-4 text-sm font-black text-logoDark transition-all peer-checked:border-logoMagenta peer-checked:bg-pink-50 peer-checked:text-logoMagenta hover:border-logoMagenta">
-                                            <i class="fa-solid fa-calculator"></i>
+                                            <i class="site-icon site-icon-calculator"></i>
                                             Cotización
                                         </span>
                                     </label>
                                     <label class="cursor-pointer">
                                         <input class="peer sr-only" type="radio" name="reason" value="Enviar archivo">
                                         <span class="flex items-center gap-3 rounded-2xl border border-gray-200 bg-white p-4 text-sm font-black text-logoDark transition-all peer-checked:border-logoCyan peer-checked:bg-cyan-50 peer-checked:text-logoCyan hover:border-logoCyan">
-                                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                                            <i class="site-icon site-icon-cloud-arrow-up"></i>
                                             Enviar archivo
                                         </span>
                                     </label>
                                     <label class="cursor-pointer">
                                         <input class="peer sr-only" type="radio" name="reason" value="Seguimiento de pedido">
                                         <span class="flex items-center gap-3 rounded-2xl border border-gray-200 bg-white p-4 text-sm font-black text-logoDark transition-all peer-checked:border-logoYellow peer-checked:bg-yellow-50 peer-checked:text-logoDark hover:border-logoYellow">
-                                            <i class="fa-solid fa-truck-fast"></i>
+                                            <i class="site-icon site-icon-truck-fast"></i>
                                             Seguimiento
                                         </span>
                                     </label>
                                     <label class="cursor-pointer">
                                         <input class="peer sr-only" type="radio" name="reason" value="Otra consulta">
                                         <span class="flex items-center gap-3 rounded-2xl border border-gray-200 bg-white p-4 text-sm font-black text-logoDark transition-all peer-checked:border-logoDark peer-checked:bg-gray-100 hover:border-logoDark">
-                                            <i class="fa-solid fa-message"></i>
+                                            <i class="site-icon site-icon-message"></i>
                                             Otra consulta
                                         </span>
                                     </label>
@@ -1905,7 +1922,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                                 <textarea id="contact-message" name="message" rows="4" maxlength="1000" required class="w-full border border-gray-200 rounded-xl p-3 focus:border-logoMagenta outline-none text-sm" placeholder="Cuéntanos qué necesitas imprimir, medidas, cantidad o cualquier detalle importante."></textarea>
                             </div>
                             <button type="submit" class="w-full bg-logoDark hover:bg-logoMagenta text-white font-bold py-3 rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
-                                <i class="fa-brands fa-whatsapp"></i>
+                                <i class="brand-icon brand-icon-whatsapp"></i>
                                 Enviar por WhatsApp
                             </button>
                         </form>
@@ -1926,23 +1943,23 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                                 </div>
                             </div>
                             <div class="space-y-3 text-sm text-gray-600">
-                                <p class="flex items-start gap-3"><i class="fa-solid fa-location-dot text-logoMagenta mt-1"></i> <span data-business-address>Plaza Comercial Herrera, Av. Isabel Aguiar, Santo Domingo</span></p>
-                                <p class="flex items-center gap-3"><i class="fa-solid fa-phone text-logoCyan"></i> <a data-business-phone data-business-phone-text href="tel:+18298824820" class="hover:text-logoCyan font-semibold">+1&nbsp;(829)&nbsp;882&#8209;4820</a></p>
-                                <p class="flex min-w-0 items-center gap-3"><i class="fa-solid fa-envelope text-amber-700"></i> <a data-business-email href="mailto:info@madeacrilico.com" class="min-w-0 break-all font-semibold hover:text-logoMagenta">info@madeacrilico.com</a></p>
+                                <p class="flex items-start gap-3"><i class="site-icon site-icon-location-dot text-logoMagenta mt-1"></i> <span data-business-address>Plaza Comercial Herrera, Av. Isabel Aguiar, Santo Domingo</span></p>
+                                <p class="flex items-center gap-3"><i class="site-icon site-icon-phone text-logoCyan"></i> <a data-business-phone data-business-phone-text href="tel:+18298824820" class="hover:text-logoCyan font-semibold">+1&nbsp;(829)&nbsp;882&#8209;4820</a></p>
+                                <p class="flex min-w-0 items-center gap-3"><i class="site-icon site-icon-envelope text-amber-700"></i> <!--email_off--><a data-business-email href="mailto:contacto@madeacrilico.com" class="min-w-0 break-all font-semibold hover:text-logoMagenta">contacto@madeacrilico.com</a><!--/email_off--></p>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-3">
                         <a data-business-whatsapp href="https://wa.me/18298824820" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl py-3 px-4 text-sm font-bold transition-all">
-                                <i class="fa-brands fa-whatsapp"></i>
+                                <i class="brand-icon brand-icon-whatsapp"></i>
                                 WhatsApp
                             </a>
                             <a data-business-phone href="tel:+18298824820" class="flex items-center justify-center gap-2 bg-white hover:bg-cyan-50 text-logoCyan border border-cyan-100 rounded-xl py-3 px-4 text-sm font-bold transition-all">
-                                <i class="fa-solid fa-phone"></i>
+                                <i class="site-icon site-icon-phone"></i>
                                 Llamar
                             </a>
                         <a data-business-maps href="https://www.google.com/maps/place/Made+Acrílico/data=!4m2!3m1!1s0x0:0x5e3e2a9a6b659d5f?sa=X&ved=1t:2428&ictx=111" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 bg-white hover:bg-pink-50 text-logoMagenta border border-pink-100 rounded-xl py-3 px-4 text-sm font-bold transition-all">
-                                <i class="fa-solid fa-location-dot"></i>
+                                <i class="site-icon site-icon-location-dot"></i>
                                 Ubicación
                             </a>
                         </div>
@@ -1950,8 +1967,8 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <div class="space-y-3 border-t border-gray-200 pt-5">
                             <h4 class="text-xs font-bold uppercase text-gray-400 tracking-wider">Atención</h4>
                             <div class="space-y-2 text-sm text-gray-600">
-                                <p class="flex items-center gap-3"><i class="fa-regular fa-clock text-logoMagenta"></i> Lunes a viernes: 9:00 AM - 6:00 PM</p>
-                                <p class="flex items-center gap-3"><i class="fa-regular fa-clock text-logoCyan"></i> Sábados: 9:00 AM - 2:00 PM</p>
+                                <p class="flex items-center gap-3"><i class="site-icon site-icon-clock text-logoMagenta"></i> Lunes a viernes: 9:00 AM - 6:00 PM</p>
+                                <p class="flex items-center gap-3"><i class="site-icon site-icon-clock text-logoCyan"></i> Sábados: 9:00 AM - 2:00 PM</p>
                                 <p class="text-xs text-gray-500 leading-relaxed">Respondemos por WhatsApp lo antes posible durante horario laboral. Para visitas, confirma disponibilidad antes de pasar.</p>
                             </div>
                         </div>
@@ -1966,7 +1983,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <h3 class="text-2xl font-extrabold text-logoDark mt-1">¿No tienes tu archivo listo?</h3>
                     </div>
                     <a data-business-whatsapp data-whatsapp-message="Hola Made Acrílico, necesito ayuda para preparar mi archivo." href="https://wa.me/18298824820" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-5 py-3 rounded-xl transition-all">
-                        <i class="fa-brands fa-whatsapp"></i>
+                        <i class="brand-icon brand-icon-whatsapp"></i>
                         Pedir ayuda por WhatsApp
                     </a>
                 </div>
@@ -2017,18 +2034,18 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
             <div class="store-carousel relative overflow-hidden rounded-[2rem] bg-logoDark text-white shadow-2xl">
                 <div class="store-carousel-track" aria-hidden="true">
                     <div class="store-carousel-set">
-                        <figure class="store-carousel-panel"><img src="assets/img/stickers-optimized.webp" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
-                        <figure class="store-carousel-panel"><img src="assets/img/test_uv.webp" alt="" width="1600" height="557" loading="lazy" decoding="async"></figure>
+                        <figure class="store-carousel-panel"><img src="assets/img/stickers-optimized.webp" srcset="assets/img/stickers-600.webp 600w, assets/img/stickers-800.webp 800w, assets/img/stickers-optimized.webp 1200w" sizes="280px" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                        <figure class="store-carousel-panel"><img src="assets/img/test_uv.webp" srcset="assets/img/test_uv-800.webp 800w, assets/img/test_uv.webp 1600w" sizes="280px" alt="" width="1600" height="557" loading="lazy" decoding="async"></figure>
                         <figure class="store-carousel-panel"><img src="assets/img/test_textil.webp" alt="" width="548" height="191" loading="lazy" decoding="async"></figure>
                         <figure class="store-carousel-panel"><img src="assets/img/inicio.webp" alt="" width="536" height="353" loading="lazy" decoding="async"></figure>
-                        <figure class="store-carousel-panel"><img src="assets/img/etiquetas.webp" alt="" width="899" height="492" loading="lazy" decoding="async"></figure>
+                        <figure class="store-carousel-panel"><img src="assets/img/etiquetas.webp" srcset="assets/img/etiquetas-600.webp 600w, assets/img/etiquetas-750.webp 750w, assets/img/etiquetas.webp 899w" sizes="280px" alt="" width="899" height="492" loading="lazy" decoding="async"></figure>
                     </div>
                     <div class="store-carousel-set">
-                        <figure class="store-carousel-panel"><img src="assets/img/stickers-optimized.webp" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
-                        <figure class="store-carousel-panel"><img src="assets/img/test_uv.webp" alt="" width="1600" height="557" loading="lazy" decoding="async"></figure>
+                        <figure class="store-carousel-panel"><img src="assets/img/stickers-optimized.webp" srcset="assets/img/stickers-600.webp 600w, assets/img/stickers-800.webp 800w, assets/img/stickers-optimized.webp 1200w" sizes="280px" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
+                        <figure class="store-carousel-panel"><img src="assets/img/test_uv.webp" srcset="assets/img/test_uv-800.webp 800w, assets/img/test_uv.webp 1600w" sizes="280px" alt="" width="1600" height="557" loading="lazy" decoding="async"></figure>
                         <figure class="store-carousel-panel"><img src="assets/img/test_textil.webp" alt="" width="548" height="191" loading="lazy" decoding="async"></figure>
                         <figure class="store-carousel-panel"><img src="assets/img/inicio.webp" alt="" width="536" height="353" loading="lazy" decoding="async"></figure>
-                        <figure class="store-carousel-panel"><img src="assets/img/etiquetas.webp" alt="" width="899" height="492" loading="lazy" decoding="async"></figure>
+                        <figure class="store-carousel-panel"><img src="assets/img/etiquetas.webp" srcset="assets/img/etiquetas-600.webp 600w, assets/img/etiquetas-750.webp 750w, assets/img/etiquetas.webp 899w" sizes="280px" alt="" width="899" height="492" loading="lazy" decoding="async"></figure>
                     </div>
                 </div>
 
@@ -2041,6 +2058,8 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                             <span class="h-2 w-2 rounded-full bg-logoMagenta"></span>
                             <img
                                 src="assets/img/lgo-madeacrilico-store.webp"
+                                srcset="assets/img/lgo-madeacrilico-store-160.webp 160w, assets/img/lgo-madeacrilico-store.webp 647w"
+                                sizes="72px"
                                 data-site-image="store-badge"
                                 alt=""
                                 aria-hidden="true"
@@ -2059,17 +2078,19 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <div class="mt-8 flex flex-col gap-3 sm:flex-row">
                             <a data-business-whatsapp data-whatsapp-message="Hola Made Acrílico, quiero cotizar un artículo personalizado de la tienda." href="https://wa.me/18298824820" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-xl bg-logoMagenta px-6 py-3 text-sm font-black text-white transition-all hover:bg-pink-600">
                                 Cotizar artículo personalizado
-                                <i class="fa-brands fa-whatsapp"></i>
+                                <i class="brand-icon brand-icon-whatsapp"></i>
                             </a>
                             <button type="button" data-go-tab="planilla" class="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-black text-logoDark transition-all hover:bg-gray-100">
                                 Calcular DTF o stickers
-                                <i class="fa-solid fa-calculator text-logoCyan"></i>
+                                <i class="site-icon site-icon-calculator text-logoCyan"></i>
                             </button>
                         </div>
                     </div>
 
                     <img
                         src="assets/img/lgo-madeacrilico-store.webp"
+                        srcset="assets/img/lgo-madeacrilico-store-160.webp 160w, assets/img/lgo-madeacrilico-store.webp 647w"
+                        sizes="(max-width: 640px) 72px, 112px"
                         data-site-image="store-badge"
                         alt="Made Acrílico Store"
                         width="112"
@@ -2102,7 +2123,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <p class="mt-4 text-sm leading-7 text-gray-500">Insumos y artículos listos para personalizar: piezas para regalos, productos promocionales y mercancía para emprendedores del área gráfica.</p>
                         <p class="store-feature-fit"><span>Ideal para</span> Regalos, emprendimientos y productos promocionales.</p>
                         <a data-business-whatsapp data-whatsapp-message="Hola Made Acrílico, quiero consultar disponibilidad de artículos para sublimación." href="https://wa.me/18298824820" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoMagenta">
-                            Consultar disponibilidad <i class="fa-brands fa-whatsapp"></i>
+                            Consultar disponibilidad <i class="brand-icon brand-icon-whatsapp"></i>
                         </a>
                     </div>
                 </article>
@@ -2114,18 +2135,18 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <p class="mt-4 text-sm leading-7 text-gray-500">Placas, exhibidores, bases, detalles corporativos y piezas a medida para negocios, eventos y marcas.</p>
                         <p class="store-feature-fit"><span>Ideal para</span> Negocios, eventos y señalización personalizada.</p>
                         <a data-business-whatsapp data-whatsapp-message="Hola Made Acrílico, quiero cotizar un producto en acrílico personalizado." href="https://wa.me/18298824820" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoCyan">
-                            Cotizar acrílico <i class="fa-solid fa-arrow-right"></i>
+                            Cotizar acrílico <i class="site-icon site-icon-arrow-right"></i>
                         </a>
                     </div>
                     <div class="store-feature-art store-feature-art-cyan min-h-[280px] lg:order-2" role="img" aria-label="Ilustración de productos personalizados en acrílico">
-                        <i class="fa-solid fa-cubes-stacked"></i>
+                        <i class="site-icon site-icon-cubes-stacked"></i>
                         <span>Acrílico a medida</span>
                     </div>
                 </article>
 
                 <article class="store-feature-card grid grid-cols-1 overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm lg:grid-cols-2">
                     <div class="store-feature-media min-h-[280px] bg-gray-50">
-                        <img src="assets/img/test_uv.webp" data-site-image="store-uv" alt="Servicio DTF UV" width="1600" height="557" loading="lazy" decoding="async" class="store-feature-image h-full min-h-[280px] w-full object-cover">
+                        <img src="assets/img/test_uv.webp" srcset="assets/img/test_uv-800.webp 800w, assets/img/test_uv.webp 1600w" sizes="(max-width: 768px) 100vw, 50vw" data-site-image="store-uv" alt="Servicio DTF UV" width="1600" height="557" loading="lazy" decoding="async" class="store-feature-image h-full min-h-[280px] w-full object-cover">
                     </div>
                     <div class="flex flex-col justify-center p-6 md:p-10">
                         <p class="text-xs font-black uppercase tracking-wider text-logoCyan">DTF UV</p>
@@ -2133,7 +2154,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <p class="mt-4 text-sm leading-7 text-gray-500">Adhesivos premium para vasos, acrílico, vidrio, metal, empaques, cosmética y productos rígidos con acabado limpio.</p>
                         <p class="store-feature-fit"><span>Ideal para</span> Vasos, frascos, empaques y superficies lisas.</p>
                         <button type="button" data-go-tab="planilla" data-calculator-material="uv" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoCyan">
-                            Calcular UV <i class="fa-solid fa-calculator"></i>
+                            Calcular UV <i class="site-icon site-icon-calculator"></i>
                         </button>
                     </div>
                 </article>
@@ -2145,7 +2166,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <p class="mt-4 text-sm leading-7 text-gray-500">Transfers para camisetas, hoodies, uniformes, gorras, colecciones y marcas que necesitan producción regular.</p>
                         <p class="store-feature-fit"><span>Ideal para</span> Ropa de marca, uniformes y colecciones.</p>
                         <button type="button" data-go-tab="planilla" data-calculator-material="textil" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoMagenta">
-                            Calcular textil <i class="fa-solid fa-calculator"></i>
+                            Calcular textil <i class="site-icon site-icon-calculator"></i>
                         </button>
                     </div>
                     <div class="store-feature-media min-h-[280px] bg-logoDark lg:order-2">
@@ -2164,7 +2185,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <p class="mt-4 text-sm leading-7 text-gray-500">Láminas por tramo para talleres, marcas y revendedores que necesitan material listo para aplicar o entregar.</p>
                         <p class="store-feature-fit"><span>Ideal para</span> Talleres, marcas y revendedores.</p>
                         <a data-business-whatsapp data-whatsapp-message="Hola Made Acrílico, quiero consultar láminas DTF UV y DTF Textil." href="https://wa.me/18298824820" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoDark">
-                            Consultar láminas <i class="fa-brands fa-whatsapp text-logoMagenta"></i>
+                            Consultar láminas <i class="brand-icon brand-icon-whatsapp text-logoMagenta"></i>
                         </a>
                     </div>
                 </article>
@@ -2176,18 +2197,18 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <p class="mt-4 text-sm leading-7 text-gray-500">Reconocimientos, placas y piezas conmemorativas para empresas, instituciones, eventos y regalos corporativos.</p>
                         <p class="store-feature-fit"><span>Ideal para</span> Premiaciones, eventos y regalos corporativos.</p>
                         <a data-business-whatsapp data-whatsapp-message="Hola Made Acrílico, quiero cotizar reconocimientos personalizados." href="https://wa.me/18298824820" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoMagenta">
-                            Cotizar reconocimiento <i class="fa-solid fa-arrow-right"></i>
+                            Cotizar reconocimiento <i class="site-icon site-icon-arrow-right"></i>
                         </a>
                     </div>
                     <div class="store-feature-art store-feature-art-magenta min-h-[280px] lg:order-2" role="img" aria-label="Ilustración de reconocimientos y placas personalizadas">
-                        <i class="fa-solid fa-award"></i>
+                        <i class="site-icon site-icon-award"></i>
                         <span>Reconocimientos</span>
                     </div>
                 </article>
 
                 <article class="store-feature-card grid grid-cols-1 overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm lg:grid-cols-2">
                     <div class="store-feature-art store-feature-art-dark min-h-[280px]" role="img" aria-label="Ilustración de letreros comerciales en acrílico">
-                        <i class="fa-solid fa-sign-hanging"></i>
+                        <i class="site-icon site-icon-sign-hanging"></i>
                         <span>Letreros comerciales</span>
                     </div>
                     <div class="flex flex-col justify-center p-6 md:p-10">
@@ -2196,7 +2217,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                         <p class="mt-4 text-sm leading-7 text-gray-500">Letreros, rótulos, señalética y piezas visuales para locales, oficinas, exhibiciones y puntos de venta.</p>
                         <p class="store-feature-fit"><span>Ideal para</span> Locales, oficinas, ferias y puntos de venta.</p>
                         <a data-business-whatsapp data-whatsapp-message="Hola Made Acrílico, quiero cotizar un letrero en acrílico." href="https://wa.me/18298824820" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex w-fit items-center gap-2 text-sm font-black text-logoCyan">
-                            Cotizar letrero <i class="fa-brands fa-whatsapp"></i>
+                            Cotizar letrero <i class="brand-icon brand-icon-whatsapp"></i>
                         </a>
                     </div>
                 </article>
@@ -2237,9 +2258,9 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                 type="button"
                 id="mobile-floating-action"
                 data-go-tab="planilla"
-                class="inline-flex min-w-0 items-center justify-center gap-2 rounded-xl bg-logoMagenta px-4 py-3 font-black text-white shadow-lg"
+                class="a11y-bg-magenta inline-flex min-w-0 items-center justify-center gap-2 rounded-xl px-4 py-3 font-black text-white shadow-lg"
             >
-                <i id="mobile-floating-action-icon" class="fa-solid fa-calculator shrink-0"></i>
+                <i id="mobile-floating-action-icon" class="site-icon site-icon-calculator shrink-0"></i>
                 <span id="mobile-floating-action-label" class="truncate">Cotizar</span>
             </button>
             <a
@@ -2250,7 +2271,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                 aria-label="Escribir por WhatsApp"
                 class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500 text-white shadow-lg"
             >
-                <i class="fa-brands fa-whatsapp text-xl"></i>
+                <i class="brand-icon brand-icon-whatsapp text-xl"></i>
             </a>
         </div>
     </div>
@@ -2267,7 +2288,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
     >
         <div class="p-4 sm:p-6 border-b border-gray-100 flex justify-between items-center gap-3">
             <h3 id="cart-title" class="font-bold text-lg flex items-center gap-2">
-                <i class="fa-solid fa-basket-shopping text-logoMagenta"></i>
+                <i class="site-icon site-icon-basket-shopping text-logoMagenta"></i>
                 <span>Cotización de Producción</span>
             </h3>
             <div class="flex items-center gap-2 shrink-0">
@@ -2276,7 +2297,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     type="button"
                     class="hidden px-3 py-2 rounded-full bg-red-50 text-red-500 hover:bg-red-100 text-xs font-bold transition-all"
                 >
-                    <i class="fa-solid fa-trash"></i>
+                    <i class="site-icon site-icon-trash"></i>
                     Vaciar
                 </button>
                 <button
@@ -2284,14 +2305,14 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     id="cart-close-btn"
                     aria-label="Cerrar carrito"
                     class="p-2 hover:bg-gray-100 rounded-full text-gray-500">
-                    <i class="fa-solid fa-xmark text-lg"></i>
+                    <i class="site-icon site-icon-xmark text-lg"></i>
                 </button>
             </div>
         </div>
 
         <div class="p-4 sm:p-6 flex-1 min-h-0 overflow-y-auto space-y-4 pb-4" id="cart-items-container" aria-live="polite">
             <div class="text-center py-12 text-gray-400 space-y-2">
-                <i class="fa-solid fa-basket-shopping text-4xl block"></i>
+                <i class="site-icon site-icon-basket-shopping text-4xl block"></i>
                 <span class="text-sm">Cotización vacía. Calcula un producto o solicita una orden personalizada.</span>
             </div>
         </div>
@@ -2379,7 +2400,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                 ></textarea>
             </div>
             <button id="cart-checkout-btn" type="button" class="w-full bg-[#1E1E1E] hover:bg-logoMagenta text-white font-bold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2">
-                <i class="fa-solid fa-paper-plane text-lg"></i> Enviar orden a revisión
+                <i class="site-icon site-icon-paper-plane text-lg"></i> Enviar orden a revisión
             </button>
         </div>
     </aside>
@@ -2446,7 +2467,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     class="text-gray-400 hover:text-logoDark transition-all"
                     aria-label="Cerrar revisión"
                 >
-                    <i class="fa-solid fa-xmark"></i>
+                    <i class="site-icon site-icon-xmark"></i>
                 </button>
             </div>
             <div id="order-review-content" class="max-h-[55vh] overflow-y-auto rounded-xl border border-gray-100 bg-gray-50 p-4 text-sm text-gray-600 leading-relaxed space-y-3"></div>
@@ -2479,7 +2500,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
     >
         <div class="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl space-y-5 text-center">
             <div class="mx-auto w-14 h-14 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center text-2xl">
-                <i class="fa-solid fa-check"></i>
+                <i class="site-icon site-icon-check"></i>
             </div>
             <div class="space-y-2">
                 <h3 id="order-success-title" class="text-xl font-extrabold text-logoDark">Orden enviada</h3>
@@ -2494,7 +2515,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     rel="noopener noreferrer"
                     class="w-full rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 transition-all flex items-center justify-center gap-2"
                 >
-                    <i class="fa-brands fa-whatsapp"></i>
+                    <i class="brand-icon brand-icon-whatsapp"></i>
                     Avisar por WhatsApp
                 </a>
                 <button
@@ -2535,10 +2556,10 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                 <div class="space-y-4">
                     <h2 class="font-bold text-sm text-logoYellow uppercase tracking-wider">Productos &amp; Servicios</h2>
                     <ul class="space-y-2 text-xs text-gray-400">
-                        <li><a href="dtf-textil.html" class="text-left hover:text-white transition-colors">DTF Textil por Yarda</a></li>
-                        <li><a href="dtf-uv.html" class="text-left hover:text-white transition-colors">DTF UV Adhesivo</a></li>
-                        <li><a href="stickers.html" class="text-left hover:text-white transition-colors">Stickers y etiquetas</a></li>
-                        <li><a href="tienda.html" class="text-left hover:text-white transition-colors">Acrílicos y acabados</a></li>
+                        <li><a href="/dtf-textil" class="text-left hover:text-white transition-colors">DTF Textil por Yarda</a></li>
+                        <li><a href="/dtf-uv" class="text-left hover:text-white transition-colors">DTF UV Adhesivo</a></li>
+                        <li><a href="/stickers" class="text-left hover:text-white transition-colors">Stickers y etiquetas</a></li>
+                        <li><a href="/tienda" class="text-left hover:text-white transition-colors">Acrílicos y acabados</a></li>
                     </ul>
                 </div>
 
@@ -2558,8 +2579,8 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     <h2 class="font-bold text-sm text-white uppercase tracking-wider">Redes y novedades</h2>
                     <p class="text-xs text-gray-400">Mira trabajos recientes, nuevos materiales y ejemplos de producción.</p>
                     <div class="flex gap-3">
-                    <a href="https://instagram.com/madeacrilico" target="_blank" rel="noopener noreferrer" aria-label="Instagram de MADE Acrílico" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-logoCyan hover:text-white transition-all text-gray-400"><i class="fab fa-instagram text-sm"></i></a>
-                    <a href="https://tiktok.com/@madeacrilico" target="_blank" rel="noopener noreferrer" aria-label="TikTok de MADE Acrílico" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-logoYellow hover:text-white transition-all text-gray-400"><i class="fab fa-tiktok text-sm"></i></a>
+                    <a href="https://instagram.com/madeacrilico" target="_blank" rel="noopener noreferrer" aria-label="Instagram de MADE Acrílico" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-logoCyan hover:text-white transition-all text-gray-400"><i class="brand-icon brand-icon-instagram text-sm"></i></a>
+                    <a href="https://tiktok.com/@madeacrilico" target="_blank" rel="noopener noreferrer" aria-label="TikTok de MADE Acrílico" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-logoYellow hover:text-white transition-all text-gray-400"><i class="brand-icon brand-icon-tiktok text-sm"></i></a>
                     </div>
                 </div>
             </div>
@@ -2596,7 +2617,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     class="w-10 h-10 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 transition-all flex items-center justify-center shrink-0"
                     aria-label="Cerrar información del material"
                 >
-                    <i class="fa-solid fa-xmark"></i>
+                    <i class="site-icon site-icon-xmark"></i>
                 </button>
             </div>
             <div id="material-info-content" class="p-5 overflow-y-auto text-sm text-gray-600 leading-relaxed space-y-4"></div>
@@ -2607,7 +2628,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     class="inline-flex items-center justify-center gap-2 rounded-xl bg-logoMagenta px-5 py-3 text-sm font-bold text-white hover:bg-pink-600 transition-all"
                 >
                     Calcular
-                    <i class="fa-solid fa-calculator"></i>
+                    <i class="site-icon site-icon-calculator"></i>
                 </button>
                 <a
                     data-business-whatsapp
@@ -2618,7 +2639,7 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     class="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-200 px-5 py-3 text-sm font-bold text-logoDark hover:bg-gray-50 transition-all"
                 >
                     Consultar
-                    <i class="fa-brands fa-whatsapp text-logoMagenta"></i>
+                    <i class="brand-icon brand-icon-whatsapp text-logoMagenta"></i>
                 </a>
             </div>
         </div>
@@ -2643,12 +2664,12 @@ class="hidden lg:hidden fixed left-0 right-0 z-50 overflow-y-auto bg-white borde
                     class="w-10 h-10 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 transition-all flex items-center justify-center shrink-0"
                     aria-label="Cerrar"
                 >
-                    <i class="fa-solid fa-xmark"></i>
+                    <i class="site-icon site-icon-xmark"></i>
                 </button>
             </div>
             <div id="legal-modal-content" class="p-5 overflow-y-auto text-sm text-gray-600 leading-relaxed space-y-4"></div>
         </div>
     </div>
-    <script type="module" src="js/app.js?v=1.7.2"></script>
+    <script type="module" src="js/dist/app.min.js?v=1.7.3"></script>
 </body>
 </html>
